@@ -72,15 +72,25 @@ export function SiteHeader() {
               </li>
             ))}
           </ul>
-          <Link
-            to="/contact"
-            onClick={() => setOpen(false)}
-            className="mt-3 mb-1 block rounded-lg bg-saffron px-4 py-2.5 text-center text-[14px] font-semibold text-parchment"
-          >
-            בואו נדבר
-          </Link>
+          <div className="mt-3 mb-1 flex gap-2">
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="flex-1 rounded-lg bg-saffron px-3 py-2.5 text-center text-[14px] font-semibold text-parchment"
+            >
+              בואו נדבר
+            </Link>
+            <Link
+              to="/quote"
+              onClick={() => setOpen(false)}
+              className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
+            >
+              כבר יודעים?
+            </Link>
+          </div>
         </nav>
       )}
+
     </header>
   );
 }

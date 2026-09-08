@@ -3,9 +3,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import guidePortrait from "@/assets/guide-portrait.jpg";
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
-import { Card, EffortBars, Section } from "@/components/page";
+import {
+  Card,
+  DidYouKnow,
+  EffortBars,
+  Section,
+  WhatsappButton,
+} from "@/components/page";
 import { articles, experiences, treks } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
+
+const quickAnswers = articles.filter((a) => a.quickAnswer).slice(0, 3);
+
 
 export const Route = createFileRoute("/")({
   component: Index,

@@ -61,7 +61,7 @@ function Index() {
   return (
     <>
       {/* HERO */}
-      <section className="relative flex min-h-[82vh] flex-col justify-end overflow-hidden">
+      <section className="relative flex min-h-[68svh] flex-col justify-end overflow-hidden sm:min-h-[80vh]">
         <img
           src={heroHimalaya}
           alt="רכס מושלג בהימלאיה בנפאל באור ראשון, עם ערפל שממלא את העמקים"

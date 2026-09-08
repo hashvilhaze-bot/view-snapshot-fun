@@ -70,7 +70,8 @@ function TrekPage() {
       </Section>
 
       <Section title="מה חשוב לדעת">
-        <ul className="space-y-3">
+        <Insight text={trek.surprise} />
+        <ul className="mt-4 space-y-3">
           {trek.details.map((d) => (
             <li key={d} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
               <span className="font-bold text-saffron">·</span>
@@ -79,6 +80,21 @@ function TrekPage() {
           ))}
         </ul>
       </Section>
+
+      <Section title="מה אפשר לשלב סביב המסלול">
+        <ul className="space-y-3">
+          {trek.combine.map((c) => (
+            <li key={c} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
+              <span className="font-bold text-saffron">·</span>
+              {c}
+            </li>
+          ))}
+        </ul>
+        <Link to="/treks" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
+          כל החוויות שמעבר לטרקים ←
+        </Link>
+      </Section>
+
 
       <Section title="להעמיק">
         <div className="grid gap-3 sm:grid-cols-2">

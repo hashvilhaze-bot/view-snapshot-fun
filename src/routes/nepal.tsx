@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
-import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, Insight, PageHero, Section, TalkCta } from "@/components/page";
 
 export const Route = createFileRoute("/nepal")({
   component: NepalPage,
@@ -62,9 +62,13 @@ function NepalPage() {
 
       <Section title="ההרים">
         <p className="text-[15px] leading-relaxed text-ink/70">
-          ההימלאיה בנפאל אינה מסלול אחד. יש ספקטרום שלם, מהליכה קלה של שלושה ימים בגבעות ועד
-          מסלולים גבוהים ומרוחקים. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי החוויה.
+          ההימלאיה בנפאל אינה מסלול אחד. יש הליכה של שלושה ימים בין כפרים בגבעות, ויש מעברים
+          בגובה חמשת אלפים מטר שדורשים שבועיים. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי
+          החוויה.
         </p>
+        <div className="mt-5">
+          <Insight text="בנפאל לא מודדים את השנה כמו אצלנו: הלוח הרשמי הוא ביקראם סמבט, שמקדים את הלוח הלועזי בכ־57 שנים, והשנה החדשה שם מתחילה באמצע אפריל." />
+        </div>
         <Link
           to="/treks"
           className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"

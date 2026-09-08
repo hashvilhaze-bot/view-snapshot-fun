@@ -28,7 +28,7 @@ export function SiteFooter() {
               <Link to="/match">מה מתאים לי?</Link>
             </li>
             <li>
-              <Link to="/knowledge">לפני שנוסעים</Link>
+              <Link to="/knowledge">מרכז ידע</Link>
             </li>
             <li>
               <Link to="/quote">בקשת הצעה</Link>

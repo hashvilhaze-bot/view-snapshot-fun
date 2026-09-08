@@ -30,10 +30,15 @@ export const Route = createFileRoute("/treks/$slug")({
 function TrekPage() {
   const { trek } = Route.useLoaderData();
   const others = treks.filter((t) => t.slug !== trek.slug);
+  const photos = galleries[trek.slug] ?? [];
 
   return (
     <>
       <PageHero kicker="מסלול" title={trek.name} lead={trek.intro} />
+
+      <Section>
+        <Gallery photos={photos} />
+      </Section>
 
       <Section>
         <Card>

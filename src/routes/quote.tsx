@@ -2,8 +2,20 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
-import { treks } from "@/lib/content";
 import { submitLead, whatsappHref } from "@/lib/leads";
+
+const INTERESTS = [
+  "טרק מנאסלו",
+  "טרק באזור האוורסט",
+  "טרק באזור האנאפורנה",
+  "טיול תרבות ונופים בנפאל",
+  "בהוטן",
+  "רפטינג",
+  "צ׳יטוואן / טבע וספארי",
+  "שילוב של כמה חוויות",
+  "טיול בהתאמה אישית",
+  "עדיין לא בטוח/ה — רוצה להתייעץ",
+] as const;
 
 export const Route = createFileRoute("/quote")({
   component: QuotePage,

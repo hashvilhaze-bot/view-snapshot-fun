@@ -1,8 +1,11 @@
 import { Link } from "@tanstack/react-router";
 
 import { CONTACT_PLACEHOLDER } from "@/lib/content";
+import { whatsappHref } from "@/lib/leads";
 
 export function SiteFooter() {
+  const wa = whatsappHref();
+
   return (
     <footer className="border-t border-parchment/10 bg-summit px-6 py-10 text-parchment/60">
       <div className="mx-auto grid max-w-5xl gap-8 sm:grid-cols-3">
@@ -28,18 +31,27 @@ export function SiteFooter() {
               <Link to="/knowledge">לפני שנוסעים</Link>
             </li>
             <li>
+              <Link to="/quote">בקשת הצעה</Link>
+            </li>
+            <li>
               <Link to="/about">מי אנחנו</Link>
             </li>
           </ul>
         </div>
         <div className="text-[13px]">
           <p className="mb-2 font-medium text-parchment/80">דברו איתנו</p>
-          <p>{CONTACT_PLACEHOLDER}</p>
+          {wa ? (
+            <a href={wa} target="_blank" rel="noopener noreferrer">
+              וואטסאפ
+            </a>
+          ) : (
+            <p>{CONTACT_PLACEHOLDER}</p>
+          )}
           <Link
             to="/contact"
             className="mt-3 inline-block rounded-full bg-saffron px-4 py-2 font-medium text-parchment"
           >
-            בואו נדבר
+            בואו נדבר על השביל שלכם
           </Link>
         </div>
       </div>

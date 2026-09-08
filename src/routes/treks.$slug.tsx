@@ -1,6 +1,15 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
-import { Card, EffortBars, Gallery, Insight, PageHero, Section, TalkCta } from "@/components/page";
+import {
+  Card,
+  EffortBars,
+  Gallery,
+  Insight,
+  PageHero,
+  Section,
+  TalkCta,
+  WhatsappButton,
+} from "@/components/page";
 import { treks } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
 
@@ -63,10 +72,28 @@ function TrekPage() {
               <dd className="mt-0.5 font-medium">{trek.character}</dd>
             </div>
           </dl>
-          <p className="mt-4 border-t border-ink/10 pt-4 text-[14px] text-ink/70">
-            למי מתאים: {trek.fit}
-          </p>
+          <div className="mt-4 grid gap-3 border-t border-ink/10 pt-4 text-[14px] leading-relaxed sm:grid-cols-2">
+            <p className="text-ink/70">
+              <span className="font-semibold text-ink">למי זה מתאים: </span>
+              {trek.fit}.
+            </p>
+            <p className="text-ink/60">
+              <span className="font-semibold text-ink">פחות מתאים ל: </span>
+              {trek.notFor}.
+            </p>
+          </div>
         </Card>
+      </Section>
+
+      <Section title="מה מיוחד בו">
+        <ul className="space-y-3">
+          {trek.highlights.map((h) => (
+            <li key={h} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
+              <span className="font-bold text-saffron">·</span>
+              {h}
+            </li>
+          ))}
+        </ul>
       </Section>
 
       <Section title="מה חשוב לדעת">
@@ -90,24 +117,38 @@ function TrekPage() {
             </li>
           ))}
         </ul>
-        <Link to="/treks" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
-          כל החוויות שמעבר לטרקים ←
-        </Link>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link
+            to="/treks"
+            className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
+          >
+            נפאל שמעבר לטרקים
+          </Link>
+          <WhatsappButton
+            message={`היי, הגעתי דרך 'השביל הזה'. אני מסתכל על ${trek.name} ורוצה להבין מה אפשר לשלב סביבו.`}
+            label="לשאול אותנו על שילובים"
+          />
+        </div>
       </Section>
 
-
       <Section title="להעמיק">
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-3">
           <Link to="/knowledge/$slug" params={{ slug: "altitude" }}>
             <Card className="h-full p-4">
               <p className="font-display font-bold">גובה והתאקלמות</p>
               <p className="mt-1 text-[13px] text-ink/60">מה שקובע את אורך המסלול</p>
             </Card>
           </Link>
-          <Link to="/knowledge/$slug" params={{ slug: "when-to-go" }}>
+          <Link to="/knowledge/$slug" params={{ slug: "day-on-trail" }}>
             <Card className="h-full p-4">
-              <p className="font-display font-bold">מתי נוסעים</p>
-              <p className="mt-1 text-[13px] text-ink/60">עונות ומזג אוויר</p>
+              <p className="font-display font-bold">איך נראה יום בטרק</p>
+              <p className="mt-1 text-[13px] text-ink/60">מהבוקר ועד ארוחת הערב</p>
+            </Card>
+          </Link>
+          <Link to="/knowledge/$slug" params={{ slug: "manaslu-vs-annapurna" }}>
+            <Card className="h-full p-4">
+              <p className="font-display font-bold">מנאסלו מול אנאפורנה</p>
+              <p className="mt-1 text-[13px] text-ink/60">שתי חוויות שונות לגמרי</p>
             </Card>
           </Link>
         </div>
@@ -129,8 +170,8 @@ function TrekPage() {
       </Section>
 
       <TalkCta
-        title="בואו נבנה את הטיול שלכם"
-        text={`אם ${trek.name} נשמע לכם נכון, נדבר על התאמות, ימים נוספים ושילובים.`}
+        title={`נדבר על ${trek.name}?`}
+        text="נספר לכם איך זה נראה בפועל בתאריכים שלכם, ומה כדאי לשנות או להוסיף."
       />
     </>
   );

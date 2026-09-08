@@ -1,38 +1,64 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, PageHero, QuickFacts, Section, TalkCta } from "@/components/page";
 import { articles } from "@/lib/content";
 
 export const Route = createFileRoute("/knowledge/")({
   component: KnowledgePage,
   head: () => ({
     meta: [
-      { title: "לפני שנוסעים — מרכז ידע על נפאל | השביל הזה" },
+      { title: "לפני שנוסעים — תשובות קצרות ותוכן על נפאל | השביל הזה" },
       {
         name: "description",
-        content: "גובה והתאקלמות, עונות ומתי נוסעים, לודג׳ים והיתרים, ציוד וכספים.",
+        content:
+          "קודם תשובה קצרה: מתי נוסעים, איך עובד הגובה, איפה ישנים ואיך משלמים. ואחר כך תוכן להעמקה — איך בוחרים טרק, איך נראה יום בשביל, ואוכל וחגים בנפאל.",
       },
-      { property: "og:title", content: "לפני שנוסעים — מרכז ידע על נפאל" },
+      { property: "og:title", content: "לפני שנוסעים — תשובות קצרות ותוכן על נפאל" },
       {
         property: "og:description",
-        content: "המידע המעשי שמשפיע על תכנון הטיול, בקצרה ולעניין.",
+        content: "תשובה פשוטה קודם, העמקה אחר כך. בלי לקרוא מאמר בשביל שאלה אחת.",
       },
     ],
   }),
 });
 
 function KnowledgePage() {
+  const quick = articles.filter((a) => a.quickAnswer);
+  const deep = articles.filter((a) => a.depth);
+
   return (
     <>
       <PageHero
         kicker="לפני שנוסעים"
-        title="מרכז ידע"
-        lead="הדברים המעשיים שמשפיעים על התכנון: גובה, עונות, לינה, היתרים וכספים."
+        title="קודם תשובה קצרה, ואחר כך אפשר להעמיק"
+        lead="השאלות שחוזרות בכל שיחה ראשונה — עם תשובה בשורה אחת, ולינק למי שרוצה את הפרטים."
       />
 
-      <Section>
+      <Section kicker="נפאל בכמה רגעים" title="כרטיס הביקור של המדינה">
+        <QuickFacts />
+      </Section>
+
+      <Section title="תשובות קצרות">
+        <div className="space-y-3">
+          {quick.map((a) => (
+            <Card key={a.slug}>
+              <p className="font-display text-[16px] font-bold">{a.title}</p>
+              <p className="mt-1.5 text-[14.5px] leading-relaxed text-ink/70">{a.quickAnswer}</p>
+              <Link
+                to="/knowledge/$slug"
+                params={{ slug: a.slug }}
+                className="mt-3 inline-block text-[13px] font-semibold text-saffron"
+              >
+                לקרוא את הפרטים ←
+              </Link>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+      <Section kicker="להכיר את נפאל" title="תוכן לקרוא, גם בלי לתכנן טיול">
         <div className="grid gap-3 sm:grid-cols-2">
-          {articles.map((a) => (
+          {deep.map((a) => (
             <Link key={a.slug} to="/knowledge/$slug" params={{ slug: a.slug }}>
               <Card className="h-full transition-colors hover:border-saffron/40">
                 <p className="text-[11px] font-medium text-saffron">{a.kicker}</p>
@@ -56,7 +82,7 @@ function KnowledgePage() {
             to="/match"
             className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
           >
-            מה מתאים לי?
+            מצאו את השביל שמתאים לכם
           </Link>
         </Card>
       </Section>

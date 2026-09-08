@@ -1,6 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
+import { nepalQuickFacts } from "@/lib/content";
+import { whatsappHref } from "@/lib/leads";
+
+
 export function PageHero({
   kicker,
   title,
@@ -84,43 +88,107 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
 }
 
 export function TalkCta({
-  title = "בואו נדבר",
+  title = "בואו נדבר על השביל שלכם",
   text = "שיחה אחת, בלי התחייבות — גם אם עדיין אין לכם מסלול בראש.",
 }: {
   title?: string;
   text?: string;
 }) {
+  const wa = whatsappHref();
   return (
     <Section>
       <Card className="text-center">
         <h2 className="font-display text-xl font-bold sm:text-2xl">{title}</h2>
         <p className="mx-auto mt-2 max-w-[42ch] text-[15px] leading-relaxed text-ink/70">{text}</p>
-        <Link
-          to="/contact"
-          className="mt-5 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
-        >
-          מתחילים מכאן
-        </Link>
+        <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
+          <Link
+            to="/contact"
+            className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+          >
+            מתחילים מכאן
+          </Link>
+          {wa && (
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl bg-parchment px-6 py-3.5 text-[15px] font-medium text-ink ring-1 ring-ink/10"
+            >
+              לכתוב בוואטסאפ
+            </a>
+          )}
+          <Link
+            to="/quote"
+            className="rounded-xl bg-parchment px-6 py-3.5 text-[15px] font-medium text-ink ring-1 ring-ink/10"
+          >
+            כבר יודעים מה אתם רוצים?
+          </Link>
+        </div>
       </Card>
     </Section>
   );
 }
 
 /** A short "didn't know that" note — professionalism shown, not declared. */
-export function Insight({ text }: { text: string }) {
+export function Insight({ text, title = "שווה לדעת" }: { text: string; title?: string }) {
   return (
     <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-4">
-      <p className="text-[11px] font-semibold tracking-wide text-saffron">שווה לדעת</p>
+      <p className="text-[11px] font-semibold tracking-wide text-saffron">{title}</p>
       <p className="mt-1.5 text-[15px] leading-relaxed text-ink/80">{text}</p>
     </div>
   );
 }
 
-export function Gallery({
-  photos,
+/** Same box, different hat: a small surprising fact rather than practical advice. */
+export function DidYouKnow({ text, action }: { text: string; action?: ReactNode }) {
+  return (
+    <div className="rounded-2xl bg-summit px-5 py-4 text-parchment">
+      <p className="text-[11px] font-semibold tracking-wide text-saffron">הידעת?</p>
+      <p className="mt-1.5 text-[15px] leading-relaxed text-parchment/85">{text}</p>
+      {action && <div className="mt-3 text-[13.5px] font-semibold text-saffron">{action}</div>}
+    </div>
+  );
+}
+
+/** "נפאל בכמה רגעים" — verified basics, scannable, no article required. */
+export function QuickFacts() {
+  return (
+    <dl className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+      {nepalQuickFacts.map((f) => (
+        <div key={f.label} className="rounded-xl bg-parchment/80 px-4 py-3 ring-1 ring-ink/5">
+          <dt className="text-[11px] font-medium tracking-wide text-ink/45">{f.label}</dt>
+          <dd className="mt-0.5 font-display text-[15px] font-bold">{f.value}</dd>
+          {f.note && <p className="mt-1 text-[11.5px] leading-snug text-ink/55">{f.note}</p>}
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+export function WhatsappButton({
+  message,
+  label = "לכתוב בוואטסאפ",
+  className = "",
 }: {
-  photos: { src: string; alt: string; caption: string }[];
+  message?: string;
+  label?: string;
+  className?: string;
 }) {
+  const href = whatsappHref(message);
+  if (!href) return null;
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`rounded-xl bg-parchment px-5 py-3 text-[14px] font-medium text-ink ring-1 ring-ink/10 ${className}`}
+    >
+      {label}
+    </a>
+  );
+}
+
+export function Gallery({ photos }: { photos: { src: string; alt: string; caption: string }[] }) {
   const [lead, ...rest] = photos;
   if (!lead) return null;
   return (
@@ -173,3 +241,4 @@ export function EffortBars({ level }: { level: number }) {
     </span>
   );
 }
+

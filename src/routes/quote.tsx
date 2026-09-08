@@ -39,31 +39,39 @@ const label = "text-[13px] font-medium text-ink/60";
 
 function QuotePage() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "manual" | "failed">("idle");
+  const [interests, setInterests] = useState<string[]>([]);
   const [form, setForm] = useState({
-    route: "",
-    combine: "",
     dates: "",
     travelers: "",
     note: "",
     name: "",
     phone: "",
+    email: "",
   });
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
+  const toggle = (opt: string) =>
+    setInterests((cur) => (cur.includes(opt) ? cur.filter((c) => c !== opt) : [...cur, opt]));
+
+  const interestsText = interests.join(", ");
+
   const waMessage = `היי, הגעתי דרך 'השביל הזה' ואני רוצה הצעה לטיול בנפאל.
-כיוון: ${form.route || "—"}
-לשלב: ${form.combine || "—"}
+מעניין אותי: ${interestsText || "—"}
 תקופה: ${form.dates || "—"}
 נוסעים: ${form.travelers || "—"}
 ${form.note ? `הערה: ${form.note}` : ""}
-שם: ${form.name || "—"} · טלפון: ${form.phone || "—"}`;
+שם: ${form.name || "—"} · טלפון: ${form.phone || "—"}${form.email ? ` · אימייל: ${form.email}` : ""}`;
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setState("sending");
-    const result = await submitLead({ source: "quote-request", ...form });
+    const result = await submitLead({
+      source: "quote-request",
+      ...form,
+      interests: interestsText,
+    });
     setState(result === "sent" ? "sent" : result === "unconfigured" ? "manual" : "failed");
   }
 

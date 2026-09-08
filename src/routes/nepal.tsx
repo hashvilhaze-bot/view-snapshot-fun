@@ -119,18 +119,33 @@ function NepalPage() {
         />
       </Section>
 
-      <Section title="תרבות, אוכל וחגים">
+      <Section kicker="להכיר את נפאל" title="תוכן לקרוא, גם בלי לתכנן טיול">
         <p className="text-[15px] leading-relaxed text-ink/70">
           דאל בהאט פעמיים ביום, מומו בדוכן ברחוב, מקדשים שהינדואיזם ובודהיזם חיים בהם זה לצד זה,
           ולוח שנה משלהם.
         </p>
-        <Link
-          to="/knowledge/$slug"
-          params={{ slug: "culture-food" }}
-          className="mt-3 inline-block font-medium text-saffron"
-        >
-          לקרוא על אוכל, תרבות וחגים ←
-        </Link>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link
+            to="/knowledge/$slug"
+            params={{ slug: "culture-food" }}
+            className="rounded-xl bg-parchment px-5 py-3 text-[14px] font-medium text-ink ring-1 ring-ink/10"
+          >
+            אוכל, תרבות וחגים
+          </Link>
+          <Link
+            to="/knowledge/$slug"
+            params={{ slug: "day-on-trail" }}
+            className="rounded-xl bg-parchment px-5 py-3 text-[14px] font-medium text-ink ring-1 ring-ink/10"
+          >
+            איך נראה יום בטרק
+          </Link>
+          <Link
+            to="/knowledge"
+            className="rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
+          >
+            לכל המאמרים במרכז הידע
+          </Link>
+        </div>
       </Section>
 
       <Section title="מתי כדאי לבוא">

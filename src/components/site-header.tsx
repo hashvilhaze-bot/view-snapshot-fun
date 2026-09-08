@@ -9,7 +9,7 @@ const nav = [
   { to: "/nepal", label: "נפאל" },
   { to: "/treks", label: "טרקים וחוויות" },
   { to: "/match", label: "מה מתאים לי?" },
-  { to: "/knowledge", label: "לפני שנוסעים" },
+  { to: "/knowledge", label: "מרכז ידע" },
   { to: "/contact", label: "דברו איתנו" },
 ] as const;
 

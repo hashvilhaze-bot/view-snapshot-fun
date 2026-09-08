@@ -2,8 +2,20 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
-import { treks } from "@/lib/content";
 import { submitLead, whatsappHref } from "@/lib/leads";
+
+const INTERESTS = [
+  "טרק מנאסלו",
+  "טרק באזור האוורסט",
+  "טרק באזור האנאפורנה",
+  "טיול תרבות ונופים בנפאל",
+  "בהוטן",
+  "רפטינג",
+  "צ׳יטוואן / טבע וספארי",
+  "שילוב של כמה חוויות",
+  "טיול בהתאמה אישית",
+  "עדיין לא בטוח/ה — רוצה להתייעץ",
+] as const;
 
 export const Route = createFileRoute("/quote")({
   component: QuotePage,
@@ -27,31 +39,39 @@ const label = "text-[13px] font-medium text-ink/60";
 
 function QuotePage() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "manual" | "failed">("idle");
+  const [interests, setInterests] = useState<string[]>([]);
   const [form, setForm] = useState({
-    route: "",
-    combine: "",
     dates: "",
     travelers: "",
     note: "",
     name: "",
     phone: "",
+    email: "",
   });
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
+  const toggle = (opt: string) =>
+    setInterests((cur) => (cur.includes(opt) ? cur.filter((c) => c !== opt) : [...cur, opt]));
+
+  const interestsText = interests.join(", ");
+
   const waMessage = `היי, הגעתי דרך 'השביל הזה' ואני רוצה הצעה לטיול בנפאל.
-כיוון: ${form.route || "—"}
-לשלב: ${form.combine || "—"}
+מעניין אותי: ${interestsText || "—"}
 תקופה: ${form.dates || "—"}
 נוסעים: ${form.travelers || "—"}
 ${form.note ? `הערה: ${form.note}` : ""}
-שם: ${form.name || "—"} · טלפון: ${form.phone || "—"}`;
+שם: ${form.name || "—"} · טלפון: ${form.phone || "—"}${form.email ? ` · אימייל: ${form.email}` : ""}`;
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setState("sending");
-    const result = await submitLead({ source: "quote-request", ...form });
+    const result = await submitLead({
+      source: "quote-request",
+      ...form,
+      interests: interestsText,
+    });
     setState(result === "sent" ? "sent" : result === "unconfigured" ? "manual" : "failed");
   }
 
@@ -75,7 +95,7 @@ ${form.note ? `הערה: ${form.note}` : ""}
                 to="/knowledge"
                 className="rounded-xl bg-parchment px-5 py-3 text-[14px] font-medium text-ink ring-1 ring-ink/10"
               >
-                לפני שנוסעים
+                מרכז ידע
               </Link>
             </div>
           </Card>
@@ -94,37 +114,31 @@ ${form.note ? `הערה: ${form.note}` : ""}
 
       <Section>
         <form onSubmit={onSubmit} className="space-y-4">
-          <div>
-            <label className={label} htmlFor="route">
-              יעד או מסלול
-            </label>
-            <input
-              id="route"
-              list="trek-options"
-              value={form.route}
-              onChange={set("route")}
-              placeholder="למשל: מנאסלו סירקיט, או ״טרק של שבוע באזור אנאפורנה״"
-              className={field}
-            />
-            <datalist id="trek-options">
-              {treks.map((t) => (
-                <option key={t.slug} value={t.name} />
-              ))}
-            </datalist>
-          </div>
+          <fieldset>
+            <legend className={label}>מה מעניין אתכם? אפשר לבחור כמה</legend>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {INTERESTS.map((opt) => {
+                const on = interests.includes(opt);
+                return (
+                  <button
+                    key={opt}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => toggle(opt)}
+                    className={`rounded-xl px-4 py-2.5 text-start text-[14px] font-medium ring-1 transition-colors ${
+                      on
+                        ? "bg-saffron text-parchment ring-saffron"
+                        : "bg-parchment text-ink/75 ring-ink/10"
+                    }`}
+                  >
+                    {on && <span className="me-1.5">✓</span>}
+                    {opt}
+                  </button>
+                );
+              })}
+            </div>
+          </fieldset>
 
-          <div>
-            <label className={label} htmlFor="combine">
-              מה תרצו לשלב
-            </label>
-            <input
-              id="combine"
-              value={form.combine}
-              onChange={set("combine")}
-              placeholder="קתמנדו, פוקרה, כפרים, רפטינג, צ׳יטוואן, ימי מנוחה…"
-              className={field}
-            />
-          </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
@@ -193,6 +207,20 @@ ${form.note ? `הערה: ${form.note}` : ""}
                 className={field}
               />
             </div>
+          </div>
+
+          <div>
+            <label className={label} htmlFor="email">
+              אימייל (לא חובה)
+            </label>
+            <input
+              id="email"
+              type="email"
+              inputMode="email"
+              value={form.email}
+              onChange={set("email")}
+              className={field}
+            />
           </div>
 
           <div className="flex flex-col gap-2.5 pt-1 sm:flex-row">

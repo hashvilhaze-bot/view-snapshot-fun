@@ -214,10 +214,22 @@ export const experiences: Experience[] = [
   },
 ];
 
+export const knowledgeCategories = [
+  "נפאל",
+  "בהוטן",
+  "טרקים",
+  "תכנון והכנה",
+  "תרבות וחוויות",
+] as const;
+
+export type KnowledgeCategory = (typeof knowledgeCategories)[number];
+
 export type Article = {
   slug: string;
   title: string;
   kicker: string;
+  /** Which shelf in the knowledge center this sits on. */
+  category: KnowledgeCategory;
   summary: string;
   /** One-sentence answer for people who don't want to read an article. */
   quickAnswer?: string;
@@ -231,6 +243,7 @@ export const articles: Article[] = [
     slug: "altitude",
     title: "גובה והתאקלמות",
     kicker: "מה שמכתיב את אורך המסלול",
+    category: "תכנון והכנה",
     summary: "מעל 3,000 מטר הקצב נקבע לפי התאקלמות, לא לפי כושר.",
     quickAnswer:
       "מעל 3,000 מטר עולים לא יותר מכ־500 מטר שינה ביום ומשלבים יום התאקלמות — ולכן מסלול גבוה דורש יותר ימים, גם אם אתם בכושר מעולה.",
@@ -244,6 +257,7 @@ export const articles: Article[] = [
     slug: "when-to-go",
     title: "מתי נוסעים",
     kicker: "עונות",
+    category: "תכנון והכנה",
     summary: "אוקטובר–נובמבר בהירות ויציבות, מרץ–אפריל ירוקות, יולי–אוגוסט מונסון.",
     quickAnswer:
       "אוקטובר–נובמבר הן העונה הבהירה והיציבה (וגם העמוסה), מרץ–אפריל ירוקות ופורחות, ויולי–אוגוסט הם מונסון ולא מתאימים לטרקים גבוהים.",
@@ -257,6 +271,7 @@ export const articles: Article[] = [
     slug: "lodges-permits",
     title: "לודג׳ים והיתרים",
     kicker: "איך זה עובד בשטח",
+    category: "טרקים",
     summary: "בשבילים המרכזיים ישנים בטיהאוסים. אזורים מוגבלים דורשים היתר ומדריך.",
     quickAnswer:
       "בשבילים המרכזיים ישנים בטיהאוסים — חדר פשוט וארוחות חמות, בלי אוהל. אזורים מוגבלים כמו מנאסלו דורשים היתר מיוחד ומדריך מוסמך.",
@@ -270,6 +285,7 @@ export const articles: Article[] = [
     slug: "gear-money",
     title: "ציוד וכספים",
     kicker: "הכנות לפני הדרך",
+    category: "תכנון והכנה",
     summary: "כרטיסי אשראי כמעט לא עובדים על השביל. מזומן מוציאים לפני היציאה.",
     quickAnswer:
       "על השביל עובדים במזומן: מוציאים רופי בקתמנדו או בפוקרה לפני היציאה, כי כרטיסי אשראי כמעט לא נתמכים בכפרים.",
@@ -282,6 +298,7 @@ export const articles: Article[] = [
     slug: "choosing-trek",
     title: "איך בוחרים טרק",
     kicker: "לקרוא לפני שמחליטים",
+    category: "טרקים",
     summary: "שלושה דברים קובעים: כמה ימים יש, לאיזה גובה עולים ומה חשוב לפגוש בדרך.",
     depth: true,
     body: [
@@ -296,6 +313,7 @@ export const articles: Article[] = [
     slug: "manaslu-vs-annapurna",
     title: "מנאסלו מול אנאפורנה",
     kicker: "השוואה",
+    category: "טרקים",
     summary: "אותו הר גדול, שתי חוויות שונות לגמרי: שקט ואורך מול נגישות ופסגות מסביב.",
     depth: true,
     body: [
@@ -310,6 +328,7 @@ export const articles: Article[] = [
     slug: "day-on-trail",
     title: "איך נראה יום בטרק",
     kicker: "לפני שיוצאים",
+    category: "טרקים",
     summary: "קמים מוקדם, הולכים כמה שעות, מגיעים אחר הצהריים — ואז לא עושים כלום.",
     depth: true,
     body: [
@@ -324,6 +343,7 @@ export const articles: Article[] = [
     slug: "culture-food",
     title: "אוכל, תרבות וחגים",
     kicker: "להכיר את נפאל",
+    category: "תרבות וחוויות",
     summary: "דאל בהאט פעמיים ביום, לוח שנה משלהם ופסטיבלים שממלאים את הערים.",
     depth: true,
     body: [

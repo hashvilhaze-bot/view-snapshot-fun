@@ -157,7 +157,15 @@
   }
 
   body {
-    background-color: var(--color-background);
+    background-color: var(--color-summit);
     color: var(--color-foreground);
+    font-family: var(--font-body);
   }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+
 }

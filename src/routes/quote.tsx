@@ -209,6 +209,20 @@ ${form.note ? `הערה: ${form.note}` : ""}
             </div>
           </div>
 
+          <div>
+            <label className={label} htmlFor="email">
+              אימייל (לא חובה)
+            </label>
+            <input
+              id="email"
+              type="email"
+              inputMode="email"
+              value={form.email}
+              onChange={set("email")}
+              className={field}
+            />
+          </div>
+
           <div className="flex flex-col gap-2.5 pt-1 sm:flex-row">
             <button
               type="submit"

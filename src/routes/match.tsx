@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Card, PageHero, Section } from "@/components/page";
-import { treks } from "@/lib/content";
+import { experiences, treks } from "@/lib/content";
+import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/match")({
   component: MatchPage,
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/match")({
       {
         name: "description",
         content:
-          "כמה בחירות פשוטות — זמן, קצב, גובה ואופי — ומקבלים שניים־שלושה כיוונים אפשריים לטיול בנפאל.",
+          "שש שאלות קצרות — זמן, ניסיון, מאמץ, נוחות ועם מי נוסעים — ומקבלים שניים־שלושה כיוונים אפשריים לטיול בנפאל, עם הסבר למה.",
       },
       { property: "og:title", content: "מה מתאים לי? — כלי התאמה לטיול בנפאל" },
       { property: "og:description", content: "כיוונים, לא קטלוג. נקודת פתיחה לשיחה." },
@@ -21,10 +22,24 @@ export const Route = createFileRoute("/match")({
 });
 
 const groups = [
-  { key: "time", label: "כמה זמן יש", options: ["שבוע", "שבועיים", "שלושה שבועות ויותר"] },
-  { key: "pace", label: "קצב", options: ["רגוע", "מאוזן", "אתגר פיזי"] },
-  { key: "altitude", label: "גובה", options: ["מעדיף נמוך", "בסדר עם גובה", "רוצה גובה אמיתי"] },
-  { key: "vibe", label: "מה מסקרן", options: ["הרים", "תרבות ואנשים", "גם וגם"] },
+  { key: "time", label: "כמה זמן יש לכם", options: ["עד שבוע", "שבועיים", "שלושה שבועות ויותר"] },
+  {
+    key: "experience",
+    label: "ניסיון קודם בטרקים",
+    options: ["אין כמעט", "כמה ימי הליכה", "טרקים ארוכים"],
+  },
+  { key: "effort", label: "רמת מאמץ שנוחה לכם", options: ["רגוע", "מאוזן", "מאתגר"] },
+  {
+    key: "interest",
+    label: "מה מעניין אתכם יותר",
+    options: ["ההרים עצמם", "אנשים ותרבות", "גם וגם"],
+  },
+  {
+    key: "comfort",
+    label: "רמת נוחות",
+    options: ["חשוב לי מיטה נוחה", "בסדר עם פשוט", "לא אכפת לי בכלל"],
+  },
+  { key: "company", label: "עם מי נוסעים", options: ["לבד", "בזוג", "עם חברים", "עם משפחה"] },
 ] as const;
 
 function MatchPage() {
@@ -34,30 +49,72 @@ function MatchPage() {
   const answered = Object.keys(picked).length;
 
   const results = (() => {
-    const list = [...treks];
-    const wantsHigh = picked["altitude"] === "רוצה גובה אמיתי" || picked["pace"] === "אתגר פיזי";
-    const wantsLow = picked["altitude"] === "מעדיף נמוך" || picked["pace"] === "רגוע";
-    const shortTime = picked["time"] === "שבוע";
-    return list
+    const wantsHigh = picked["effort"] === "מאתגר" || picked["experience"] === "טרקים ארוכים";
+    const wantsLow = picked["effort"] === "רגוע" || picked["experience"] === "אין כמעט";
+    const shortTime = picked["time"] === "עד שבוע";
+    const longTime = picked["time"] === "שלושה שבועות ויותר";
+    const culture = picked["interest"] === "אנשים ותרבות";
+    const both = picked["interest"] === "גם וגם";
+    const needsComfort = picked["comfort"] === "חשוב לי מיטה נוחה";
+    const family = picked["company"] === "עם משפחה";
+
+    return treks
       .map((t) => {
         let score = 0;
-        if (wantsHigh) score += t.effort;
-        if (wantsLow) score += 4 - t.effort;
-        if (shortTime) score += t.effort === 1 ? 2 : t.effort === 2 ? 1 : 0;
-        if (picked["vibe"] === "תרבות ואנשים") score += t.effort === 1 ? 1 : 0;
-        return { t, score };
+        const reasons: string[] = [];
+
+        if (wantsHigh) {
+          score += t.effort;
+          if (t.effort === 3) reasons.push("אמרתם מאמץ גבוה — וזה מסלול עם גובה וימים ארוכים.");
+        }
+        if (wantsLow) {
+          score += 4 - t.effort;
+          if (t.effort === 1) reasons.push("אמרתם קצב רגוע — כאן הגבהים נמוכים והימים קצרים.");
+        }
+        if (shortTime) {
+          score += t.effort === 1 ? 3 : t.effort === 2 ? 1 : -2;
+          if (t.effort === 1) reasons.push("נכנס בנוחות לשבוע, כולל טיסות וימי חסד.");
+          if (t.effort === 3) reasons.push("בשבוע אחד זה לא ריאלי — צריך יותר ימים.");
+        }
+        if (longTime) {
+          score += t.effort === 3 ? 2 : 0;
+          if (t.effort === 3) reasons.push("עם שלושה שבועות אפשר לעשות אותו בקצב נכון.");
+        }
+        if (culture || both) {
+          score += t.effort === 1 ? 2 : 1;
+          reasons.push("בדרך יש כפרים ואנשים, לא רק נוף.");
+        }
+        if (needsComfort) {
+          score += t.effort === 3 ? -2 : 1;
+          if (t.effort === 3) reasons.push("הלינה כאן בסיסית — כדאי לקחת את זה בחשבון.");
+        }
+        if (family) {
+          score += t.effort === 1 ? 2 : t.effort === 2 ? 0 : -2;
+          if (t.effort === 1) reasons.push("עובד טוב גם עם ילדים גדולים.");
+        }
+
+        return { t, score, reasons: reasons.slice(0, 2) };
       })
       .sort((a, b) => b.score - a.score)
-      .slice(0, 2)
-      .map((r) => r.t);
+      .slice(0, 2);
+  })();
+
+  const extras = (() => {
+    const slugs =
+      picked["interest"] === "ההרים עצמם"
+        ? ["pokhara", "yoga-rest"]
+        : picked["comfort"] === "חשוב לי מיטה נוחה"
+          ? ["kathmandu", "pokhara"]
+          : ["kathmandu", "villages"];
+    return experiences.filter((e) => slugs.includes(e.slug));
   })();
 
   return (
     <>
       <PageHero
         kicker="מה מתאים לי?"
-        title="כמה בחירות, ואז נדבר"
-        lead="זה לא מחשבון ולא תשובה מוחלטת — רק שניים־שלושה כיוונים שכדאי להסתכל עליהם."
+        title="שש שאלות, ואז נדבר"
+        lead="זה לא מחשבון ולא תשובה מוחלטת. הרעיון הוא לצמצם לשניים־שלושה כיוונים שכדאי להסתכל עליהם — ולהסביר למה."
       />
 
       <Section>
@@ -104,33 +161,74 @@ function MatchPage() {
       {show && (
         <Section title="כיוונים אפשריים">
           <div className="space-y-3">
-            {results.map((t) => (
-              <Card key={t.slug}>
-                <p className="font-display text-lg font-bold">{t.name}</p>
-                <p className="mt-1 text-[13px] text-ink/60">
-                  {t.days} · {t.altitude} · {t.effortLabel}
-                </p>
-                <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{t.intro}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Link
-                    to="/treks/$slug"
-                    params={{ slug: t.slug }}
-                    className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
-                  >
-                    לעמוד המסלול
-                  </Link>
-                  <Link
-                    to="/contact"
-                    className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
-                  >
-                    בואו נדבר על זה
-                  </Link>
-                </div>
-              </Card>
-            ))}
+            {results.map(({ t, reasons }) => {
+              const cover = galleries[t.slug]?.[0];
+              return (
+                <Card key={t.slug} className="overflow-hidden p-0">
+                  {cover && (
+                    <img
+                      src={cover.src}
+                      alt={cover.alt}
+                      loading="lazy"
+                      width={1200}
+                      height={800}
+                      className="aspect-[16/7] w-full object-cover"
+                    />
+                  )}
+                  <div className="p-5">
+                    <p className="font-display text-lg font-bold">{t.name}</p>
+                    <p className="mt-1 text-[13px] text-ink/60">
+                      {t.days} · {t.altitude} · {t.effortLabel}
+                    </p>
+                    <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{t.teaser}</p>
+                    {reasons.length > 0 && (
+                      <ul className="mt-3 space-y-1.5">
+                        {reasons.map((r) => (
+                          <li key={r} className="flex gap-2 text-[13.5px] leading-relaxed text-ink/65">
+                            <span className="font-bold text-saffron">·</span>
+                            {r}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <Link
+                        to="/treks/$slug"
+                        params={{ slug: t.slug }}
+                        className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
+                      >
+                        לעמוד המסלול
+                      </Link>
+                      <Link
+                        to="/contact"
+                        className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
+                      >
+                        בואו נדבר על זה
+                      </Link>
+                    </div>
+                  </div>
+                </Card>
+              );
+            })}
           </div>
-          <p className="mt-4 text-[13px] leading-relaxed text-ink/55">
-            אפשר גם לשלב ימים בערים, בכפרים או במנוחה — כמעט כל מסלול נבנה אחרת בפועל.
+
+          <div className="mt-6">
+            <p className="text-[13px] font-medium text-ink/60">ולשלב סביב זה</p>
+            <div className="mt-2 grid grid-cols-2 gap-3">
+              {extras.map((e) => (
+                <Link key={e.slug} to="/experiences/$slug" params={{ slug: e.slug }}>
+                  <Card className="h-full p-4">
+                    <p className="font-display text-[15px] font-bold">{e.name}</p>
+                    <p className="mt-1 text-[12px] leading-snug text-ink/60">{e.teaser}</p>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <p className="mt-5 text-[13px] leading-relaxed text-ink/55">
+            אף אחד מהכיוונים האלה אינו סופי — כמעט כל מסלול נבנה אחרת בפועל, לפי הימים שיש לכם
+            ולפי מה שמעניין אתכם בדרך.
           </p>
         </Section>
       )}

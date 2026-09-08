@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
-import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, Gallery, Insight, PageHero, Section, TalkCta } from "@/components/page";
 import { experiences } from "@/lib/content";
+import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/experiences/$slug")({
   loader: ({ params }) => {
@@ -29,13 +30,19 @@ export const Route = createFileRoute("/experiences/$slug")({
 function ExperiencePage() {
   const { item } = Route.useLoaderData();
   const others = experiences.filter((e) => e.slug !== item.slug).slice(0, 4);
+  const photos = galleries[item.slug] ?? [];
 
   return (
     <>
       <PageHero kicker={item.kicker} title={item.name} lead={item.intro} />
 
+      <Section>
+        <Gallery photos={photos} />
+      </Section>
+
       <Section title="מה יש שם">
-        <ul className="space-y-3">
+        <Insight text={item.surprise} />
+        <ul className="mt-4 space-y-3">
           {item.details.map((d) => (
             <li key={d} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
               <span className="font-bold text-saffron">·</span>

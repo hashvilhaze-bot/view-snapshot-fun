@@ -28,8 +28,8 @@ function TreksPage() {
     <>
       <PageHero
         kicker="טרקים וחוויות"
-        title="לא מסלול אחד, אלא ספקטרום"
-        lead="ההבדל האמיתי בין מסלולים הוא בגובה, במספר הימים ובאופי החוויה."
+        title="יש יותר מדרך אחת לפגוש את ההימלאיה"
+        lead="יש מי שרוצה ללכת גבוה ורחוק, ויש מי שמעדיף כמה ימים בהרים ולחזור לפוקרה. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי החוויה."
         image={valleyGolden}
         imageAlt="עמק בהימלאיה באור זהוב"
       />
@@ -61,7 +61,8 @@ function TreksPage() {
                     </dd>
                   </div>
                 </dl>
-                <p className="mt-3 text-[14px] leading-relaxed text-ink/70">{t.character}</p>
+                <p className="mt-3 text-[14px] leading-relaxed text-ink/70">{t.teaser}</p>
+                <p className="mt-1 text-[13px] text-ink/50">אופי: {t.character}</p>
                 <p className="mt-1 text-[13px] text-ink/50">למי מתאים: {t.fit}</p>
                 <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
                   לעמוד המסלול ←

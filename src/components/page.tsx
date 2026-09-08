@@ -106,6 +106,61 @@ export function TalkCta({
   );
 }
 
+/** A short "didn't know that" note — professionalism shown, not declared. */
+export function Insight({ text }: { text: string }) {
+  return (
+    <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-4">
+      <p className="text-[11px] font-semibold tracking-wide text-saffron">שווה לדעת</p>
+      <p className="mt-1.5 text-[15px] leading-relaxed text-ink/80">{text}</p>
+    </div>
+  );
+}
+
+export function Gallery({
+  photos,
+}: {
+  photos: { src: string; alt: string; caption: string }[];
+}) {
+  const [lead, ...rest] = photos;
+  if (!lead) return null;
+  return (
+    <div className="space-y-2">
+      <figure>
+        <img
+          src={lead.src}
+          alt={lead.alt}
+          loading="lazy"
+          width={1200}
+          height={800}
+          className="aspect-[3/2] w-full rounded-2xl object-cover"
+        />
+        <figcaption className="mt-1.5 px-1 text-[12px] text-ink/50">{lead.caption}</figcaption>
+      </figure>
+      {rest.length > 0 && (
+        <div
+          className={`grid gap-2 ${rest.length % 2 === 1 ? "grid-cols-3" : "grid-cols-2 sm:grid-cols-3"}`}
+        >
+          {rest.map((p) => (
+            <figure key={p.src}>
+              <img
+                src={p.src}
+                alt={p.alt}
+                loading="lazy"
+                width={1200}
+                height={800}
+                className="aspect-[4/3] w-full rounded-xl object-cover"
+              />
+              <figcaption className="mt-1 px-0.5 text-[11px] leading-snug text-ink/50">
+                {p.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function EffortBars({ level }: { level: number }) {
   return (
     <span className="flex h-1.5 w-14 gap-1">

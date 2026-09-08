@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as MatchRouteImport } from './routes/match'
 import { Route as NepalRouteImport } from './routes/nepal'
+import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as TreksRouteImport } from './routes/treks'
 import { Route as ExperiencesSlugRouteImport } from './routes/experiences.$slug'
 import { Route as KnowledgeIndexRouteImport } from './routes/knowledge.index'
@@ -50,6 +51,11 @@ const MatchRoute = MatchRouteImport.update({
 const NepalRoute = NepalRouteImport.update({
   id: '/nepal',
   path: '/nepal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TreksRoute = TreksRouteImport.update({
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/knowledge': typeof KnowledgeRouteWithChildren
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
+  '/quote': typeof QuoteRoute
   '/treks': typeof TreksRouteWithChildren
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
+  '/quote': typeof QuoteRoute
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/knowledge': typeof KnowledgeRouteWithChildren
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
+  '/quote': typeof QuoteRoute
   '/treks': typeof TreksRouteWithChildren
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/knowledge'
     | '/match'
     | '/nepal'
+    | '/quote'
     | '/treks'
     | '/experiences/$slug'
     | '/knowledge/$slug'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/match'
     | '/nepal'
+    | '/quote'
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/knowledge'
     | '/match'
     | '/nepal'
+    | '/quote'
     | '/treks'
     | '/experiences/$slug'
     | '/knowledge/$slug'
@@ -174,6 +186,7 @@ export interface RootRouteChildren {
   KnowledgeRoute: typeof KnowledgeRouteWithChildren
   MatchRoute: typeof MatchRoute
   NepalRoute: typeof NepalRoute
+  QuoteRoute: typeof QuoteRoute
   TreksRoute: typeof TreksRouteWithChildren
   ExperiencesSlugRoute: typeof ExperiencesSlugRoute
 }
@@ -220,6 +233,13 @@ declare module '@tanstack/react-router' {
       path: '/nepal'
       fullPath: '/nepal'
       preLoaderRoute: typeof NepalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/treks': {
@@ -300,6 +320,7 @@ const rootRouteChildren: RootRouteChildren = {
   KnowledgeRoute: KnowledgeRouteWithChildren,
   MatchRoute: MatchRoute,
   NepalRoute: NepalRoute,
+  QuoteRoute: QuoteRoute,
   TreksRoute: TreksRouteWithChildren,
   ExperiencesSlugRoute: ExperiencesSlugRoute,
 }

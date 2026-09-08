@@ -3,9 +3,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import guidePortrait from "@/assets/guide-portrait.jpg";
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
-import { Card, EffortBars, Section } from "@/components/page";
+import {
+  Card,
+  DidYouKnow,
+  EffortBars,
+  Section,
+  WhatsappButton,
+} from "@/components/page";
 import { articles, experiences, treks } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
+
+const quickAnswers = articles.filter((a) => a.quickAnswer).slice(0, 3);
+
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -52,7 +61,7 @@ function Index() {
   return (
     <>
       {/* HERO */}
-      <section className="relative flex min-h-[82vh] flex-col justify-end overflow-hidden">
+      <section className="relative flex min-h-[68svh] flex-col justify-end overflow-hidden sm:min-h-[80vh]">
         <img
           src={heroHimalaya}
           alt="רכס מושלג בהימלאיה בנפאל באור ראשון, עם ערפל שממלא את העמקים"
@@ -187,20 +196,42 @@ function Index() {
         </div>
       </section>
 
-      {/* MATCH */}
-      <Section kicker="מה מתאים לי?" title="לא בוחרים חבילה — מבינים מה מתאים לכם">
-        <Card>
-          <p className="text-[15px] leading-relaxed text-ink/70">
-            שש שאלות קצרות על זמן, ניסיון, מאמץ ונוחות — ובסוף שניים־שלושה כיוונים, עם הסבר למה
-            כל אחד מהם עשוי להתאים לכם.
-          </p>
-          <Link
-            to="/match"
-            className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
-          >
-            להתחיל
+      {/* DID YOU KNOW */}
+      <Section>
+        <DidYouKnow
+          text="נפאל היא המקום היחיד בעולם שבו השעה מוזזת ב־45 דקות: אזור הזמן שם הוא UTC+5:45."
+          action={<Link to="/knowledge">עוד דברים שכדאי לדעת לפני שנוסעים ←</Link>}
+        />
+      </Section>
+
+      {/* THREE PATHS */}
+      <Section kicker="מאיפה מתחילים" title="תלוי איפה אתם עומדים עכשיו">
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Link to="/nepal">
+            <Card className="h-full p-4 transition-colors hover:border-saffron/40">
+              <p className="font-display text-[15px] font-bold">רק מתחילים לחלום</p>
+              <p className="mt-1 text-[13px] leading-snug text-ink/60">
+                להסתובב, לראות תמונות ולהכיר את המדינה
+              </p>
+            </Card>
           </Link>
-        </Card>
+          <Link to="/match">
+            <Card className="h-full p-4 transition-colors hover:border-saffron/40">
+              <p className="font-display text-[15px] font-bold">רוצים לנסוע, לא בטוחים למה</p>
+              <p className="mt-1 text-[13px] leading-snug text-ink/60">
+                שש שאלות קצרות ואז כמה כיוונים, עם הסבר למה
+              </p>
+            </Card>
+          </Link>
+          <Link to="/quote">
+            <Card className="h-full p-4 transition-colors hover:border-saffron/40">
+              <p className="font-display text-[15px] font-bold">כבר יודעים מה אתם רוצים</p>
+              <p className="mt-1 text-[13px] leading-snug text-ink/60">
+                טופס קצר, ומתחילים לבנות לכם הצעה
+              </p>
+            </Card>
+          </Link>
+        </div>
       </Section>
 
       {/* PROCESS */}
@@ -218,25 +249,30 @@ function Index() {
             </li>
           ))}
         </ol>
-        <Link to="/contact" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
-          התהליך במלואו ←
+        <Link to="/about" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
+          מי האנשים מאחורי זה ←
         </Link>
       </Section>
 
-      {/* KNOWLEDGE */}
-      <Section kicker="ידע שימושי" title="הדברים שמשפיעים על התכנון">
-        <div className="grid grid-cols-2 gap-3">
-          {articles.map((a) => (
-            <Link key={a.slug} to="/knowledge/$slug" params={{ slug: a.slug }}>
-              <Card className="h-full p-4 transition-colors hover:border-saffron/40">
-                <p className="font-display text-[15px] font-bold">{a.title}</p>
-                <p className="mt-1 text-[12px] leading-snug text-ink/60">{a.kicker}</p>
-              </Card>
-            </Link>
+      {/* KNOWLEDGE — simple answer first */}
+      <Section kicker="לפני שנוסעים" title="שאלות שיש עליהן תשובה בשורה אחת">
+        <div className="space-y-3">
+          {quickAnswers.map((a) => (
+            <Card key={a.slug} className="p-4">
+              <p className="font-display text-[15px] font-bold">{a.title}</p>
+              <p className="mt-1 text-[13.5px] leading-relaxed text-ink/65">{a.quickAnswer}</p>
+              <Link
+                to="/knowledge/$slug"
+                params={{ slug: a.slug }}
+                className="mt-2 inline-block text-[13px] font-semibold text-saffron"
+              >
+                לפרטים ←
+              </Link>
+            </Card>
           ))}
         </div>
         <Link to="/knowledge" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
-          למרכז הידע ←
+          לכל התשובות ולתוכן על נפאל ←
         </Link>
       </Section>
 
@@ -264,19 +300,26 @@ function Index() {
       <section className="mx-auto max-w-3xl px-6 pt-2 pb-14">
         <div className="rounded-2xl bg-summit px-6 py-10 text-center">
           <h2 className="font-display text-[22px] font-bold text-parchment sm:text-2xl">
-            בואו נדבר
+            בואו נדבר על השביל שלכם
           </h2>
           <p className="mx-auto mt-2 max-w-[40ch] text-[15px] leading-relaxed text-parchment/80">
             שיחה אחת, בלי התחייבות — גם אם יש רק תחושה שנפאל מסקרנת אתכם.
           </p>
-          <Link
-            to="/contact"
-            className="mt-5 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
-          >
-            מתחילים מכאן
-          </Link>
+          <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
+            <Link
+              to="/contact"
+              className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+            >
+              מתחילים מכאן
+            </Link>
+            <WhatsappButton
+              className="bg-parchment/15 text-parchment ring-parchment/30"
+              label="לכתוב בוואטסאפ"
+            />
+          </div>
         </div>
       </section>
+
     </>
   );
 }

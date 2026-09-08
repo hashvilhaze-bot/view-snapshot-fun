@@ -1,19 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { Card, PageHero, Section } from "@/components/page";
+import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
 import { CONTACT_PLACEHOLDER } from "@/lib/content";
+import { whatsappHref } from "@/lib/leads";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
-      { title: "דברו איתנו — בואו נבנה את הטיול שלכם | השביל הזה" },
+      { title: "בואו נדבר על השביל שלכם | השביל הזה" },
       {
         name: "description",
         content:
           "שיחה אחת בלי התחייבות, גם אם עדיין אין מסלול בראש. מכאן מתחילים לבנות טיול אישי בנפאל.",
       },
-      { property: "og:title", content: "דברו איתנו — בואו נבנה את הטיול שלכם" },
+      { property: "og:title", content: "בואו נדבר על השביל שלכם" },
       { property: "og:description", content: "מתחילים בשיחה, לא בקטלוג." },
     ],
   }),
@@ -27,22 +28,56 @@ const steps = [
 ];
 
 function ContactPage() {
+  const wa = whatsappHref();
+
   return (
     <>
       <PageHero
         kicker="דברו איתנו"
-        title="מתחילים מכאן"
+        title="השביל שלכם מתחיל כאן"
         lead="שיחה אחת, בלי התחייבות. גם אם אין לכם עדיין מסלול בראש, אלא רק תחושה שנפאל מסקרנת."
       />
 
       <Section>
         <Card>
           <p className="text-[13px] text-ink/55">דרכי יצירת קשר</p>
-          <p className="mt-2 font-display text-lg font-bold">{CONTACT_PLACEHOLDER}</p>
+          {wa ? (
+            <div className="mt-3 flex flex-wrap gap-2">
+              <WhatsappButton
+                className="bg-saffron font-semibold text-parchment ring-0"
+                label="לכתוב לנו בוואטסאפ"
+              />
+            </div>
+          ) : (
+            <p className="mt-2 font-display text-lg font-bold">{CONTACT_PLACEHOLDER}</p>
+          )}
           <p className="mt-3 text-[14px] leading-relaxed text-ink/70">
             נשמח לשמוע מתי בערך אתם חושבים לצאת, כמה ימים יש לכם, ומה מסקרן אותכם בנפאל.
           </p>
         </Card>
+      </Section>
+
+      <Section title="שלוש דרכים להתחיל">
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Link to="/nepal">
+            <Card className="h-full p-4">
+              <p className="font-display font-bold">רק מתחילים לחלום</p>
+              <p className="mt-1 text-[13px] text-ink/60">להסתובב, לראות ולהתאהב במדינה</p>
+            </Card>
+          </Link>
+          <Link to="/match">
+            <Card className="h-full p-4">
+              <p className="font-display font-bold">לא יודעים מה מתאים</p>
+              <p className="mt-1 text-[13px] text-ink/60">שש שאלות ואז כמה כיוונים</p>
+            </Card>
+          </Link>
+          <Link to="/quote">
+            <Card className="h-full p-4">
+              <p className="font-display font-bold">כבר יודעים מה אתם רוצים</p>
+              <p className="mt-1 text-[13px] text-ink/60">טופס קצר, ומתחילים לבנות הצעה</p>
+            </Card>
+          </Link>
+        </div>
       </Section>
 
       <Section title="איך אנחנו עובדים">
@@ -61,18 +96,18 @@ function ContactPage() {
         </ol>
       </Section>
 
-      <Section title="לא בטוחים מה לבקש?">
+      <Section title="ובזמן הזה">
         <div className="grid gap-3 sm:grid-cols-2">
-          <Link to="/match">
-            <Card className="h-full p-4">
-              <p className="font-display font-bold">מה מתאים לי?</p>
-              <p className="mt-1 text-[13px] text-ink/60">כמה בחירות ומקבלים כיוונים</p>
-            </Card>
-          </Link>
           <Link to="/knowledge">
             <Card className="h-full p-4">
               <p className="font-display font-bold">לפני שנוסעים</p>
-              <p className="mt-1 text-[13px] text-ink/60">גובה, עונות, לינה וציוד</p>
+              <p className="mt-1 text-[13px] text-ink/60">תשובות קצרות על עונות, גובה וכספים</p>
+            </Card>
+          </Link>
+          <Link to="/treks">
+            <Card className="h-full p-4">
+              <p className="font-display font-bold">טרקים וחוויות</p>
+              <p className="mt-1 text-[13px] text-ink/60">משך, גובה ומאמץ במבט אחד</p>
             </Card>
           </Link>
         </div>

@@ -19,13 +19,37 @@ export const Route = createFileRoute("/about")({
   }),
 });
 
+const sides = [
+  {
+    t: "הצד הישראלי",
+    d: "התכנון, השיחות והליווי לפני הטיול נעשים בעברית, מול מי שהלך בעצמו בשבילים האלה — כולל השאלות הקטנות שצצות שבוע לפני הטיסה.",
+    note: "[להשלמה: שם ורקע]",
+  },
+  {
+    t: "הצד הנפאלי",
+    d: "ההפעלה בשטח נעשית עם צוות קבוע: מדריכים מוסמכים שגדלו באזורים שאליהם הולכים, פורטרים מבוטחים, ואיש קשר בקתמנדו שזמין לאורך הטיול.",
+    note: "[להשלמה: שם השותף המקומי והרקע שלו]",
+  },
+  {
+    t: "איך זה עובד יחד",
+    d: "אתם מדברים עם אדם אחד לכל אורך הדרך, גם כשהתוכנית משתנה באמצע הטיול. מי שנמצא בשטח יודע מה הובטח לכם, ומי שתכנן איתכם יודע מה קורה שם עכשיו.",
+  },
+];
+
+const steps = [
+  ["01", "שיחה ראשונה", "כמה זמן יש, מה מסקרן ומה בכלל לא מתאים."],
+  ["02", "כמה כיוונים", "שתיים־שלוש אפשרויות שונות באופי, עם ההבדלים ביניהן."],
+  ["03", "בונים לפרטים", "ימי התאקלמות, לינה, מדריך, היתרים וטיסות פנים."],
+  ["04", "יוצאים לדרך", "הצוות המקומי ביעד, ואפשר לשנות תוכנית בזמן אמת."],
+];
+
 function AboutPage() {
   return (
     <>
       <PageHero
         kicker="מי אנחנו"
-        title="האנשים והיכולת המקומית"
-        lead="תכנון בעברית, הפעלה עם צוות נפאלי קבוע ביעד."
+        title="שני צדדים לאותו שביל"
+        lead="תכנון בעברית מול מי שהלך שם, והפעלה עם צוות נפאלי קבוע ביעד."
       />
 
       <Section>
@@ -38,20 +62,42 @@ function AboutPage() {
           />
           <div className="space-y-3 text-[15px] leading-relaxed text-ink/75">
             <p>
-              התכנון נעשה בעברית, מול מי שהלך בעצמו בשבילים האלה. ההפעלה בשטח נעשית עם צוות נפאלי
-              קבוע: מדריכים מוסמכים שגדלו באזורים שאליהם אנחנו הולכים, פורטרים מבוטחים, ואיש קשר
-              בקתמנדו שזמין לאורך כל הטיול.
+              אנחנו לא מוכרים מסלולים מהמדף. כל טיול נבנה בשיחה, ולכן חשוב שיהיה לכם עם מי לדבר —
+              גם לפני, וגם כשאתם שם.
             </p>
-            <p>
-              זה מה שמאפשר לשנות תוכנית באמצע הדרך, ולא רק להיצמד למה שנקבע מראש.
-            </p>
-            <p className="text-ink/50">[להשלמה: שמות אנשי הצוות והרקע שלהם]</p>
+            <p>זה גם מה שמאפשר לשנות תוכנית באמצע הדרך, ולא רק להיצמד למה שנקבע מראש.</p>
           </div>
         </div>
       </Section>
 
+      <Section title="האנשים">
+        <div className="grid gap-3 sm:grid-cols-3">
+          {sides.map((s) => (
+            <Card key={s.t} className="h-full">
+              <p className="font-display text-[16px] font-bold">{s.t}</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{s.d}</p>
+              {s.note && <p className="mt-2 text-[12px] text-ink/45">{s.note}</p>}
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="מהשיחה הראשונה ועד היציאה לדרך">
+        <ol className="space-y-4">
+          {steps.map(([n, t, d]) => (
+            <li key={n} className="flex gap-4">
+              <span className="font-display text-lg leading-none font-bold text-saffron">{n}</span>
+              <div>
+                <p className="text-[15px] font-semibold">{t}</p>
+                <p className="text-[14px] leading-relaxed text-ink/70">{d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
       <Section title="להמשיך">
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-3">
           <Link to="/treks">
             <Card className="h-full p-4">
               <p className="font-display font-bold">טרקים וחוויות</p>
@@ -60,6 +106,11 @@ function AboutPage() {
           <Link to="/knowledge">
             <Card className="h-full p-4">
               <p className="font-display font-bold">לפני שנוסעים</p>
+            </Card>
+          </Link>
+          <Link to="/match">
+            <Card className="h-full p-4">
+              <p className="font-display font-bold">מה מתאים לי?</p>
             </Card>
           </Link>
         </div>

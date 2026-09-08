@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
-import { Card, Insight, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, DidYouKnow, Insight, PageHero, QuickFacts, Section, TalkCta } from "@/components/page";
 
 export const Route = createFileRoute("/nepal")({
   component: NepalPage,
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/nepal")({
       {
         name: "description",
         content:
-          "נפאל בקצרה: שמונה מעשר הפסגות הגבוהות בעולם, מג׳ונגל טרופי ועד קרחונים, ושבילים שאנשים חיים עליהם דורות.",
+          "נפאל בכמה רגעים: בירה, מטבח, שפה, אזור זמן ועונות הטיול — ולצידם ההרים, הערים, הכפרים והג׳ונגל שבשפלה.",
       },
       { property: "og:title", content: "נפאל — מה יש שם, ולמה זה מיוחד" },
       {
@@ -49,6 +49,13 @@ function NepalPage() {
         imageAlt="רכס מושלג בהימלאיה באור ראשון"
       />
 
+      <Section kicker="נפאל בכמה רגעים" title="כרטיס ביקור מהיר">
+        <QuickFacts />
+        <Link to="/knowledge" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
+          עוד תשובות קצרות לפני שנוסעים ←
+        </Link>
+      </Section>
+
       <Section title="שלושה דברים שכדאי לדעת">
         <div className="grid gap-3 sm:grid-cols-3">
           {facts.map((f) => (
@@ -62,9 +69,8 @@ function NepalPage() {
 
       <Section title="ההרים">
         <p className="text-[15px] leading-relaxed text-ink/70">
-          ההימלאיה בנפאל אינה מסלול אחד. יש הליכה של שלושה ימים בין כפרים בגבעות, ויש מעברים
-          בגובה חמשת אלפים מטר שדורשים שבועיים. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי
-          החוויה.
+          ההימלאיה בנפאל אינה מסלול אחד. יש הליכה של שלושה ימים בין כפרים בגבעות, ויש מעברים בגובה
+          חמשת אלפים מטר שדורשים שבועיים. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי החוויה.
         </p>
         <div className="mt-5">
           <Insight text="בנפאל לא מודדים את השנה כמו אצלנו: הלוח הרשמי הוא ביקראם סמבט, שמקדים את הלוח הלועזי בכ־57 שנים, והשנה החדשה שם מתחילה באמצע אפריל." />
@@ -87,11 +93,11 @@ function NepalPage() {
         <div className="absolute inset-0 bg-summit/75" />
         <div className="relative mx-auto max-w-3xl px-6 py-12">
           <h2 className="font-display text-[22px] font-bold text-balance text-parchment sm:text-2xl">
-            גם מי שלא הולך שבוע ברגל חוזר מלא
+            ההימלאיה היא סיבה מצוינת להגיע לנפאל. היא ממש לא הסיבה היחידה להישאר
           </h2>
           <p className="mt-3 max-w-[46ch] text-[15px] leading-relaxed text-parchment/85">
-            ערים, מקדשים, כפרים, נהרות וג׳ונגל. אפשר לבנות טיול משמעותי גם עם יומיים של הליכה
-            בסך הכול.
+            סמטאות קתמנדו, בוקר מול ההרים בפוקרה, כפרים בין טרסות, רפטינג, ג׳ונגל ויוגה — ולפעמים
+            דווקא יום שלא תוכנן הופך לזיכרון הכי חזק מהטיול.
           </p>
           <Link
             to="/treks"
@@ -102,16 +108,41 @@ function NepalPage() {
         </div>
       </section>
 
+      <Section title="הנהרות">
+        <DidYouKnow
+          text="הנהרות הגדולים של נפאל מתחילים בהמסת שלגים בהימלאיה — ולכן עוצמת האשדות משתנה לפי העונה, לא לפי הגשם של אותו יום."
+          action={
+            <Link to="/experiences/$slug" params={{ slug: "rafting" }}>
+              לחוויות הרפטינג בנפאל ←
+            </Link>
+          }
+        />
+      </Section>
+
+      <Section title="תרבות, אוכל וחגים">
+        <p className="text-[15px] leading-relaxed text-ink/70">
+          דאל בהאט פעמיים ביום, מומו בדוכן ברחוב, מקדשים שהינדואיזם ובודהיזם חיים בהם זה לצד זה,
+          ולוח שנה משלהם.
+        </p>
+        <Link
+          to="/knowledge/$slug"
+          params={{ slug: "culture-food" }}
+          className="mt-3 inline-block font-medium text-saffron"
+        >
+          לקרוא על אוכל, תרבות וחגים ←
+        </Link>
+      </Section>
+
       <Section title="מתי כדאי לבוא">
         <p className="text-[15px] leading-relaxed text-ink/70">
-          לעונות יש השפעה גדולה על מה שאפשר לעשות ועל מה שרואים.
+          אוקטובר–נובמבר בהירות ויציבות, מרץ–אפריל ירוקות ופורחות, ויולי–אוגוסט הם מונסון.
         </p>
         <Link
           to="/knowledge/$slug"
           params={{ slug: "when-to-go" }}
           className="mt-3 inline-block font-medium text-saffron"
         >
-          לעמוד העונות ←
+          קראו עוד על העונות ←
         </Link>
       </Section>
 

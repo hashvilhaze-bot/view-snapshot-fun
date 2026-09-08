@@ -10,33 +10,172 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as MatchRouteImport } from './routes/match'
+import { Route as NepalRouteImport } from './routes/nepal'
+import { Route as TreksRouteImport } from './routes/treks'
+import { Route as ExperiencesSlugRouteImport } from './routes/experiences.$slug'
+import { Route as KnowledgeIndexRouteImport } from './routes/knowledge.index'
+import { Route as KnowledgeSlugRouteImport } from './routes/knowledge.$slug'
+import { Route as TreksIndexRouteImport } from './routes/treks.index'
+import { Route as TreksSlugRouteImport } from './routes/treks.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeRoute = KnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatchRoute = MatchRouteImport.update({
+  id: '/match',
+  path: '/match',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NepalRoute = NepalRouteImport.update({
+  id: '/nepal',
+  path: '/nepal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TreksRoute = TreksRouteImport.update({
+  id: '/treks',
+  path: '/treks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperiencesSlugRoute = ExperiencesSlugRouteImport.update({
+  id: '/experiences/$slug',
+  path: '/experiences/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeIndexRoute = KnowledgeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => KnowledgeRoute,
+} as any)
+const KnowledgeSlugRoute = KnowledgeSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => KnowledgeRoute,
+} as any)
+const TreksIndexRoute = TreksIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TreksRoute,
+} as any)
+const TreksSlugRoute = TreksSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => TreksRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/knowledge': typeof KnowledgeRouteWithChildren
+  '/match': typeof MatchRoute
+  '/nepal': typeof NepalRoute
+  '/treks': typeof TreksRouteWithChildren
+  '/experiences/$slug': typeof ExperiencesSlugRoute
+  '/knowledge/$slug': typeof KnowledgeSlugRoute
+  '/treks/$slug': typeof TreksSlugRoute
+  '/knowledge/': typeof KnowledgeIndexRoute
+  '/treks/': typeof TreksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/match': typeof MatchRoute
+  '/nepal': typeof NepalRoute
+  '/experiences/$slug': typeof ExperiencesSlugRoute
+  '/knowledge/$slug': typeof KnowledgeSlugRoute
+  '/treks/$slug': typeof TreksSlugRoute
+  '/knowledge': typeof KnowledgeIndexRoute
+  '/treks': typeof TreksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/knowledge': typeof KnowledgeRouteWithChildren
+  '/match': typeof MatchRoute
+  '/nepal': typeof NepalRoute
+  '/treks': typeof TreksRouteWithChildren
+  '/experiences/$slug': typeof ExperiencesSlugRoute
+  '/knowledge/$slug': typeof KnowledgeSlugRoute
+  '/treks/$slug': typeof TreksSlugRoute
+  '/knowledge/': typeof KnowledgeIndexRoute
+  '/treks/': typeof TreksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/knowledge'
+    | '/match'
+    | '/nepal'
+    | '/treks'
+    | '/experiences/$slug'
+    | '/knowledge/$slug'
+    | '/treks/$slug'
+    | '/knowledge/'
+    | '/treks/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/match'
+    | '/nepal'
+    | '/experiences/$slug'
+    | '/knowledge/$slug'
+    | '/treks/$slug'
+    | '/knowledge'
+    | '/treks'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/knowledge'
+    | '/match'
+    | '/nepal'
+    | '/treks'
+    | '/experiences/$slug'
+    | '/knowledge/$slug'
+    | '/treks/$slug'
+    | '/knowledge/'
+    | '/treks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  KnowledgeRoute: typeof KnowledgeRouteWithChildren
+  MatchRoute: typeof MatchRoute
+  NepalRoute: typeof NepalRoute
+  TreksRoute: typeof TreksRouteWithChildren
+  ExperiencesSlugRoute: typeof ExperiencesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +187,121 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge': {
+      id: '/knowledge'
+      path: '/knowledge'
+      fullPath: '/knowledge'
+      preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/match': {
+      id: '/match'
+      path: '/match'
+      fullPath: '/match'
+      preLoaderRoute: typeof MatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nepal': {
+      id: '/nepal'
+      path: '/nepal'
+      fullPath: '/nepal'
+      preLoaderRoute: typeof NepalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/treks': {
+      id: '/treks'
+      path: '/treks'
+      fullPath: '/treks'
+      preLoaderRoute: typeof TreksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experiences/$slug': {
+      id: '/experiences/$slug'
+      path: '/experiences/$slug'
+      fullPath: '/experiences/$slug'
+      preLoaderRoute: typeof ExperiencesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge/': {
+      id: '/knowledge/'
+      path: '/'
+      fullPath: '/knowledge/'
+      preLoaderRoute: typeof KnowledgeIndexRouteImport
+      parentRoute: typeof KnowledgeRoute
+    }
+    '/knowledge/$slug': {
+      id: '/knowledge/$slug'
+      path: '/$slug'
+      fullPath: '/knowledge/$slug'
+      preLoaderRoute: typeof KnowledgeSlugRouteImport
+      parentRoute: typeof KnowledgeRoute
+    }
+    '/treks/': {
+      id: '/treks/'
+      path: '/'
+      fullPath: '/treks/'
+      preLoaderRoute: typeof TreksIndexRouteImport
+      parentRoute: typeof TreksRoute
+    }
+    '/treks/$slug': {
+      id: '/treks/$slug'
+      path: '/$slug'
+      fullPath: '/treks/$slug'
+      preLoaderRoute: typeof TreksSlugRouteImport
+      parentRoute: typeof TreksRoute
+    }
   }
 }
 
+interface KnowledgeRouteChildren {
+  KnowledgeSlugRoute: typeof KnowledgeSlugRoute
+  KnowledgeIndexRoute: typeof KnowledgeIndexRoute
+}
+
+const KnowledgeRouteChildren: KnowledgeRouteChildren = {
+  KnowledgeSlugRoute: KnowledgeSlugRoute,
+  KnowledgeIndexRoute: KnowledgeIndexRoute,
+}
+
+const KnowledgeRouteWithChildren = KnowledgeRoute._addFileChildren(
+  KnowledgeRouteChildren,
+)
+
+interface TreksRouteChildren {
+  TreksSlugRoute: typeof TreksSlugRoute
+  TreksIndexRoute: typeof TreksIndexRoute
+}
+
+const TreksRouteChildren: TreksRouteChildren = {
+  TreksSlugRoute: TreksSlugRoute,
+  TreksIndexRoute: TreksIndexRoute,
+}
+
+const TreksRouteWithChildren = TreksRoute._addFileChildren(TreksRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  KnowledgeRoute: KnowledgeRouteWithChildren,
+  MatchRoute: MatchRoute,
+  NepalRoute: NepalRoute,
+  TreksRoute: TreksRouteWithChildren,
+  ExperiencesSlugRoute: ExperiencesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User as UserIcon } from "lucide-react";
 
 import logoAsset from "@/assets/hashvil-haze-logo.png.asset.json";
+import { useAuth } from "@/hooks/use-auth";
 
 const nav = [
   { to: "/", label: "בית" },

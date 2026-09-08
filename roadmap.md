@@ -29,5 +29,5 @@
 
 ## Round 5 — auth
 - [x] Google Sign-In (Lovable Cloud) + /auth page + header state
-- [ ] Profile screen: name, photo, trip preferences
-- [ ] Email + password sign-in/sign-up with verification
+- [x] Profile screen: name, photo, trip preferences (/profile)
+- [x] Email + password UI on /auth — needs Email provider switched on in Cloud auth settings

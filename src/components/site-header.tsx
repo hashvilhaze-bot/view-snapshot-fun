@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User as UserIcon } from "lucide-react";
 
 import logoAsset from "@/assets/hashvil-haze-logo.png.asset.json";
+import { useAuth } from "@/hooks/use-auth";
 
 const nav = [
   { to: "/", label: "בית" },
@@ -15,6 +16,8 @@ const nav = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { user, name, avatarUrl, signOut } = useAuth();
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-brand-line/20 bg-summit/92 backdrop-blur-md">
@@ -44,6 +47,42 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
+
+        <div className="hidden items-center gap-2 md:flex">
+          {user ? (
+            <>
+              <Link
+                to="/profile"
+                className="flex items-center gap-2 rounded-full px-2 py-1 text-[13px] text-parchment/80 transition-colors hover:text-parchment"
+              >
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt=""
+                    className="h-7 w-7 rounded-full object-cover ring-1 ring-brand-line/40"
+                  />
+                ) : (
+                  <UserIcon className="h-4 w-4" />
+                )}
+                <span className="max-w-[110px] truncate">{name ?? "האזור האישי"}</span>
+              </Link>
+              <button
+                type="button"
+                onClick={signOut}
+                className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/70 ring-1 ring-brand-line/40 transition-colors hover:text-parchment"
+              >
+                התנתקות
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/auth"
+              className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/80 ring-1 ring-brand-line/40 transition-colors hover:text-parchment"
+            >
+              התחברות
+            </Link>
+          )}
+        </div>
 
         <button
           type="button"
@@ -87,6 +126,37 @@ export function SiteHeader() {
             >
               כבר יודעים?
             </Link>
+          </div>
+          <div className="mb-2 flex gap-2">
+            {user ? (
+              <>
+                <Link
+                  to="/profile"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
+                >
+                  האזור האישי
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    void signOut();
+                  }}
+                  className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/70 ring-1 ring-brand-line/40"
+                >
+                  התנתקות
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/auth"
+                onClick={() => setOpen(false)}
+                className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
+              >
+                התחברות
+              </Link>
+            )}
           </div>
         </nav>
       )}

@@ -26,3 +26,8 @@
 - The Make webhook URL for leads (no lead integration exists in this project's code)
 - Google Sign-In: optional UX layer only, needs the backend enabled — not added yet
 - Missing facts marked `[להשלמה: ...]` in content
+
+## Round 5 — auth
+- [x] Google Sign-In (Lovable Cloud) + /auth page + header state
+- [x] Profile screen: name, photo, trip preferences (/profile)
+- [x] Email + password UI on /auth — needs Email provider switched on in Cloud auth settings

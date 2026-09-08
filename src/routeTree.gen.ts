@@ -11,10 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as MatchRouteImport } from './routes/match'
 import { Route as NepalRouteImport } from './routes/nepal'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as TreksRouteImport } from './routes/treks'
 import { Route as ExperiencesSlugRouteImport } from './routes/experiences.$slug'
@@ -31,6 +33,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -51,6 +58,11 @@ const MatchRoute = MatchRouteImport.update({
 const NepalRoute = NepalRouteImport.update({
   id: '/nepal',
   path: '/nepal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuoteRoute = QuoteRouteImport.update({
@@ -92,10 +104,12 @@ const TreksSlugRoute = TreksSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
+  '/profile': typeof ProfileRoute
   '/quote': typeof QuoteRoute
   '/treks': typeof TreksRouteWithChildren
   '/experiences/$slug': typeof ExperiencesSlugRoute
@@ -107,9 +121,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
+  '/profile': typeof ProfileRoute
   '/quote': typeof QuoteRoute
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
@@ -121,10 +137,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
+  '/profile': typeof ProfileRoute
   '/quote': typeof QuoteRoute
   '/treks': typeof TreksRouteWithChildren
   '/experiences/$slug': typeof ExperiencesSlugRoute
@@ -138,10 +156,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/knowledge'
     | '/match'
     | '/nepal'
+    | '/profile'
     | '/quote'
     | '/treks'
     | '/experiences/$slug'
@@ -153,9 +173,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/match'
     | '/nepal'
+    | '/profile'
     | '/quote'
     | '/experiences/$slug'
     | '/knowledge/$slug'
@@ -166,10 +188,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/knowledge'
     | '/match'
     | '/nepal'
+    | '/profile'
     | '/quote'
     | '/treks'
     | '/experiences/$slug'
@@ -182,10 +206,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   KnowledgeRoute: typeof KnowledgeRouteWithChildren
   MatchRoute: typeof MatchRoute
   NepalRoute: typeof NepalRoute
+  ProfileRoute: typeof ProfileRoute
   QuoteRoute: typeof QuoteRoute
   TreksRoute: typeof TreksRouteWithChildren
   ExperiencesSlugRoute: typeof ExperiencesSlugRoute
@@ -205,6 +231,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -233,6 +266,13 @@ declare module '@tanstack/react-router' {
       path: '/nepal'
       fullPath: '/nepal'
       preLoaderRoute: typeof NepalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quote': {
@@ -316,10 +356,12 @@ const TreksRouteWithChildren = TreksRoute._addFileChildren(TreksRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   KnowledgeRoute: KnowledgeRouteWithChildren,
   MatchRoute: MatchRoute,
   NepalRoute: NepalRoute,
+  ProfileRoute: ProfileRoute,
   QuoteRoute: QuoteRoute,
   TreksRoute: TreksRouteWithChildren,
   ExperiencesSlugRoute: ExperiencesSlugRoute,

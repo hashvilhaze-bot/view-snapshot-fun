@@ -48,6 +48,39 @@ export function SiteHeader() {
           ))}
         </nav>
 
+        <div className="hidden items-center gap-2 md:flex">
+          {user ? (
+            <>
+              <span className="flex items-center gap-2 text-[13px] text-parchment/80">
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt=""
+                    className="h-7 w-7 rounded-full object-cover ring-1 ring-brand-line/40"
+                  />
+                ) : (
+                  <UserIcon className="h-4 w-4" />
+                )}
+                <span className="max-w-[110px] truncate">{name}</span>
+              </span>
+              <button
+                type="button"
+                onClick={signOut}
+                className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/70 ring-1 ring-brand-line/40 transition-colors hover:text-parchment"
+              >
+                התנתקות
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/auth"
+              className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/80 ring-1 ring-brand-line/40 transition-colors hover:text-parchment"
+            >
+              התחברות
+            </Link>
+          )}
+        </div>
+
         <button
           type="button"
           aria-label="תפריט"

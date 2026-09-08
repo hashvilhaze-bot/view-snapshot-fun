@@ -95,7 +95,7 @@ ${form.note ? `הערה: ${form.note}` : ""}
                 to="/knowledge"
                 className="rounded-xl bg-parchment px-5 py-3 text-[14px] font-medium text-ink ring-1 ring-ink/10"
               >
-                לפני שנוסעים
+                מרכז ידע
               </Link>
             </div>
           </Card>

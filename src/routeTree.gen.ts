@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as MatchRouteImport } from './routes/match'
 import { Route as NepalRouteImport } from './routes/nepal'
 import { Route as TreksRouteImport } from './routes/treks'
 import { Route as ExperiencesSlugRouteImport } from './routes/experiences.$slug'
@@ -24,9 +27,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KnowledgeRoute = KnowledgeRouteImport.update({
   id: '/knowledge',
   path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatchRoute = MatchRouteImport.update({
+  id: '/match',
+  path: '/match',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NepalRoute = NepalRouteImport.update({
@@ -67,7 +85,10 @@ const TreksSlugRoute = TreksSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
+  '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
   '/treks': typeof TreksRouteWithChildren
   '/experiences/$slug': typeof ExperiencesSlugRoute
@@ -78,6 +99,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
@@ -88,7 +112,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
+  '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
   '/treks': typeof TreksRouteWithChildren
   '/experiences/$slug': typeof ExperiencesSlugRoute
@@ -101,7 +128,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/contact'
     | '/knowledge'
+    | '/match'
     | '/nepal'
     | '/treks'
     | '/experiences/$slug'
@@ -112,6 +142,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/contact'
+    | '/match'
     | '/nepal'
     | '/experiences/$slug'
     | '/knowledge/$slug'
@@ -121,7 +154,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/contact'
     | '/knowledge'
+    | '/match'
     | '/nepal'
     | '/treks'
     | '/experiences/$slug'
@@ -133,7 +169,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   KnowledgeRoute: typeof KnowledgeRouteWithChildren
+  MatchRoute: typeof MatchRoute
   NepalRoute: typeof NepalRoute
   TreksRoute: typeof TreksRouteWithChildren
   ExperiencesSlugRoute: typeof ExperiencesSlugRoute
@@ -148,11 +187,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/knowledge': {
       id: '/knowledge'
       path: '/knowledge'
       fullPath: '/knowledge'
       preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/match': {
+      id: '/match'
+      path: '/match'
+      fullPath: '/match'
+      preLoaderRoute: typeof MatchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nepal': {
@@ -235,7 +295,10 @@ const TreksRouteWithChildren = TreksRoute._addFileChildren(TreksRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   KnowledgeRoute: KnowledgeRouteWithChildren,
+  MatchRoute: MatchRoute,
   NepalRoute: NepalRoute,
   TreksRoute: TreksRouteWithChildren,
   ExperiencesSlugRoute: ExperiencesSlugRoute,

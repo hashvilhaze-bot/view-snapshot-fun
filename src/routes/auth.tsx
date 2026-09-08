@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import { lovable } from "@/integrations/lovable/index";
+import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/auth")({
@@ -11,27 +12,35 @@ export const Route = createFileRoute("/auth")({
       {
         name: "description",
         content:
-          "התחברו עם חשבון גוגל כדי לשמור את הפניות והשיחות שלכם על המסע להימלאיה עם השביל הזה.",
+          "התחברו עם חשבון גוגל או עם אימייל וסיסמה כדי לשמור את העדפות הטיול שלכם בהשביל הזה.",
       },
       { property: "og:title", content: "התחברות · השביל הזה" },
       {
         property: "og:description",
-        content: "התחברות מהירה עם חשבון גוגל לאזור האישי של השביל הזה.",
+        content: "התחברות עם גוגל או עם אימייל לאזור האישי של השביל הזה.",
       },
     ],
   }),
   component: AuthPage,
 });
 
+const label = "block text-[13px] font-medium text-ink/70";
+const input =
+  "mt-1.5 w-full rounded-xl bg-parchment px-4 py-3 text-[15px] text-ink ring-1 ring-ink/10 outline-none focus:ring-2 focus:ring-saffron/50";
+
 function AuthPage() {
   const { user, name, loading, signOut } = useAuth();
   const navigate = useNavigate();
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (user) {
-      const t = setTimeout(() => navigate({ to: "/" }), 1200);
+      const t = setTimeout(() => navigate({ to: "/profile" }), 800);
       return () => clearTimeout(t);
     }
     return;
@@ -40,16 +49,45 @@ function AuthPage() {
   async function signInWithGoogle() {
     setBusy(true);
     setError(null);
+    setNotice(null);
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
     });
     if (result.error) {
       setBusy(false);
-      setError("ההתחברות לא הושלמה. נסו שוב בבקשה.");
+      setError("ההתחברות דרך גוגל לא הושלמה. נסו שוב בבקשה.");
       return;
     }
     if (result.redirected) return;
     setBusy(false);
+  }
+
+  async function onEmailSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+
+    if (mode === "signup") {
+      const { data, error: err } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: window.location.origin },
+      });
+      setBusy(false);
+      if (err) {
+        setError(translateAuthError(err.message));
+        return;
+      }
+      if (!data.session) {
+        setNotice("שלחנו לכם מייל אימות — אשרו אותו ואז תוכלו להתחבר.");
+      }
+      return;
+    }
+
+    const { error: err } = await supabase.auth.signInWithPassword({ email, password });
+    setBusy(false);
+    if (err) setError(translateAuthError(err.message));
   }
 
   return (
@@ -57,26 +95,24 @@ function AuthPage() {
       <div className="mx-auto max-w-md px-4 py-14 sm:px-5">
         <div className="rounded-2xl bg-parchment p-6 ring-1 ring-ink/10 sm:p-8">
           <h1 className="font-display text-[26px] leading-tight text-ink sm:text-[30px]">
-            התחברות
+            {mode === "signup" ? "פתיחת חשבון" : "התחברות"}
           </h1>
           <p className="mt-2 text-[14px] leading-relaxed text-ink/70">
-            ההתחברות היא אופציונלית — אפשר לשלוח פנייה גם בלעדיה. מי שמתחבר יכול לחזור לשיחה
-            ולפרטים שכבר מסר.
+            ההתחברות אופציונלית — אפשר לשלוח פנייה גם בלעדיה. מי שמתחבר יכול לשמור את העדפות
+            הטיול שלו ולחזור אליהן.
           </p>
 
           {loading ? (
             <p className="mt-6 text-[14px] text-ink/60">רק רגע…</p>
           ) : user ? (
             <div className="mt-6">
-              <p className="text-[15px] text-ink">
-                מחוברים{name ? ` בשם ${name}` : ""} ✓
-              </p>
+              <p className="text-[15px] text-ink">מחוברים{name ? ` בשם ${name}` : ""} ✓</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <Link
-                  to="/quote"
+                  to="/profile"
                   className="rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
                 >
-                  לבקשת הצעה
+                  לאזור האישי
                 </Link>
                 <button
                   type="button"
@@ -96,9 +132,73 @@ function AuthPage() {
                 className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-parchment px-5 py-3.5 text-[15px] font-semibold text-ink ring-1 ring-ink/15 transition-colors hover:bg-sand disabled:opacity-60"
               >
                 <GoogleMark />
-                {busy ? "מתחברים…" : "התחברות עם Google"}
+                התחברות עם Google
               </button>
+
+              <div className="my-5 flex items-center gap-3 text-[12px] text-ink/45">
+                <span className="h-px flex-1 bg-ink/10" />
+                או עם אימייל
+                <span className="h-px flex-1 bg-ink/10" />
+              </div>
+
+              <form onSubmit={onEmailSubmit} className="space-y-4">
+                <div>
+                  <label className={label} htmlFor="email">
+                    אימייל
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    autoComplete="email"
+                    dir="ltr"
+                    className={input}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className={label} htmlFor="password">
+                    סיסמה
+                  </label>
+                  <input
+                    id="password"
+                    type="password"
+                    required
+                    minLength={8}
+                    autoComplete={mode === "signup" ? "new-password" : "current-password"}
+                    dir="ltr"
+                    className={input}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  {mode === "signup" && (
+                    <p className="mt-1.5 text-[12px] text-ink/50">לפחות 8 תווים.</p>
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  disabled={busy}
+                  className="w-full rounded-xl bg-saffron px-5 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-60"
+                >
+                  {busy ? "רק רגע…" : mode === "signup" ? "פתיחת חשבון" : "התחברות"}
+                </button>
+              </form>
+
               {error && <p className="mt-3 text-[13px] text-saffron">{error}</p>}
+              {notice && <p className="mt-3 text-[13px] text-ink/75">{notice}</p>}
+
+              <button
+                type="button"
+                onClick={() => {
+                  setMode(mode === "signup" ? "signin" : "signup");
+                  setError(null);
+                  setNotice(null);
+                }}
+                className="mt-4 text-[13px] text-ink/65 underline decoration-saffron/60 underline-offset-4"
+              >
+                {mode === "signup" ? "יש לי כבר חשבון — להתחברות" : "אין לי חשבון — פתיחת חשבון"}
+              </button>
             </div>
           )}
 
@@ -112,6 +212,17 @@ function AuthPage() {
       </div>
     </div>
   );
+}
+
+function translateAuthError(message: string) {
+  const m = message.toLowerCase();
+  if (m.includes("email signups are disabled") || m.includes("email_provider_disabled"))
+    return "ההתחברות עם אימייל עדיין לא הופעלה בצד השרת. בינתיים אפשר להתחבר עם גוגל.";
+  if (m.includes("invalid login credentials")) return "האימייל או הסיסמה לא נכונים.";
+  if (m.includes("email not confirmed")) return "צריך לאשר את מייל האימות שנשלח אליכם.";
+  if (m.includes("already registered")) return "כבר קיים חשבון עם האימייל הזה — נסו להתחבר.";
+  if (m.includes("password")) return "הסיסמה חלשה מדי או קצרה מדי (לפחות 8 תווים).";
+  return "משהו לא עבד. נסו שוב בבקשה.";
 }
 
 function GoogleMark() {

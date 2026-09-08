@@ -106,37 +106,31 @@ ${form.note ? `הערה: ${form.note}` : ""}
 
       <Section>
         <form onSubmit={onSubmit} className="space-y-4">
-          <div>
-            <label className={label} htmlFor="route">
-              יעד או מסלול
-            </label>
-            <input
-              id="route"
-              list="trek-options"
-              value={form.route}
-              onChange={set("route")}
-              placeholder="למשל: מנאסלו סירקיט, או ״טרק של שבוע באזור אנאפורנה״"
-              className={field}
-            />
-            <datalist id="trek-options">
-              {treks.map((t) => (
-                <option key={t.slug} value={t.name} />
-              ))}
-            </datalist>
-          </div>
+          <fieldset>
+            <legend className={label}>מה מעניין אתכם? אפשר לבחור כמה</legend>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {INTERESTS.map((opt) => {
+                const on = interests.includes(opt);
+                return (
+                  <button
+                    key={opt}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => toggle(opt)}
+                    className={`rounded-xl px-4 py-2.5 text-start text-[14px] font-medium ring-1 transition-colors ${
+                      on
+                        ? "bg-saffron text-parchment ring-saffron"
+                        : "bg-parchment text-ink/75 ring-ink/10"
+                    }`}
+                  >
+                    {on && <span className="me-1.5">✓</span>}
+                    {opt}
+                  </button>
+                );
+              })}
+            </div>
+          </fieldset>
 
-          <div>
-            <label className={label} htmlFor="combine">
-              מה תרצו לשלב
-            </label>
-            <input
-              id="combine"
-              value={form.combine}
-              onChange={set("combine")}
-              placeholder="קתמנדו, פוקרה, כפרים, רפטינג, צ׳יטוואן, ימי מנוחה…"
-              className={field}
-            />
-          </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>

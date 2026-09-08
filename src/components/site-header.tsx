@@ -127,6 +127,37 @@ export function SiteHeader() {
               כבר יודעים?
             </Link>
           </div>
+          <div className="mb-2 flex gap-2">
+            {user ? (
+              <>
+                <Link
+                  to="/profile"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
+                >
+                  האזור האישי
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    void signOut();
+                  }}
+                  className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/70 ring-1 ring-brand-line/40"
+                >
+                  התנתקות
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/auth"
+                onClick={() => setOpen(false)}
+                className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
+              >
+                התחברות
+              </Link>
+            )}
+          </div>
         </nav>
       )}
 

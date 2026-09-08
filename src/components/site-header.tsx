@@ -28,7 +28,7 @@ export function SiteHeader() {
           <img
             src={logoAsset.url}
             alt="השביל הזה — מתחיל כאן"
-            className="h-[68px] w-auto object-contain sm:h-[76px]"
+            className="h-[68px] w-auto rounded-lg object-contain sm:h-[76px]"
           />
         </Link>
 

@@ -137,7 +137,9 @@ export function Gallery({
         <figcaption className="mt-1.5 px-1 text-[12px] text-ink/50">{lead.caption}</figcaption>
       </figure>
       {rest.length > 0 && (
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div
+          className={`grid gap-2 ${rest.length % 2 === 1 ? "grid-cols-3" : "grid-cols-2 sm:grid-cols-3"}`}
+        >
           {rest.map((p) => (
             <figure key={p.src}>
               <img

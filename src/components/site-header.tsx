@@ -51,7 +51,10 @@ export function SiteHeader() {
         <div className="hidden items-center gap-2 md:flex">
           {user ? (
             <>
-              <span className="flex items-center gap-2 text-[13px] text-parchment/80">
+              <Link
+                to="/profile"
+                className="flex items-center gap-2 rounded-full px-2 py-1 text-[13px] text-parchment/80 transition-colors hover:text-parchment"
+              >
                 {avatarUrl ? (
                   <img
                     src={avatarUrl}
@@ -61,8 +64,8 @@ export function SiteHeader() {
                 ) : (
                   <UserIcon className="h-4 w-4" />
                 )}
-                <span className="max-w-[110px] truncate">{name}</span>
-              </span>
+                <span className="max-w-[110px] truncate">{name ?? "האזור האישי"}</span>
+              </Link>
               <button
                 type="button"
                 onClick={signOut}

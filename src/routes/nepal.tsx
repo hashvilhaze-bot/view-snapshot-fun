@@ -93,7 +93,11 @@ function NepalPage() {
         <p className="text-[15px] leading-relaxed text-ink/70">
           לעונות יש השפעה גדולה על מה שאפשר לעשות ועל מה שרואים.
         </p>
-        <Link to="/knowledge/when-to-go" className="mt-3 inline-block font-medium text-saffron">
+        <Link
+          to="/knowledge/$slug"
+          params={{ slug: "when-to-go" }}
+          className="mt-3 inline-block font-medium text-saffron"
+        >
           לעמוד העונות ←
         </Link>
       </Section>

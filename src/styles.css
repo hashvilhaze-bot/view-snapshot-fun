@@ -25,6 +25,8 @@
   --color-parchment: var(--parchment);
   --color-saffron: var(--saffron);
   --color-mist: var(--mist);
+  --color-brand-sky: var(--brand-sky);
+  --color-brand-line: var(--brand-line);
   --font-display: "Frank Ruhl Libre", Georgia, serif;
   --font-body: "Heebo", system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
@@ -73,13 +75,15 @@
 :root {
   --radius: 0.875rem;
 
-  /* Brand palette — Alpine Frosted Field */
-  --ink: oklch(0.185 0.006 285);
-  --summit: oklch(0.155 0.008 250);
-  --sand: oklch(0.938 0.014 85);
-  --parchment: oklch(0.973 0.009 85);
-  --saffron: oklch(0.598 0.135 48);
-  --mist: oklch(0.678 0.019 245);
+  /* Brand palette sampled from the supplied "השביל הזה" logo */
+  --ink: oklch(0.285 0.075 257);
+  --summit: oklch(0.205 0.061 257);
+  --sand: oklch(0.968 0.008 244);
+  --parchment: oklch(0.988 0.005 244);
+  --saffron: oklch(0.66 0.095 246);
+  --mist: oklch(0.68 0.025 246);
+  --brand-sky: oklch(0.72 0.085 246);
+  --brand-line: oklch(0.64 0.07 246);
 
   --background: var(--sand);
   --foreground: var(--ink);

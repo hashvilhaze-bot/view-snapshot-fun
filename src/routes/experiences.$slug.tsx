@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
-import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, Gallery, Insight, PageHero, Section, TalkCta } from "@/components/page";
 import { experiences } from "@/lib/content";
+import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/experiences/$slug")({
   loader: ({ params }) => {

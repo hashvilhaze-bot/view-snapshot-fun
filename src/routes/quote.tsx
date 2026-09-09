@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
+import { useAuth } from "@/hooks/use-auth";
 import { submitLead, whatsappHref } from "@/lib/leads";
+import { readTripContext, type TripContext } from "@/lib/trip-context";
 
 const INTERESTS = [
   "טרק מנאסלו",

@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Card, Gallery, Insight, PageHero, Section, TalkCta } from "@/components/page";
 import { experiences } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
+import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/experiences/$slug")({
   loader: ({ params }) => {

@@ -40,8 +40,10 @@ const field =
 const label = "text-[13px] font-medium text-ink/60";
 
 function QuotePage() {
+  const { user, name: authName } = useAuth();
   const [state, setState] = useState<"idle" | "sending" | "sent" | "manual" | "failed">("idle");
   const [interests, setInterests] = useState<string[]>([]);
+  const [context, setContext] = useState<TripContext | null>(null);
   const [form, setForm] = useState({
     dates: "",
     travelers: "",
@@ -50,6 +52,27 @@ function QuotePage() {
     phone: "",
     email: "",
   });
+
+  // What the visitor already told us elsewhere on the site — don't ask twice.
+  useEffect(() => {
+    const ctx = readTripContext();
+    if (!ctx) return;
+    setContext(ctx);
+    setForm((f) => ({ ...f, dates: f.dates || (ctx.time ?? "") }));
+    if (ctx.directions?.length) {
+      setInterests((cur) => (cur.length ? cur : ctx.directions!.slice(0, 3)));
+    }
+  }, []);
+
+  // Signed-in visitors shouldn't retype their name and email.
+  useEffect(() => {
+    if (!user) return;
+    setForm((f) => ({
+      ...f,
+      name: f.name || (authName && !authName.includes("@") ? authName : ""),
+      email: f.email || user.email || "",
+    }));
+  }, [user, authName]);
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -63,7 +86,7 @@ function QuotePage() {
 מעניין אותי: ${interestsText || "—"}
 תקופה: ${form.dates || "—"}
 נוסעים: ${form.travelers || "—"}
-${form.note ? `הערה: ${form.note}` : ""}
+${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שעניתי בשאלון: ${context.summary}` : ""}
 שם: ${form.name || "—"} · טלפון: ${form.phone || "—"}${form.email ? ` · אימייל: ${form.email}` : ""}`;
 
   async function onSubmit(e: React.FormEvent) {
@@ -73,9 +96,15 @@ ${form.note ? `הערה: ${form.note}` : ""}
       source: "quote-request",
       ...form,
       interests: interestsText,
+      // Everything we already know, passed along with the lead as-is.
+      quizAnswers: context?.summary ?? "",
+      recommended: context?.directions?.join(", ") ?? "",
+      contextSource: context?.source ?? "direct",
+      signedIn: user ? "yes" : "no",
     });
     setState(result === "sent" ? "sent" : result === "unconfigured" ? "manual" : "failed");
   }
+
 
   if (state === "sent") {
     return (

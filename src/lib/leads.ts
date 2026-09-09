@@ -13,6 +13,12 @@ export const WHATSAPP_NUMBER = "972546545275";
 export const CONTACT_PHONE = "054-6545275";
 export const CONTACT_EMAIL = "hashvilhaze@gmail.com";
 
+/** Local partner in Nepal, as published on shalomtreks.com */
+export const NEPAL_PARTNER_NAME = "בד נאת׳ רגמי (Bed Nath Regmi, ״דב״)";
+export const NEPAL_PARTNER_ROLE = "מייסד Shalom Rafting Treks & Expedition, קטמנדו";
+export const NEPAL_PARTNER_NOTE =
+  "מפעיל את הסוכנות מתאמל שבקטמנדו מ-2010, עם צוות שנותן שירות גם בעברית · info@shalomtreks.com · +977-985-1000405";
+
 export const WHATSAPP_DEFAULT_MESSAGE =
   "היי, הגעתי דרך 'השביל הזה'. אני מתכנן טיול לנפאל ורוצה להתייעץ.";
 

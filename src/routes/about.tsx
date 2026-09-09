@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import guidePortrait from "@/assets/guide-portrait.jpg";
 import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_NOTE, NEPAL_PARTNER_ROLE } from "@/lib/leads";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -27,8 +28,8 @@ const sides = [
   },
   {
     t: "הצד הנפאלי",
-    d: "ההפעלה בשטח נעשית עם Shalom Rafting Treks & Expedition, סוכנות רשומה מתאמל שבקטמנדו שמפעילה טרקים ומסעות נהר: מדריכים מוסמכים שגדלו באזורים שאליהם הולכים, פורטרים מבוטחים, ואיש קשר בקטמנדו שזמין לאורך הטיול.",
-    note: "חברה באיגוד סוכנויות הטרקים של נפאל (TAAN), מספר רישום 69334/066/067",
+    d: `ההפעלה בשטח נעשית עם Shalom Rafting Treks & Expedition, סוכנות רשומה מתאמל שבקטמנדו שמפעילה טרקים ומסעות נהר: מדריכים מוסמכים שגדלו באזורים שאליהם הולכים, פורטרים מבוטחים, ואיש קשר בקטמנדו שזמין לאורך הטיול. איש הקשר שם הוא ${NEPAL_PARTNER_NAME} — ${NEPAL_PARTNER_ROLE}. ${NEPAL_PARTNER_NOTE.split(" · ")[0]}.`,
+    note: "חברה באיגוד סוכנויות הטרקים של נפאל (TAAN), מספר רישום 69334/066/067 · info@shalomtreks.com · +977-985-1000405",
   },
   {
     t: "איך זה עובד יחד",

@@ -43,3 +43,4 @@
 - [x] Rafting expanded (טריסולי / בהוטה קושי / ארון)
 - [ ] English version infrastructure — not started
 - [ ] Remaining `[להשלמה: ...]` facts: rafting grades/seasons, equipment lists, partner names
+- [x] Kathmandu spelling normalised to קטמנדו site-wide

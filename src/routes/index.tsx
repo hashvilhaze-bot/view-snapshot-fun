@@ -29,7 +29,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "השביל הזה — טיולים אישיים בנפאל ובהימלאיה" },
       {
         property: "og:description",
-        content: "טרקים מקצרים ונגישים ועד מנאסלו, ולצידם קתמנדו, פוקרה, כפרים ותרבות.",
+        content: "טרקים מקצרים ונגישים ועד מנאסלו, ולצידם קטמנדו, פוקרה, כפרים ותרבות.",
       },
     ],
     scripts: [
@@ -179,7 +179,7 @@ function Index() {
       <section className="relative overflow-hidden">
         <img
           src={kathmanduDusk}
-          alt="חצר מקדשים בעיר העתיקה של קתמנדו בשעת בין ערביים"
+          alt="חצר מקדשים בעיר העתיקה של קטמנדו בשעת בין ערביים"
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -187,7 +187,7 @@ function Index() {
         <div className="relative mx-auto max-w-3xl px-6 py-12">
           <p className="mb-2 text-xs font-medium text-saffron">מעבר לטרקים</p>
           <h2 className="font-display text-[21px] leading-snug font-bold text-parchment sm:text-2xl">
-            סמטה בקתמנדו, בוקר על האגם, ארוחה בבית בכפר
+            סמטה בקטמנדו, בוקר על האגם, ארוחה בבית בכפר
           </h2>
           <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
             {experiences.map((e) => (

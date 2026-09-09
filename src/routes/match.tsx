@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
 import { experiences, treks } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
 import { submitLead, whatsappHref } from "@/lib/leads";
+import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/match")({
   component: MatchPage,

@@ -29,6 +29,20 @@ import chit3 from "@/assets/gallery/chitwan-3.jpg";
 import yoga1 from "@/assets/gallery/yoga-rest-1.jpg";
 import yoga2 from "@/assets/gallery/yoga-rest-2.jpg";
 import yoga3 from "@/assets/gallery/yoga-rest-3.jpg";
+import poon1 from "@/assets/gallery/poonhill-1.jpg";
+import poon2 from "@/assets/gallery/poonhill-2.jpg";
+import poon3 from "@/assets/gallery/poonhill-3.jpg";
+import mardi1 from "@/assets/gallery/mardi-1.jpg";
+import mardi2 from "@/assets/gallery/mardi-2.jpg";
+import lang1 from "@/assets/gallery/langtang-1.jpg";
+import lang2 from "@/assets/gallery/langtang-2.jpg";
+import lang3 from "@/assets/gallery/langtang-3.jpg";
+import acirc1 from "@/assets/gallery/acircuit-1.jpg";
+import acirc2 from "@/assets/gallery/acircuit-2.jpg";
+import acirc3 from "@/assets/gallery/acircuit-3.jpg";
+import ebc1 from "@/assets/gallery/everest-1.jpg";
+import ebc2 from "@/assets/gallery/everest-2.jpg";
+import ebc3 from "@/assets/gallery/everest-3.jpg";
 
 export type Photo = { src: string; alt: string; caption: string };
 

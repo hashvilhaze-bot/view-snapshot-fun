@@ -209,19 +209,34 @@ type ResultItem = { t: (typeof treks)[number]; reasons: string[] };
 
 function ResultsView({
   results,
+  filteredOut,
   extras,
   picked,
   onBack,
 }: {
   results: ResultItem[];
+  filteredOut: (typeof treks)[number][];
   extras: (typeof experiences)[number][];
   picked: Record<string, string>;
   onBack: () => void;
 }) {
   const summary = Object.values(picked).join(" · ");
-  const waMessage = `היי, הגעתי דרך 'השביל הזה'. עניתי על "מה מתאים לי?" (${summary}) והכיוונים שיצאו לי: ${results
-    .map((r) => r.t.name)
-    .join(", ")}. אשמח להתייעץ.`;
+  const directions = results.map((r) => r.t.name);
+
+  // Remember the answers so the quote form does not ask for them again.
+  useEffect(() => {
+    saveTripContext({
+      source: "match",
+      summary,
+      directions,
+      time: picked["time"],
+    });
+  }, [summary, directions.join(","), picked["time"]]);
+
+  const waMessage = `היי, הגעתי דרך 'השביל הזה'. עניתי על "מה מתאים לי?" (${summary}) והכיוונים שיצאו לי: ${directions.join(
+    ", ",
+  )}. אשמח להתייעץ.`;
+
 
   return (
     <>

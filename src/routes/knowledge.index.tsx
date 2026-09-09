@@ -3,6 +3,24 @@ import { useState } from "react";
 
 import { Card, PageHero, QuickFacts, Section, TalkCta } from "@/components/page";
 import { articles, knowledgeCategories, type KnowledgeCategory } from "@/lib/content";
+import { galleries } from "@/lib/galleries";
+
+/** A photo from the site's own galleries that matches each guide's subject. */
+const articleCover: Record<string, [string, number]> = {
+  altitude: ["everest-base-camp", 2],
+  "when-to-go": ["poon-hill", 0],
+  "lodges-permits": ["annapurna-base-camp", 2],
+  "gear-money": ["pokhara", 2],
+  "choosing-trek": ["pokhara-hills", 0],
+  "manaslu-vs-annapurna": ["manaslu-circuit", 1],
+  "day-on-trail": ["villages", 2],
+  "culture-food": ["kathmandu", 2],
+};
+
+function readMinutes(body: string[]) {
+  const words = body.join(" ").split(/\s+/).filter(Boolean).length;
+  return Math.max(2, Math.round(words / 180));
+}
 
 export const Route = createFileRoute("/knowledge/")({
   component: KnowledgePage,
@@ -39,8 +57,8 @@ function KnowledgePage() {
     <>
       <PageHero
         kicker="מרכז ידע"
-        title="כל מה שכדאי לדעת על נפאל, במקום אחד"
-        lead="תשובות קצרות לשאלות שחוזרות בכל שיחה ראשונה, ולצידן תוכן להעמקה — גם למי שעדיין רק קורא."
+        title="מרכז הידע למטיילים בנפאל"
+        lead="תשובות קצרות לשאלות שחוזרות בכל שיחה ראשונה, ולצידן מדריכים מלאים למי שרוצה להעמיק — גם בלי לתכנן טיול עדיין."
       />
 
       <Section kicker="נפאל בכמה רגעים" title="כרטיס הביקור של המדינה">
@@ -58,7 +76,7 @@ function KnowledgePage() {
                 params={{ slug: a.slug }}
                 className="mt-3 inline-block text-[13px] font-semibold text-saffron"
               >
-                לקרוא את הפרטים ←
+                לקריאת המדריך ←
               </Link>
             </Card>
           ))}
@@ -97,23 +115,41 @@ function KnowledgePage() {
         </div>
 
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          {shown.map((a) => (
-            <Link key={a.slug} to="/knowledge/$slug" params={{ slug: a.slug }}>
-              <Card className="h-full transition-colors hover:border-saffron/40">
-                <p className="text-[11px] font-medium text-saffron">{a.category}</p>
-                <p className="mt-1 font-display text-lg font-bold">{a.title}</p>
-                <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{a.summary}</p>
-                <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
-                  לקרוא ←
-                </span>
-              </Card>
-            </Link>
-          ))}
+          {shown.map((a) => {
+            const ref = articleCover[a.slug];
+            const cover = ref ? galleries[ref[0]]?.[ref[1]] : undefined;
+            return (
+              <Link key={a.slug} to="/knowledge/$slug" params={{ slug: a.slug }}>
+                <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
+                  {cover && (
+                    <img
+                      src={cover.src}
+                      alt={cover.alt}
+                      loading="lazy"
+                      width={1200}
+                      height={800}
+                      className="aspect-[16/9] w-full object-cover"
+                    />
+                  )}
+                  <div className="p-5">
+                    <p className="text-[11px] font-medium text-saffron">
+                      {a.category} · {readMinutes(a.body)} דקות קריאה
+                    </p>
+                    <p className="mt-1 font-display text-lg font-bold">{a.title}</p>
+                    <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{a.summary}</p>
+                    <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
+                      לקריאת המדריך ←
+                    </span>
+                  </div>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
 
         {shown.length === 0 && (
           <p className="mt-5 text-[14px] text-ink/60">
-            בנושא הזה עוד נכתב תוכן. בינתיים אפשר לשאול אותנו ישירות.
+            בנושא הזה עוד לא כתבנו מדריך. בינתיים אפשר לשאול אותנו ישירות.
           </p>
         )}
       </Section>
@@ -121,13 +157,13 @@ function KnowledgePage() {
       <Section>
         <Card>
           <p className="text-[15px] leading-relaxed text-ink/75">
-            רוצים לדעת איזה מסלול מתאים לכם לפני שנכנסים לפרטים?
+            רוצים לדעת איזה מסלול מתאים לכם, לפני שנכנסים לפרטים הקטנים?
           </p>
           <Link
             to="/match"
             className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
           >
-            מצאו את השביל שמתאים לכם
+            בואו נמצא את השביל שלכם
           </Link>
         </Card>
       </Section>

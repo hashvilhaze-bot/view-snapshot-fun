@@ -13,6 +13,7 @@ const nav: { to: string; key: TranslationKey }[] = [
   { to: "/treks", key: "nav.treks" },
   { to: "/match", key: "nav.match" },
   { to: "/knowledge", key: "nav.knowledge" },
+  { to: "/about", key: "nav.about" },
   { to: "/contact", key: "nav.contact" },
 ];
 
@@ -35,8 +36,9 @@ export function SiteHeader() {
           <img
             src={logoAsset.url}
             alt="השביל הזה — מתחיל כאן"
-            className="h-[68px] w-auto rounded-lg object-contain sm:h-[76px]"
+            className="h-[80px] w-auto rounded-lg object-contain sm:h-[92px]"
           />
+
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -53,40 +55,20 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          {user ? (
-            <>
-              <Link
-                to="/profile"
-                className="flex items-center gap-2 rounded-full px-2 py-1 text-[13px] text-parchment/80 transition-colors hover:text-parchment"
-              >
-                {avatarUrl ? (
-                  <img
-                    src={avatarUrl}
-                    alt=""
-                    className="h-7 w-7 rounded-full object-cover ring-1 ring-brand-line/40"
-                  />
-                ) : (
-                  <UserIcon className="h-4 w-4" />
-                )}
-                <span className="max-w-[110px] truncate">{name ?? t("auth.profile")}</span>
-              </Link>
-              <button
-                type="button"
-                onClick={signOut}
-                className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/70 ring-1 ring-brand-line/40 transition-colors hover:text-parchment"
-              >
-                {t("auth.signOut")}
-              </button>
-            </>
-          ) : (
-            <Link
-              to="/auth"
-              className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/80 ring-1 ring-brand-line/40 transition-colors hover:text-parchment"
-            >
-              {t("auth.signIn")}
-            </Link>
-          )}
+          <Link
+            to={user ? "/profile" : "/auth"}
+            aria-label={user ? t("auth.profile") : t("auth.signIn")}
+            title={user ? (name ?? t("auth.profile")) : t("auth.signIn")}
+            className="grid h-9 w-9 place-items-center rounded-full text-parchment/60 ring-1 ring-brand-line/30 transition-colors hover:text-parchment"
+          >
+            {user && avatarUrl ? (
+              <img src={avatarUrl} alt="" className="h-7 w-7 rounded-full object-cover" />
+            ) : (
+              <UserIcon className="h-4 w-4" />
+            )}
+          </Link>
         </div>
+
 
         <button
           type="button"

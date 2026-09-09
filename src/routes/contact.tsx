@@ -68,7 +68,7 @@ function ContactPage() {
           <Link to="/match">
             <Card className="h-full p-4">
               <p className="font-display font-bold">לא יודעים מה מתאים</p>
-              <p className="mt-1 text-[13px] text-ink/60">שש שאלות ואז כמה כיוונים</p>
+              <p className="mt-1 text-[13px] text-ink/60">שבע שאלות ואז כמה כיוונים</p>
             </Card>
           </Link>
           <Link to="/quote">
@@ -106,7 +106,7 @@ function ContactPage() {
           </Link>
           <Link to="/treks">
             <Card className="h-full p-4">
-              <p className="font-display font-bold">טרקים ולא רק</p>
+              <p className="font-display font-bold">טרקים ומסלולים</p>
               <p className="mt-1 text-[13px] text-ink/60">משך, גובה ומאמץ במבט אחד</p>
             </Card>
           </Link>

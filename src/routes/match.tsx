@@ -11,14 +11,14 @@ export const Route = createFileRoute("/match")({
   component: MatchPage,
   head: () => ({
     meta: [
-      { title: "מה מתאים לי? — מצאו את השביל שלכם בנפאל | השביל הזה" },
+      { title: "מה מתאים לי? — בואו נמצא את השביל שלכם בנפאל | השביל הזה" },
       {
         name: "description",
         content:
-          "שש שאלות קצרות — זמן, ניסיון, מאמץ, נוחות ועם מי נוסעים — ובסוף שניים־שלושה כיוונים אפשריים לטיול בנפאל, עם הסבר למה כל אחד יכול להתאים לכם.",
+          "שבע שאלות קצרות — ימים, גמישות, ניסיון, מאמץ, נוחות ועם מי נוסעים — ובסוף שניים־שלושה כיוונים אפשריים לטיול בנפאל, עם הסבר למה כל אחד יכול להתאים לכם.",
       },
-      { property: "og:title", content: "מה מתאים לי? — מצאו את השביל שלכם בנפאל" },
-      { property: "og:description", content: "כיוונים, לא קטלוג. נקודת פתיחה לשיחה." },
+      { property: "og:title", content: "מה מתאים לי? — בואו נמצא את השביל שלכם בנפאל" },
+      { property: "og:description", content: "כיוונים לפתיחת שיחה, לא קטלוג מסלולים." },
     ],
   }),
 });
@@ -61,9 +61,34 @@ const FLEX_BONUS: Record<string, number> = {
   "אפשר לבנות סביב המסלול": 7,
 };
 
+const ANSWERS_KEY = "hashvil:match-answers";
+
 function MatchPage() {
   const [picked, setPicked] = useState<Record<string, string>>({});
+  const [note, setNote] = useState("");
+  const [step, setStep] = useState(0);
   const [view, setView] = useState<"quiz" | "results">("quiz");
+
+  // Answers survive a refresh or a walk to another page and back.
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(ANSWERS_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as { picked?: Record<string, string>; note?: string };
+      if (saved.picked) setPicked(saved.picked);
+      if (saved.note) setNote(saved.note);
+    } catch {
+      /* ignore unreadable storage */
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(ANSWERS_KEY, JSON.stringify({ picked, note }));
+    } catch {
+      /* ignore unwritable storage */
+    }
+  }, [picked, note]);
 
   const answered = Object.keys(picked).length;
 
@@ -143,68 +168,134 @@ function MatchPage() {
         filteredOut={filteredOut}
         extras={extras}
         picked={picked}
+        note={note}
         onBack={() => setView("quiz")}
       />
     );
   }
 
+  const isNoteStep = step >= groups.length;
+  const group = groups[Math.min(step, groups.length - 1)]!;
+  const totalSteps = groups.length + 1;
 
   return (
     <>
       <PageHero
         kicker="מה מתאים לי?"
-        title="שש שאלות, ואז נדבר"
-        lead="זה לא מחשבון ולא תשובה מוחלטת. הרעיון הוא לצמצם לשניים־שלושה כיוונים שכדאי להסתכל עליהם — ולהסביר למה."
+        title="שבע שאלות קצרות, ואחריהן נדבר"
+        lead="זה לא מחשבון ולא תשובה סופית. המטרה היא לצמצם לשניים־שלושה כיוונים שכדאי לבדוק, ולהסביר למה כל אחד מהם יכול להתאים לכם."
       />
 
       <Section>
-        <div className="space-y-5">
-          {groups.map((g) => (
-            <div key={g.key}>
-              <p className="mb-2 text-[13px] font-medium text-ink/60">{g.label}</p>
-              <div className="flex flex-wrap gap-2">
-                {g.options.map((o) => {
-                  const active = picked[g.key] === o;
-                  return (
-                    <button
-                      key={o}
-                      type="button"
-                      onClick={() => setPicked((p) => ({ ...p, [g.key]: o }))}
-                      className={`rounded-full px-4 py-2.5 text-[14px] font-medium transition-colors ${
-                        active
-                          ? "bg-saffron text-parchment"
-                          : "bg-parchment text-ink ring-1 ring-ink/10"
-                      }`}
-                    >
-                      {o}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+        <div className="flex items-center gap-3">
+          <div
+            className="h-1.5 flex-1 overflow-hidden rounded-full bg-ink/10"
+            role="progressbar"
+            aria-valuemin={1}
+            aria-valuemax={totalSteps}
+            aria-valuenow={step + 1}
+            aria-label="התקדמות בשאלון"
+          >
+            <div
+              className="h-full rounded-full bg-saffron transition-all"
+              style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
+            />
+          </div>
+          <p className="shrink-0 text-[12.5px] font-medium text-ink/55">
+            שלב {step + 1} מתוך {totalSteps}
+          </p>
         </div>
 
-        <button
-          type="button"
-          disabled={answered === 0}
-          onClick={() => {
-            setView("results");
-            window.scrollTo({ top: 0 });
-          }}
-          className="mt-7 w-full rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-40 sm:w-auto"
-        >
-          מצאו את השביל שלי
-        </button>
-        {answered > 0 && answered < groups.length && (
-          <p className="mt-2 text-[12.5px] text-ink/50">
-            ענו על עוד {groups.length - answered} שאלות ונוכל לדייק יותר.
-          </p>
+        {isNoteStep ? (
+          <div className="mt-6">
+            <p className="font-display text-[17px] font-bold">משהו שכדאי שנדע? (לא חובה)</p>
+            <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/60">
+              מגבלה בריאותית, חשש מגובה, אוכל, גיל הילדים או כל דבר אחר שישפיע על התכנון.
+            </p>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              rows={4}
+              placeholder="למשל: יש לי בעיה בברך, ואני מעדיף ימים קצרים יותר"
+              className="mt-3 w-full rounded-xl bg-parchment px-4 py-3 text-[15px] leading-relaxed ring-1 ring-ink/10 outline-none placeholder:text-ink/35 focus:ring-2 focus:ring-saffron/60"
+            />
+          </div>
+        ) : (
+          <div className="mt-6">
+            <p className="font-display text-[17px] leading-snug font-bold">{group.label}</p>
+            <p className="mt-1 text-[12.5px] text-ink/50">בחרו תשובה אחת</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {group.options.map((o) => {
+                const active = picked[group.key] === o;
+                return (
+                  <button
+                    key={o}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => {
+                      setPicked((p) => ({ ...p, [group.key]: o }));
+                      setStep((s) => Math.min(s + 1, groups.length));
+                    }}
+                    className={`rounded-full px-4 py-2.5 text-[14px] font-medium transition-colors ${
+                      active
+                        ? "bg-saffron text-parchment"
+                        : "bg-parchment text-ink ring-1 ring-ink/10"
+                    }`}
+                  >
+                    {o}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        <div className="mt-7 flex flex-col gap-2.5 sm:flex-row-reverse sm:justify-end">
+          {isNoteStep || picked[group.key] ? (
+            <button
+              type="button"
+              disabled={answered === 0}
+              onClick={() => {
+                if (isNoteStep) {
+                  setView("results");
+                  window.scrollTo({ top: 0 });
+                } else {
+                  setStep((s) => Math.min(s + 1, groups.length));
+                }
+              }}
+              className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-40"
+            >
+              {isNoteStep ? "בואו נמצא את השביל שלי" : "לשאלה הבאה"}
+            </button>
+          ) : null}
+          {step > 0 && (
+            <button
+              type="button"
+              onClick={() => setStep((s) => Math.max(0, s - 1))}
+              className="rounded-xl bg-parchment px-6 py-3.5 text-[15px] font-medium text-ink ring-1 ring-ink/10"
+            >
+              לשאלה הקודמת
+            </button>
+          )}
+        </div>
+
+        {answered > 0 && (
+          <button
+            type="button"
+            onClick={() => {
+              setView("results");
+              window.scrollTo({ top: 0 });
+            }}
+            className="mt-4 text-[13px] font-medium text-saffron"
+          >
+            לראות את הכיוונים לפי מה שעניתי עד כה ←
+          </button>
         )}
       </Section>
     </>
   );
 }
+
 
 type ResultItem = { t: (typeof treks)[number]; reasons: string[] };
 
@@ -213,15 +304,19 @@ function ResultsView({
   filteredOut,
   extras,
   picked,
+  note,
   onBack,
 }: {
   results: ResultItem[];
   filteredOut: (typeof treks)[number][];
   extras: (typeof experiences)[number][];
   picked: Record<string, string>;
+  note?: string;
   onBack: () => void;
 }) {
-  const summary = Object.values(picked).join(" · ");
+  const summary = [...Object.values(picked), note?.trim() ? `הערה: ${note.trim()}` : ""]
+    .filter(Boolean)
+    .join(" · ");
   const directions = results.map((r) => r.t.name);
 
   // Remember the answers so the quote form does not ask for them again.
@@ -239,6 +334,7 @@ function ResultsView({
   )}. אשמח להתייעץ.`;
 
 
+
   return (
     <>
       <section className="bg-summit px-6 pt-9 pb-10">
@@ -248,15 +344,18 @@ function ResultsView({
             onClick={onBack}
             className="text-[13px] font-medium text-parchment/60"
           >
-            → לשנות תשובות
+            → לחזור ולשנות תשובות
           </button>
-          <p className="mt-4 text-[12px] font-medium tracking-wide text-saffron">
-            הכיוונים שלכם
-          </p>
+          <p className="mt-4 text-[12px] font-medium tracking-wide text-saffron">הכיוונים שלכם</p>
           <h1 className="mt-1.5 font-display text-[26px] leading-tight font-bold text-parchment sm:text-3xl">
-            לפי מה שסיפרתם, אלה השבילים שהיינו מציעים לבדוק
+            לפי מה שספרתם, אלה השבילים ששווה לבדוק
           </h1>
-          {summary && <p className="mt-3 text-[13.5px] leading-relaxed text-parchment/60">{summary}</p>}
+          <p className="mt-2.5 max-w-[46ch] text-[14px] leading-relaxed text-parchment/75">
+            אלה כיוונים לפתיחת שיחה, לא תוכנית סופית. בשיחה נדייק את המסלול, הקצב והימים.
+          </p>
+          {summary && (
+            <p className="mt-3 text-[13.5px] leading-relaxed text-parchment/55">{summary}</p>
+          )}
         </div>
       </section>
 
@@ -278,7 +377,7 @@ function ResultsView({
                 )}
                 <div className="p-5">
                   <p className="text-[11px] font-semibold tracking-wide text-saffron">
-                    {i === 0 ? "ההמלצה המובילה" : "חלופה שכדאי לשקול"}
+                    {i === 0 ? "הכיוון שמתאים לכם ביותר" : "כיוון נוסף ששווה לשקול"}
                   </p>
                   <p className="mt-1 font-display text-lg font-bold">{t.name}</p>
                   <p className="mt-1 text-[13px] text-ink/60">
@@ -312,13 +411,13 @@ function ResultsView({
                       params={{ slug: t.slug }}
                       className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
                     >
-                      לעמוד המסלול
+                      לפרטי המסלול
                     </Link>
                     <Link
                       to="/quote"
                       className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
                     >
-                      לבקש הצעה על זה
+                      לקבלת הצעה למסלול
                     </Link>
                   </div>
                 </div>
@@ -347,7 +446,7 @@ function ResultsView({
 
 
         <div className="mt-6">
-          <p className="text-[13px] font-medium text-ink/60">ולשלב סביב זה</p>
+          <p className="text-[13px] font-medium text-ink/60">מה אפשר לשלב סביב המסלול</p>
           <div className="mt-2 grid grid-cols-2 gap-3">
             {extras.map((e) => (
               <Link key={e.slug} to="/experiences/$slug" params={{ slug: e.slug }}>
@@ -361,8 +460,8 @@ function ResultsView({
         </div>
 
         <p className="mt-5 text-[13px] leading-relaxed text-ink/55">
-          אף אחד מהכיוונים האלה אינו סופי — כמעט כל מסלול נבנה אחרת בפועל, לפי הימים שיש לכם ולפי
-          מה שמעניין אתכם בדרך.
+          כל אחד מהכיוונים האלה נבנה בפועל אחרת, לפי הימים שיש לכם ולפי מה שמעניין אתכם בדרך. אנחנו
+          נשמח לעבור על זה איתכם בשיחה.
         </p>
       </Section>
 

@@ -26,15 +26,15 @@ export const Route = createFileRoute("/nepal")({
 const facts = [
   {
     n: "8 מתוך 10",
-    t: "מהפסגות הגבוהות בעולם עומדות בנפאל. שמונה מהן, במדינה אחת קטנה.",
+    t: "מהפסגות הגבוהות בעולם נמצאות בנפאל, במדינה אחת קטנה.",
   },
   {
-    n: "60 → 8,849",
-    t: "מגובה של כמה עשרות מטרים בשפלה הטרופית ועד פסגת האוורסט — הפרש הגבהים החד הזה הוא כל הסיפור של נפאל.",
+    n: "מ־60 עד 8,849 מ׳",
+    t: "מהשפלה הטרופית ועד פסגת האוורסט. הפרש הגבהים הזה הוא כל הסיפור של נפאל.",
   },
   {
-    n: "הדגל היחיד",
-    t: "נפאל היא המדינה היחידה בעולם שהדגל שלה אינו מרובע — שני משולשים, לא מלבן.",
+    n: "דגל אחד בעולם",
+    t: "לנפאל הדגל הלאומי היחיד שאינו מרובע או מלבני: שני משולשים זה מעל זה.",
   },
 ];
 
@@ -52,7 +52,7 @@ function NepalPage() {
       <Section kicker="נפאל בכמה רגעים" title="כרטיס ביקור מהיר">
         <QuickFacts />
         <Link to="/knowledge" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
-          עוד תשובות קצרות לפני שנוסעים ←
+          למרכז הידע למטיילים בנפאל ←
         </Link>
       </Section>
 
@@ -79,7 +79,7 @@ function NepalPage() {
           to="/treks"
           className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
         >
-          לטרקים ולחוויות
+          לטרקים ולמסלולים
         </Link>
       </Section>
 
@@ -103,7 +103,7 @@ function NepalPage() {
             to="/treks"
             className="mt-5 inline-block rounded-xl bg-parchment/15 px-5 py-3 text-[14px] font-medium text-parchment ring-1 ring-parchment/25"
           >
-            נפאל שמעבר לטרקים
+            לגלות את נפאל שמעבר לטרקים
           </Link>
         </div>
       </section>

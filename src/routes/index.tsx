@@ -50,9 +50,9 @@ export const Route = createFileRoute("/")({
 });
 
 const facts = [
-  { n: "8 מ־10", t: "מהפסגות הגבוהות בעולם עומדות כאן" },
-  { n: "60 → 8,849", t: "טווח הגבהים במדינה אחת, במטרים" },
-  { n: "לא מרובע", t: "הדגל היחיד בעולם שאינו מרובע" },
+  { n: "8 מתוך 10", t: "מהפסגות הגבוהות בעולם נמצאות בנפאל" },
+  { n: "מ־60 עד 8,849 מ׳", t: "מהשפלה הטרופית ועד פסגת האוורסט, במדינה אחת" },
+  { n: "דגל אחד בעולם", t: "לנפאל הדגל הלאומי היחיד שאינו מרובע או מלבני" },
 ];
 
 function Index() {
@@ -73,30 +73,31 @@ function Index() {
             השביל הזה · מסעות בהתאמה אישית בהימלאיה
           </p>
           <h1 className="mt-2 font-display text-[32px] leading-[1.08] font-bold text-parchment drop-shadow-sm sm:text-[44px]">
-            המסע מתחיל בך.
+            השביל שלכם מתחיל כאן
           </h1>
-          <p className="mt-3 max-w-[34ch] text-[15px] leading-relaxed text-parchment/90">
-            אנחנו בונים איתכם טיול בנפאל מהמקום שבו אתם נמצאים — לא מתוך קטלוג מסלולים.
+          <p className="mt-3 max-w-[38ch] text-[15px] leading-relaxed text-parchment/90">
+            יש הרבה דרכים לטייל בנפאל. יחד נמצא את הדרך שמתאימה לכם — מהמסלול והקצב ועד למקומות
+            ולאנשים שתפגשו בדרך.
           </p>
           <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
             <Link
-              to="/contact"
+              to="/match"
               className="rounded-xl bg-saffron px-5 py-3.5 text-center text-[15px] font-semibold text-parchment"
             >
-              בואו נבנה את הטיול שלכם
+              בואו נמצא את השביל שלכם
             </Link>
             <Link
-              to="/match"
+              to="/contact"
               className="rounded-xl bg-parchment/15 px-5 py-3.5 text-center text-[15px] font-medium text-parchment ring-1 ring-parchment/35 backdrop-blur-sm"
             >
-              מה מתאים לי?
+              בואו נדבר על השביל שלכם
             </Link>
           </div>
         </div>
       </section>
 
       {/* WHY NEPAL */}
-      <Section kicker="למה נפאל" title="בוקר אחד אתם פותחים דלת של לודג׳ — ומול הפנים יש רכס">
+      <Section kicker="למה נפאל" title="בוקר אחד תפתחו דלת של אכסניה, ומול הפנים יעמוד רכס מושלג">
         {sunrise && (
           <img
             src={sunrise.src}
@@ -116,15 +117,15 @@ function Index() {
           ))}
         </div>
         <Link to="/nepal" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
-          עוד על נפאל ←
+          להכיר את נפאל ←
         </Link>
       </Section>
 
       {/* TREKS */}
       <Section kicker="ההימלאיה והטרקים" title="יש יותר מדרך אחת לפגוש את ההימלאיה">
         <p className="-mt-1 mb-5 text-[15px] leading-relaxed text-ink/70">
-          יש מי שרוצה ללכת גבוה ורחוק. יש מי שמעדיף כמה ימים בהרים ולחזור לפוקרה. ויש מי שרוצה
-          לשלב טרק, כפרים וכמה ימים שבהם לא ממהרים לשום מקום.
+          יש מי שרוצה ללכת גבוה ורחוק, ויש מי שמעדיף כמה ימים בהרים ואז מרפסת מול האגם בפוקרה. יש
+          גם דרך באמצע: טרק קצר, כמה כפרים וימים שבהם לא ממהרים לשום מקום.
         </p>
         <div className="space-y-3">
           {treks
@@ -171,7 +172,7 @@ function Index() {
           })}
         </div>
         <Link to="/treks" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
-          כל המסלולים והחוויות ←
+          לכל המסלולים והחוויות ←
         </Link>
       </Section>
 
@@ -187,8 +188,11 @@ function Index() {
         <div className="relative mx-auto max-w-3xl px-6 py-12">
           <p className="mb-2 text-xs font-medium text-saffron">מעבר לטרקים</p>
           <h2 className="font-display text-[21px] leading-snug font-bold text-parchment sm:text-2xl">
-            סמטה בקטמנדו, בוקר על האגם, ארוחה בבית בכפר
+            סמטה בקטמנדו, בוקר על האגם וארוחה בבית בכפר
           </h2>
+          <p className="mt-2.5 max-w-[44ch] text-[14.5px] leading-relaxed text-parchment/80">
+            אפשר לשלב בטיול ימים שאינם הליכה בהרים: ערים היסטוריות, כפרים, נהרות והג׳ונגל בשפלה.
+          </p>
           <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
             {experiences.map((e) => (
               <Link key={e.slug} to="/experiences/$slug" params={{ slug: e.slug }}>
@@ -199,6 +203,12 @@ function Index() {
               </Link>
             ))}
           </div>
+          <Link
+            to="/treks"
+            className="mt-5 inline-block rounded-xl bg-parchment/15 px-5 py-3 text-[14px] font-medium text-parchment ring-1 ring-parchment/25"
+          >
+            לגלות את נפאל שמעבר לטרקים
+          </Link>
         </div>
       </section>
 
@@ -211,21 +221,21 @@ function Index() {
       </Section>
 
       {/* THREE PATHS */}
-      <Section kicker="מאיפה מתחילים" title="תלוי איפה אתם עומדים עכשיו">
+      <Section kicker="מאיפה מתחילים" title="שלוש דרכים להתחיל, לפי המקום שאתם נמצאים בו">
         <div className="grid gap-3 sm:grid-cols-3">
           <Link to="/nepal">
             <Card className="h-full p-4 transition-colors hover:border-saffron/40">
               <p className="font-display text-[15px] font-bold">רק מתחילים לחלום</p>
               <p className="mt-1 text-[13px] leading-snug text-ink/60">
-                להסתובב, לראות תמונות ולהכיר את המדינה
+                להכיר את נפאל, לראות תמונות ולהבין מה יש שם
               </p>
             </Card>
           </Link>
           <Link to="/match">
             <Card className="h-full p-4 transition-colors hover:border-saffron/40">
-              <p className="font-display text-[15px] font-bold">רוצים לנסוע, לא בטוחים למה</p>
+              <p className="font-display text-[15px] font-bold">רוצים לנסוע, עוד לא בטוחים לאן</p>
               <p className="mt-1 text-[13px] leading-snug text-ink/60">
-                שש שאלות קצרות ואז כמה כיוונים, עם הסבר למה
+                שבע שאלות קצרות, ואחריהן כמה כיוונים עם הסבר
               </p>
             </Card>
           </Link>
@@ -233,7 +243,7 @@ function Index() {
             <Card className="h-full p-4 transition-colors hover:border-saffron/40">
               <p className="font-display text-[15px] font-bold">כבר יודעים מה אתם רוצים</p>
               <p className="mt-1 text-[13px] leading-snug text-ink/60">
-                טופס קצר, ומתחילים לבנות לכם הצעה
+                טופס קצר, ומתחילים לבנות לכם הצעה אישית
               </p>
             </Card>
           </Link>

@@ -41,6 +41,7 @@
 - [x] Signed-in name & email prefilled in the quote form
 - [x] Lead payload enriched (answers, recommendations, source) — same submission channel
 - [x] Rafting expanded (טריסולי / בהוטה קושי / ארון)
-- [ ] English version infrastructure — not started
-- [ ] Remaining `[להשלמה: ...]` facts: rafting grades/seasons, equipment lists, partner names
+- [ ] English version infrastructure — not started (needs user decision on scope)
+- [x] Facts completed: rafting grades + seasons, gear list, walking hours, Tsum extension, Chitwan/yoga durations, festival timing
+- [ ] Still blocked on client: partner names/background, phone/WhatsApp/email, lead webhook URL
 - [x] Kathmandu spelling normalised to קטמנדו site-wide

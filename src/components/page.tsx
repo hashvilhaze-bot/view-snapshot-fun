@@ -30,10 +30,10 @@ export function PageHero({
           <div className="absolute inset-0 bg-summit/75" />
         </>
       )}
-      <div className={`relative mx-auto max-w-3xl px-6 ${image ? "py-14" : "pt-10 pb-6"}`}>
+      <div className={`relative mx-auto max-w-3xl px-6 ${image ? "pt-11 pb-12" : "pt-8 pb-5"}`}>
         {kicker && <p className="mb-2 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
         <h1
-          className={`font-display text-[26px] leading-tight font-bold text-balance sm:text-3xl ${
+          className={`max-w-[26ch] font-display text-[26px] leading-tight font-bold text-balance sm:text-3xl ${
             image ? "text-parchment" : "text-ink"
           }`}
         >
@@ -41,7 +41,7 @@ export function PageHero({
         </h1>
         {lead && (
           <p
-            className={`mt-3 max-w-[52ch] text-[15px] leading-relaxed ${
+            className={`mt-3 max-w-[50ch] text-[15px] leading-relaxed ${
               image ? "text-parchment/85" : "text-ink/70"
             }`}
           >
@@ -65,14 +65,14 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section className={`mx-auto max-w-3xl px-6 py-10 ${className}`}>
-      {kicker && <p className="mb-2 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
+    <section className={`mx-auto max-w-3xl px-6 py-7 sm:py-8 ${className}`}>
+      {kicker && <p className="mb-1.5 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
       {title && (
-        <h2 className="font-display text-[22px] leading-snug font-bold text-balance sm:text-2xl">
+        <h2 className="max-w-[30ch] font-display text-[22px] leading-snug font-bold text-balance sm:text-2xl">
           {title}
         </h2>
       )}
-      <div className={title ? "mt-5" : ""}>{children}</div>
+      <div className={title ? "mt-4" : ""}>{children}</div>
     </section>
   );
 }
@@ -89,7 +89,7 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
 
 export function TalkCta({
   title = "בואו נדבר על השביל שלכם",
-  text = "שיחה אחת, בלי התחייבות — גם אם עדיין אין לכם מסלול בראש.",
+  text = "שיחה קצרה, בלי התחייבות. נשמע מה מסקרן אתכם ונציע כמה כיוונים שמתאימים לימים שיש לכם.",
 }: {
   title?: string;
   text?: string;
@@ -105,7 +105,7 @@ export function TalkCta({
             to="/contact"
             className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
           >
-            מתחילים מכאן
+            דברו איתנו
           </Link>
           {wa && (
             <a
@@ -121,7 +121,7 @@ export function TalkCta({
             to="/quote"
             className="rounded-xl bg-parchment px-6 py-3.5 text-[15px] font-medium text-ink ring-1 ring-ink/10"
           >
-            כבר יודעים מה אתם רוצים?
+            לקבלת הצעה
           </Link>
         </div>
       </Card>

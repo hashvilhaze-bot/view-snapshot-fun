@@ -61,9 +61,34 @@ const FLEX_BONUS: Record<string, number> = {
   "אפשר לבנות סביב המסלול": 7,
 };
 
+const ANSWERS_KEY = "hashvil:match-answers";
+
 function MatchPage() {
   const [picked, setPicked] = useState<Record<string, string>>({});
+  const [note, setNote] = useState("");
+  const [step, setStep] = useState(0);
   const [view, setView] = useState<"quiz" | "results">("quiz");
+
+  // Answers survive a refresh or a walk to another page and back.
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(ANSWERS_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as { picked?: Record<string, string>; note?: string };
+      if (saved.picked) setPicked(saved.picked);
+      if (saved.note) setNote(saved.note);
+    } catch {
+      /* ignore unreadable storage */
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(ANSWERS_KEY, JSON.stringify({ picked, note }));
+    } catch {
+      /* ignore unwritable storage */
+    }
+  }, [picked, note]);
 
   const answered = Object.keys(picked).length;
 
@@ -143,68 +168,134 @@ function MatchPage() {
         filteredOut={filteredOut}
         extras={extras}
         picked={picked}
+        note={note}
         onBack={() => setView("quiz")}
       />
     );
   }
 
+  const isNoteStep = step >= groups.length;
+  const group = groups[Math.min(step, groups.length - 1)]!;
+  const totalSteps = groups.length + 1;
 
   return (
     <>
       <PageHero
         kicker="מה מתאים לי?"
-        title="שש שאלות, ואז נדבר"
-        lead="זה לא מחשבון ולא תשובה מוחלטת. הרעיון הוא לצמצם לשניים־שלושה כיוונים שכדאי להסתכל עליהם — ולהסביר למה."
+        title="שבע שאלות קצרות, ואחריהן נדבר"
+        lead="זה לא מחשבון ולא תשובה סופית. המטרה היא לצמצם לשניים־שלושה כיוונים שכדאי לבדוק, ולהסביר למה כל אחד מהם יכול להתאים לכם."
       />
 
       <Section>
-        <div className="space-y-5">
-          {groups.map((g) => (
-            <div key={g.key}>
-              <p className="mb-2 text-[13px] font-medium text-ink/60">{g.label}</p>
-              <div className="flex flex-wrap gap-2">
-                {g.options.map((o) => {
-                  const active = picked[g.key] === o;
-                  return (
-                    <button
-                      key={o}
-                      type="button"
-                      onClick={() => setPicked((p) => ({ ...p, [g.key]: o }))}
-                      className={`rounded-full px-4 py-2.5 text-[14px] font-medium transition-colors ${
-                        active
-                          ? "bg-saffron text-parchment"
-                          : "bg-parchment text-ink ring-1 ring-ink/10"
-                      }`}
-                    >
-                      {o}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+        <div className="flex items-center gap-3">
+          <div
+            className="h-1.5 flex-1 overflow-hidden rounded-full bg-ink/10"
+            role="progressbar"
+            aria-valuemin={1}
+            aria-valuemax={totalSteps}
+            aria-valuenow={step + 1}
+            aria-label="התקדמות בשאלון"
+          >
+            <div
+              className="h-full rounded-full bg-saffron transition-all"
+              style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
+            />
+          </div>
+          <p className="shrink-0 text-[12.5px] font-medium text-ink/55">
+            שלב {step + 1} מתוך {totalSteps}
+          </p>
         </div>
 
-        <button
-          type="button"
-          disabled={answered === 0}
-          onClick={() => {
-            setView("results");
-            window.scrollTo({ top: 0 });
-          }}
-          className="mt-7 w-full rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-40 sm:w-auto"
-        >
-          מצאו את השביל שלי
-        </button>
-        {answered > 0 && answered < groups.length && (
-          <p className="mt-2 text-[12.5px] text-ink/50">
-            ענו על עוד {groups.length - answered} שאלות ונוכל לדייק יותר.
-          </p>
+        {isNoteStep ? (
+          <div className="mt-6">
+            <p className="font-display text-[17px] font-bold">משהו שכדאי שנדע? (לא חובה)</p>
+            <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/60">
+              מגבלה בריאותית, חשש מגובה, אוכל, גיל הילדים או כל דבר אחר שישפיע על התכנון.
+            </p>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              rows={4}
+              placeholder="למשל: יש לי בעיה בברך, ואני מעדיף ימים קצרים יותר"
+              className="mt-3 w-full rounded-xl bg-parchment px-4 py-3 text-[15px] leading-relaxed ring-1 ring-ink/10 outline-none placeholder:text-ink/35 focus:ring-2 focus:ring-saffron/60"
+            />
+          </div>
+        ) : (
+          <div className="mt-6">
+            <p className="font-display text-[17px] leading-snug font-bold">{group.label}</p>
+            <p className="mt-1 text-[12.5px] text-ink/50">בחרו תשובה אחת</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {group.options.map((o) => {
+                const active = picked[group.key] === o;
+                return (
+                  <button
+                    key={o}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => {
+                      setPicked((p) => ({ ...p, [group.key]: o }));
+                      setStep((s) => Math.min(s + 1, groups.length));
+                    }}
+                    className={`rounded-full px-4 py-2.5 text-[14px] font-medium transition-colors ${
+                      active
+                        ? "bg-saffron text-parchment"
+                        : "bg-parchment text-ink ring-1 ring-ink/10"
+                    }`}
+                  >
+                    {o}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        <div className="mt-7 flex flex-col gap-2.5 sm:flex-row-reverse sm:justify-end">
+          {isNoteStep || picked[group.key] ? (
+            <button
+              type="button"
+              disabled={answered === 0}
+              onClick={() => {
+                if (isNoteStep) {
+                  setView("results");
+                  window.scrollTo({ top: 0 });
+                } else {
+                  setStep((s) => Math.min(s + 1, groups.length));
+                }
+              }}
+              className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-40"
+            >
+              {isNoteStep ? "בואו נמצא את השביל שלי" : "לשאלה הבאה"}
+            </button>
+          ) : null}
+          {step > 0 && (
+            <button
+              type="button"
+              onClick={() => setStep((s) => Math.max(0, s - 1))}
+              className="rounded-xl bg-parchment px-6 py-3.5 text-[15px] font-medium text-ink ring-1 ring-ink/10"
+            >
+              לשאלה הקודמת
+            </button>
+          )}
+        </div>
+
+        {answered > 0 && (
+          <button
+            type="button"
+            onClick={() => {
+              setView("results");
+              window.scrollTo({ top: 0 });
+            }}
+            className="mt-4 text-[13px] font-medium text-saffron"
+          >
+            לראות את הכיוונים לפי מה שעניתי עד כה ←
+          </button>
         )}
       </Section>
     </>
   );
 }
+
 
 type ResultItem = { t: (typeof treks)[number]; reasons: string[] };
 

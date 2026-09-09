@@ -558,4 +558,4 @@ export const nepalQuickFacts: { label: string; value: string; note?: string }[] 
 ];
 
 /** Small verified surprises, placed sparingly across the site. */
-export const CONTACT_PLACEHOLDER = "[להשלמה: טלפון / וואטסאפ / אימייל]";
+export const CONTACT_PLACEHOLDER = "054-6545275 · hashvilhaze@gmail.com";

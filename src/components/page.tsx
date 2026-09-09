@@ -30,7 +30,7 @@ export function PageHero({
           <div className="absolute inset-0 bg-summit/75" />
         </>
       )}
-      <div className={`relative mx-auto max-w-3xl px-6 ${image ? "pt-11 pb-12" : "pt-8 pb-5"}`}>
+      <div className={`relative mx-auto max-w-4xl px-6 ${image ? "pt-11 pb-12" : "pt-8 pb-5"}`}>
         {kicker && <p className="mb-2 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
         <h1
           className={`max-w-[26ch] font-display text-[26px] leading-tight font-bold text-balance sm:text-3xl ${
@@ -65,7 +65,7 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section className={`mx-auto max-w-3xl px-6 py-7 sm:py-8 ${className}`}>
+    <section className={`mx-auto max-w-4xl px-6 py-7 sm:py-8 ${className}`}>
       {kicker && <p className="mb-1.5 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
       {title && (
         <h2 className="max-w-[30ch] font-display text-[22px] leading-snug font-bold text-balance sm:text-2xl">
@@ -121,7 +121,7 @@ export function TalkCta({
             to="/quote"
             className="rounded-xl bg-parchment px-6 py-3.5 text-[15px] font-medium text-ink ring-1 ring-ink/10"
           >
-            לקבלת הצעה
+            לקבלת הצעה אישית
           </Link>
         </div>
       </Card>

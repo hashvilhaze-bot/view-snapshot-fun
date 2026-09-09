@@ -87,8 +87,8 @@ export const galleries: Record<string, Photo[]> = {
     },
     {
       src: annapurna3,
-      alt: "טיהאוס פשוט על רכס, גג פח כחול, ספסלי עץ וכבל כביסה",
-      caption: "לודג׳ על הרכס",
+      alt: "בית תה פשוט על רכס, גג פח כחול, ספסלי עץ וכבל כביסה",
+      caption: "בית תה על הרכס",
     },
     {
       src: annapurna4,

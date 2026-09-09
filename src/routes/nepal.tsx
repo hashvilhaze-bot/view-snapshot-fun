@@ -43,8 +43,8 @@ function NepalPage() {
     <>
       <PageHero
         kicker="נפאל"
-        title="מדינה בגודל של ישראל, ובתוכה שמונה מעשר הפסגות הגבוהות בעולם"
-        lead="מג׳ונגל טרופי בטראי, דרך עמקי אורז וכפרים על צלעות ההר, ועד קרחונים בגובה חמשת אלפים מטר."
+        title="נפאל היא הרבה יותר מטרק"
+        lead="טרק מאתגר בגובה, כמה ימים רגועים בין כפרים, מפגש עם תרבות אחרת או שילוב של הכול — במדינה בגודל של ישראל שבתוכה שמונה מעשר הפסגות הגבוהות בעולם."
         image={heroHimalaya}
         imageAlt="רכס מושלג בהימלאיה באור ראשון"
       />
@@ -91,7 +91,7 @@ function NepalPage() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-summit/75" />
-        <div className="relative mx-auto max-w-3xl px-6 py-12">
+        <div className="relative mx-auto max-w-4xl px-6 py-12">
           <h2 className="font-display text-[22px] font-bold text-balance text-parchment sm:text-2xl">
             ההימלאיה היא סיבה מצוינת להגיע לנפאל. היא ממש לא הסיבה היחידה להישאר
           </h2>
@@ -119,10 +119,10 @@ function NepalPage() {
         />
       </Section>
 
-      <Section kicker="להכיר את נפאל" title="תוכן לקרוא, גם בלי לתכנן טיול">
+      <Section kicker="להכיר את נפאל" title="אוכל, תרבות וחיי יום־יום">
         <p className="text-[15px] leading-relaxed text-ink/70">
           דאל בהאט פעמיים ביום, מומו בדוכן ברחוב, מקדשים שהינדואיזם ובודהיזם חיים בהם זה לצד זה,
-          ולוח שנה משלהם.
+          ולוח שנה משלהם. זה חלק גדול מהחוויה, גם למי שלא הולך לטרק ארוך.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link

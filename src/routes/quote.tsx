@@ -143,7 +143,27 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
         lead="ספרו לנו בקצרה ונוכל להתחיל לבנות לכם הצעה. בלי שאלון — רק מה שצריך כדי לענות לעניין."
       />
 
+      {context && (
+        <Section>
+          <Card>
+            <p className="font-display text-[17px] font-bold">מה שכבר ספרתם לנו</p>
+            {context.summary && (
+              <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/65">{context.summary}</p>
+            )}
+            {context.directions?.length ? (
+              <p className="mt-2 text-[13.5px] leading-relaxed text-ink/65">
+                הכיוונים שיצאו לכם: <span className="font-semibold">{context.directions.join(" · ")}</span>
+              </p>
+            ) : null}
+            <p className="mt-2.5 text-[13px] leading-relaxed text-ink/50">
+              כל זה יישלח יחד עם הבקשה, כדי שלא תצטרכו לספר שוב. אפשר לשנות למטה כל דבר.
+            </p>
+          </Card>
+        </Section>
+      )}
+
       <Section>
+
         <form onSubmit={onSubmit} className="space-y-4">
           <fieldset>
             <legend className={label}>מה מעניין אתכם? אפשר לבחור כמה</legend>

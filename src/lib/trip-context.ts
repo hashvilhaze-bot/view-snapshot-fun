@@ -7,12 +7,12 @@ export type TripContext = {
   /** Where the context came from: "match" | "trek" | "experience" */
   source: string;
   /** Human-readable summary of the answers, shown back to the visitor. */
-  summary?: string;
+  summary?: string | undefined;
   /** Route/experience names we recommended or the visitor was looking at. */
-  directions?: string[];
+  directions?: string[] | undefined;
   /** Days available, as the visitor phrased it. */
-  time?: string;
-  savedAt?: string;
+  time?: string | undefined;
+  savedAt?: string | undefined;
 };
 
 const KEY = "hashvil:trip-context";

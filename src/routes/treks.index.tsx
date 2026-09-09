@@ -27,9 +27,9 @@ function TreksPage() {
   return (
     <>
       <PageHero
-        kicker="טרקים ולא רק"
+        kicker="טרקים ומסלולים"
         title="יש יותר מדרך אחת לפגוש את ההימלאיה"
-        lead="יש מי שרוצה ללכת גבוה ורחוק, ויש מי שמעדיף כמה ימים בהרים ולחזור לפוקרה. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי החוויה."
+        lead="יש מי שרוצה ללכת גבוה ורחוק, ויש מי שמעדיף כמה ימים בהרים ואחריהם מרפסת מול האגם בפוקרה. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי החוויה."
         image={valleyGolden}
         imageAlt="עמק בהימלאיה באור זהוב"
       />
@@ -69,7 +69,7 @@ function TreksPage() {
                 <p className="mt-1 text-[13px] text-ink/50">אופי: {t.character}</p>
                 <p className="mt-1 text-[13px] text-ink/50">למי מתאים: {t.fit}</p>
                 <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
-                  לעמוד המסלול ←
+                  לפרטי המסלול ←
                 </span>
               </Card>
             </Link>
@@ -93,13 +93,13 @@ function TreksPage() {
       <Section>
         <Card>
           <p className="text-[15px] leading-relaxed text-ink/75">
-            לא בטוחים מה מתאים לכם? יש כלי קצר שנותן שניים־שלושה כיוונים.
+            לא בטוחים מה מתאים לכם? שבע שאלות קצרות, ואחריהן שניים־שלושה כיוונים עם הסבר.
           </p>
           <Link
             to="/match"
             className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
           >
-            מה מתאים לי?
+            בואו נמצא את השביל שלכם
           </Link>
         </Card>
       </Section>

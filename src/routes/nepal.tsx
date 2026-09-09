@@ -86,7 +86,7 @@ function NepalPage() {
       <section className="relative overflow-hidden">
         <img
           src={kathmanduDusk}
-          alt="חצר מקדשים בקתמנדו בשעת בין ערביים"
+          alt="חצר מקדשים בקטמנדו בשעת בין ערביים"
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -96,7 +96,7 @@ function NepalPage() {
             ההימלאיה היא סיבה מצוינת להגיע לנפאל. היא ממש לא הסיבה היחידה להישאר
           </h2>
           <p className="mt-3 max-w-[46ch] text-[15px] leading-relaxed text-parchment/85">
-            סמטאות קתמנדו, בוקר מול ההרים בפוקרה, כפרים בין טרסות, רפטינג, ג׳ונגל ויוגה — ולפעמים
+            סמטאות קטמנדו, בוקר מול ההרים בפוקרה, כפרים בין טרסות, רפטינג, ג׳ונגל ויוגה — ולפעמים
             דווקא יום שלא תוכנן הופך לזיכרון הכי חזק מהטיול.
           </p>
           <Link

@@ -4,19 +4,23 @@ import { Menu, X, User as UserIcon } from "lucide-react";
 
 import logoAsset from "@/assets/hashvil-haze-logo.png.asset.json";
 import { useAuth } from "@/hooks/use-auth";
+import { useLocale } from "@/hooks/use-locale";
+import type { TranslationKey } from "@/lib/i18n";
 
-const nav = [
-  { to: "/", label: "בית" },
-  { to: "/nepal", label: "נפאל" },
-  { to: "/treks", label: "טרקים ולא רק" },
-  { to: "/match", label: "מה מתאים לי?" },
-  { to: "/knowledge", label: "מרכז ידע" },
-  { to: "/contact", label: "דברו איתנו" },
-] as const;
+const nav: { to: string; key: TranslationKey }[] = [
+  { to: "/", key: "nav.home" },
+  { to: "/nepal", key: "nav.nepal" },
+  { to: "/treks", key: "nav.treks" },
+  { to: "/match", key: "nav.match" },
+  { to: "/knowledge", key: "nav.knowledge" },
+  { to: "/contact", key: "nav.contact" },
+];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { user, name, avatarUrl, signOut } = useAuth();
+  const { t } = useLocale();
+
 
 
   return (

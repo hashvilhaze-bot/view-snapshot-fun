@@ -116,18 +116,22 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
   if (state === "sent") {
     return (
       <>
-        <PageHero kicker="קיבלנו" title="הבקשה נשלחה" lead="נחזור אליכם עם כיוון ראשוני והצעה." />
+        <PageHero
+          kicker="קיבלנו"
+          title="הבקשה נשלחה אלינו"
+          lead="נחזור אליכם עם כיוון ראשוני והצעה. אם משהו דחוף, אפשר לכתוב לנו בוואטסאפ בינתיים."
+        />
         <Section>
           <Card>
             <p className="text-[15px] leading-relaxed text-ink/75">
-              בזמן הזה אפשר להסתובב עוד קצת: יש עמוד לכל מסלול, ואזור תוכן על נפאל עצמה.
+              עד שנחזור אליכם אפשר להסתובב עוד קצת: יש עמוד נפרד לכל מסלול, ומרכז ידע על נפאל.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
                 to="/treks"
                 className="rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
               >
-                טרקים ולא רק
+                טרקים ומסלולים
               </Link>
               <Link
                 to="/knowledge"

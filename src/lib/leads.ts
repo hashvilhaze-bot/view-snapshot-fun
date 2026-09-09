@@ -8,10 +8,10 @@
 export const LEAD_WEBHOOK_URL = "https://hook.eu1.make.com/nmdv2k2jjslg9rttlwlpah9wxs8gw14x";
 
 /** International format, digits only, no plus. e.g. "9725XXXXXXX" */
-export const WHATSAPP_NUMBER = "";
+export const WHATSAPP_NUMBER = "972546545275";
 
-export const CONTACT_PHONE = "";
-export const CONTACT_EMAIL = "";
+export const CONTACT_PHONE = "054-6545275";
+export const CONTACT_EMAIL = "hashvilhaze@gmail.com";
 
 export const WHATSAPP_DEFAULT_MESSAGE =
   "היי, הגעתי דרך 'השביל הזה'. אני מתכנן טיול לנפאל ורוצה להתייעץ.";

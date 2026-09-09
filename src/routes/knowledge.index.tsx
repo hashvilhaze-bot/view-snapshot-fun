@@ -157,13 +157,13 @@ function KnowledgePage() {
       <Section>
         <Card>
           <p className="text-[15px] leading-relaxed text-ink/75">
-            רוצים לדעת איזה מסלול מתאים לכם לפני שנכנסים לפרטים?
+            רוצים לדעת איזה מסלול מתאים לכם, לפני שנכנסים לפרטים הקטנים?
           </p>
           <Link
             to="/match"
             className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
           >
-            מצאו את השביל שמתאים לכם
+            בואו נמצא את השביל שלכם
           </Link>
         </Card>
       </Section>

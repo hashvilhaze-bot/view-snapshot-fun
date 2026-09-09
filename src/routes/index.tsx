@@ -127,7 +127,13 @@ function Index() {
           לשלב טרק, כפרים וכמה ימים שבהם לא ממהרים לשום מקום.
         </p>
         <div className="space-y-3">
-          {treks.map((t) => {
+          {treks
+            .filter((t) =>
+              ["pokhara-hills", "poon-hill", "annapurna-base-camp", "everest-base-camp"].includes(
+                t.slug,
+              ),
+            )
+            .map((t) => {
             const cover = galleries[t.slug]?.[0];
             return (
               <Link key={t.slug} to="/treks/$slug" params={{ slug: t.slug }} className="block">

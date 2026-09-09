@@ -55,6 +55,10 @@ function TreksPage() {
                     <dd className="font-medium">{t.altitude}</dd>
                   </div>
                   <div>
+                    <dt className="text-ink/45">ימים בנפאל</dt>
+                    <dd className="font-medium">מ־{t.totalDaysMin} ומעלה</dd>
+                  </div>
+                  <div>
                     <dt className="text-ink/45">מאמץ</dt>
                     <dd className="pt-1.5">
                       <EffortBars level={t.effort} />

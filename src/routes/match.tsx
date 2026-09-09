@@ -344,15 +344,18 @@ function ResultsView({
             onClick={onBack}
             className="text-[13px] font-medium text-parchment/60"
           >
-            → לשנות תשובות
+            → לחזור ולשנות תשובות
           </button>
-          <p className="mt-4 text-[12px] font-medium tracking-wide text-saffron">
-            הכיוונים שלכם
-          </p>
+          <p className="mt-4 text-[12px] font-medium tracking-wide text-saffron">הכיוונים שלכם</p>
           <h1 className="mt-1.5 font-display text-[26px] leading-tight font-bold text-parchment sm:text-3xl">
-            לפי מה שסיפרתם, אלה השבילים שהיינו מציעים לבדוק
+            לפי מה שספרתם, אלה השבילים ששווה לבדוק
           </h1>
-          {summary && <p className="mt-3 text-[13.5px] leading-relaxed text-parchment/60">{summary}</p>}
+          <p className="mt-2.5 max-w-[46ch] text-[14px] leading-relaxed text-parchment/75">
+            אלה כיוונים לפתיחת שיחה, לא תוכנית סופית. בשיחה נדייק את המסלול, הקצב והימים.
+          </p>
+          {summary && (
+            <p className="mt-3 text-[13.5px] leading-relaxed text-parchment/55">{summary}</p>
+          )}
         </div>
       </section>
 

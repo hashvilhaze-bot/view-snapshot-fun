@@ -47,7 +47,7 @@ export function SiteHeader() {
               activeProps={{ className: "text-parchment bg-brand-sky/15" }}
               className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/70 transition-colors hover:text-parchment"
             >
-              {n.label}
+              {t(n.key)}
             </Link>
           ))}
         </nav>
@@ -110,7 +110,7 @@ export function SiteHeader() {
                   activeProps={{ className: "text-parchment" }}
                   className="block px-1 py-2.5 text-[14px] font-medium text-parchment/75"
                 >
-                  {n.label}
+                  {t(n.key)}
                 </Link>
               </li>
             ))}

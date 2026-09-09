@@ -135,13 +135,13 @@ function TrekPage() {
             }
             className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
           >
-            לבקש הצעה על המסלול הזה
+            לקבלת הצעה למסלול הזה
           </Link>
           <Link
             to="/treks"
             className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
           >
-            נפאל שמעבר לטרקים
+            לגלות את נפאל שמעבר לטרקים
           </Link>
           <WhatsappButton
             message={`היי, הגעתי דרך 'השביל הזה'. אני מסתכל על ${trek.name} ורוצה להבין מה אפשר לשלב סביבו.`}

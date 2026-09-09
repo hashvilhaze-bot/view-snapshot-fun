@@ -61,7 +61,7 @@ function ExperiencePage() {
               to="/treks"
               className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
             >
-              לראות מסלולים
+              לפרטי המסלולים
             </Link>
             <Link
               to="/quote"
@@ -74,7 +74,7 @@ function ExperiencePage() {
               }
               className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
             >
-              לבקש הצעה שכוללת את זה
+              לקבלת הצעה שכוללת את זה
             </Link>
           </div>
         </Card>

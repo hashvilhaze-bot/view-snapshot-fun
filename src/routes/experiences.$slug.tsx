@@ -55,12 +55,27 @@ function ExperiencePage() {
       <Section title="לשלב בטיול">
         <Card>
           <p className="text-[15px] leading-relaxed text-ink/75">{item.combine}</p>
-          <Link
-            to="/treks"
-            className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
-          >
-            לראות מסלולים
-          </Link>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              to="/treks"
+              className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
+            >
+              לראות מסלולים
+            </Link>
+            <Link
+              to="/quote"
+              onClick={() =>
+                saveTripContext({
+                  source: "experience",
+                  directions: [item.name],
+                  summary: `${item.name} — ${item.kicker}`,
+                })
+              }
+              className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
+            >
+              לבקש הצעה שכוללת את זה
+            </Link>
+          </div>
         </Card>
       </Section>
 

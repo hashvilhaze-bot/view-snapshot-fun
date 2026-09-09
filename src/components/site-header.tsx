@@ -68,14 +68,14 @@ export function SiteHeader() {
                 ) : (
                   <UserIcon className="h-4 w-4" />
                 )}
-                <span className="max-w-[110px] truncate">{name ?? "האזור האישי"}</span>
+                <span className="max-w-[110px] truncate">{name ?? t("auth.profile")}</span>
               </Link>
               <button
                 type="button"
                 onClick={signOut}
                 className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/70 ring-1 ring-brand-line/40 transition-colors hover:text-parchment"
               >
-                התנתקות
+                {t("auth.signOut")}
               </button>
             </>
           ) : (
@@ -83,7 +83,7 @@ export function SiteHeader() {
               to="/auth"
               className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/80 ring-1 ring-brand-line/40 transition-colors hover:text-parchment"
             >
-              התחברות
+              {t("auth.signIn")}
             </Link>
           )}
         </div>
@@ -121,14 +121,14 @@ export function SiteHeader() {
               onClick={() => setOpen(false)}
               className="flex-1 rounded-lg bg-saffron px-3 py-2.5 text-center text-[14px] font-semibold text-parchment"
             >
-              בואו נדבר
+              {t("cta.talk")}
             </Link>
             <Link
               to="/quote"
               onClick={() => setOpen(false)}
               className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
             >
-              כבר יודעים?
+              {t("cta.knowAlready")}
             </Link>
           </div>
           <div className="mb-2 flex gap-2">
@@ -139,7 +139,7 @@ export function SiteHeader() {
                   onClick={() => setOpen(false)}
                   className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
                 >
-                  האזור האישי
+                  {t("auth.profile")}
                 </Link>
                 <button
                   type="button"
@@ -149,7 +149,7 @@ export function SiteHeader() {
                   }}
                   className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/70 ring-1 ring-brand-line/40"
                 >
-                  התנתקות
+                  {t("auth.signOut")}
                 </button>
               </>
             ) : (
@@ -158,7 +158,7 @@ export function SiteHeader() {
                 onClick={() => setOpen(false)}
                 className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
               >
-                התחברות
+                {t("auth.signIn")}
               </Link>
             )}
           </div>

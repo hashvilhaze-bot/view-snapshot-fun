@@ -3,6 +3,24 @@ import { useState } from "react";
 
 import { Card, PageHero, QuickFacts, Section, TalkCta } from "@/components/page";
 import { articles, knowledgeCategories, type KnowledgeCategory } from "@/lib/content";
+import { galleries } from "@/lib/galleries";
+
+/** A photo from the site's own galleries that matches each guide's subject. */
+const articleCover: Record<string, [string, number]> = {
+  altitude: ["everest-base-camp", 2],
+  "when-to-go": ["poon-hill", 0],
+  "lodges-permits": ["annapurna-base-camp", 2],
+  "gear-money": ["pokhara", 2],
+  "choosing-trek": ["pokhara-hills", 0],
+  "manaslu-vs-annapurna": ["manaslu-circuit", 1],
+  "day-on-trail": ["villages", 2],
+  "culture-food": ["kathmandu", 2],
+};
+
+function readMinutes(body: string[]) {
+  const words = body.join(" ").split(/\s+/).filter(Boolean).length;
+  return Math.max(2, Math.round(words / 180));
+}
 
 export const Route = createFileRoute("/knowledge/")({
   component: KnowledgePage,

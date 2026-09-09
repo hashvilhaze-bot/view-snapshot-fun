@@ -31,3 +31,15 @@
 - [x] Google Sign-In (Lovable Cloud) + /auth page + header state
 - [x] Profile screen: name, photo, trip preferences (/profile)
 - [x] Email + password UI on /auth — needs Email provider switched on in Cloud auth settings
+
+## Round 6 — data spine & flow
+- [x] Section renamed to "טרקים ולא רק" everywhere
+- [x] 5 new trek directions (פון היל, מרדי הימאל, לנגטנג, סבב אנאפורנה, אברסט בייס קמפ) with photos
+- [x] Numeric duration data (trek days + total days in Nepal) on every trek
+- [x] Matching: hard filter by available days + flexibility question + ranked results + "what didn't fit"
+- [x] Session memory: answers/viewed route flow into /quote ("מה שכבר ספרתם לנו")
+- [x] Signed-in name & email prefilled in the quote form
+- [x] Lead payload enriched (answers, recommendations, source) — same submission channel
+- [x] Rafting expanded (טריסולי / בהוטה קושי / ארון)
+- [ ] English version infrastructure — not started
+- [ ] Remaining `[להשלמה: ...]` facts: rafting grades/seasons, equipment lists, partner names

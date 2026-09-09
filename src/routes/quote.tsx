@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
+import { useAuth } from "@/hooks/use-auth";
 import { submitLead, whatsappHref } from "@/lib/leads";
+import { readTripContext, type TripContext } from "@/lib/trip-context";
 
 const INTERESTS = [
   "טרק מנאסלו",
@@ -38,8 +40,10 @@ const field =
 const label = "text-[13px] font-medium text-ink/60";
 
 function QuotePage() {
+  const { user, name: authName } = useAuth();
   const [state, setState] = useState<"idle" | "sending" | "sent" | "manual" | "failed">("idle");
   const [interests, setInterests] = useState<string[]>([]);
+  const [context, setContext] = useState<TripContext | null>(null);
   const [form, setForm] = useState({
     dates: "",
     travelers: "",
@@ -48,6 +52,27 @@ function QuotePage() {
     phone: "",
     email: "",
   });
+
+  // What the visitor already told us elsewhere on the site — don't ask twice.
+  useEffect(() => {
+    const ctx = readTripContext();
+    if (!ctx) return;
+    setContext(ctx);
+    setForm((f) => ({ ...f, dates: f.dates || (ctx.time ?? "") }));
+    if (ctx.directions?.length) {
+      setInterests((cur) => (cur.length ? cur : ctx.directions!.slice(0, 3)));
+    }
+  }, []);
+
+  // Signed-in visitors shouldn't retype their name and email.
+  useEffect(() => {
+    if (!user) return;
+    setForm((f) => ({
+      ...f,
+      name: f.name || (authName && !authName.includes("@") ? authName : ""),
+      email: f.email || user.email || "",
+    }));
+  }, [user, authName]);
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -61,7 +86,7 @@ function QuotePage() {
 מעניין אותי: ${interestsText || "—"}
 תקופה: ${form.dates || "—"}
 נוסעים: ${form.travelers || "—"}
-${form.note ? `הערה: ${form.note}` : ""}
+${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שעניתי בשאלון: ${context.summary}` : ""}
 שם: ${form.name || "—"} · טלפון: ${form.phone || "—"}${form.email ? ` · אימייל: ${form.email}` : ""}`;
 
   async function onSubmit(e: React.FormEvent) {
@@ -71,9 +96,15 @@ ${form.note ? `הערה: ${form.note}` : ""}
       source: "quote-request",
       ...form,
       interests: interestsText,
+      // Everything we already know, passed along with the lead as-is.
+      quizAnswers: context?.summary ?? "",
+      recommended: context?.directions?.join(", ") ?? "",
+      contextSource: context?.source ?? "direct",
+      signedIn: user ? "yes" : "no",
     });
     setState(result === "sent" ? "sent" : result === "unconfigured" ? "manual" : "failed");
   }
+
 
   if (state === "sent") {
     return (
@@ -89,7 +120,7 @@ ${form.note ? `הערה: ${form.note}` : ""}
                 to="/treks"
                 className="rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
               >
-                טרקים וחוויות
+                טרקים ולא רק
               </Link>
               <Link
                 to="/knowledge"
@@ -112,7 +143,27 @@ ${form.note ? `הערה: ${form.note}` : ""}
         lead="ספרו לנו בקצרה ונוכל להתחיל לבנות לכם הצעה. בלי שאלון — רק מה שצריך כדי לענות לעניין."
       />
 
+      {context && (
+        <Section>
+          <Card>
+            <p className="font-display text-[17px] font-bold">מה שכבר ספרתם לנו</p>
+            {context.summary && (
+              <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/65">{context.summary}</p>
+            )}
+            {context.directions?.length ? (
+              <p className="mt-2 text-[13.5px] leading-relaxed text-ink/65">
+                הכיוונים שיצאו לכם: <span className="font-semibold">{context.directions.join(" · ")}</span>
+              </p>
+            ) : null}
+            <p className="mt-2.5 text-[13px] leading-relaxed text-ink/50">
+              כל זה יישלח יחד עם הבקשה, כדי שלא תצטרכו לספר שוב. אפשר לשנות למטה כל דבר.
+            </p>
+          </Card>
+        </Section>
+      )}
+
       <Section>
+
         <form onSubmit={onSubmit} className="space-y-4">
           <fieldset>
             <legend className={label}>מה מעניין אתכם? אפשר לבחור כמה</legend>
@@ -272,7 +323,7 @@ ${form.note ? `הערה: ${form.note}` : ""}
           </Link>
           <Link to="/treks">
             <Card className="h-full p-4">
-              <p className="font-display font-bold">טרקים וחוויות</p>
+              <p className="font-display font-bold">טרקים ולא רק</p>
               <p className="mt-1 text-[13px] text-ink/60">משך, גובה ומאמץ במבט אחד</p>
             </Card>
           </Link>

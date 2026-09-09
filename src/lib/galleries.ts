@@ -29,6 +29,20 @@ import chit3 from "@/assets/gallery/chitwan-3.jpg";
 import yoga1 from "@/assets/gallery/yoga-rest-1.jpg";
 import yoga2 from "@/assets/gallery/yoga-rest-2.jpg";
 import yoga3 from "@/assets/gallery/yoga-rest-3.jpg";
+import poon1 from "@/assets/gallery/poonhill-1.jpg";
+import poon2 from "@/assets/gallery/poonhill-2.jpg";
+import poon3 from "@/assets/gallery/poonhill-3.jpg";
+import mardi1 from "@/assets/gallery/mardi-1.jpg";
+import mardi2 from "@/assets/gallery/mardi-2.jpg";
+import lang1 from "@/assets/gallery/langtang-1.jpg";
+import lang2 from "@/assets/gallery/langtang-2.jpg";
+import lang3 from "@/assets/gallery/langtang-3.jpg";
+import acirc1 from "@/assets/gallery/acircuit-1.jpg";
+import acirc2 from "@/assets/gallery/acircuit-2.jpg";
+import acirc3 from "@/assets/gallery/acircuit-3.jpg";
+import ebc1 from "@/assets/gallery/everest-1.jpg";
+import ebc2 from "@/assets/gallery/everest-2.jpg";
+import ebc3 from "@/assets/gallery/everest-3.jpg";
 
 export type Photo = { src: string; alt: string; caption: string };
 
@@ -80,6 +94,86 @@ export const galleries: Record<string, Photo[]> = {
       src: annapurna4,
       alt: "פסגת סלע חדה מתנשאת מעל רכסים מיוערים כהים",
       caption: "פסגה מעל היער",
+    },
+  ],
+  "poon-hill": [
+    {
+      src: poon1,
+      alt: "זריחה מנקודת תצפית: שורת פסגות מושלגות גבוהות באור ורוד",
+      caption: "הזריחה מפון היל",
+    },
+    {
+      src: poon2,
+      alt: "מדרגות אבן עולות בתוך יער רודודנדרון סמיך ומעורפל",
+      caption: "המדרגות אל גורפאני",
+    },
+    {
+      src: poon3,
+      alt: "כפר גבעות נפאלי עם אכסניות פשוטות ומרפסות מול רכס מושלג",
+      caption: "לינה בכפר",
+    },
+  ],
+  "mardi-himal": [
+    {
+      src: mardi1,
+      alt: "שביל צר על גב רכס פתוח מעל קו העצים, פסגה חדה ברקע",
+      caption: "הליכה על הרכס",
+    },
+    {
+      src: mardi2,
+      alt: "מחנה גבוה ופשוט על מדרון, מעל ים עננים שממלא את העמק",
+      caption: "המחנה הגבוה",
+    },
+  ],
+  "langtang-valley": [
+    {
+      src: lang1,
+      alt: "עמק הימלאיה רחב עם נהר, יערות ופסגות מושלגות בקצה",
+      caption: "העמק נפתח",
+    },
+    {
+      src: lang2,
+      alt: "כפר אבן בעמק לנגטנג, חומות אבן, גגות פח ושדות קטנים",
+      caption: "כפר שנבנה מחדש",
+    },
+    {
+      src: lang3,
+      alt: "קרחון וקירות סלע מושלגים מעל מרעה גבוה עם יאקים",
+      caption: "סוף העמק",
+    },
+  ],
+  "annapurna-circuit": [
+    {
+      src: acirc1,
+      alt: "שביל עולה בעמק ירוק ותלול עם נהר וגשר תלוי",
+      caption: "העמק הירוק בהתחלה",
+    },
+    {
+      src: acirc2,
+      alt: "כפר גבוה בסגנון טיבטי במדבר גבוה, פסגות מושלגות מעליו",
+      caption: "כפר גבוה סביב מאנאנג",
+    },
+    {
+      src: acirc3,
+      alt: "מטיילים חוצים מעבר הרים גבוה ומושלג בבוקר",
+      caption: "יום המעבר בתורונג לה",
+    },
+  ],
+  "everest-base-camp": [
+    {
+      src: ebc1,
+      alt: "פסגות מושלגות גבוהות מעל קרחון אפור וארוך",
+      caption: "קרחון הקומבו",
+    },
+    {
+      src: ebc2,
+      alt: "מונסטרי בודהיסטי על רכס גבוה מול הר מושלג חד",
+      caption: "מונסטרי מול ההרים",
+    },
+    {
+      src: ebc3,
+      alt: "שביל אבנים עולה בגובה בין גלעדי אבן ודגלי תפילה",
+      caption: "השביל בגובה",
     },
   ],
   "pokhara-hills": [

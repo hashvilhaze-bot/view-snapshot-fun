@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
 import { experiences, treks } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
 import { submitLead, whatsappHref } from "@/lib/leads";
+import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/match")({
   component: MatchPage,
@@ -23,7 +24,12 @@ export const Route = createFileRoute("/match")({
 });
 
 const groups = [
-  { key: "time", label: "כמה זמן יש לכם", options: ["עד שבוע", "שבועיים", "שלושה שבועות ויותר"] },
+  { key: "time", label: "כמה ימים יש לכם בנפאל בסך הכול", options: ["עד שבוע", "שבועיים", "שלושה שבועות ויותר"] },
+  {
+    key: "flex",
+    label: "כמה גמישות יש בתאריכים",
+    options: ["הימים קבועים", "אפשר להוסיף כמה ימים", "אפשר לבנות סביב המסלול"],
+  },
   {
     key: "experience",
     label: "ניסיון קודם בטרקים",
@@ -43,27 +49,54 @@ const groups = [
   { key: "company", label: "עם מי נוסעים", options: ["לבד", "בזוג", "עם חברים", "עם משפחה"] },
 ] as const;
 
+const DAYS_BY_ANSWER: Record<string, number> = {
+  "עד שבוע": 7,
+  שבועיים: 14,
+  "שלושה שבועות ויותר": 21,
+};
+
+const FLEX_BONUS: Record<string, number> = {
+  "הימים קבועים": 0,
+  "אפשר להוסיף כמה ימים": 3,
+  "אפשר לבנות סביב המסלול": 7,
+};
+
 function MatchPage() {
   const [picked, setPicked] = useState<Record<string, string>>({});
   const [view, setView] = useState<"quiz" | "results">("quiz");
 
   const answered = Object.keys(picked).length;
 
-  const results = (() => {
+  const budgetDays = picked["time"]
+    ? DAYS_BY_ANSWER[picked["time"]]! + (FLEX_BONUS[picked["flex"] ?? ""] ?? 0)
+    : null;
+
+  const { results, filteredOut } = (() => {
     const wantsHigh = picked["effort"] === "מאתגר" || picked["experience"] === "טרקים ארוכים";
     const wantsLow = picked["effort"] === "רגוע" || picked["experience"] === "אין כמעט";
-    const shortTime = picked["time"] === "עד שבוע";
-    const longTime = picked["time"] === "שלושה שבועות ויותר";
     const culture = picked["interest"] === "אנשים ותרבות";
     const both = picked["interest"] === "גם וגם";
     const needsComfort = picked["comfort"] === "חשוב לי מיטה נוחה";
     const family = picked["company"] === "עם משפחה";
 
-    return treks
+    // Hard filter first: a route that does not fit the days is not a recommendation.
+    const fits = budgetDays ? treks.filter((t) => t.totalDaysMin <= budgetDays) : treks;
+    const removed = budgetDays ? treks.filter((t) => t.totalDaysMin > budgetDays) : [];
+
+    const pool = fits.length > 0 ? fits : [...treks].sort((a, b) => a.totalDaysMin - b.totalDaysMin).slice(0, 2);
+
+    const scored = pool
       .map((t) => {
         let score = 0;
         const reasons: string[] = [];
 
+        if (budgetDays) {
+          reasons.push(
+            `נכנס בנוחות ל${picked["time"]}: צריך בפועל בסביבות ${t.totalDaysMin} ימים בנפאל, כולל טיסות וימי חסד.`,
+          );
+          // A route that uses the days well scores better than one far below.
+          score += 3 - Math.min(3, Math.floor((budgetDays - t.totalDaysMin) / 4));
+        }
         if (wantsHigh) {
           score += t.effort;
           if (t.effort === 3) reasons.push("אמרתם מאמץ גבוה — וזה מסלול עם גובה וימים ארוכים.");
@@ -71,15 +104,6 @@ function MatchPage() {
         if (wantsLow) {
           score += 4 - t.effort;
           if (t.effort === 1) reasons.push("אמרתם קצב רגוע — כאן הגבהים נמוכים והימים קצרים.");
-        }
-        if (shortTime) {
-          score += t.effort === 1 ? 3 : t.effort === 2 ? 1 : -2;
-          if (t.effort === 1) reasons.push("נכנס בנוחות לשבוע, כולל טיסות וימי חסד.");
-          if (t.effort === 3) reasons.push("בשבוע אחד זה לא ריאלי — צריך יותר ימים.");
-        }
-        if (longTime) {
-          score += t.effort === 3 ? 2 : 0;
-          if (t.effort === 3) reasons.push("עם שלושה שבועות אפשר לעשות אותו בקצב נכון.");
         }
         if (culture || both) {
           score += t.effort === 1 ? 2 : 1;
@@ -94,10 +118,12 @@ function MatchPage() {
           if (t.effort === 1) reasons.push("עובד טוב גם עם ילדים גדולים.");
         }
 
-        return { t, score, reasons: reasons.slice(0, 2) };
+        return { t, score, reasons: reasons.slice(0, 3) };
       })
       .sort((a, b) => b.score - a.score)
-      .slice(0, 2);
+      .slice(0, 3);
+
+    return { results: scored, filteredOut: removed };
   })();
 
   const extras = (() => {
@@ -114,12 +140,14 @@ function MatchPage() {
     return (
       <ResultsView
         results={results}
+        filteredOut={filteredOut}
         extras={extras}
         picked={picked}
         onBack={() => setView("quiz")}
       />
     );
   }
+
 
   return (
     <>
@@ -182,19 +210,34 @@ type ResultItem = { t: (typeof treks)[number]; reasons: string[] };
 
 function ResultsView({
   results,
+  filteredOut,
   extras,
   picked,
   onBack,
 }: {
   results: ResultItem[];
+  filteredOut: (typeof treks)[number][];
   extras: (typeof experiences)[number][];
   picked: Record<string, string>;
   onBack: () => void;
 }) {
   const summary = Object.values(picked).join(" · ");
-  const waMessage = `היי, הגעתי דרך 'השביל הזה'. עניתי על "מה מתאים לי?" (${summary}) והכיוונים שיצאו לי: ${results
-    .map((r) => r.t.name)
-    .join(", ")}. אשמח להתייעץ.`;
+  const directions = results.map((r) => r.t.name);
+
+  // Remember the answers so the quote form does not ask for them again.
+  useEffect(() => {
+    saveTripContext({
+      source: "match",
+      summary,
+      directions,
+      time: picked["time"],
+    });
+  }, [summary, directions.join(","), picked["time"]]);
+
+  const waMessage = `היי, הגעתי דרך 'השביל הזה'. עניתי על "מה מתאים לי?" (${summary}) והכיוונים שיצאו לי: ${directions.join(
+    ", ",
+  )}. אשמח להתייעץ.`;
+
 
   return (
     <>
@@ -235,7 +278,7 @@ function ResultsView({
                 )}
                 <div className="p-5">
                   <p className="text-[11px] font-semibold tracking-wide text-saffron">
-                    {i === 0 ? "הכיוון הראשון" : "כיוון נוסף שכדאי לשקול"}
+                    {i === 0 ? "ההמלצה המובילה" : "חלופה שכדאי לשקול"}
                   </p>
                   <p className="mt-1 font-display text-lg font-bold">{t.name}</p>
                   <p className="mt-1 text-[13px] text-ink/60">
@@ -283,6 +326,25 @@ function ResultsView({
             );
           })}
         </div>
+
+        {filteredOut.length > 0 && (
+          <Card className="mt-5">
+            <p className="text-[13px] font-semibold text-ink/60">מה לא נכנס לימים שיש לכם</p>
+            <ul className="mt-2 space-y-1.5">
+              {filteredOut.map((t) => (
+                <li key={t.slug} className="text-[13.5px] leading-relaxed text-ink/65">
+                  <span className="font-semibold">{t.name}</span> — צריך בפועל בסביבות{" "}
+                  {t.totalDaysMin} ימים בנפאל.
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2.5 text-[13px] leading-relaxed text-ink/55">
+              אם יש גמישות של כמה ימים, שווה לחזור אחורה ולסמן אותה — זה משנה את התמונה.
+            </p>
+          </Card>
+        )}
+
+
 
         <div className="mt-6">
           <p className="text-[13px] font-medium text-ink/60">ולשלב סביב זה</p>

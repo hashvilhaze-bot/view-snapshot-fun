@@ -22,7 +22,7 @@ export function SiteFooter() {
               <Link to="/nepal">נפאל</Link>
             </li>
             <li>
-              <Link to="/treks">טרקים וחוויות</Link>
+              <Link to="/treks">טרקים ולא רק</Link>
             </li>
             <li>
               <Link to="/match">מה מתאים לי?</Link>

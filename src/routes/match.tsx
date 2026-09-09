@@ -327,6 +327,25 @@ function ResultsView({
           })}
         </div>
 
+        {filteredOut.length > 0 && (
+          <Card className="mt-5">
+            <p className="text-[13px] font-semibold text-ink/60">מה לא נכנס לימים שיש לכם</p>
+            <ul className="mt-2 space-y-1.5">
+              {filteredOut.map((t) => (
+                <li key={t.slug} className="text-[13.5px] leading-relaxed text-ink/65">
+                  <span className="font-semibold">{t.name}</span> — צריך בפועל בסביבות{" "}
+                  {t.totalDaysMin} ימים בנפאל.
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2.5 text-[13px] leading-relaxed text-ink/55">
+              אם יש גמישות של כמה ימים, שווה לחזור אחורה ולסמן אותה — זה משנה את התמונה.
+            </p>
+          </Card>
+        )}
+
+
+
         <div className="mt-6">
           <p className="text-[13px] font-medium text-ink/60">ולשלב סביב זה</p>
           <div className="mt-2 grid grid-cols-2 gap-3">

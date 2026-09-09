@@ -21,12 +21,6 @@
 - [x] Trust: who accompanies in Israel / who runs it in Nepal (placeholders where unknown)
 - [x] Mobile-first review of every page
 
-## Blocked — waiting on the client
-- Real WhatsApp number / phone / email (all contact points are placeholders)
-- The Make webhook URL for leads (no lead integration exists in this project's code)
-- Google Sign-In: optional UX layer only, needs the backend enabled — not added yet
-- Missing facts marked `[להשלמה: ...]` in content
-
 ## Round 5 — auth
 - [x] Google Sign-In (Lovable Cloud) + /auth page + header state
 - [x] Profile screen: name, photo, trip preferences (/profile)
@@ -44,8 +38,13 @@
 - [x] English/LTR infrastructure built (src/lib/i18n.ts + useLocale, header/footer wired). Hebrew stays default; `ENGLISH_ENABLED = false` so no partial English is exposed. Flip it on once full EN copy exists.
 - [x] Facts completed: rafting grades + seasons, gear list, walking hours, Tsum extension, Chitwan/yoga durations, festival timing
 - [x] Lead integration left untouched by request (new webhook not connected to a Make scenario yet)
-- [ ] Missing details to receive from the client (do not invent):
-      1. WhatsApp number (international format), 2. phone number, 3. email address,
-      4. Israel-side contact person: name + background, 5. Nepal local partner: name + background,
-      6. verified lead webhook URL (only after the Make scenario is confirmed)
+- [x] Make webhook connected on 2026-09-09 to `https://hook.eu1.make.com/nmdv2k2jjslg9rttlwlpah9wxs8gw14x` — quote form submits form fields + trip context
 - [x] Kathmandu spelling normalised to קטמנדו site-wide
+
+## Still missing — needs client input (do not invent)
+1. WhatsApp number (international format)
+2. Phone number
+3. Email address
+4. Israel-side contact person: name + background
+5. Nepal local partner: name + background
+6. Make Scenario verified as receiving and processing leads (endpoint connected; scenario flow to be confirmed by client)

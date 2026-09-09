@@ -52,7 +52,7 @@ function NepalPage() {
       <Section kicker="נפאל בכמה רגעים" title="כרטיס ביקור מהיר">
         <QuickFacts />
         <Link to="/knowledge" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
-          עוד תשובות קצרות לפני שנוסעים ←
+          למרכז הידע למטיילים בנפאל ←
         </Link>
       </Section>
 
@@ -79,7 +79,7 @@ function NepalPage() {
           to="/treks"
           className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
         >
-          לטרקים ולחוויות
+          לטרקים ולמסלולים
         </Link>
       </Section>
 
@@ -103,7 +103,7 @@ function NepalPage() {
             to="/treks"
             className="mt-5 inline-block rounded-xl bg-parchment/15 px-5 py-3 text-[14px] font-medium text-parchment ring-1 ring-parchment/25"
           >
-            נפאל שמעבר לטרקים
+            לגלות את נפאל שמעבר לטרקים
           </Link>
         </div>
       </section>

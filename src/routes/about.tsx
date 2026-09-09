@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import guidePortrait from "@/assets/guide-portrait.jpg";
 import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_NOTE, NEPAL_PARTNER_ROLE } from "@/lib/leads";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,

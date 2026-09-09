@@ -308,6 +308,15 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
         </form>
       </Section>
 
+      <Section title="מי מקבל את הבקשה">
+        <Card>
+          <p className="text-[14px] leading-relaxed text-ink/75">
+            בארץ: אוהד הרץ. בנפאל: {NEPAL_PARTNER_NAME} — {NEPAL_PARTNER_ROLE}.
+          </p>
+          <p className="mt-1.5 text-[13px] leading-relaxed text-ink/50">{NEPAL_PARTNER_NOTE}</p>
+        </Card>
+      </Section>
+
       <Section title="עדיין מתלבטים?">
         <div className="grid gap-3 sm:grid-cols-2">
           <Link to="/match">

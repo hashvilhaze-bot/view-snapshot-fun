@@ -278,7 +278,7 @@ function ResultsView({
                 )}
                 <div className="p-5">
                   <p className="text-[11px] font-semibold tracking-wide text-saffron">
-                    {i === 0 ? "הכיוון הראשון" : "כיוון נוסף שכדאי לשקול"}
+                    {i === 0 ? "ההמלצה המובילה" : "חלופה שכדאי לשקול"}
                   </p>
                   <p className="mt-1 font-display text-lg font-bold">{t.name}</p>
                   <p className="mt-1 text-[13px] text-ink/60">

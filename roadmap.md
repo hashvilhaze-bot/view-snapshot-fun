@@ -41,7 +41,11 @@
 - [x] Signed-in name & email prefilled in the quote form
 - [x] Lead payload enriched (answers, recommendations, source) — same submission channel
 - [x] Rafting expanded (טריסולי / בהוטה קושי / ארון)
-- [ ] English version infrastructure — not started (needs user decision on scope)
+- [x] English/LTR infrastructure built (src/lib/i18n.ts + useLocale, header/footer wired). Hebrew stays default; `ENGLISH_ENABLED = false` so no partial English is exposed. Flip it on once full EN copy exists.
 - [x] Facts completed: rafting grades + seasons, gear list, walking hours, Tsum extension, Chitwan/yoga durations, festival timing
-- [ ] Still blocked on client: partner names/background, phone/WhatsApp/email, lead webhook URL
+- [x] Lead integration left untouched by request (new webhook not connected to a Make scenario yet)
+- [ ] Missing details to receive from the client (do not invent):
+      1. WhatsApp number (international format), 2. phone number, 3. email address,
+      4. Israel-side contact person: name + background, 5. Nepal local partner: name + background,
+      6. verified lead webhook URL (only after the Make scenario is confirmed)
 - [x] Kathmandu spelling normalised to קטמנדו site-wide

@@ -446,7 +446,7 @@ function ResultsView({
 
 
         <div className="mt-6">
-          <p className="text-[13px] font-medium text-ink/60">ולשלב סביב זה</p>
+          <p className="text-[13px] font-medium text-ink/60">מה אפשר לשלב סביב המסלול</p>
           <div className="mt-2 grid grid-cols-2 gap-3">
             {extras.map((e) => (
               <Link key={e.slug} to="/experiences/$slug" params={{ slug: e.slug }}>
@@ -460,8 +460,8 @@ function ResultsView({
         </div>
 
         <p className="mt-5 text-[13px] leading-relaxed text-ink/55">
-          אף אחד מהכיוונים האלה אינו סופי — כמעט כל מסלול נבנה אחרת בפועל, לפי הימים שיש לכם ולפי
-          מה שמעניין אתכם בדרך.
+          כל אחד מהכיוונים האלה נבנה בפועל אחרת, לפי הימים שיש לכם ולפי מה שמעניין אתכם בדרך. אנחנו
+          נשמח לעבור על זה איתכם בשיחה.
         </p>
       </Section>
 

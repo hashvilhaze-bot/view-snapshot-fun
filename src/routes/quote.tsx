@@ -3,7 +3,13 @@ import { useEffect, useState } from "react";
 
 import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
 import { useAuth } from "@/hooks/use-auth";
-import { submitLead, whatsappHref } from "@/lib/leads";
+import {
+  NEPAL_PARTNER_NAME,
+  NEPAL_PARTNER_NOTE,
+  NEPAL_PARTNER_ROLE,
+  submitLead,
+  whatsappHref,
+} from "@/lib/leads";
 import { readTripContext, type TripContext } from "@/lib/trip-context";
 
 const INTERESTS = [

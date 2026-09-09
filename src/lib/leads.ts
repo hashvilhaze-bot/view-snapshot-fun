@@ -1,14 +1,11 @@
 /**
  * Lead channels.
  *
- * The client already runs a lead pipeline (form -> webhook -> Make -> Google
- * Sheets). That webhook URL does not exist anywhere in this project's code, so
- * it is left empty on purpose: nothing here replaces or duplicates it. Paste the
- * real URL into LEAD_WEBHOOK_URL and every form on the site starts posting to it.
- * While it is empty, forms stay usable and tell the visitor to send on WhatsApp
- * instead — no lead is silently swallowed.
+ * The lead pipeline (form -> webhook -> Make -> Google Sheets) posts here.
+ * If this URL is empty, forms stay usable and tell the visitor to send on
+ * WhatsApp instead — no lead is silently swallowed.
  */
-export const LEAD_WEBHOOK_URL = "";
+export const LEAD_WEBHOOK_URL = "https://hook.eu1.make.com/nmdv2k2jjslg9rttlwlpah9wxs8gw14x";
 
 /** International format, digits only, no plus. e.g. "9725XXXXXXX" */
 export const WHATSAPP_NUMBER = "";

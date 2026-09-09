@@ -72,6 +72,11 @@ function TrekPage() {
               <dd className="mt-0.5 font-medium">{trek.character}</dd>
             </div>
           </dl>
+          <p className="mt-4 border-t border-ink/10 pt-4 text-[14px] leading-relaxed text-ink/70">
+            <span className="font-semibold text-ink">כמה ימים לתכנן בנפאל: </span>
+            בסביבות {trek.totalDaysMin} ימים ומעלה, כולל טיסות, יום־יומיים בקתמנדו וימי חסד —
+            לא רק ימי ההליכה.
+          </p>
           <div className="mt-4 grid gap-3 border-t border-ink/10 pt-4 text-[14px] leading-relaxed sm:grid-cols-2">
             <p className="text-ink/70">
               <span className="font-semibold text-ink">למי זה מתאים: </span>

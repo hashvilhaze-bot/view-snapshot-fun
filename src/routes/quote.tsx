@@ -13,16 +13,17 @@ import {
 import { readTripContext, type TripContext } from "@/lib/trip-context";
 
 const INTERESTS = [
-  "טרק מנאסלו",
-  "טרק באזור האוורסט",
-  "טרק באזור האנאפורנה",
-  "טיול תרבות ונופים בנפאל",
-  "בהוטן",
+  "סובב מנאסלו",
+  "סובב אנאפורנה",
+  "מסלולים באזור האוורסט",
+  "מסלולים נוספים בנפאל",
+  "תרבות ונופים בנפאל",
   "רפטינג",
-  "צ׳יטוואן / טבע וספארי",
+  "צ׳יטוואן, טבע וחיות",
+  "בהוטן",
   "שילוב של כמה חוויות",
   "טיול בהתאמה אישית",
-  "עדיין לא בטוח/ה — רוצה להתייעץ",
+  "עדיין מתלבטים ורוצים להתייעץ",
 ] as const;
 
 export const Route = createFileRoute("/quote")({
@@ -328,12 +329,12 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
           <Link to="/match">
             <Card className="h-full p-4">
               <p className="font-display font-bold">מה מתאים לי?</p>
-              <p className="mt-1 text-[13px] text-ink/60">שש שאלות, ואז כמה כיוונים</p>
+              <p className="mt-1 text-[13px] text-ink/60">שבע שאלות קצרות, ואז כמה כיוונים</p>
             </Card>
           </Link>
           <Link to="/treks">
             <Card className="h-full p-4">
-              <p className="font-display font-bold">טרקים ולא רק</p>
+              <p className="font-display font-bold">טרקים ומסלולים</p>
               <p className="mt-1 text-[13px] text-ink/60">משך, גובה ומאמץ במבט אחד</p>
             </Card>
           </Link>

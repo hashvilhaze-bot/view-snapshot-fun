@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import guidePortrait from "@/assets/guide-portrait.jpg";
+import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
 import { Card, PageHero, Section, TalkCta } from "@/components/page";
-import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_NOTE, NEPAL_PARTNER_ROLE } from "@/lib/leads";
+import { galleries } from "@/lib/galleries";
+import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_ROLE } from "@/lib/leads";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -12,54 +13,89 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "תכנון בעברית מול מי שהלך בשבילים האלה, והפעלה בשטח עם צוות נפאלי קבוע: מדריכים מוסמכים, פורטרים מבוטחים ואיש קשר בקטמנדו.",
+          "היכרות אישית ותכנון בעברית עם אוהד, וניסיון מקומי עמוק בנפאל עם סוכנות שלום מקטמנדו — מעטפת אחת מהשיחה הראשונה ועד החזרה הביתה.",
       },
       { property: "og:title", content: "מי אנחנו — השביל הזה" },
-      { property: "og:description", content: "האנשים והיכולת המקומית שמאחורי הטיולים." },
+      {
+        property: "og:description",
+        content: "האנשים, הניסיון המקומי והליווי שנמשך לאורך כל הטיול.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
 });
 
-const sides = [
+const cards = [
   {
-    t: "הצד הישראלי",
-    d: "התכנון, השיחות והליווי לפני הטיול נעשים בעברית, מול מי שהלך בעצמו בשבילים האלה — כולל השאלות הקטנות שצצות שבוע לפני הטיסה.",
-    note: "אוהד הרץ · 054-6545275 · hashvilhaze@gmail.com",
+    t: "מכירים אתכם כאן",
+    d: "שיחה אישית בעברית, הקשבה ותכנון שמתחשב בזמן שיש לכם, בקצב, בניסיון ובמה שאתם רוצים לפגוש בדרך.",
   },
   {
-    t: "הצד הנפאלי",
-    d: `ההפעלה בשטח נעשית עם Shalom Rafting Treks & Expedition, סוכנות רשומה מתאמל שבקטמנדו שמפעילה טרקים ומסעות נהר: מדריכים מוסמכים שגדלו באזורים שאליהם הולכים, פורטרים מבוטחים, ואיש קשר בקטמנדו שזמין לאורך הטיול. איש הקשר שם הוא ${NEPAL_PARTNER_NAME} — ${NEPAL_PARTNER_ROLE}. ${NEPAL_PARTNER_NOTE.split(" · ")[0]}.`,
-    note: "חברה באיגוד סוכנויות הטרקים של נפאל (TAAN), מספר רישום 69334/066/067 · info@shalomtreks.com · +977-985-1000405",
+    t: "ניסיון מקומי בנפאל",
+    d: "סוכנות שלום מביאה היכרות עמוקה עם המדינה, מדריכים מוסמכים שגדלו באזורים שאליהם הולכים וצוות שיודע לנהל את הטיול בשטח.",
   },
   {
-    t: "איך זה עובד יחד",
-    d: "אתם מדברים עם אדם אחד לכל אורך הדרך, גם כשהתוכנית משתנה באמצע הטיול. מי שנמצא בשטח יודע מה הובטח לכם, ומי שתכנן איתכם יודע מה קורה שם עכשיו.",
+    t: "אתכם לאורך כל הדרך",
+    d: "כתובת אחת וליווי רציף — מהשיחה הראשונה, דרך התכנון וההכנות, לאורך הטיול ועד החזרה הביתה.",
   },
 ];
 
-const steps = [
-  ["01", "שיחה ראשונה", "כמה זמן יש, מה מסקרן ומה בכלל לא מתאים."],
-  ["02", "כמה כיוונים", "שתיים־שלוש אפשרויות שונות באופי, עם ההבדלים ביניהן."],
-  ["03", "בונים לפרטים", "ימי התאקלמות, לינה, מדריך, היתרים וטיסות פנים."],
-  ["04", "יוצאים לדרך", "הצוות המקומי ביעד, ואפשר לשנות תוכנית בזמן אמת."],
+const steps: [string, string, string][] = [
+  [
+    "01",
+    "מכירים ומקשיבים",
+    "שיחה שבה מבינים מה אתם מחפשים, כמה זמן יש, מי נוסע, מה מעניין אתכם ומה הניסיון שלכם.",
+  ],
+  [
+    "02",
+    "בוחנים את האפשרויות",
+    "מציגים כמה כיוונים שיכולים באמת להתאים ומסבירים את ההבדלים, בלי להציף בעשרות מסלולים.",
+  ],
+  [
+    "03",
+    "בונים את הטיול",
+    "מתאימים את המסלול, הקצב, מספר הימים, הלינה, ההתאקלמות, התחבורה והחוויות סביב הדרך.",
+  ],
+  [
+    "04",
+    "סוגרים את הפרטים",
+    "אחרי אישור המסלול מטפלים בתיאומים ובהזמנות הרלוונטיים, ומכינים אתכם ליציאה בצורה מסודרת.",
+  ],
+  [
+    "05",
+    "מלווים גם בנפאל",
+    "בזמן הטיול יש לכם כתובת לשאלות ולשינויים, וצוות מקומי מנוסה שיכול לפעול בשטח.",
+  ],
+  [
+    "06",
+    "עד שחוזרים הביתה",
+    "הליווי לא נגמר בנחיתה בקטמנדו. אנחנו נשארים איתכם עד סוף הטיול והחזרה הביתה.",
+  ],
 ];
 
 function AboutPage() {
+  const village = galleries["villages"]?.[0];
+  const trail = galleries["manaslu-circuit"]?.[1];
+  const river = galleries["rafting"]?.[0];
+
   return (
     <>
       <PageHero
         kicker="מי אנחנו"
-        title="שני צדדים לאותו שביל"
-        lead="תכנון בעברית מול מי שהלך שם, והפעלה עם צוות נפאלי קבוע ביעד."
+        title="מעטפת אחת, מהרעיון הראשון ועד החזרה הביתה"
+        lead="היכרות אישית ותכנון בעברית כאן, וניסיון מקומי עמוק בנפאל. מבחינתכם זו כתובת אחת ותהליך אחד."
+        image={kathmanduDusk}
+        imageAlt="חצר מקדשים בעיר העתיקה של קטמנדו בשעת בין ערביים"
       />
 
-      <Section>
+      <Section title="השביל הזה">
         <div className="flex flex-col gap-5 sm:flex-row">
           <img
-            src={guidePortrait}
-            alt="מדריך טרקים נפאלי בכפר הררי"
+            src={trail?.src ?? kathmanduDusk}
+            alt={trail?.alt ?? "שביל אבן בין חומות מאני בהימלאיה"}
             loading="lazy"
-            className="h-40 w-32 shrink-0 rounded-xl object-cover"
+            className="h-44 w-full shrink-0 rounded-2xl object-cover sm:w-44"
           />
           <div className="space-y-3 text-[15px] leading-relaxed text-ink/75">
             <p>
@@ -72,27 +108,70 @@ function AboutPage() {
               להעביר לכם קצת ממה שיש למדינה הזו ולאזור הזה לתת.
             </p>
             <p>
-              אני לא מוכר מסלולים מהמדף. כל טיול נבנה בשיחה, כי מה שמתאים לאחד לא מתאים לאחר —
-              ולכן חשוב שיהיה לכם עם מי לדבר גם לפני, וגם כשאתם שם.
+              אני לא מוכר מסלולים מהמדף. כל טיול נבנה בשיחה, כי מה שמתאים לאחד לא מתאים לאחר — ולכן
+              חשוב שיהיה לכם עם מי לדבר גם לפני, וגם כשאתם שם.
             </p>
-            <p>זה גם מה שמאפשר לשנות תוכנית באמצע הדרך, ולא רק להיצמד למה שנקבע מראש.</p>
+            <p>אתם נהנים מהדרך, ואנחנו דואגים לפרטים.</p>
           </div>
         </div>
       </Section>
 
-      <Section title="האנשים">
+      <Section>
         <div className="grid gap-3 sm:grid-cols-3">
-          {sides.map((s) => (
-            <Card key={s.t} className="h-full">
-              <p className="font-display text-[16px] font-bold">{s.t}</p>
-              <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{s.d}</p>
-              {s.note && <p className="mt-2 text-[12px] text-ink/45">{s.note}</p>}
+          {cards.map((c) => (
+            <Card key={c.t} className="h-full">
+              <p className="font-display text-[16px] font-bold">{c.t}</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{c.d}</p>
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section title="מהשיחה הראשונה ועד היציאה לדרך">
+      {/* SHALOM — the local capability, in depth */}
+      <section className="bg-summit px-6 py-12">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-[12px] font-medium tracking-wide text-saffron">השותף בנפאל</p>
+          <h2 className="mt-1.5 font-display text-[22px] leading-snug font-bold text-parchment sm:text-2xl">
+            סוכנות שלום — הניסיון המקומי שמאחורי הטיול
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-parchment/80">
+            <p>
+              ההפעלה בשטח נעשית עם Shalom Rafting Treks &amp; Expedition — סוכנות מקומית רשומה
+              מתאמל שבקטמנדו, שפועלת מ־2010 ומתמחה בטרקים, במסעות נהר ובטיולי תרבות וטבע בנפאל.
+              איש הקשר שם הוא {NEPAL_PARTNER_NAME}, {NEPAL_PARTNER_ROLE}.
+            </p>
+            <p>
+              מה זה אומר בפועל: מדריכים מוסמכים שגדלו באזורים שאליהם הולכים ומכירים את הכפרים, את
+              בתי התה ואת מצב השבילים; פורטרים מבוטחים; היתרים מסודרים לאזורים המוגבלים; ואיש קשר
+              בקטמנדו שזמין לאורך הטיול. כשמשהו משתנה — מזג אוויר, טיסה פנימית, קצב שלא מתאים —
+              יש מי שמסדר את זה בשטח, ולא רק ממליץ מהמשרד.
+            </p>
+            <p>
+              הסוכנות חברה באיגוד סוכנויות הטרקים של נפאל (TAAN), מספר רישום 69334/066/067, ועובדת
+              עם מטיילים מישראל וממדינות נוספות. סוכנות שלום היא השותף המקצועי בשטח — אבל הקשר
+              איתכם, התכנון וההצעות מנוהלים על ידי "השביל הזה".
+            </p>
+          </div>
+          <div className="mt-6 grid grid-cols-3 gap-2.5">
+            {[village, trail, river].map(
+              (p) =>
+                p && (
+                  <img
+                    key={p.src}
+                    src={p.src}
+                    alt={p.alt}
+                    loading="lazy"
+                    width={1200}
+                    height={800}
+                    className="aspect-[4/3] w-full rounded-xl object-cover"
+                  />
+                ),
+            )}
+          </div>
+        </div>
+      </section>
+
+      <Section title="מהשיחה הראשונה ועד החזרה הביתה">
         <ol className="space-y-4">
           {steps.map(([n, t, d]) => (
             <li key={n} className="flex gap-4">
@@ -104,23 +183,30 @@ function AboutPage() {
             </li>
           ))}
         </ol>
+        <p className="mt-5 text-[14px] leading-relaxed text-ink/60">
+          גם כשצריך לשנות תוכנית באמצע הטיול, יש מי שמטפל בזה — מי שנמצא בשטח יודע מה הובטח לכם, ומי
+          שתכנן איתכם יודע מה קורה שם עכשיו.
+        </p>
       </Section>
 
       <Section title="להמשיך">
         <div className="grid gap-3 sm:grid-cols-3">
           <Link to="/treks">
-            <Card className="h-full p-4">
+            <Card className="h-full p-4 transition-colors hover:border-saffron/40">
               <p className="font-display font-bold">טרקים ומסלולים</p>
+              <p className="mt-1 text-[13px] text-ink/60">משך, גובה ומאמץ במבט אחד</p>
             </Card>
           </Link>
           <Link to="/knowledge">
-            <Card className="h-full p-4">
-              <p className="font-display font-bold">לפני שנוסעים</p>
+            <Card className="h-full p-4 transition-colors hover:border-saffron/40">
+              <p className="font-display font-bold">מרכז הידע</p>
+              <p className="mt-1 text-[13px] text-ink/60">עונות, גובה, ציוד והכנות</p>
             </Card>
           </Link>
           <Link to="/match">
-            <Card className="h-full p-4">
+            <Card className="h-full p-4 transition-colors hover:border-saffron/40">
               <p className="font-display font-bold">מה מתאים לי?</p>
+              <p className="mt-1 text-[13px] text-ink/60">שבע שאלות, ואז כמה כיוונים</p>
             </Card>
           </Link>
         </div>

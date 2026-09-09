@@ -338,7 +338,7 @@ function ResultsView({
   return (
     <>
       <section className="bg-summit px-6 pt-9 pb-10">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-4xl">
           <button
             type="button"
             onClick={onBack}
@@ -348,10 +348,11 @@ function ResultsView({
           </button>
           <p className="mt-4 text-[12px] font-medium tracking-wide text-saffron">הכיוונים שלכם</p>
           <h1 className="mt-1.5 font-display text-[26px] leading-tight font-bold text-parchment sm:text-3xl">
-            לפי מה שספרתם, אלה השבילים ששווה לבדוק
+            המסלול שנראה הכי מתאים לפי התשובות שלכם
           </h1>
           <p className="mt-2.5 max-w-[46ch] text-[14px] leading-relaxed text-parchment/75">
-            אלה כיוונים לפתיחת שיחה, לא תוכנית סופית. בשיחה נדייק את המסלול, הקצב והימים.
+            זו נקודת פתיחה לשיחה, לא המלצה סופית. נתאים את המסלול אחרי שנכיר אתכם, את הקצב ואת
+            הניסיון שלכם.
           </p>
           {summary && (
             <p className="mt-3 text-[13.5px] leading-relaxed text-parchment/55">{summary}</p>
@@ -377,7 +378,7 @@ function ResultsView({
                 )}
                 <div className="p-5">
                   <p className="text-[11px] font-semibold tracking-wide text-saffron">
-                    {i === 0 ? "הכיוון שמתאים לכם ביותר" : "כיוון נוסף ששווה לשקול"}
+                    {i === 0 ? "נראה הכי מתאים לפי התשובות שלכם" : "כיוון נוסף ששווה לשקול"}
                   </p>
                   <p className="mt-1 font-display text-lg font-bold">{t.name}</p>
                   <p className="mt-1 text-[13px] text-ink/60">

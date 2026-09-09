@@ -35,7 +35,7 @@ export function SiteHeader() {
         >
           <img
             src={logoAsset.url}
-            alt="השביל הזה — מתחיל כאן"
+            alt="השביל הזה — מסעות בהתאמה אישית בהימלאיה"
             className="h-[80px] w-auto rounded-lg object-contain sm:h-[92px]"
           />
 

@@ -68,7 +68,7 @@ function Index() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-summit via-summit/45 to-transparent" />
-        <div className="relative mx-auto w-full max-w-3xl px-6 pb-11">
+        <div className="relative mx-auto w-full max-w-4xl px-6 pb-11">
           <p className="text-[12px] font-medium tracking-wide text-saffron">
             השביל הזה · מסעות בהתאמה אישית בהימלאיה
           </p>
@@ -97,7 +97,11 @@ function Index() {
       </section>
 
       {/* WHY NEPAL */}
-      <Section kicker="למה נפאל" title="בוקר אחד תפתחו דלת של אכסניה, ומול הפנים יעמוד רכס מושלג">
+      <Section kicker="למה נפאל" title="נפאל היא הרבה יותר מטרק">
+        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
+          נפאל יכולה להיות טרק מאתגר בגובה, כמה ימים רגועים בין כפרים, מפגש עם תרבות אחרת או שילוב
+          של הכול. היא מגוונת מספיק כדי שכל אחד ימצא בה דרך שמתאימה לו.
+        </p>
         {sunrise && (
           <img
             src={sunrise.src}
@@ -185,7 +189,7 @@ function Index() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-summit/78" />
-        <div className="relative mx-auto max-w-3xl px-6 py-12">
+        <div className="relative mx-auto max-w-4xl px-6 py-12">
           <p className="mb-2 text-xs font-medium text-saffron">מעבר לטרקים</p>
           <h2 className="font-display text-[21px] leading-snug font-bold text-parchment sm:text-2xl">
             סמטה בקטמנדו, בוקר על האגם וארוחה בבית בכפר
@@ -251,17 +255,26 @@ function Index() {
       </Section>
 
       {/* PROCESS */}
-      <Section kicker="איך אנחנו עובדים" title="מתחילים בכם, לא במסלול">
+      <Section kicker="איך אנחנו עובדים" title="מהשיחה הראשונה ועד החזרה הביתה">
+        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
+          יש לכם כתובת אחת לאורך כל הדרך: מי שמקשיב ומתכנן איתכם כאן, וצוות מקומי מנוסה בנפאל
+          שיודע לטפל במה שנדרש בשטח — גם כשצריך לשנות תוכנית באמצע הטיול.
+        </p>
         <ol className="grid gap-3 sm:grid-cols-2">
           {[
-            ["01", "שיחה ראשונה"],
-            ["02", "כמה כיוונים"],
-            ["03", "בונים לפרטים"],
-            ["04", "ליווי גם בשטח"],
-          ].map(([n, t]) => (
-            <li key={n} className="flex items-center gap-3 rounded-xl bg-parchment/70 px-4 py-3">
+            ["01", "מכירים ומקשיבים", "כמה זמן יש, מי נוסע ומה חשוב לכם"],
+            ["02", "בוחנים אפשרויות", "כמה כיוונים שמתאימים, עם ההבדלים ביניהם"],
+            ["03", "בונים את הטיול", "מסלול, קצב, לינה, התאקלמות ותחבורה"],
+            ["04", "סוגרים פרטים", "תיאומים, הזמנות והכנה מסודרת ליציאה"],
+            ["05", "מלווים גם בנפאל", "כתובת לשאלות ולשינויים לאורך הטיול"],
+            ["06", "עד שחוזרים הביתה", "הליווי לא נגמר בנחיתה בקטמנדו"],
+          ].map(([n, t, d]) => (
+            <li key={n} className="flex items-start gap-3 rounded-xl bg-parchment/70 px-4 py-3">
               <span className="font-display text-base font-bold text-saffron">{n}</span>
-              <span className="text-[14px] font-medium">{t}</span>
+              <span>
+                <span className="block text-[14px] font-semibold">{t}</span>
+                <span className="mt-0.5 block text-[13px] leading-snug text-ink/60">{d}</span>
+              </span>
             </li>
           ))}
         </ol>
@@ -293,27 +306,29 @@ function Index() {
       </Section>
 
       {/* ABOUT */}
-      <Section kicker="מי אנחנו">
+      <Section kicker="מי אנחנו" title="מכירים אתכם כאן, מנוסים בשטח שם">
         <Card className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <img
             src={guidePortrait}
-            alt="מדריך טרקים נפאלי בכפר הררי"
+            alt="מדריך טרקים נפאלי מקומי בכפר הררי"
             loading="lazy"
-            className="h-28 w-24 shrink-0 rounded-xl object-cover"
+            className="h-32 w-full shrink-0 rounded-xl object-cover sm:w-28"
           />
           <div>
             <p className="text-[15px] leading-relaxed text-ink/75">
-              תכנון בעברית מול מי שהלך בשבילים האלה, והפעלה בשטח עם צוות נפאלי קבוע.
+              התכנון נעשה בעברית, בשיחה אישית עם אוהד. בנפאל מחכה סוכנות שלום — סוכנות מקומית
+              מנוסה מקטמנדו, עם מדריכים שגדלו באזורים שאליהם הולכים. עבורכם זו מעטפת אחת, לא שני
+              גופים.
             </p>
             <Link to="/about" className="mt-3 inline-block text-[14px] font-semibold text-saffron">
-              עוד עלינו ←
+              להכיר את האנשים מאחורי הדרך ←
             </Link>
           </div>
         </Card>
       </Section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-3xl px-6 pt-2 pb-14">
+      <section className="mx-auto max-w-4xl px-6 pt-2 pb-14">
         <div className="rounded-2xl bg-summit px-6 py-10 text-center">
           <h2 className="font-display text-[22px] font-bold text-parchment sm:text-2xl">
             בואו נדבר על השביל שלכם
@@ -326,7 +341,7 @@ function Index() {
               to="/contact"
               className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
             >
-              מתחילים מכאן
+              לפתוח שיחה איתנו
             </Link>
             <WhatsappButton
               className="bg-parchment/15 text-parchment ring-parchment/30"

@@ -41,13 +41,19 @@ function TrekPage() {
   const { trek } = Route.useLoaderData();
   const others = treks.filter((t) => t.slug !== trek.slug);
   const photos = galleries[trek.slug] ?? [];
+  const cover = photos[0];
 
   return (
     <>
-      <PageHero kicker="מסלול" title={trek.name} lead={trek.intro} />
+      <PageHero
+        kicker="מסלול"
+        title={trek.name}
+        lead={trek.intro}
+        {...(cover ? { image: cover.src, imageAlt: cover.alt } : {})}
+      />
 
       <Section>
-        <Gallery photos={photos} />
+        <Gallery photos={photos.slice(1)} />
       </Section>
 
       <Section>
@@ -145,7 +151,7 @@ function TrekPage() {
           </Link>
           <WhatsappButton
             message={`היי, הגעתי דרך 'השביל הזה'. אני מסתכל על ${trek.name} ורוצה להבין מה אפשר לשלב סביבו.`}
-            label="לשאול אותנו על שילובים"
+            label="דברו איתנו על שילובים"
           />
         </div>
       </Section>

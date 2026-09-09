@@ -304,15 +304,19 @@ function ResultsView({
   filteredOut,
   extras,
   picked,
+  note,
   onBack,
 }: {
   results: ResultItem[];
   filteredOut: (typeof treks)[number][];
   extras: (typeof experiences)[number][];
   picked: Record<string, string>;
+  note?: string;
   onBack: () => void;
 }) {
-  const summary = Object.values(picked).join(" · ");
+  const summary = [...Object.values(picked), note?.trim() ? `הערה: ${note.trim()}` : ""]
+    .filter(Boolean)
+    .join(" · ");
   const directions = results.map((r) => r.t.name);
 
   // Remember the answers so the quote form does not ask for them again.
@@ -328,6 +332,7 @@ function ResultsView({
   const waMessage = `היי, הגעתי דרך 'השביל הזה'. עניתי על "מה מתאים לי?" (${summary}) והכיוונים שיצאו לי: ${directions.join(
     ", ",
   )}. אשמח להתייעץ.`;
+
 
 
   return (

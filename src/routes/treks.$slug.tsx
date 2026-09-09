@@ -12,6 +12,7 @@ import {
 } from "@/components/page";
 import { treks } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
+import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/treks/$slug")({
   loader: ({ params }) => {
@@ -123,6 +124,19 @@ function TrekPage() {
           ))}
         </ul>
         <div className="mt-4 flex flex-wrap gap-2">
+          <Link
+            to="/quote"
+            onClick={() =>
+              saveTripContext({
+                source: "trek",
+                directions: [trek.name],
+                summary: `${trek.name} · ${trek.days} · ${trek.altitude} · ${trek.effortLabel}`,
+              })
+            }
+            className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
+          >
+            לבקש הצעה על המסלול הזה
+          </Link>
           <Link
             to="/treks"
             className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"

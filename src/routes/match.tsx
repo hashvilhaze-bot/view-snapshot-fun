@@ -377,7 +377,7 @@ function ResultsView({
                 )}
                 <div className="p-5">
                   <p className="text-[11px] font-semibold tracking-wide text-saffron">
-                    {i === 0 ? "ההמלצה המובילה" : "חלופה שכדאי לשקול"}
+                    {i === 0 ? "הכיוון שמתאים לכם ביותר" : "כיוון נוסף ששווה לשקול"}
                   </p>
                   <p className="mt-1 font-display text-lg font-bold">{t.name}</p>
                   <p className="mt-1 text-[13px] text-ink/60">
@@ -411,13 +411,13 @@ function ResultsView({
                       params={{ slug: t.slug }}
                       className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
                     >
-                      לעמוד המסלול
+                      לפרטי המסלול
                     </Link>
                     <Link
                       to="/quote"
                       className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
                     >
-                      לבקש הצעה על זה
+                      לקבלת הצעה למסלול
                     </Link>
                   </div>
                 </div>

@@ -57,8 +57,8 @@ function KnowledgePage() {
     <>
       <PageHero
         kicker="מרכז ידע"
-        title="כל מה שכדאי לדעת על נפאל, במקום אחד"
-        lead="תשובות קצרות לשאלות שחוזרות בכל שיחה ראשונה, ולצידן תוכן להעמקה — גם למי שעדיין רק קורא."
+        title="מרכז הידע למטיילים בנפאל"
+        lead="תשובות קצרות לשאלות שחוזרות בכל שיחה ראשונה, ולצידן מדריכים מלאים למי שרוצה להעמיק — גם בלי לתכנן טיול עדיין."
       />
 
       <Section kicker="נפאל בכמה רגעים" title="כרטיס הביקור של המדינה">
@@ -76,7 +76,7 @@ function KnowledgePage() {
                 params={{ slug: a.slug }}
                 className="mt-3 inline-block text-[13px] font-semibold text-saffron"
               >
-                לקרוא את הפרטים ←
+                לקריאת המדריך ←
               </Link>
             </Card>
           ))}

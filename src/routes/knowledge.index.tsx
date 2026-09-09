@@ -115,23 +115,41 @@ function KnowledgePage() {
         </div>
 
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          {shown.map((a) => (
-            <Link key={a.slug} to="/knowledge/$slug" params={{ slug: a.slug }}>
-              <Card className="h-full transition-colors hover:border-saffron/40">
-                <p className="text-[11px] font-medium text-saffron">{a.category}</p>
-                <p className="mt-1 font-display text-lg font-bold">{a.title}</p>
-                <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{a.summary}</p>
-                <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
-                  לקרוא ←
-                </span>
-              </Card>
-            </Link>
-          ))}
+          {shown.map((a) => {
+            const ref = articleCover[a.slug];
+            const cover = ref ? galleries[ref[0]]?.[ref[1]] : undefined;
+            return (
+              <Link key={a.slug} to="/knowledge/$slug" params={{ slug: a.slug }}>
+                <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
+                  {cover && (
+                    <img
+                      src={cover.src}
+                      alt={cover.alt}
+                      loading="lazy"
+                      width={1200}
+                      height={800}
+                      className="aspect-[16/9] w-full object-cover"
+                    />
+                  )}
+                  <div className="p-5">
+                    <p className="text-[11px] font-medium text-saffron">
+                      {a.category} · {readMinutes(a.body)} דקות קריאה
+                    </p>
+                    <p className="mt-1 font-display text-lg font-bold">{a.title}</p>
+                    <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{a.summary}</p>
+                    <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
+                      לקריאת המדריך ←
+                    </span>
+                  </div>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
 
         {shown.length === 0 && (
           <p className="mt-5 text-[14px] text-ink/60">
-            בנושא הזה עוד נכתב תוכן. בינתיים אפשר לשאול אותנו ישירות.
+            בנושא הזה עוד לא כתבנו מדריך. בינתיים אפשר לשאול אותנו ישירות.
           </p>
         )}
       </Section>

@@ -8,13 +8,13 @@ export const Route = createFileRoute("/treks/")({
   component: TreksPage,
   head: () => ({
     meta: [
-      { title: "טרקים ולא רק בנפאל | השביל הזה" },
+      { title: "טרקים ומסלולים בנפאל | השביל הזה" },
       {
         name: "description",
         content:
           "מסלולים מקצרים ונגישים ועד מנאסלו, ולצידם קטמנדו, פוקרה, כפרים, רפטינג וצ׳יטוואן. משך, גובה, מאמץ ולמי זה מתאים.",
       },
-      { property: "og:title", content: "טרקים ולא רק בנפאל" },
+      { property: "og:title", content: "טרקים ומסלולים בנפאל" },
       {
         property: "og:description",
         content: "ספקטרום שלם של מסלולים וחוויות, עם הנתונים שחשובים באמת.",

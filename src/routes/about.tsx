@@ -100,7 +100,7 @@ function AboutPage() {
         <div className="grid gap-3 sm:grid-cols-3">
           <Link to="/treks">
             <Card className="h-full p-4">
-              <p className="font-display font-bold">טרקים וחוויות</p>
+              <p className="font-display font-bold">טרקים ולא רק</p>
             </Card>
           </Link>
           <Link to="/knowledge">

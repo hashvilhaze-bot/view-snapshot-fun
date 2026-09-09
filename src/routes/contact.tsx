@@ -106,7 +106,7 @@ function ContactPage() {
           </Link>
           <Link to="/treks">
             <Card className="h-full p-4">
-              <p className="font-display font-bold">טרקים וחוויות</p>
+              <p className="font-display font-bold">טרקים ולא רק</p>
               <p className="mt-1 text-[13px] text-ink/60">משך, גובה ומאמץ במבט אחד</p>
             </Card>
           </Link>

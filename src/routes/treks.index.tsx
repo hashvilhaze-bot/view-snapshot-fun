@@ -8,13 +8,13 @@ export const Route = createFileRoute("/treks/")({
   component: TreksPage,
   head: () => ({
     meta: [
-      { title: "טרקים וחוויות בנפאל | השביל הזה" },
+      { title: "טרקים ולא רק בנפאל | השביל הזה" },
       {
         name: "description",
         content:
           "מסלולים מקצרים ונגישים ועד מנאסלו, ולצידם קתמנדו, פוקרה, כפרים, רפטינג וצ׳יטוואן. משך, גובה, מאמץ ולמי זה מתאים.",
       },
-      { property: "og:title", content: "טרקים וחוויות בנפאל" },
+      { property: "og:title", content: "טרקים ולא רק בנפאל" },
       {
         property: "og:description",
         content: "ספקטרום שלם של מסלולים וחוויות, עם הנתונים שחשובים באמת.",
@@ -27,7 +27,7 @@ function TreksPage() {
   return (
     <>
       <PageHero
-        kicker="טרקים וחוויות"
+        kicker="טרקים ולא רק"
         title="יש יותר מדרך אחת לפגוש את ההימלאיה"
         lead="יש מי שרוצה ללכת גבוה ורחוק, ויש מי שמעדיף כמה ימים בהרים ולחזור לפוקרה. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי החוויה."
         image={valleyGolden}

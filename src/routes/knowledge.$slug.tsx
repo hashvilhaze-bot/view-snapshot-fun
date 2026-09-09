@@ -34,7 +34,7 @@ const nextSteps: Record<string, { to: "/match" | "/treks" | "/quote"; t: string;
   ],
   "when-to-go": [
     { to: "/quote", t: "יש לכם תאריכים?", d: "נבדוק מה אפשר לעשות בתקופה הזאת" },
-    { to: "/treks", t: "טרקים וחוויות", d: "מה מתאים לאיזו עונה" },
+    { to: "/treks", t: "טרקים ולא רק", d: "מה מתאים לאיזו עונה" },
   ],
   "choosing-trek": [
     { to: "/match", t: "מה מתאים לי?", d: "שש שאלות, ואז כיוונים" },
@@ -52,7 +52,7 @@ const nextSteps: Record<string, { to: "/match" | "/treks" | "/quote"; t: string;
 
 const defaultNext = [
   { to: "/match" as const, t: "מה מתאים לי?", d: "כלי קצר שנותן כמה כיוונים" },
-  { to: "/treks" as const, t: "טרקים וחוויות", d: "משך, גובה ומאמץ במבט אחד" },
+  { to: "/treks" as const, t: "טרקים ולא רק", d: "משך, גובה ומאמץ במבט אחד" },
 ];
 
 function ArticlePage() {

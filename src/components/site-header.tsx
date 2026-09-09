@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/use-auth";
 const nav = [
   { to: "/", label: "בית" },
   { to: "/nepal", label: "נפאל" },
-  { to: "/treks", label: "טרקים וחוויות" },
+  { to: "/treks", label: "טרקים ולא רק" },
   { to: "/match", label: "מה מתאים לי?" },
   { to: "/knowledge", label: "מרכז ידע" },
   { to: "/contact", label: "דברו איתנו" },

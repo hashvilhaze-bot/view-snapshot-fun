@@ -115,35 +115,41 @@ function NepalPage() {
         imageAlt="רכס מושלג בהימלאיה באור ראשון"
       />
 
-      <Section kicker="אז מה אפשר לעשות בנפאל?" title="נפאל היא לא סוג אחד של טיול">
-        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
+      <Section
+        kicker="אז מה אפשר לעשות בנפאל?"
+        title="נפאל היא לא סוג אחד של טיול"
+        className="py-5 sm:py-6"
+      >
+        <p className="-mt-2 mb-3.5 text-[15px] leading-relaxed text-ink/70">
           לא חייבים לבחור בין טרק לטיול רגוע. אפשר לבנות את השילוב שמתאים לכם.
         </p>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {experiences.map((e, i) => (
-            <Link
-              key={e.slug}
-              to={e.to}
-              className={`block ${i === experiences.length - 1 ? "sm:col-span-2" : ""}`}
-            >
-              <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
-                <img
-                  src={e.image}
-                  alt={e.imageAlt}
-                  loading="lazy"
-                  width={1200}
-                  height={800}
-                  className="aspect-[16/9] w-full object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="font-display text-[16px] font-bold">{e.title}</h3>
-                  <p className="mt-1 text-[13.5px] leading-snug text-ink/65">{e.text}</p>
-                </div>
-              </Card>
-            </Link>
-          ))}
+        <div className="grid gap-2.5 sm:grid-cols-2">
+          {experiences.map((e, i) => {
+            const wide = i === experiences.length - 1;
+            return (
+              <Link key={e.slug} to={e.to} className={`block ${wide ? "sm:col-span-2" : ""}`}>
+                <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
+                  <div className={wide ? "grid sm:grid-cols-[45%_minmax(0,1fr)] sm:items-center" : ""}>
+                    <img
+                      src={e.image}
+                      alt={e.imageAlt}
+                      loading="lazy"
+                      width={1200}
+                      height={800}
+                      className={`w-full object-cover ${wide ? "aspect-[16/9] sm:h-full" : "aspect-[3/2]"}`}
+                    />
+                    <div className="p-3.5">
+                      <h3 className="font-display text-[16px] font-bold">{e.title}</h3>
+                      <p className="mt-1 text-[13.5px] leading-snug text-ink/65">{e.text}</p>
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
       </Section>
+
 
       <Section kicker="נפאל בכמה רגעים" className="py-4 sm:py-5">
         <div className="rounded-2xl border border-parchment/50 bg-parchment/85 p-4 ring-1 ring-ink/5">

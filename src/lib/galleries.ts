@@ -77,7 +77,7 @@ export const galleries: Record<string, Photo[]> = {
   "annapurna-base-camp": [
     {
       src: annapurna1,
-      alt: "טבעת פסגות מושלגות סביב אגן גבוה, באור זריחה ורוד",
+      alt: "מטיילים במחנה הבסיס של אנאפורנה מול קיר הפסגה באור בוקר",
       caption: "הבוקר בתוך האגן",
     },
     {
@@ -116,8 +116,8 @@ export const galleries: Record<string, Photo[]> = {
   "mardi-himal": [
     {
       src: mardi1,
-      alt: "שביל צר על גב רכס פתוח מעל קו העצים, פסגה חדה ברקע",
-      caption: "הליכה על הרכס",
+      alt: "מאצ׳אפוצ׳רה, פסגת הזנב־דג החדה, מעל רכסים מיוערים",
+      caption: "הפסגה שמעל הרכס",
     },
     {
       src: mardi2,
@@ -128,7 +128,7 @@ export const galleries: Record<string, Photo[]> = {
   "langtang-valley": [
     {
       src: lang1,
-      alt: "עמק הימלאיה רחב עם נהר, יערות ופסגות מושלגות בקצה",
+      alt: "עמק לנגטנג הגבוה מכוסה שלג, מדרונות ופסגות בקצה העמק",
       caption: "העמק נפתח",
     },
     {
@@ -145,8 +145,8 @@ export const galleries: Record<string, Photo[]> = {
   "annapurna-circuit": [
     {
       src: acirc1,
-      alt: "שביל עולה בעמק ירוק ותלול עם נהר וגשר תלוי",
-      caption: "העמק הירוק בהתחלה",
+      alt: "כפר אבן גבוה במדבר ההרים של מנאנג, פסגות מושלגות מעליו",
+      caption: "הכפרים הגבוהים בדרך",
     },
     {
       src: acirc2,
@@ -223,7 +223,7 @@ export const galleries: Record<string, Photo[]> = {
   pokhara: [
     {
       src: pkr1,
-      alt: "סירות עץ על אגם שקט בפוקרה, גבעות ירוקות משתקפות במים",
+      alt: "סירה על אגם פווה בפוקרה, גבעות ירוקות משתקפות במים",
       caption: "האגם לפני שהעיר מתעוררת",
     },
     {
@@ -257,7 +257,7 @@ export const galleries: Record<string, Photo[]> = {
   rafting: [
     {
       src: raft1,
-      alt: "רפסודה צהובה עם חותרים בתוך אשד לבן בנהר נפאלי",
+      alt: "רפסודה עם חותרים בתוך אשדות בנהר נפאלי",
       caption: "בתוך האשדות",
     },
     {
@@ -274,8 +274,8 @@ export const galleries: Record<string, Photo[]> = {
   "yoga-rest": [
     {
       src: yoga1,
-      alt: "רחבת עץ פתוחה עם מזרנים מגולגלים מול גבעות ירוקות בזריחה",
-      caption: "רחבה מול הגבעות",
+      alt: "מרפסת בית תה פשוט בהרים, שולחנות עץ ונוף פתוח",
+      caption: "בוקר על המרפסת",
     },
     {
       src: yoga2,

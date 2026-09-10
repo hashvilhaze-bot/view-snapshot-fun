@@ -365,11 +365,15 @@ function ResultsView({
       </section>
 
       <Section>
-        <div className="space-y-4">
-          {results.map(({ t, reasons }, i) => {
-            const cover = galleries[t.slug]?.[0];
-            return (
-              <Card key={t.slug} className="overflow-hidden p-0">
+        {(() => {
+          const primary = results[0];
+          const secondary = results[1];
+          if (!primary) return null;
+          const cover = galleries[primary.t.slug]?.[0];
+          const t = primary.t;
+          return (
+            <>
+              <Card className="overflow-hidden p-0">
                 {cover && (
                   <img
                     src={cover.src}
@@ -377,25 +381,25 @@ function ResultsView({
                     loading="lazy"
                     width={1200}
                     height={800}
-                    className="aspect-[16/7] w-full object-cover"
+                    className="aspect-[16/9] w-full object-cover sm:aspect-[16/7]"
                   />
                 )}
-                <div className="p-5">
+                <div className="p-5 sm:p-6">
                   <p className="text-[11px] font-semibold tracking-wide text-saffron">
-                    {i === 0 ? "נראה הכי מתאים לפי התשובות שלכם" : "כיוון נוסף ששווה לשקול"}
+                    ההמלצה שלנו לפי התשובות שלכם
                   </p>
-                  <p className="mt-1 font-display text-lg font-bold">{t.name}</p>
+                  <h2 className="mt-1 font-display text-xl font-bold sm:text-2xl">{t.name}</h2>
                   <p className="mt-1 text-[13px] text-ink/60">
                     {t.days} · {t.altitude} · {t.effortLabel}
                   </p>
-                  <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{t.teaser}</p>
-                  {reasons.length > 0 && (
+                  <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink/70">{t.teaser}</p>
+                  {primary.reasons.length > 0 && (
                     <>
                       <p className="mt-4 text-[12.5px] font-semibold text-ink/55">
-                        למה זה יכול להתאים לכם
+                        למה זה מתאים לכם
                       </p>
                       <ul className="mt-1.5 space-y-1.5">
-                        {reasons.map((r) => (
+                        {primary.reasons.map((r) => (
                           <li
                             key={r}
                             className="flex gap-2 text-[13.5px] leading-relaxed text-ink/65"
@@ -410,26 +414,65 @@ function ResultsView({
                   <p className="mt-3 text-[13px] leading-relaxed text-ink/55">
                     פחות מתאים ל{t.notFor}.
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    <Link
+                      to="/quote"
+                      className="rounded-xl bg-saffron px-5 py-3 text-[15px] font-semibold text-parchment"
+                    >
+                      לקבלת הצעה למסלול הזה
+                    </Link>
                     <Link
                       to="/treks/$slug"
                       params={{ slug: t.slug }}
-                      className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
+                      className="rounded-xl bg-parchment px-4 py-3 text-[14px] font-medium text-ink ring-1 ring-ink/10"
                     >
                       לפרטי המסלול
-                    </Link>
-                    <Link
-                      to="/quote"
-                      className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
-                    >
-                      לקבלת הצעה למסלול
                     </Link>
                   </div>
                 </div>
               </Card>
-            );
-          })}
-        </div>
+
+              {secondary && (
+                <Card className="mt-4 p-4">
+                  <p className="text-[11px] font-semibold tracking-wide text-ink/45">
+                    אפשרות נוספת שכדאי לשקול
+                  </p>
+                  <div className="mt-2 flex gap-3">
+                    {galleries[secondary.t.slug]?.[0] && (
+                      <img
+                        src={galleries[secondary.t.slug]![0]!.src}
+                        alt={galleries[secondary.t.slug]![0]!.alt}
+                        loading="lazy"
+                        width={400}
+                        height={400}
+                        className="h-20 w-20 shrink-0 rounded-lg object-cover"
+                      />
+                    )}
+                    <div className="min-w-0">
+                      <p className="font-display text-[15.5px] font-bold">{secondary.t.name}</p>
+                      <p className="mt-0.5 text-[12.5px] text-ink/55">
+                        {secondary.t.days} · {secondary.t.effortLabel}
+                      </p>
+                      {secondary.reasons[0] && (
+                        <p className="mt-1.5 text-[13px] leading-relaxed text-ink/65">
+                          {secondary.reasons[0]}
+                        </p>
+                      )}
+                      <Link
+                        to="/treks/$slug"
+                        params={{ slug: secondary.t.slug }}
+                        className="mt-2 inline-block text-[13px] font-semibold text-saffron"
+                      >
+                        לפרטי המסלול ←
+                      </Link>
+                    </div>
+                  </div>
+                </Card>
+              )}
+            </>
+          );
+        })()}
+
 
         {filteredOut.length > 0 && (
           <Card className="mt-5">

@@ -19,6 +19,7 @@ import { Route as NepalRouteImport } from './routes/nepal'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as TreksRouteImport } from './routes/treks'
+import { Route as DestinationsIndexRouteImport } from './routes/destinations.index'
 import { Route as ExperiencesSlugRouteImport } from './routes/experiences.$slug'
 import { Route as KnowledgeIndexRouteImport } from './routes/knowledge.index'
 import { Route as KnowledgeSlugRouteImport } from './routes/knowledge.$slug'
@@ -75,6 +76,11 @@ const TreksRoute = TreksRouteImport.update({
   path: '/treks',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DestinationsIndexRoute = DestinationsIndexRouteImport.update({
+  id: '/destinations/',
+  path: '/destinations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExperiencesSlugRoute = ExperiencesSlugRouteImport.update({
   id: '/experiences/$slug',
   path: '/experiences/$slug',
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
+  '/destinations/': typeof DestinationsIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
   '/treks/': typeof TreksIndexRoute
 }
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
+  '/destinations': typeof DestinationsIndexRoute
   '/knowledge': typeof KnowledgeIndexRoute
   '/treks': typeof TreksIndexRoute
 }
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
+  '/destinations/': typeof DestinationsIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
   '/treks/': typeof TreksIndexRoute
 }
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
+    | '/destinations/'
     | '/knowledge/'
     | '/treks/'
   fileRoutesByTo: FileRoutesByTo
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
+    | '/destinations'
     | '/knowledge'
     | '/treks'
   id:
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
+    | '/destinations/'
     | '/knowledge/'
     | '/treks/'
   fileRoutesById: FileRoutesById
@@ -215,6 +227,7 @@ export interface RootRouteChildren {
   QuoteRoute: typeof QuoteRoute
   TreksRoute: typeof TreksRouteWithChildren
   ExperiencesSlugRoute: typeof ExperiencesSlugRoute
+  DestinationsIndexRoute: typeof DestinationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -287,6 +300,13 @@ declare module '@tanstack/react-router' {
       path: '/treks'
       fullPath: '/treks'
       preLoaderRoute: typeof TreksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/destinations/': {
+      id: '/destinations/'
+      path: '/destinations'
+      fullPath: '/destinations/'
+      preLoaderRoute: typeof DestinationsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/experiences/$slug': {
@@ -365,6 +385,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuoteRoute: QuoteRoute,
   TreksRoute: TreksRouteWithChildren,
   ExperiencesSlugRoute: ExperiencesSlugRoute,
+  DestinationsIndexRoute: DestinationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -156,7 +156,7 @@ function Index() {
             return (
               <Link key={t.slug} to="/treks/$slug" params={{ slug: t.slug }} className="block">
                 <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
-                  <div className="grid grid-cols-[112px_minmax(0,1fr)] items-stretch sm:grid-cols-[40%_minmax(0,1fr)]">
+                  <div className="grid h-full grid-cols-[112px_minmax(0,1fr)] items-stretch sm:grid-cols-[40%_minmax(0,1fr)]">
                     {cover && (
                       <div className="relative min-h-[132px]">
                         <img

@@ -176,7 +176,8 @@ function MatchPage() {
 
   const isNoteStep = step >= groups.length;
   const group = groups[Math.min(step, groups.length - 1)]!;
-  const totalSteps = groups.length + 1;
+  const totalSteps = groups.length;
+  const shownStep = Math.min(step + 1, totalSteps);
 
   return (
     <>
@@ -186,25 +187,27 @@ function MatchPage() {
         lead="זה לא מחשבון ולא תשובה סופית. המטרה היא לצמצם לשניים־שלושה כיוונים שכדאי לבדוק, ולהסביר למה כל אחד מהם יכול להתאים לכם."
       />
 
-      <Section>
+      <Section className="pb-20 sm:pb-24">
+        <div className="flex min-h-[52vh] flex-col">
         <div className="flex items-center gap-3">
           <div
             className="h-1.5 flex-1 overflow-hidden rounded-full bg-ink/10"
             role="progressbar"
             aria-valuemin={1}
             aria-valuemax={totalSteps}
-            aria-valuenow={step + 1}
+            aria-valuenow={shownStep}
             aria-label="התקדמות בשאלון"
           >
             <div
               className="h-full rounded-full bg-saffron transition-all"
-              style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
+              style={{ width: `${(shownStep / totalSteps) * 100}%` }}
             />
           </div>
           <p className="shrink-0 text-[12.5px] font-medium text-ink/55">
-            שלב {step + 1} מתוך {totalSteps}
+            {isNoteStep ? "סיימנו את השאלות" : `שאלה ${shownStep} מתוך ${totalSteps}`}
           </p>
         </div>
+
 
         {isNoteStep ? (
           <div className="mt-6">

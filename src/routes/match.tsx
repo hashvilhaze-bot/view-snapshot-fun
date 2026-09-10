@@ -188,7 +188,7 @@ function MatchPage() {
       />
 
       <Section className="pb-20 sm:pb-24">
-        <div className="flex min-h-[52vh] flex-col">
+        <div className="flex min-h-[340px] flex-col sm:min-h-[400px]">
         <div className="flex items-center gap-3">
           <div
             className="h-1.5 flex-1 overflow-hidden rounded-full bg-ink/10"

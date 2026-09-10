@@ -22,8 +22,8 @@ export function SiteFooter() {
           <p className="mb-3 font-semibold text-parchment">{t("footer.onSite")}</p>
           <ul className="space-y-2 text-parchment/75">
             <li>
-              <Link to="/nepal" className="hover:text-parchment">
-                {t("nav.nepal")}
+              <Link to="/destinations" className="hover:text-parchment">
+                {t("nav.destinations")}
               </Link>
             </li>
             <li>

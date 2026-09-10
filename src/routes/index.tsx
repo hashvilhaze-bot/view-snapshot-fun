@@ -261,33 +261,27 @@ function Index() {
 
 
       {/* PROCESS */}
-      <Section kicker="איך אנחנו עובדים" title="מהשיחה הראשונה ועד החזרה הביתה">
-        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
-          יש לכם כתובת אחת לאורך כל הדרך: מי שמקשיב ומתכנן איתכם כאן, וצוות מקומי מנוסה בנפאל
-          שיודע לטפל במה שנדרש בשטח — גם כשצריך לשנות תוכנית באמצע הטיול.
+      <Section kicker="איך אנחנו עובדים" title="אתם לא צריכים להגיע עם מסלול. בשביל זה אנחנו כאן.">
+        <p className="-mt-1 mb-5 text-[15px] leading-relaxed text-ink/70">
+          מתחילים בשיחה: כמה זמן יש לכם, מה מושך אתכם, איזה קצב מתאים לכם ומה חשוב שלא יהיה בטיול.
+          מכאן בונים את הכיוון יחד, ובעזרת צוות מקומי מנוסה בנפאל הופכים אותו לטיול שאפשר באמת לצאת
+          אליו.
         </p>
-        <ol className="grid gap-3 sm:grid-cols-2">
-          {[
-            ["01", "מכירים ומקשיבים", "כמה זמן יש, מי נוסע ומה חשוב לכם"],
-            ["02", "בוחנים אפשרויות", "כמה כיוונים שמתאימים, עם ההבדלים ביניהם"],
-            ["03", "בונים את הטיול", "מסלול, קצב, לינה, התאקלמות ותחבורה"],
-            ["04", "סוגרים פרטים", "תיאומים, הזמנות והכנה מסודרת ליציאה"],
-            ["05", "מלווים גם בנפאל", "כתובת לשאלות ולשינויים לאורך הטיול"],
-            ["06", "עד שחוזרים הביתה", "הליווי לא נגמר בנחיתה בקטמנדו"],
-          ].map(([n, t, d]) => (
-            <li key={n} className="flex items-start gap-3 rounded-xl bg-parchment/70 px-4 py-3">
-              <span className="font-display text-base font-bold text-saffron">{n}</span>
-              <span>
-                <span className="block text-[14px] font-semibold">{t}</span>
-                <span className="mt-0.5 block text-[13px] leading-snug text-ink/60">{d}</span>
+        <ol className="flex flex-wrap items-center gap-2">
+          {["מקשיבים", "מתאימים", "בונים", "יוצאים", "מלווים"].map((step, i) => (
+            <li key={step} className="flex items-center gap-2">
+              <span className="rounded-full bg-parchment/80 px-4 py-2 text-[14px] font-semibold ring-1 ring-ink/5">
+                {step}
               </span>
+              {i < 4 && <span className="text-saffron">←</span>}
             </li>
           ))}
         </ol>
-        <Link to="/about" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
+        <Link to="/about" className="mt-5 inline-block text-[14px] font-semibold text-saffron">
           מי האנשים מאחורי זה ←
         </Link>
       </Section>
+
 
       {/* KNOWLEDGE — simple answer first */}
       <Section kicker="לפני שנוסעים" title="שאלות שיש עליהן תשובה בשורה אחת">
@@ -312,7 +306,7 @@ function Index() {
       </Section>
 
       {/* ABOUT */}
-      <Section kicker="מי אנחנו" title="מכירים אתכם כאן, מנוסים בשטח שם">
+      <Section kicker="מי אנחנו" title="מכירים אתכם כאן. מכירים את נפאל שם.">
         <Card className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <img
             src={guidePortrait}
@@ -322,12 +316,11 @@ function Index() {
           />
           <div>
             <p className="text-[15px] leading-relaxed text-ink/75">
-              התכנון נעשה בעברית, בשיחה אישית עם אוהד. בנפאל מחכה סוכנות שלום — סוכנות מקומית
-              מנוסה מקטמנדו, עם מדריכים שגדלו באזורים שאליהם הולכים. עבורכם זו מעטפת אחת, לא שני
-              גופים.
+              ״השביל הזה״ נולד מחיבור פשוט: מישהו כאן שמקשיב לכם, מבין מה אתם מחפשים ומלווה אתכם
+              לאורך הדרך — וצוות מקומי ותיק בנפאל שמכיר את השבילים, המקומות והאנשים שמאחוריהם.
             </p>
             <Link to="/about" className="mt-3 inline-block text-[14px] font-semibold text-saffron">
-              להכיר את האנשים מאחורי הדרך ←
+              להכיר את האנשים שמאחורי השביל ←
             </Link>
           </div>
         </Card>
@@ -340,8 +333,9 @@ function Index() {
             בואו נדבר על השביל שלכם
           </h2>
           <p className="mx-auto mt-2 max-w-[40ch] text-[15px] leading-relaxed text-parchment/80">
-            שיחה אחת, בלי התחייבות — גם אם יש רק תחושה שנפאל מסקרנת אתכם.
+            יש לכם כבר מסלול בראש? מצוין. יש לכם רק תחושה שהגיע הזמן לנסוע? גם מצוין. מכאן מתחילים.
           </p>
+
           <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
             <Link
               to="/contact"

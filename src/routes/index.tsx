@@ -139,7 +139,7 @@ function Index() {
           אלא את זה שמתאים לכם.
         </p>
 
-        <div className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           {treks
             .filter((t) =>
               ["pokhara-hills", "poon-hill", "annapurna-base-camp", "everest-base-camp"].includes(
@@ -150,8 +150,8 @@ function Index() {
             const cover = galleries[t.slug]?.[0];
             return (
               <Link key={t.slug} to="/treks/$slug" params={{ slug: t.slug }} className="block">
-                <Card className="overflow-hidden p-0 transition-colors hover:border-saffron/40">
-                  <div className="grid grid-cols-[104px_minmax(0,1fr)] sm:grid-cols-[150px_minmax(0,1fr)]">
+                <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
+                  <div className="grid grid-cols-[112px_minmax(0,1fr)] sm:grid-cols-[40%_minmax(0,1fr)]">
                     {cover && (
                       <img
                         src={cover.src}
@@ -159,12 +159,12 @@ function Index() {
                         loading="lazy"
                         width={1200}
                         height={800}
-                        className="h-full w-full object-cover"
+                        className="h-full min-h-[132px] w-full object-cover"
                       />
                     )}
-                    <div className="p-4">
-                      <div className="flex items-center justify-between gap-3">
-                        <h3 className="truncate font-display text-[17px] font-bold">{t.name}</h3>
+                    <div className="p-3.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3 className="truncate font-display text-[16px] font-bold">{t.name}</h3>
                         <span className="shrink-0 text-[11px] font-semibold text-saffron">
                           {t.effortLabel}
                         </span>
@@ -172,10 +172,10 @@ function Index() {
                       <p className="mt-1 text-[12.5px] text-ink/60">
                         {t.days} · {t.altitude}
                       </p>
-                      <div className="mt-2">
+                      <div className="mt-1.5">
                         <EffortBars level={t.effort} />
                       </div>
-                      <p className="mt-2 text-[13px] leading-snug text-ink/60">{t.teaser}</p>
+                      <p className="mt-1.5 text-[13px] leading-snug text-ink/60">{t.teaser}</p>
                     </div>
                   </div>
                 </Card>
@@ -183,6 +183,7 @@ function Index() {
             );
           })}
         </div>
+
         <Link to="/treks" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
           לכל המסלולים והחוויות ←
         </Link>

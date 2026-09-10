@@ -204,19 +204,24 @@ function AboutPage() {
         </div>
       </section>
 
-      <Section title="מהשיחה הראשונה ועד החזרה הביתה">
-        <ol className="space-y-4">
+      <Section title="מהשיחה הראשונה ועד החזרה הביתה" className="py-6 sm:py-7">
+        <ol className="grid gap-2.5 sm:grid-cols-2">
           {steps.map(([n, t, d]) => (
-            <li key={n} className="flex gap-4">
-              <span className="font-display text-lg leading-none font-bold text-saffron">{n}</span>
+            <li
+              key={n}
+              className="flex gap-3.5 rounded-2xl border border-parchment/50 bg-parchment/85 p-4 ring-1 ring-ink/5"
+            >
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-saffron/12 font-display text-[13px] font-bold text-saffron">
+                {n}
+              </span>
               <div>
                 <p className="text-[15px] font-semibold">{t}</p>
-                <p className="text-[14px] leading-relaxed text-ink/70">{d}</p>
+                <p className="mt-1 text-[13.5px] leading-relaxed text-ink/70">{d}</p>
               </div>
             </li>
           ))}
         </ol>
-        <p className="mt-5 text-[14px] leading-relaxed text-ink/60">
+        <p className="mt-4 text-[14px] leading-relaxed text-ink/60">
           גם כשצריך לשנות תוכנית באמצע הטיול, יש מי שמטפל בזה — מי שנמצא בשטח יודע מה הובטח לכם, ומי
           שתכנן איתכם יודע מה קורה שם עכשיו.
         </p>

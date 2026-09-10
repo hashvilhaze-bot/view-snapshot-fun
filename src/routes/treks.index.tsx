@@ -35,16 +35,16 @@ function TreksPage() {
         imageAlt="עמק בהימלאיה באור זהוב"
       />
 
-      <Section className="!pb-3">
+      <Section className="!pt-6 !pb-2">
         <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-4">
           <p className="text-[15px] leading-relaxed text-ink/80">
-            לא חייבים לבחור מסלול מתוך הרשימה. המסלולים כאן הם נקודת פתיחה ורעיונות — אפשר לשנות
-            קצב, אורך ורמת קושי, ולשלב אותם בתוך טיול רחב יותר.
+            לא חייבים לבחור מסלול מתוך הרשימה. המסלולים כאן הם נקודת פתיחה ורעיונות — אפשר לקצר,
+            להאריך, לשנות קצב ורמת קושי, לשלב כמה מסלולים או לבנות משהו אחר לגמרי לפי מי שנוסע.
           </p>
         </div>
       </Section>
 
-      <Section title="מסלולים" className="!pt-4">
+      <Section title="מסלולים" className="!pt-4 !pb-4">
         <div className="grid gap-3 sm:grid-cols-2">
           {treks.map((t) => {
             const photo = galleries[t.slug]?.[0];
@@ -78,7 +78,7 @@ function TreksPage() {
                   )}
                   <div className="flex flex-1 flex-col p-4">
                     {!photo && <h3 className="font-display text-lg font-bold">{t.name}</h3>}
-                    <dl className="flex flex-wrap gap-x-4 gap-y-1.5 text-[12.5px] text-ink/70">
+                    <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[12.5px] text-ink/70">
                       <div>
                         <dt className="text-ink/45">משך</dt>
                         <dd className="font-medium">{t.days}</dd>
@@ -102,7 +102,7 @@ function TreksPage() {
                       <span className="text-ink/45">למי מתאים: </span>
                       {t.fit}
                     </p>
-                    <span className="mt-3 inline-block self-start rounded-xl bg-parchment px-4 py-2 text-[13px] font-semibold text-saffron ring-1 ring-ink/10 group-hover:bg-saffron group-hover:text-parchment">
+                    <span className="mt-auto inline-block self-start rounded-xl bg-parchment px-4 py-2 pt-2 text-[13px] font-semibold text-saffron ring-1 ring-ink/10 group-hover:bg-saffron group-hover:text-parchment">
                       פרטים
                     </span>
                   </div>
@@ -112,6 +112,7 @@ function TreksPage() {
           })}
         </div>
       </Section>
+
 
       <Section title="נפאל שמעבר לטרקים">
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">

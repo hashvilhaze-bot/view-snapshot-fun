@@ -47,6 +47,8 @@ export const dictionary = {
   en: {
     "nav.home": "Home",
     "nav.nepal": "Nepal",
+    "nav.destinations": "Destinations",
+    "nav.allDestinations": "All destinations",
     "nav.treks": "Treks and routes",
     "nav.match": "What suits me?",
     "nav.knowledge": "Knowledge hub",

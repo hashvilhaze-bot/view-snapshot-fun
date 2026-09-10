@@ -98,11 +98,11 @@ function TreksPage() {
                         </dd>
                       </div>
                     </dl>
-                    <p className="mt-2.5 text-[13.5px] leading-relaxed text-ink/70">
+                    <p className="mt-2.5 mb-3 text-[13.5px] leading-relaxed text-ink/70">
                       <span className="text-ink/45">למי מתאים: </span>
                       {t.fit}
                     </p>
-                    <span className="mt-auto inline-block self-start rounded-xl bg-parchment px-4 py-2 pt-2 text-[13px] font-semibold text-saffron ring-1 ring-ink/10 group-hover:bg-saffron group-hover:text-parchment">
+                    <span className="mt-auto inline-block self-start rounded-xl bg-parchment px-4 py-2 text-[13px] font-semibold text-saffron ring-1 ring-ink/10 group-hover:bg-saffron group-hover:text-parchment">
                       פרטים
                     </span>
                   </div>
@@ -114,7 +114,7 @@ function TreksPage() {
       </Section>
 
 
-      <Section title="נפאל שמעבר לטרקים">
+      <Section title="נפאל שמעבר לטרקים" className="!pt-4 !pb-4">
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
           {experiences.map((e) => (
             <Link key={e.slug} to="/experiences/$slug" params={{ slug: e.slug }}>
@@ -127,7 +127,7 @@ function TreksPage() {
         </div>
       </Section>
 
-      <Section className="!pt-4">
+      <Section className="!pt-2">
         <Card>
           <p className="text-[15px] leading-relaxed text-ink/75">
             לא בטוחים מה מתאים לכם? שבע שאלות קצרות, ואחריהן שניים־שלושה כיוונים עם הסבר.

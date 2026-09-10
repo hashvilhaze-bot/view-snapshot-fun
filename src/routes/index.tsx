@@ -102,7 +102,7 @@ function Index() {
       </section>
 
       {/* WHY NEPAL */}
-      <Section kicker="למה נפאל" title="קשה להסביר את נפאל בתמונה אחת">
+      <Section kicker="למה נפאל" title="קשה להסביר את נפאל בתמונה אחת" className="py-5 sm:py-6">
         <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
           ההימלאיה היא סיבה מצוינת להגיע. אבל אז מגיעים גם לסמטאות של קטמנדו, לכפרים בדרך, לזריחה
           מול ההרים, לנהר, למקדש באמצע הרחוב וליום אחד שלא תכננתם בכלל. אפשר ללכת גבוה ורחוק, ואפשר
@@ -133,13 +133,18 @@ function Index() {
       </Section>
 
       {/* TREKS */}
-      <Section kicker="ההימלאיה והטרקים" title="לא כל מי שחולם על ההימלאיה צריך ללכת לאוורסט">
-        <p className="-mt-1 mb-5 text-[15px] leading-relaxed text-ink/70">
+      <Section
+        kicker="ההימלאיה והטרקים"
+        title="לא כל מי שחולם על ההימלאיה צריך ללכת לאוורסט"
+        className="py-5 sm:py-6"
+      >
+        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
           יש טרקים של כמה ימים ויש מסעות של שבועיים ויותר. העניין הוא לא לבחור את הטרק הכי מפורסם —
           אלא את זה שמתאים לכם.
         </p>
 
-        <div className="space-y-3">
+
+        <div className="grid gap-3 sm:grid-cols-2">
           {treks
             .filter((t) =>
               ["pokhara-hills", "poon-hill", "annapurna-base-camp", "everest-base-camp"].includes(
@@ -150,8 +155,8 @@ function Index() {
             const cover = galleries[t.slug]?.[0];
             return (
               <Link key={t.slug} to="/treks/$slug" params={{ slug: t.slug }} className="block">
-                <Card className="overflow-hidden p-0 transition-colors hover:border-saffron/40">
-                  <div className="grid grid-cols-[104px_minmax(0,1fr)] sm:grid-cols-[150px_minmax(0,1fr)]">
+                <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
+                  <div className="grid grid-cols-[112px_minmax(0,1fr)] sm:grid-cols-[40%_minmax(0,1fr)]">
                     {cover && (
                       <img
                         src={cover.src}
@@ -159,12 +164,12 @@ function Index() {
                         loading="lazy"
                         width={1200}
                         height={800}
-                        className="h-full w-full object-cover"
+                        className="h-full min-h-[132px] w-full object-cover"
                       />
                     )}
-                    <div className="p-4">
-                      <div className="flex items-center justify-between gap-3">
-                        <h3 className="truncate font-display text-[17px] font-bold">{t.name}</h3>
+                    <div className="p-3.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3 className="truncate font-display text-[16px] font-bold">{t.name}</h3>
                         <span className="shrink-0 text-[11px] font-semibold text-saffron">
                           {t.effortLabel}
                         </span>
@@ -172,10 +177,10 @@ function Index() {
                       <p className="mt-1 text-[12.5px] text-ink/60">
                         {t.days} · {t.altitude}
                       </p>
-                      <div className="mt-2">
+                      <div className="mt-1.5">
                         <EffortBars level={t.effort} />
                       </div>
-                      <p className="mt-2 text-[13px] leading-snug text-ink/60">{t.teaser}</p>
+                      <p className="mt-1.5 text-[13px] leading-snug text-ink/60">{t.teaser}</p>
                     </div>
                   </div>
                 </Card>
@@ -183,6 +188,7 @@ function Index() {
             );
           })}
         </div>
+
         <Link to="/treks" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
           לכל המסלולים והחוויות ←
         </Link>
@@ -225,7 +231,7 @@ function Index() {
       </section>
 
       {/* DID YOU KNOW */}
-      <Section>
+      <Section className="py-4 sm:py-5">
         <DidYouKnow
           text="בנפאל השעון מקדים את ישראל לא בשעה שלמה — אלא גם ב־45 דקות. אזור הזמן שם הוא UTC+5:45. כן, גם הזמן שם עושה דברים קצת אחרת."
           action={<Link to="/knowledge">עוד דברים שכדאי לדעת לפני שנוסעים ←</Link>}
@@ -233,7 +239,7 @@ function Index() {
       </Section>
 
       {/* THREE PATHS */}
-      <Section kicker="מאיפה מתחילים" title="לא חייבים לדעת בדיוק מה רוצים">
+      <Section kicker="מאיפה מתחילים" title="לא חייבים לדעת בדיוק מה רוצים" className="py-5 sm:py-6">
         <div className="grid gap-3 sm:grid-cols-3">
           <Link to="/nepal">
             <Card className="h-full p-4 transition-colors hover:border-saffron/40">
@@ -264,12 +270,17 @@ function Index() {
 
 
       {/* PROCESS */}
-      <Section kicker="איך אנחנו עובדים" title="אתם לא צריכים להגיע עם מסלול. בשביל זה אנחנו כאן.">
-        <p className="-mt-1 mb-5 text-[15px] leading-relaxed text-ink/70">
+      <Section
+        kicker="איך אנחנו עובדים"
+        title="אתם לא צריכים להגיע עם מסלול. בשביל זה אנחנו כאן."
+        className="py-5 sm:py-6"
+      >
+        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
           מתחילים בשיחה: כמה זמן יש לכם, מה מושך אתכם, איזה קצב מתאים לכם ומה חשוב שלא יהיה בטיול.
           מכאן בונים את הכיוון יחד, ובעזרת צוות מקומי מנוסה בנפאל הופכים אותו לטיול שאפשר באמת לצאת
           אליו.
         </p>
+
         <ol className="flex flex-wrap items-center gap-2">
           {["מקשיבים", "מתאימים", "בונים", "יוצאים", "מלווים"].map((step, i) => (
             <li key={step} className="flex items-center gap-2">

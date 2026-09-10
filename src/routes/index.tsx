@@ -67,6 +67,7 @@ function Index() {
           alt="רכס מושלג בהימלאיה בנפאל באור ראשון, עם ערפל שממלא את העמקים"
           className="absolute inset-0 h-full w-full object-cover"
         />
+        <HeroVideo src={heroVideo.url} poster={heroHimalaya} />
         <div className="absolute inset-0 bg-gradient-to-t from-summit via-summit/45 to-transparent" />
         <div className="relative mx-auto w-full max-w-4xl px-6 pb-11">
           <p className="text-[12px] font-medium tracking-wide text-saffron">

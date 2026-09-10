@@ -102,7 +102,7 @@ function Index() {
       </section>
 
       {/* WHY NEPAL */}
-      <Section kicker="למה נפאל" title="קשה להסביר את נפאל בתמונה אחת">
+      <Section kicker="למה נפאל" title="קשה להסביר את נפאל בתמונה אחת" className="py-5 sm:py-6">
         <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
           ההימלאיה היא סיבה מצוינת להגיע. אבל אז מגיעים גם לסמטאות של קטמנדו, לכפרים בדרך, לזריחה
           מול ההרים, לנהר, למקדש באמצע הרחוב וליום אחד שלא תכננתם בכלל. אפשר ללכת גבוה ורחוק, ואפשר
@@ -133,11 +133,16 @@ function Index() {
       </Section>
 
       {/* TREKS */}
-      <Section kicker="ההימלאיה והטרקים" title="לא כל מי שחולם על ההימלאיה צריך ללכת לאוורסט">
-        <p className="-mt-1 mb-5 text-[15px] leading-relaxed text-ink/70">
+      <Section
+        kicker="ההימלאיה והטרקים"
+        title="לא כל מי שחולם על ההימלאיה צריך ללכת לאוורסט"
+        className="py-5 sm:py-6"
+      >
+        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
           יש טרקים של כמה ימים ויש מסעות של שבועיים ויותר. העניין הוא לא לבחור את הטרק הכי מפורסם —
           אלא את זה שמתאים לכם.
         </p>
+
 
         <div className="grid gap-3 sm:grid-cols-2">
           {treks
@@ -226,7 +231,7 @@ function Index() {
       </section>
 
       {/* DID YOU KNOW */}
-      <Section>
+      <Section className="py-4 sm:py-5">
         <DidYouKnow
           text="בנפאל השעון מקדים את ישראל לא בשעה שלמה — אלא גם ב־45 דקות. אזור הזמן שם הוא UTC+5:45. כן, גם הזמן שם עושה דברים קצת אחרת."
           action={<Link to="/knowledge">עוד דברים שכדאי לדעת לפני שנוסעים ←</Link>}
@@ -234,7 +239,7 @@ function Index() {
       </Section>
 
       {/* THREE PATHS */}
-      <Section kicker="מאיפה מתחילים" title="לא חייבים לדעת בדיוק מה רוצים">
+      <Section kicker="מאיפה מתחילים" title="לא חייבים לדעת בדיוק מה רוצים" className="py-5 sm:py-6">
         <div className="grid gap-3 sm:grid-cols-3">
           <Link to="/nepal">
             <Card className="h-full p-4 transition-colors hover:border-saffron/40">
@@ -265,12 +270,17 @@ function Index() {
 
 
       {/* PROCESS */}
-      <Section kicker="איך אנחנו עובדים" title="אתם לא צריכים להגיע עם מסלול. בשביל זה אנחנו כאן.">
-        <p className="-mt-1 mb-5 text-[15px] leading-relaxed text-ink/70">
+      <Section
+        kicker="איך אנחנו עובדים"
+        title="אתם לא צריכים להגיע עם מסלול. בשביל זה אנחנו כאן."
+        className="py-5 sm:py-6"
+      >
+        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
           מתחילים בשיחה: כמה זמן יש לכם, מה מושך אתכם, איזה קצב מתאים לכם ומה חשוב שלא יהיה בטיול.
           מכאן בונים את הכיוון יחד, ובעזרת צוות מקומי מנוסה בנפאל הופכים אותו לטיול שאפשר באמת לצאת
           אליו.
         </p>
+
         <ol className="flex flex-wrap items-center gap-2">
           {["מקשיבים", "מתאימים", "בונים", "יוצאים", "מלווים"].map((step, i) => (
             <li key={step} className="flex items-center gap-2">

@@ -2,6 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
+import annapurna1 from "@/assets/gallery/annapurna-1.jpg";
+import kathmandu2 from "@/assets/gallery/kathmandu-2.jpg";
+import pokhara1 from "@/assets/gallery/pokhara-1.jpg";
+import pokharaHills3 from "@/assets/gallery/pokhara-hills-3.jpg";
+import rafting1 from "@/assets/gallery/rafting-1.jpg";
+import villages2 from "@/assets/gallery/villages-2.jpg";
+import yoga1 from "@/assets/gallery/yoga-rest-1.jpg";
 import { Card, DidYouKnow, Insight, PageHero, QuickFacts, Section, TalkCta } from "@/components/page";
 
 export const Route = createFileRoute("/nepal")({
@@ -38,6 +45,65 @@ const facts = [
   },
 ];
 
+const experiences = [
+  {
+    slug: "treks",
+    title: "טרקים קצרים וארוכים",
+    text: "מהליכה של שלושה ימים בגבעות ועד מסעות של שבועיים בגובה. בוחרים לפי זמן, קצב ומה שמושך אתכם.",
+    image: annapurna1,
+    imageAlt: "טבעת פסגות מושלגות סביב אגן גבוה באור זריחה ורוד",
+    to: "/treks",
+  },
+  {
+    slug: "kathmandu",
+    title: "קטמנדו וחוויות תרבות",
+    text: "סמטאות, כיכרות מקדשים, דוכני אוכל וחיים שמתרחשים בחוץ. אפשר לשלב יומיים בהתחלה או בסוף.",
+    image: kathmandu2,
+    imageAlt: "כיכר מקדשים נווארית עם גגות פגודה מדורגים וקורות עץ מגולפים",
+    to: "/experiences/kathmandu",
+  },
+  {
+    slug: "pokhara",
+    title: "פוקרה וזמן רגוע",
+    text: "אגם, מרפסות, בוקר מול ההרים. מקום טוב להתחיל בו, לסיים בו, או פשוט לנוח בו כמה ימים.",
+    image: pokhara1,
+    imageAlt: "סירות עץ על אגם שקט בפוקרה, גבעות ירוקות משתקפות במים",
+    to: "/experiences/pokhara",
+  },
+  {
+    slug: "villages",
+    title: "כפרים ותרבות מקומית",
+    text: "שבילים שאנשים חיים עליהם דורות, ארוחה בבית של משפחה, ושיחה שלא תהיה במסעדת תיירים.",
+    image: villages2,
+    imageAlt: "אישה מבשלת דאל בהאט על כירת חימר במטבח כפרי",
+    to: "/experiences/villages",
+  },
+  {
+    slug: "yoga-rest",
+    title: "יוגה ושקט",
+    text: "רחבה מול הגבעות, ערסל בגן, יום בלי לוח זמנים. מתאים לפני טרק, אחרי טרק, או בפני עצמו.",
+    image: yoga1,
+    imageAlt: "רחבת עץ פתוחה עם מזרנים מגולגלים מול גבעות ירוקות בזריחה",
+    to: "/experiences/yoga-rest",
+  },
+  {
+    slug: "rafting",
+    title: "רפטינג כפעילות משלימה",
+    text: "יום על הנהר בדרך מקטמנדו לפוקרה, או מסע של כמה ימים למי שרוצה יותר.",
+    image: rafting1,
+    imageAlt: "רפסודה צהובה עם חותרים בתוך אשד לבן בנהר נפאלי",
+    to: "/experiences/rafting",
+  },
+  {
+    slug: "combinations",
+    title: "שילוב של כמה חוויות",
+    text: "טרק קצר, יומיים בפוקרה, רפטינג בדרך חזרה וקטמנדו בסוף. הטיול בנוי סביבכם.",
+    image: pokharaHills3,
+    imageAlt: "זריחה מגבעה ירוקה: שורת פסגות מושלגות מעל ים של ערפל",
+    to: "/match",
+  },
+];
+
 function NepalPage() {
   return (
     <>
@@ -49,19 +115,47 @@ function NepalPage() {
         imageAlt="רכס מושלג בהימלאיה באור ראשון"
       />
 
-      <Section kicker="נפאל בכמה רגעים" title="כרטיס ביקור מהיר">
-        <QuickFacts />
-        <Link to="/knowledge" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
-          למרכז הידע למטיילים בנפאל ←
-        </Link>
+      <Section kicker="אז מה אפשר לעשות בנפאל?" title="נפאל היא לא סוג אחד של טיול">
+        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
+          לא חייבים לבחור בין טרק לטיול רגוע. אפשר לבנות את השילוב שמתאים לכם.
+        </p>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {experiences.map((e) => (
+            <Link key={e.slug} to={e.to} className="block">
+              <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
+                <img
+                  src={e.image}
+                  alt={e.imageAlt}
+                  loading="lazy"
+                  width={1200}
+                  height={800}
+                  className="aspect-[16/9] w-full object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="font-display text-[16px] font-bold">{e.title}</h3>
+                  <p className="mt-1 text-[13.5px] leading-snug text-ink/65">{e.text}</p>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </Section>
+
+      <Section kicker="נפאל בכמה רגעים" className="py-4 sm:py-5">
+        <div className="rounded-2xl border border-parchment/50 bg-parchment/85 p-4 ring-1 ring-ink/5">
+          <QuickFacts />
+          <Link to="/knowledge" className="mt-3 inline-block text-[13px] font-semibold text-saffron">
+            למרכז הידע למטיילים בנפאל ←
+          </Link>
+        </div>
       </Section>
 
       <Section title="שלושה דברים שכדאי לדעת">
         <div className="grid gap-3 sm:grid-cols-3">
           {facts.map((f) => (
-            <Card key={f.n}>
-              <p className="font-display text-xl font-bold text-saffron">{f.n}</p>
-              <p className="mt-1 text-[14px] leading-relaxed text-ink/70">{f.t}</p>
+            <Card key={f.n} className="p-4">
+              <p className="font-display text-lg font-bold text-saffron sm:text-xl">{f.n}</p>
+              <p className="mt-1 text-[13px] leading-relaxed text-ink/70 sm:text-[14px]">{f.t}</p>
             </Card>
           ))}
         </div>

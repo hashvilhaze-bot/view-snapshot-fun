@@ -341,12 +341,13 @@ function Index() {
               to="/contact"
               className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
             >
-              לפתוח שיחה איתנו
+              בואו נדבר
             </Link>
             <WhatsappButton
               className="bg-parchment/15 text-parchment ring-parchment/30"
-              label="לכתוב בוואטסאפ"
+              label="כתבו לנו בוואטסאפ"
             />
+
           </div>
         </div>
       </section>

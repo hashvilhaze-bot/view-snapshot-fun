@@ -26,6 +26,16 @@ const INTERESTS = [
   "עדיין מתלבטים ורוצים להתייעץ",
 ] as const;
 
+// After the match questionnaire we already know the direction — only ask what to add.
+const EXTRA_INTERESTS = [
+  "עוד מסלול או אזור בנפאל",
+  "תרבות ונופים",
+  "מנוחה / יוגה",
+  "רפטינג",
+  "בהוטן",
+  "עדיין מתלבטים ורוצים להתייעץ",
+] as const;
+
 export const Route = createFileRoute("/quote")({
   component: QuotePage,
   head: () => ({

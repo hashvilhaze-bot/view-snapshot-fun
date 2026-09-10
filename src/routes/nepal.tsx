@@ -160,7 +160,7 @@ function NepalPage() {
         </div>
       </Section>
 
-      <Section title="שלושה דברים שכדאי לדעת">
+      <Section title="שלושה דברים שכדאי לדעת" className="py-5 sm:py-6">
         <div className="grid gap-3 sm:grid-cols-3">
           {facts.map((f) => (
             <Card key={f.n} className="p-4">
@@ -171,14 +171,15 @@ function NepalPage() {
         </div>
       </Section>
 
-      <Section title="ההרים">
+      <Section title="ההרים" className="py-5 sm:py-6">
         <p className="text-[15px] leading-relaxed text-ink/70">
           ההימלאיה בנפאל אינה מסלול אחד. יש הליכה של שלושה ימים בין כפרים בגבעות, ויש מעברים בגובה
           חמשת אלפים מטר שדורשים שבועיים. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי החוויה.
         </p>
-        <div className="mt-5">
+        <div className="mt-3.5">
           <Insight text="בנפאל לא מודדים את השנה כמו אצלנו: הלוח הרשמי הוא ביקראם סמבט, שמקדים את הלוח הלועזי בכ־57 שנים, והשנה החדשה שם מתחילה באמצע אפריל." />
         </div>
+
         <Link
           to="/treks"
           className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
@@ -195,7 +196,7 @@ function NepalPage() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-summit/75" />
-        <div className="relative mx-auto max-w-4xl px-6 py-12">
+        <div className="relative mx-auto max-w-4xl px-6 py-10">
           <h2 className="font-display text-[22px] font-bold text-balance text-parchment sm:text-2xl">
             ההימלאיה היא סיבה מצוינת להגיע לנפאל. היא ממש לא הסיבה היחידה להישאר
           </h2>
@@ -212,7 +213,7 @@ function NepalPage() {
         </div>
       </section>
 
-      <Section title="הנהרות">
+      <Section title="הנהרות" className="py-5 sm:py-6">
         <DidYouKnow
           text="הנהרות הגדולים של נפאל מתחילים בהמסת שלגים בהימלאיה — ולכן עוצמת האשדות משתנה לפי העונה, לא לפי הגשם של אותו יום."
           action={
@@ -223,7 +224,7 @@ function NepalPage() {
         />
       </Section>
 
-      <Section kicker="להכיר את נפאל" title="אוכל, תרבות וחיי יום־יום">
+      <Section kicker="להכיר את נפאל" title="אוכל, תרבות וחיי יום־יום" className="py-5 sm:py-6">
         <p className="text-[15px] leading-relaxed text-ink/70">
           דאל בהאט פעמיים ביום, מומו בדוכן ברחוב, מקדשים שהינדואיזם ובודהיזם חיים בהם זה לצד זה,
           ולוח שנה משלהם. זה חלק גדול מהחוויה, גם למי שלא הולך לטרק ארוך.
@@ -252,7 +253,7 @@ function NepalPage() {
         </div>
       </Section>
 
-      <Section title="מתי כדאי לבוא">
+      <Section title="מתי כדאי לבוא" className="py-5 sm:py-6">
         <p className="text-[15px] leading-relaxed text-ink/70">
           אוקטובר–נובמבר בהירות ויציבות, מרץ–אפריל ירוקות ופורחות, ויולי–אוגוסט הם מונסון.
         </p>

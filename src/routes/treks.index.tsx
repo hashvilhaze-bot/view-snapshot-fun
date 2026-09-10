@@ -99,7 +99,7 @@ function TreksPage() {
                       </div>
                     </dl>
                     <p className="mt-2.5 text-[13.5px] leading-relaxed text-ink/70">
-                      מתאים ל{t.fit.startsWith("מי ") ? "" : "־"}
+                      <span className="text-ink/45">למי מתאים: </span>
                       {t.fit}
                     </p>
                     <span className="mt-3 inline-block self-start rounded-xl bg-parchment px-4 py-2 text-[13px] font-semibold text-saffron ring-1 ring-ink/10">

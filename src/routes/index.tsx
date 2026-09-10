@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import guidePortrait from "@/assets/guide-portrait.jpg";
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
+import ohadPhoto from "@/assets/ohad.jpg";
 import heroVideo from "@/assets/nepal-hero.mp4.asset.json";
+import shalomTeam from "@/assets/shalom-team.jpg";
 import { HeroVideo } from "@/components/hero-video";
 import {
   Card,
@@ -63,7 +64,7 @@ function Index() {
   return (
     <>
       {/* HERO */}
-      <section className="relative flex min-h-[68svh] flex-col justify-end overflow-hidden sm:min-h-[80vh]">
+      <section className="relative flex min-h-[56svh] flex-col justify-end overflow-hidden sm:min-h-[60vh]">
         <img
           src={heroHimalaya}
           alt="רכס מושלג בהימלאיה בנפאל באור ראשון, עם ערפל שממלא את העמקים"
@@ -310,13 +311,21 @@ function Index() {
 
       {/* ABOUT */}
       <Section kicker="מי אנחנו" title="מכירים אתכם כאן. מכירים את נפאל שם.">
-        <Card className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <img
-            src={guidePortrait}
-            alt="מדריך טרקים נפאלי מקומי בכפר הררי"
-            loading="lazy"
-            className="h-32 w-full shrink-0 rounded-xl object-cover sm:w-28"
-          />
+        <Card className="grid gap-4 sm:grid-cols-[180px_minmax(0,1fr)] sm:items-center">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-1">
+            <img
+              src={ohadPhoto}
+              alt="אוהד הרץ מול פסגות ההימלאיה בנפאל"
+              loading="lazy"
+              className="aspect-[4/3] w-full rounded-xl object-cover"
+            />
+            <img
+              src={shalomTeam}
+              alt="צוות סוכנות שלום במשרד בתאמל, קטמנדו"
+              loading="lazy"
+              className="aspect-[4/3] w-full rounded-xl object-cover"
+            />
+          </div>
           <div>
             <p className="text-[15px] leading-relaxed text-ink/75">
               ״השביל הזה״ נולד מחיבור פשוט: מישהו כאן שמקשיב לכם, מבין מה אתם מחפשים ומלווה אתכם

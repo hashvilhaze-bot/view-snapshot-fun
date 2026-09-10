@@ -45,9 +45,9 @@ function DestinationsPage() {
                   src={d.image}
                   alt={d.imageAlt}
                   loading="lazy"
-                  className="h-48 w-full object-cover sm:h-full"
+                  className="aspect-[16/9] w-full object-cover sm:aspect-[4/3] sm:h-full"
                 />
-                <div className="p-5 sm:p-6">
+                <div className="flex flex-col justify-center p-5 sm:p-6">
                   <div className="flex flex-wrap items-center gap-2">
                     <h2 className="font-display text-xl font-bold">{d.name}</h2>
                     {d.status === "opening" && (

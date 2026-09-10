@@ -129,15 +129,21 @@ function NepalPage() {
             return (
               <Link key={e.slug} to={e.to} className={`block ${wide ? "sm:col-span-2" : ""}`}>
                 <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
-                  <div className={wide ? "grid sm:grid-cols-[45%_minmax(0,1fr)] sm:items-center" : ""}>
-                    <img
-                      src={e.image}
-                      alt={e.imageAlt}
-                      loading="lazy"
-                      width={1200}
-                      height={800}
-                      className={`w-full object-cover ${wide ? "aspect-[16/9] sm:h-full" : "aspect-[3/2]"}`}
-                    />
+                  <div
+                    className={`h-full ${wide ? "grid items-stretch sm:grid-cols-[45%_minmax(0,1fr)]" : ""}`}
+                  >
+
+                    <div className={`relative ${wide ? "aspect-[16/9] sm:aspect-auto sm:min-h-[200px]" : "aspect-[3/2]"}`}>
+                      <img
+                        src={e.image}
+                        alt={e.imageAlt}
+                        loading="lazy"
+                        width={1200}
+                        height={800}
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                    </div>
+
                     <div className="p-3.5">
                       <h3 className="font-display text-[16px] font-bold">{e.title}</h3>
                       <p className="mt-1 text-[13.5px] leading-snug text-ink/65">{e.text}</p>

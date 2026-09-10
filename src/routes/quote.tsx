@@ -26,6 +26,16 @@ const INTERESTS = [
   "עדיין מתלבטים ורוצים להתייעץ",
 ] as const;
 
+// After the match questionnaire we already know the direction — only ask what to add.
+const EXTRA_INTERESTS = [
+  "עוד מסלול או אזור בנפאל",
+  "תרבות ונופים",
+  "מנוחה / יוגה",
+  "רפטינג",
+  "בהוטן",
+  "עדיין מתלבטים ורוצים להתייעץ",
+] as const;
+
 export const Route = createFileRoute("/quote")({
   component: QuotePage,
   head: () => ({
@@ -66,7 +76,9 @@ function QuotePage() {
     if (!ctx) return;
     setContext(ctx);
     setForm((f) => ({ ...f, dates: f.dates || (ctx.time ?? "") }));
-    if (ctx.directions?.length) {
+    // From the questionnaire the direction is already known and shown separately,
+    // so the option buttons stay empty and only collect additions.
+    if (ctx.directions?.length && ctx.source !== "match") {
       setInterests((cur) => (cur.length ? cur : ctx.directions!.slice(0, 3)));
     }
   }, []);
@@ -87,7 +99,9 @@ function QuotePage() {
   const toggle = (opt: string) =>
     setInterests((cur) => (cur.includes(opt) ? cur.filter((c) => c !== opt) : [...cur, opt]));
 
-  const interestsText = interests.join(", ");
+  const fromMatch = context?.source === "match" && !!context.directions?.length;
+  const recommended = fromMatch ? context!.directions![0]! : null;
+  const interestsText = [recommended, ...interests].filter(Boolean).join(", ");
 
   const waMessage = `היי, הגעתי דרך 'השביל הזה' ואני רוצה הצעה לטיול בנפאל.
 מעניין אותי: ${interestsText || "—"}
@@ -157,17 +171,27 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
       {context && (
         <Section>
           <Card>
-            <p className="font-display text-[17px] font-bold">מה שכבר ספרתם לנו</p>
+            <p className="font-display text-[17px] font-bold">
+              {fromMatch ? "אנחנו כבר מכירים את הכיוון שלכם" : "מה שכבר ספרתם לנו"}
+            </p>
+            {recommended && (
+              <p className="mt-2 text-[14px] leading-relaxed text-ink/70">
+                הכיוון שיצא לכם: <span className="font-semibold">{recommended}</span>
+              </p>
+            )}
             {context.summary && (
               <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/65">{context.summary}</p>
             )}
-            {context.directions?.length ? (
+            {!fromMatch && context.directions?.length ? (
               <p className="mt-2 text-[13.5px] leading-relaxed text-ink/65">
-                הכיוונים שיצאו לכם: <span className="font-semibold">{context.directions.join(" · ")}</span>
+                הכיוונים שיצאו לכם:{" "}
+                <span className="font-semibold">{context.directions.join(" · ")}</span>
               </p>
             ) : null}
             <p className="mt-2.5 text-[13px] leading-relaxed text-ink/50">
-              כל זה יישלח יחד עם הבקשה, כדי שלא תצטרכו לספר שוב. אפשר לשנות למטה כל דבר.
+              {fromMatch
+                ? "כל זה יישלח יחד עם הבקשה — נשארו רק הפרטים החסרים."
+                : "כל זה יישלח יחד עם הבקשה, כדי שלא תצטרכו לספר שוב. אפשר לשנות למטה כל דבר."}
             </p>
           </Card>
         </Section>
@@ -177,9 +201,11 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
 
         <form onSubmit={onSubmit} className="space-y-4">
           <fieldset>
-            <legend className={label}>מה מעניין אתכם? אפשר לבחור כמה</legend>
+            <legend className={label}>
+              {fromMatch ? "מה עוד מעניין אתכם? (לא חובה)" : "מה מעניין אתכם? אפשר לבחור כמה"}
+            </legend>
             <div className="mt-2 flex flex-wrap gap-2">
-              {INTERESTS.map((opt) => {
+              {(fromMatch ? EXTRA_INTERESTS : INTERESTS).map((opt) => {
                 const on = interests.includes(opt);
                 return (
                   <button
@@ -200,6 +226,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
               })}
             </div>
           </fieldset>
+
 
 
           <div className="grid gap-4 sm:grid-cols-2">

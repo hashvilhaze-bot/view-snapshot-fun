@@ -27,6 +27,8 @@ export const dictionary = {
   he: {
     "nav.home": "בית",
     "nav.nepal": "נפאל",
+    "nav.destinations": "יעדים",
+    "nav.allDestinations": "כל היעדים",
     "nav.treks": "טרקים ומסלולים",
     "nav.match": "מה מתאים לי?",
     "nav.knowledge": "מרכז ידע",
@@ -45,6 +47,8 @@ export const dictionary = {
   en: {
     "nav.home": "Home",
     "nav.nepal": "Nepal",
+    "nav.destinations": "Destinations",
+    "nav.allDestinations": "All destinations",
     "nav.treks": "Treks and routes",
     "nav.match": "What suits me?",
     "nav.knowledge": "Knowledge hub",

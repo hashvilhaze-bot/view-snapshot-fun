@@ -3,6 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import guidePortrait from "@/assets/guide-portrait.jpg";
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
+import heroVideo from "@/assets/nepal-hero.mp4.asset.json";
+import { HeroVideo } from "@/components/hero-video";
 import {
   Card,
   DidYouKnow,

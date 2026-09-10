@@ -3,9 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
 import ohadPhoto from "@/assets/ohad.jpg";
-import heroVideo from "@/assets/nepal-hero.mp4.asset.json";
 import shalomTeam from "@/assets/shalom-team.jpg";
-import { HeroVideo } from "@/components/hero-video";
 import {
   Card,
   DidYouKnow,
@@ -15,6 +13,7 @@ import {
 } from "@/components/page";
 import { articles, experiences, treks } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
+
 
 const quickAnswers = articles.filter((a) => a.quickAnswer).slice(0, 3);
 
@@ -70,8 +69,8 @@ function Index() {
           alt="רכס מושלג בהימלאיה בנפאל באור ראשון, עם ערפל שממלא את העמקים"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <HeroVideo src={heroVideo.url} poster={heroHimalaya} />
         <div className="absolute inset-0 bg-gradient-to-t from-summit via-summit/45 to-transparent" />
+
         <div className="relative mx-auto w-full max-w-4xl px-6 pb-11">
           <p className="text-[12px] font-medium tracking-wide text-saffron">
             השביל הזה · מסעות בהתאמה אישית בהימלאיה

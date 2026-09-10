@@ -75,9 +75,10 @@ function Index() {
           <h1 className="mt-2 font-display text-[32px] leading-[1.08] font-bold text-parchment drop-shadow-sm sm:text-[44px]">
             השביל שלכם מתחיל כאן
           </h1>
-          <p className="mt-3 max-w-[38ch] text-[15px] leading-relaxed text-parchment/90">
-            יש הרבה דרכים לטייל בנפאל. יחד נמצא את הדרך שמתאימה לכם — מהמסלול והקצב ועד למקומות
-            ולאנשים שתפגשו בדרך.
+          <p className="mt-3 max-w-[40ch] text-[15px] leading-relaxed text-parchment/90">
+            נפאל יכולה להיות שבועיים בהרים, כמה ימים של הליכה בין כפרים, טיול שמשלב טבע ותרבות — או
+            משהו שעוד לא ידעתם שאפשר לעשות שם. אנחנו מתחילים במה שאתם רוצים לחוות, ומשם בונים את
+            הטיול שמתאים לכם.
           </p>
           <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
             <Link
@@ -87,21 +88,24 @@ function Index() {
               בואו נמצא את השביל שלכם
             </Link>
             <Link
-              to="/contact"
+              to="/quote"
               className="rounded-xl bg-parchment/15 px-5 py-3.5 text-center text-[15px] font-medium text-parchment ring-1 ring-parchment/35 backdrop-blur-sm"
             >
-              בואו נדבר על השביל שלכם
+              כבר יודעים מה אתם רוצים?
             </Link>
           </div>
+
         </div>
       </section>
 
       {/* WHY NEPAL */}
-      <Section kicker="למה נפאל" title="נפאל היא הרבה יותר מטרק">
+      <Section kicker="למה נפאל" title="קשה להסביר את נפאל בתמונה אחת">
         <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
-          נפאל יכולה להיות טרק מאתגר בגובה, כמה ימים רגועים בין כפרים, מפגש עם תרבות אחרת או שילוב
-          של הכול. היא מגוונת מספיק כדי שכל אחד ימצא בה דרך שמתאימה לו.
+          ההימלאיה היא סיבה מצוינת להגיע. אבל אז מגיעים גם לסמטאות של קטמנדו, לכפרים בדרך, לזריחה
+          מול ההרים, לנהר, למקדש באמצע הרחוב וליום אחד שלא תכננתם בכלל. אפשר ללכת גבוה ורחוק, ואפשר
+          לקחת את נפאל בקצב אחר לגמרי — בדרך כלל הטיול הטוב נמצא איפשהו בשילוב.
         </p>
+
         {sunrise && (
           <img
             src={sunrise.src}
@@ -126,11 +130,12 @@ function Index() {
       </Section>
 
       {/* TREKS */}
-      <Section kicker="ההימלאיה והטרקים" title="יש יותר מדרך אחת לפגוש את ההימלאיה">
+      <Section kicker="ההימלאיה והטרקים" title="לא כל מי שחולם על ההימלאיה צריך ללכת לאוורסט">
         <p className="-mt-1 mb-5 text-[15px] leading-relaxed text-ink/70">
-          יש מי שרוצה ללכת גבוה ורחוק, ויש מי שמעדיף כמה ימים בהרים ואז מרפסת מול האגם בפוקרה. יש
-          גם דרך באמצע: טרק קצר, כמה כפרים וימים שבהם לא ממהרים לשום מקום.
+          יש טרקים של כמה ימים ויש מסעות של שבועיים ויותר. העניין הוא לא לבחור את הטרק הכי מפורסם —
+          אלא את זה שמתאים לכם.
         </p>
+
         <div className="space-y-3">
           {treks
             .filter((t) =>
@@ -219,19 +224,19 @@ function Index() {
       {/* DID YOU KNOW */}
       <Section>
         <DidYouKnow
-          text="נפאל היא המקום היחיד בעולם שבו השעה מוזזת ב־45 דקות: אזור הזמן שם הוא UTC+5:45."
+          text="בנפאל השעון מקדים את ישראל לא בשעה שלמה — אלא גם ב־45 דקות. אזור הזמן שם הוא UTC+5:45. כן, גם הזמן שם עושה דברים קצת אחרת."
           action={<Link to="/knowledge">עוד דברים שכדאי לדעת לפני שנוסעים ←</Link>}
         />
       </Section>
 
       {/* THREE PATHS */}
-      <Section kicker="מאיפה מתחילים" title="שלוש דרכים להתחיל, לפי המקום שאתם נמצאים בו">
+      <Section kicker="מאיפה מתחילים" title="לא חייבים לדעת בדיוק מה רוצים">
         <div className="grid gap-3 sm:grid-cols-3">
           <Link to="/nepal">
             <Card className="h-full p-4 transition-colors hover:border-saffron/40">
               <p className="font-display text-[15px] font-bold">רק מתחילים לחלום</p>
               <p className="mt-1 text-[13px] leading-snug text-ink/60">
-                להכיר את נפאל, לראות תמונות ולהבין מה יש שם
+                לגלות את נפאל, לקבל רעיונות ולראות לאן זה לוקח אתכם
               </p>
             </Card>
           </Link>
@@ -239,7 +244,7 @@ function Index() {
             <Card className="h-full p-4 transition-colors hover:border-saffron/40">
               <p className="font-display text-[15px] font-bold">רוצים לנסוע, עוד לא בטוחים לאן</p>
               <p className="mt-1 text-[13px] leading-snug text-ink/60">
-                שבע שאלות קצרות, ואחריהן כמה כיוונים עם הסבר
+                כמה שאלות קצרות יעזרו לנו להבין אילו כיוונים יכולים להתאים לכם
               </p>
             </Card>
           </Link>
@@ -247,41 +252,36 @@ function Index() {
             <Card className="h-full p-4 transition-colors hover:border-saffron/40">
               <p className="font-display text-[15px] font-bold">כבר יודעים מה אתם רוצים</p>
               <p className="mt-1 text-[13px] leading-snug text-ink/60">
-                טופס קצר, ומתחילים לבנות לכם הצעה אישית
+                טרק מסוים? שילוב של כמה מקומות? ספרו לנו מה יש לכם בראש ונמשיך משם
               </p>
             </Card>
           </Link>
         </div>
       </Section>
 
+
       {/* PROCESS */}
-      <Section kicker="איך אנחנו עובדים" title="מהשיחה הראשונה ועד החזרה הביתה">
-        <p className="-mt-1 mb-4 text-[15px] leading-relaxed text-ink/70">
-          יש לכם כתובת אחת לאורך כל הדרך: מי שמקשיב ומתכנן איתכם כאן, וצוות מקומי מנוסה בנפאל
-          שיודע לטפל במה שנדרש בשטח — גם כשצריך לשנות תוכנית באמצע הטיול.
+      <Section kicker="איך אנחנו עובדים" title="אתם לא צריכים להגיע עם מסלול. בשביל זה אנחנו כאן.">
+        <p className="-mt-1 mb-5 text-[15px] leading-relaxed text-ink/70">
+          מתחילים בשיחה: כמה זמן יש לכם, מה מושך אתכם, איזה קצב מתאים לכם ומה חשוב שלא יהיה בטיול.
+          מכאן בונים את הכיוון יחד, ובעזרת צוות מקומי מנוסה בנפאל הופכים אותו לטיול שאפשר באמת לצאת
+          אליו.
         </p>
-        <ol className="grid gap-3 sm:grid-cols-2">
-          {[
-            ["01", "מכירים ומקשיבים", "כמה זמן יש, מי נוסע ומה חשוב לכם"],
-            ["02", "בוחנים אפשרויות", "כמה כיוונים שמתאימים, עם ההבדלים ביניהם"],
-            ["03", "בונים את הטיול", "מסלול, קצב, לינה, התאקלמות ותחבורה"],
-            ["04", "סוגרים פרטים", "תיאומים, הזמנות והכנה מסודרת ליציאה"],
-            ["05", "מלווים גם בנפאל", "כתובת לשאלות ולשינויים לאורך הטיול"],
-            ["06", "עד שחוזרים הביתה", "הליווי לא נגמר בנחיתה בקטמנדו"],
-          ].map(([n, t, d]) => (
-            <li key={n} className="flex items-start gap-3 rounded-xl bg-parchment/70 px-4 py-3">
-              <span className="font-display text-base font-bold text-saffron">{n}</span>
-              <span>
-                <span className="block text-[14px] font-semibold">{t}</span>
-                <span className="mt-0.5 block text-[13px] leading-snug text-ink/60">{d}</span>
+        <ol className="flex flex-wrap items-center gap-2">
+          {["מקשיבים", "מתאימים", "בונים", "יוצאים", "מלווים"].map((step, i) => (
+            <li key={step} className="flex items-center gap-2">
+              <span className="rounded-full bg-parchment/80 px-4 py-2 text-[14px] font-semibold ring-1 ring-ink/5">
+                {step}
               </span>
+              {i < 4 && <span className="text-saffron">←</span>}
             </li>
           ))}
         </ol>
-        <Link to="/about" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
+        <Link to="/about" className="mt-5 inline-block text-[14px] font-semibold text-saffron">
           מי האנשים מאחורי זה ←
         </Link>
       </Section>
+
 
       {/* KNOWLEDGE — simple answer first */}
       <Section kicker="לפני שנוסעים" title="שאלות שיש עליהן תשובה בשורה אחת">
@@ -306,7 +306,7 @@ function Index() {
       </Section>
 
       {/* ABOUT */}
-      <Section kicker="מי אנחנו" title="מכירים אתכם כאן, מנוסים בשטח שם">
+      <Section kicker="מי אנחנו" title="מכירים אתכם כאן. מכירים את נפאל שם.">
         <Card className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <img
             src={guidePortrait}
@@ -316,12 +316,11 @@ function Index() {
           />
           <div>
             <p className="text-[15px] leading-relaxed text-ink/75">
-              התכנון נעשה בעברית, בשיחה אישית עם אוהד. בנפאל מחכה סוכנות שלום — סוכנות מקומית
-              מנוסה מקטמנדו, עם מדריכים שגדלו באזורים שאליהם הולכים. עבורכם זו מעטפת אחת, לא שני
-              גופים.
+              ״השביל הזה״ נולד מחיבור פשוט: מישהו כאן שמקשיב לכם, מבין מה אתם מחפשים ומלווה אתכם
+              לאורך הדרך — וצוות מקומי ותיק בנפאל שמכיר את השבילים, המקומות והאנשים שמאחוריהם.
             </p>
             <Link to="/about" className="mt-3 inline-block text-[14px] font-semibold text-saffron">
-              להכיר את האנשים מאחורי הדרך ←
+              להכיר את האנשים שמאחורי השביל ←
             </Link>
           </div>
         </Card>
@@ -334,19 +333,21 @@ function Index() {
             בואו נדבר על השביל שלכם
           </h2>
           <p className="mx-auto mt-2 max-w-[40ch] text-[15px] leading-relaxed text-parchment/80">
-            שיחה אחת, בלי התחייבות — גם אם יש רק תחושה שנפאל מסקרנת אתכם.
+            יש לכם כבר מסלול בראש? מצוין. יש לכם רק תחושה שהגיע הזמן לנסוע? גם מצוין. מכאן מתחילים.
           </p>
+
           <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
             <Link
               to="/contact"
               className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
             >
-              לפתוח שיחה איתנו
+              בואו נדבר
             </Link>
             <WhatsappButton
               className="bg-parchment/15 text-parchment ring-parchment/30"
-              label="לכתוב בוואטסאפ"
+              label="כתבו לנו בוואטסאפ"
             />
+
           </div>
         </div>
       </section>

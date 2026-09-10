@@ -131,71 +131,75 @@ function AboutPage() {
       </Section>
 
       {/* SHALOM — the local capability, in depth */}
-      <section className="bg-summit px-6 py-12">
+      <section className="bg-summit px-6 py-10">
         <div className="mx-auto max-w-4xl">
           <p className="text-[12px] font-medium tracking-wide text-saffron">השותף בנפאל</p>
-          <h2 className="mt-1.5 font-display text-[22px] leading-snug font-bold text-parchment sm:text-2xl">
+          <h2 className="mt-1.5 max-w-[26ch] font-display text-[22px] leading-snug font-bold text-parchment sm:text-2xl">
             סוכנות שלום — הניסיון המקומי שמאחורי הטיול
           </h2>
-          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-parchment/80">
-            <p>
-              ההפעלה בשטח נעשית עם Shalom Rafting Treks &amp; Expedition — סוכנות מקומית רשומה
-              מתאמל שבקטמנדו, שפועלת מ־2010 ומתמחה בטרקים, במסעות נהר ובטיולי תרבות וטבע בנפאל.
-              איש הקשר שם הוא {NEPAL_PARTNER_NAME}, {NEPAL_PARTNER_ROLE}.
-            </p>
-            <p>
-              מה זה אומר בפועל: מדריכים מוסמכים שגדלו באזורים שאליהם הולכים ומכירים את הכפרים, את
-              בתי התה ואת מצב השבילים; פורטרים מבוטחים; היתרים מסודרים לאזורים המוגבלים; ואיש קשר
-              בקטמנדו שזמין לאורך הטיול. כשמשהו משתנה — מזג אוויר, טיסה פנימית, קצב שלא מתאים —
-              יש מי שמסדר את זה בשטח, ולא רק ממליץ מהמשרד.
-            </p>
-            <p>
-              הסוכנות חברה באיגוד סוכנויות הטרקים של נפאל (TAAN), מספר רישום 69334/066/067, ועובדת
-              עם מטיילים מישראל וממדינות נוספות. סוכנות שלום היא השותף המקצועי בשטח — אבל הקשר
-              איתכם, התכנון וההצעות מנוהלים על ידי "השביל הזה".
-            </p>
+          <div className="mt-5 flex flex-col gap-6 sm:flex-row sm:gap-7">
+            <div className="shrink-0 sm:w-56 md:w-64">
+              <img
+                src={bedNathRegmi}
+                alt={`${NEPAL_PARTNER_NAME} בבסיס אנאפורנה`}
+                loading="lazy"
+                className="aspect-[4/5] w-40 rounded-2xl object-cover object-top ring-1 ring-parchment/20 sm:w-full"
+              />
+              <p className="mt-2.5 text-[14px] leading-relaxed text-parchment/70">
+                <span className="font-semibold text-parchment">{NEPAL_PARTNER_NAME}</span>
+                <br />
+                {NEPAL_PARTNER_ROLE} — איש הקשר הקבוע שלכם בצד הנפאלי.
+              </p>
+            </div>
+            <div className="space-y-3 text-[14.5px] leading-relaxed text-parchment/80">
+              <p>
+                ההפעלה בשטח נעשית עם Shalom Rafting Treks &amp; Expedition — סוכנות מקומית רשומה
+                מתאמל שבקטמנדו, שפועלת מ־2010 ומתמחה בטרקים, במסעות נהר ובטיולי תרבות וטבע בנפאל.
+                איש הקשר שם הוא {NEPAL_PARTNER_NAME}, {NEPAL_PARTNER_ROLE}.
+              </p>
+              <p>
+                מה זה אומר בפועל: מדריכים מוסמכים שגדלו באזורים שאליהם הולכים ומכירים את הכפרים, את
+                בתי התה ואת מצב השבילים; פורטרים מבוטחים; היתרים מסודרים לאזורים המוגבלים; ואיש קשר
+                בקטמנדו שזמין לאורך הטיול. כשמשהו משתנה — מזג אוויר, טיסה פנימית, קצב שלא מתאים —
+                יש מי שמסדר את זה בשטח, ולא רק ממליץ מהמשרד.
+              </p>
+              <p>
+                הסוכנות חברה באיגוד סוכנויות הטרקים של נפאל (TAAN), מספר רישום 69334/066/067,
+                ועובדת עם מטיילים מישראל וממדינות נוספות. סוכנות שלום היא השותף המקצועי בשטח —
+                אבל הקשר איתכם, התכנון וההצעות מנוהלים על ידי "השביל הזה".
+              </p>
+            </div>
           </div>
-          <div className="mt-6 flex items-center gap-4">
-            <img
-              src={bedNathRegmi}
-              alt={`${NEPAL_PARTNER_NAME} בבסיס אנאפורנה`}
-              loading="lazy"
-              className="h-24 w-24 shrink-0 rounded-2xl object-cover object-top ring-1 ring-parchment/20"
-            />
-            <p className="text-[14px] leading-relaxed text-parchment/70">
-              <span className="font-semibold text-parchment">{NEPAL_PARTNER_NAME}</span>
-              <br />
-              {NEPAL_PARTNER_ROLE} — איש הקשר הקבוע שלכם בצד הנפאלי.
-            </p>
-          </div>
-          <figure className="mt-6">
-            <img
-              src={shalomTeam}
-              alt="צוות סוכנות שלום במשרד בתאמל, קטמנדו"
-              loading="lazy"
-              width={1600}
-              height={1069}
-              className="aspect-[3/2] w-full rounded-2xl object-cover"
-            />
-            <figcaption className="mt-1.5 px-1 text-[12px] text-parchment/50">
-              הצוות של סוכנות שלום במשרד בתאמל, קטמנדו
-            </figcaption>
-          </figure>
-          <div className="mt-4 grid grid-cols-3 gap-2.5">
-            {[village, trail, river].map(
-              (p) =>
-                p && (
-                  <img
-                    key={p.src}
-                    src={p.src}
-                    alt={p.alt}
-                    loading="lazy"
-                    width={1200}
-                    height={800}
-                    className="aspect-[4/3] w-full rounded-xl object-cover"
-                  />
-                ),
-            )}
+          <div className="mt-7 grid gap-2.5 sm:grid-cols-[3fr_2fr]">
+            <figure>
+              <img
+                src={shalomTeam}
+                alt="צוות סוכנות שלום במשרד בתאמל, קטמנדו"
+                loading="lazy"
+                width={1600}
+                height={1069}
+                className="aspect-[3/2] h-full w-full rounded-2xl object-cover"
+              />
+              <figcaption className="mt-1.5 px-1 text-[12px] text-parchment/50">
+                הצוות של סוכנות שלום במשרד בתאמל, קטמנדו
+              </figcaption>
+            </figure>
+            <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-1">
+              {[village, trail, river].map(
+                (p) =>
+                  p && (
+                    <img
+                      key={p.src}
+                      src={p.src}
+                      alt={p.alt}
+                      loading="lazy"
+                      width={1200}
+                      height={800}
+                      className="aspect-[4/3] w-full rounded-xl object-cover sm:aspect-auto sm:h-full"
+                    />
+                  ),
+              )}
+            </div>
           </div>
         </div>
       </section>

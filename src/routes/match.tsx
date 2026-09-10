@@ -294,6 +294,7 @@ function MatchPage() {
             לראות את הכיוונים לפי מה שעניתי עד כה ←
           </button>
         )}
+        </div>
       </Section>
     </>
   );

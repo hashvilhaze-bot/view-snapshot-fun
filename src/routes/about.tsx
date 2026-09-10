@@ -92,15 +92,15 @@ function AboutPage() {
         imageAlt="חצר מקדשים בעיר העתיקה של קטמנדו בשעת בין ערביים"
       />
 
-      <Section title="השביל הזה">
-        <div className="flex flex-col gap-5 sm:flex-row">
+      <Section title="השביל הזה" className="py-6 sm:py-7">
+        <div className="flex flex-col gap-5 sm:flex-row sm:gap-7">
           <img
             src={ohadPhoto}
             alt="אוהד הרץ מול פסגות ההימלאיה בנפאל"
             loading="lazy"
-            className="h-44 w-full shrink-0 rounded-2xl object-cover sm:w-44"
+            className="aspect-[3/2] w-full shrink-0 rounded-2xl object-cover sm:aspect-[4/5] sm:w-64 md:w-72"
           />
-          <div className="space-y-3 text-[15px] leading-relaxed text-ink/75">
+          <div className="space-y-3 text-[15px] leading-relaxed text-ink/75 sm:pt-1">
             <p>
               אני אוהד, מרמות מנשה. אחרי הצבא יצאתי כמו כולנו לטיול הגדול במזרח — בתכניות היו כל
               מדינות המזרח, אלא שהתגלגלתי להודו ולנפאל, ושם נשארתי הרבה יותר ממה שתכננתי.
@@ -114,7 +114,7 @@ function AboutPage() {
               אני לא מוכר מסלולים מהמדף. כל טיול נבנה בשיחה, כי מה שמתאים לאחד לא מתאים לאחר — ולכן
               חשוב שיהיה לכם עם מי לדבר גם לפני, וגם כשאתם שם.
             </p>
-            <p>אתם נהנים מהדרך, ואנחנו דואגים לפרטים.</p>
+            <p className="font-semibold text-ink">אתם נהנים מהדרך, ואנחנו דואגים לפרטים.</p>
           </div>
         </div>
       </Section>

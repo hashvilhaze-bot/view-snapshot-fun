@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
+import shalomTeam from "@/assets/shalom-team.jpg";
 import { Card, PageHero, Section, TalkCta } from "@/components/page";
 import { galleries } from "@/lib/galleries";
 import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_ROLE } from "@/lib/leads";
@@ -152,7 +153,20 @@ function AboutPage() {
               איתכם, התכנון וההצעות מנוהלים על ידי "השביל הזה".
             </p>
           </div>
-          <div className="mt-6 grid grid-cols-3 gap-2.5">
+          <figure className="mt-6">
+            <img
+              src={shalomTeam}
+              alt="צוות סוכנות שלום במשרד בתאמל, קטמנדו"
+              loading="lazy"
+              width={1600}
+              height={1069}
+              className="aspect-[3/2] w-full rounded-2xl object-cover"
+            />
+            <figcaption className="mt-1.5 px-1 text-[12px] text-parchment/50">
+              הצוות של סוכנות שלום במשרד בתאמל, קטמנדו
+            </figcaption>
+          </figure>
+          <div className="mt-4 grid grid-cols-3 gap-2.5">
             {[village, trail, river].map(
               (p) =>
                 p && (

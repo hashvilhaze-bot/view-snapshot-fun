@@ -99,7 +99,9 @@ function QuotePage() {
   const toggle = (opt: string) =>
     setInterests((cur) => (cur.includes(opt) ? cur.filter((c) => c !== opt) : [...cur, opt]));
 
-  const interestsText = interests.join(", ");
+  const fromMatch = context?.source === "match" && !!context.directions?.length;
+  const recommended = fromMatch ? context!.directions![0]! : null;
+  const interestsText = [recommended, ...interests].filter(Boolean).join(", ");
 
   const waMessage = `היי, הגעתי דרך 'השביל הזה' ואני רוצה הצעה לטיול בנפאל.
 מעניין אותי: ${interestsText || "—"}

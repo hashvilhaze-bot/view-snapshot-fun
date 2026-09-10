@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import bedNathRegmi from "@/assets/bed-nath-regmi.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
+import ohadPhoto from "@/assets/ohad.jpg";
 import shalomTeam from "@/assets/shalom-team.jpg";
 import { Card, PageHero, Section, TalkCta } from "@/components/page";
 import { galleries } from "@/lib/galleries";
@@ -93,8 +95,8 @@ function AboutPage() {
       <Section title="השביל הזה">
         <div className="flex flex-col gap-5 sm:flex-row">
           <img
-            src={trail?.src ?? kathmanduDusk}
-            alt={trail?.alt ?? "שביל אבן בין חומות מאני בהימלאיה"}
+            src={ohadPhoto}
+            alt="אוהד הרץ מול פסגות ההימלאיה בנפאל"
             loading="lazy"
             className="h-44 w-full shrink-0 rounded-2xl object-cover sm:w-44"
           />

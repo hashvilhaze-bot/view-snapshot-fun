@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import bedNathRegmi from "@/assets/bed-nath-regmi.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
+import ohadPhoto from "@/assets/ohad.jpg";
 import shalomTeam from "@/assets/shalom-team.jpg";
 import { Card, PageHero, Section, TalkCta } from "@/components/page";
 import { galleries } from "@/lib/galleries";
@@ -93,8 +95,8 @@ function AboutPage() {
       <Section title="השביל הזה">
         <div className="flex flex-col gap-5 sm:flex-row">
           <img
-            src={trail?.src ?? kathmanduDusk}
-            alt={trail?.alt ?? "שביל אבן בין חומות מאני בהימלאיה"}
+            src={ohadPhoto}
+            alt="אוהד הרץ מול פסגות ההימלאיה בנפאל"
             loading="lazy"
             className="h-44 w-full shrink-0 rounded-2xl object-cover sm:w-44"
           />
@@ -151,6 +153,19 @@ function AboutPage() {
               הסוכנות חברה באיגוד סוכנויות הטרקים של נפאל (TAAN), מספר רישום 69334/066/067, ועובדת
               עם מטיילים מישראל וממדינות נוספות. סוכנות שלום היא השותף המקצועי בשטח — אבל הקשר
               איתכם, התכנון וההצעות מנוהלים על ידי "השביל הזה".
+            </p>
+          </div>
+          <div className="mt-6 flex items-center gap-4">
+            <img
+              src={bedNathRegmi}
+              alt={`${NEPAL_PARTNER_NAME} בבסיס אנאפורנה`}
+              loading="lazy"
+              className="h-24 w-24 shrink-0 rounded-2xl object-cover object-top ring-1 ring-parchment/20"
+            />
+            <p className="text-[14px] leading-relaxed text-parchment/70">
+              <span className="font-semibold text-parchment">{NEPAL_PARTNER_NAME}</span>
+              <br />
+              {NEPAL_PARTNER_ROLE} — איש הקשר הקבוע שלכם בצד הנפאלי.
             </p>
           </div>
           <figure className="mt-6">

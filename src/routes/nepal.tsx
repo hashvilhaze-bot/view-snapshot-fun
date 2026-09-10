@@ -133,7 +133,7 @@ function NepalPage() {
                     className={`h-full ${wide ? "grid items-stretch sm:grid-cols-[45%_minmax(0,1fr)]" : ""}`}
                   >
 
-                    <div className={`relative ${wide ? "aspect-[16/9] sm:aspect-auto" : "aspect-[3/2]"}`}>
+                    <div className={`relative ${wide ? "aspect-[16/9] sm:aspect-auto sm:min-h-[200px]" : "aspect-[3/2]"}`}>
                       <img
                         src={e.image}
                         alt={e.imageAlt}

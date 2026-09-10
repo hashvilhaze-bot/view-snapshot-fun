@@ -76,7 +76,9 @@ function QuotePage() {
     if (!ctx) return;
     setContext(ctx);
     setForm((f) => ({ ...f, dates: f.dates || (ctx.time ?? "") }));
-    if (ctx.directions?.length) {
+    // From the questionnaire the direction is already known and shown separately,
+    // so the option buttons stay empty and only collect additions.
+    if (ctx.directions?.length && ctx.source !== "match") {
       setInterests((cur) => (cur.length ? cur : ctx.directions!.slice(0, 3)));
     }
   }, []);

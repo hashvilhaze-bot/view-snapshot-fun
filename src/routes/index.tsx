@@ -3,9 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
 import ohadPhoto from "@/assets/ohad.jpg";
-import heroVideo from "@/assets/nepal-hero.mp4.asset.json";
 import shalomTeam from "@/assets/shalom-team.jpg";
-import { HeroVideo } from "@/components/hero-video";
 import {
   Card,
   DidYouKnow,
@@ -15,6 +13,7 @@ import {
 } from "@/components/page";
 import { articles, experiences, treks } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
+
 
 const quickAnswers = articles.filter((a) => a.quickAnswer).slice(0, 3);
 

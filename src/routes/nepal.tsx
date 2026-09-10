@@ -120,8 +120,12 @@ function NepalPage() {
           לא חייבים לבחור בין טרק לטיול רגוע. אפשר לבנות את השילוב שמתאים לכם.
         </p>
         <div className="grid gap-3 sm:grid-cols-2">
-          {experiences.map((e) => (
-            <Link key={e.slug} to={e.to} className="block">
+          {experiences.map((e, i) => (
+            <Link
+              key={e.slug}
+              to={e.to}
+              className={`block ${i === experiences.length - 1 ? "sm:col-span-2" : ""}`}
+            >
               <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
                 <img
                   src={e.image}

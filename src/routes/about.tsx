@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
+import shalomTeam from "@/assets/shalom-team.jpg";
 import { Card, PageHero, Section, TalkCta } from "@/components/page";
 import { galleries } from "@/lib/galleries";
 import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_ROLE } from "@/lib/leads";

@@ -102,8 +102,8 @@ function TreksPage() {
                       <span className="text-ink/45">למי מתאים: </span>
                       {t.fit}
                     </p>
-                    <span className="mt-3 inline-block self-start rounded-xl bg-parchment px-4 py-2 text-[13px] font-semibold text-saffron ring-1 ring-ink/10">
-                      לפרטי המסלול ←
+                    <span className="mt-3 inline-block self-start rounded-xl bg-parchment px-4 py-2 text-[13px] font-semibold text-saffron ring-1 ring-ink/10 group-hover:bg-saffron group-hover:text-parchment">
+                      פרטים
                     </span>
                   </div>
                 </Card>

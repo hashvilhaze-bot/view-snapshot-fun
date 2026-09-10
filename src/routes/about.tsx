@@ -155,6 +155,19 @@ function AboutPage() {
               איתכם, התכנון וההצעות מנוהלים על ידי "השביל הזה".
             </p>
           </div>
+          <div className="mt-6 flex items-center gap-4">
+            <img
+              src={bedNathRegmi}
+              alt={`${NEPAL_PARTNER_NAME} בבסיס אנאפורנה`}
+              loading="lazy"
+              className="h-24 w-24 shrink-0 rounded-2xl object-cover object-top ring-1 ring-parchment/20"
+            />
+            <p className="text-[14px] leading-relaxed text-parchment/70">
+              <span className="font-semibold text-parchment">{NEPAL_PARTNER_NAME}</span>
+              <br />
+              {NEPAL_PARTNER_ROLE} — איש הקשר הקבוע שלכם בצד הנפאלי.
+            </p>
+          </div>
           <figure className="mt-6">
             <img
               src={shalomTeam}

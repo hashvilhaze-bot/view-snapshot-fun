@@ -34,8 +34,8 @@ function ContactPage() {
     <>
       <PageHero
         kicker="דברו איתנו"
-        title="השביל שלכם מתחיל כאן"
-        lead="שיחה אחת, בלי התחייבות. גם אם אין לכם עדיין מסלול בראש, אלא רק תחושה שנפאל מסקרנת."
+        title="יאללה, מתחילים"
+        lead="ספרו לנו בגדול מה מסקרן אתכם בנפאל, ונמשיך משם"
       />
 
       <Section>
@@ -45,7 +45,7 @@ function ContactPage() {
             <div className="mt-3 flex flex-wrap gap-2">
               <WhatsappButton
                 className="bg-saffron font-semibold text-parchment ring-0"
-                label="לכתוב לנו בוואטסאפ"
+                label="לבוואטסאפ"
               />
             </div>
           ) : (

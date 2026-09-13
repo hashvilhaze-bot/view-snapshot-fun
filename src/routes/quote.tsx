@@ -327,11 +327,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
             <Card>
               <p className="text-[14px] leading-relaxed text-ink/75">
                 הטופס מוכן, אבל חסרה כאן כתובת השליחה של מנגנון הלידים — לכן הבקשה עדיין לא
-                נשלחת אוטומטית. בינתיים אפשר לשלוח את אותם פרטים בוואטסאפ, או דרך{" "}
-                <Link to="/contact" className="font-semibold text-saffron">
-                  עמוד יצירת הקשר
-                </Link>
-                .
+                נשלחת אוטומטית. בינתיים אפשר לשלוח את אותם פרטים בוואטסאפ.
               </p>
             </Card>
           )}

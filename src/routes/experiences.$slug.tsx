@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
-import { Card, Gallery, Insight, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, Gallery, Insight, PageHero, Section } from "@/components/page";
 import { experiences } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
 import { saveTripContext } from "@/lib/trip-context";
@@ -93,7 +93,6 @@ function ExperiencePage() {
         </div>
       </Section>
 
-      <TalkCta />
     </>
   );
 }

@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, X, User as UserIcon, MessageCircle } from "lucide-react";
+import { ChevronDown, Menu, X, User as UserIcon } from "lucide-react";
+
+import { WhatsappIcon } from "@/components/whatsapp-icon";
 
 import logoAsset from "@/assets/hashvil-haze-logo.png.asset.json";
 import { useAuth } from "@/hooks/use-auth";

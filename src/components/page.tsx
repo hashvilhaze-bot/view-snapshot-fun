@@ -101,18 +101,12 @@ export function TalkCta({
         <h2 className="font-display text-xl font-bold sm:text-2xl">{title}</h2>
         <p className="mx-auto mt-2 max-w-[42ch] text-[15px] leading-relaxed text-ink/70">{text}</p>
         <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
-          <Link
-            to="/contact"
-            className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
-          >
-            דברו איתנו
-          </Link>
           {wa && (
             <a
               href={wa}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl bg-parchment px-6 py-3.5 text-[15px] font-medium text-ink ring-1 ring-ink/10"
+              className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
             >
               לכתוב בוואטסאפ
             </a>

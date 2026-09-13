@@ -597,11 +597,8 @@ function MiniLeadForm({ waMessage, directions }: { waMessage: string; directions
         </div>
         {state === "manual" && (
           <p className="text-[13px] leading-relaxed text-ink/60">
-            חסרה כאן כתובת השליחה של מנגנון הלידים הקיים, ולכן הפרטים לא נשלחים אוטומטית. בינתיים{" "}
-            <Link to="/contact" className="font-semibold text-saffron">
-              אפשר לפנות אלינו כאן
-            </Link>
-            {whatsappHref() ? " או בוואטסאפ." : "."}
+            חסרה כאן כתובת השליחה של מנגנון הלידים הקיים, ולכן הפרטים לא נשלחים אוטומטית.
+            {whatsappHref() ? " בינתיים אפשר לכתוב לנו בוואטסאפ." : ""}
           </p>
         )}
         {state === "failed" && (

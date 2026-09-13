@@ -51,11 +51,6 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const facts = [
-  { n: "8 מתוך 10", t: "מהפסגות הגבוהות בעולם נמצאות בנפאל" },
-  { n: "מ־60 עד 8,849 מ׳", t: "מהשפלה הטרופית ועד פסגת האוורסט, במדינה אחת" },
-  { n: "דגל אחד בעולם", t: "לנפאל הדגל הלאומי היחיד שאינו מרובע או מלבני" },
-];
 
 function Index() {
   const sunrise = galleries["pokhara-hills"]?.[2];
@@ -83,18 +78,12 @@ function Index() {
             משהו שעוד לא ידעתם שאפשר לעשות שם. אנחנו מתחילים במה שאתם רוצים לחוות, ומשם בונים את
             הטיול שמתאים לכם.
           </p>
-          <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
+          <div className="mt-6 flex">
             <Link
               to="/match"
               className="rounded-xl bg-saffron px-5 py-3.5 text-center text-[15px] font-semibold text-parchment"
             >
               בואו נמצא את השביל שלכם
-            </Link>
-            <Link
-              to="/quote"
-              className="rounded-xl bg-parchment/15 px-5 py-3.5 text-center text-[15px] font-medium text-parchment ring-1 ring-parchment/35 backdrop-blur-sm"
-            >
-              כבר יודעים מה אתם רוצים?
             </Link>
           </div>
 
@@ -119,14 +108,6 @@ function Index() {
             className="aspect-[16/9] w-full rounded-2xl object-cover"
           />
         )}
-        <div className="mt-4 grid grid-cols-3 gap-2.5">
-          {facts.map((f) => (
-            <Card key={f.n} className="p-3.5">
-              <p className="font-display text-[15px] font-bold text-saffron sm:text-lg">{f.n}</p>
-              <p className="mt-1 text-[12px] leading-snug text-ink/65 sm:text-[13px]">{f.t}</p>
-            </Card>
-          ))}
-        </div>
         <Link to="/nepal" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
           להכיר את נפאל ←
         </Link>
@@ -363,10 +344,10 @@ function Index() {
 
           <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
             <Link
-              to="/contact"
+              to="/quote"
               className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
             >
-              בואו נדבר
+              לקבלת הצעה אישית
             </Link>
             <WhatsappButton
               className="bg-parchment/15 text-parchment ring-parchment/30"

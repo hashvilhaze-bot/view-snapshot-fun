@@ -80,12 +80,6 @@ export function SiteFooter() {
               </a>
             </li>
           </ul>
-          <Link
-            to="/contact"
-            className="mt-5 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
-          >
-            בואו נדבר על השביל שלכם
-          </Link>
         </div>
       </div>
     </footer>

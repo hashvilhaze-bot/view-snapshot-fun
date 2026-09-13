@@ -7,7 +7,7 @@ import {
   Insight,
   PageHero,
   Section,
-  TalkCta,
+  
   WhatsappButton,
 } from "@/components/page";
 import { treks } from "@/lib/content";
@@ -194,10 +194,6 @@ function TrekPage() {
         </div>
       </Section>
 
-      <TalkCta
-        title={`נדבר על ${trek.name}?`}
-        text="נספר לכם איך זה נראה בפועל בתאריכים שלכם, ומה כדאי לשנות או להוסיף."
-      />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, PageHero, Section, TalkCta, WhatsappButton } from "@/components/page";
 import bhutanImg from "@/assets/destinations/bhutan.jpg";
 
 export const Route = createFileRoute("/destinations/bhutan")({
@@ -59,12 +59,11 @@ function BhutanPage() {
             שיחה — נספר מה כבר סגור ומה עוד בבנייה.
           </p>
           <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
-            <Link
-              to="/contact"
-              className="rounded-xl bg-saffron px-5 py-3 text-center text-[14px] font-semibold text-parchment"
-            >
-              לדבר איתנו על בהוטן
-            </Link>
+            <WhatsappButton
+              className="bg-saffron px-5 py-3 text-center font-semibold text-parchment ring-0"
+              label="לדבר איתנו על בהוטן"
+              message="היי, בהוטן מעניינת אותי — אפשר לשמוע מה כבר סגור?"
+            />
             <Link
               to="/nepal"
               className="rounded-xl bg-parchment px-5 py-3 text-center text-[14px] font-medium text-ink ring-1 ring-ink/10"

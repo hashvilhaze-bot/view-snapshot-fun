@@ -1,53 +1,29 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
+import { Accordion, Card, PageHero, Section, WhatsappButton } from "@/components/page";
 import { useAuth } from "@/hooks/use-auth";
+import { experienceItems, trekItems } from "@/lib/catalog";
 import {
   NEPAL_PARTNER_NAME,
   NEPAL_PARTNER_NOTE,
   NEPAL_PARTNER_ROLE,
   submitLead,
-  whatsappHref,
 } from "@/lib/leads";
-import { readTripContext, type TripContext } from "@/lib/trip-context";
-
-const INTERESTS = [
-  "סובב מנאסלו",
-  "סובב אנאפורנה",
-  "מסלולים באזור האוורסט",
-  "מסלולים נוספים בנפאל",
-  "תרבות ונופים בנפאל",
-  "רפטינג",
-  "צ׳יטוואן, טבע וחיות",
-  "בהוטן",
-  "שילוב של כמה חוויות",
-  "טיול בהתאמה אישית",
-  "עדיין מתלבטים ורוצים להתייעץ",
-] as const;
-
-// After the match questionnaire we already know the direction — only ask what to add.
-const EXTRA_INTERESTS = [
-  "עוד מסלול או אזור בנפאל",
-  "תרבות ונופים",
-  "מנוחה / יוגה",
-  "רפטינג",
-  "בהוטן",
-  "עדיין מתלבטים ורוצים להתייעץ",
-] as const;
+import { readTripContext, type SelectedItem, type TripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/quote")({
   component: QuotePage,
   head: () => ({
     meta: [
-      { title: "כבר יודעים מה אתם רוצים? בקשת הצעה | השביל הזה" },
+      { title: "בקשת הצעה לטיול בנפאל | השביל הזה" },
       {
         name: "description",
         content:
-          "מסלול מהיר למי שכבר סגור על הכיוון: כמה שדות קצרים — יעד, תקופה, מספר נוסעים — ומתחילים לבנות הצעה לטיול בנפאל.",
+          "בוחרים את המסלולים והחוויות שמעניינים אתכם, משאירים כמה פרטים קצרים — ומתחילים לבנות הצעה לטיול בנפאל.",
       },
-      { property: "og:title", content: "כבר יודעים מה אתם רוצים? בקשת הצעה" },
-      { property: "og:description", content: "טופס קצר, בלי שאלון. נחזור אליכם עם כיוון והצעה." },
+      { property: "og:title", content: "בקשת הצעה לטיול בנפאל" },
+      { property: "og:description", content: "טופס קצר. נחזור אליכם עם כיוון והצעה." },
     ],
   }),
 });
@@ -56,11 +32,39 @@ const field =
   "mt-1.5 w-full rounded-xl bg-parchment px-4 py-3 text-[15px] text-ink ring-1 ring-ink/10 outline-none placeholder:text-ink/35 focus:ring-2 focus:ring-saffron/60";
 const label = "text-[13px] font-medium text-ink/60";
 
+const SOURCE_INTRO: Record<string, { kicker: string; title: string; lead: string }> = {
+  match: {
+    kicker: "עוד רגע מסיימים",
+    title: "נשארו רק הפרטים החסרים",
+    lead: "את מה שסימנתם בשאלון אנחנו כבר מכירים — לא נבקש אותו שוב.",
+  },
+  "trek-page": {
+    kicker: "בקשת הצעה",
+    title: "המסלול שבחרתם כבר איתנו",
+    lead: "נשאר רק לספר לנו מתי ומי נוסע.",
+  },
+  "experience-page": {
+    kicker: "בקשת הצעה",
+    title: "החוויה שבחרתם כבר איתנו",
+    lead: "נשאר רק לספר לנו מתי ומי נוסע.",
+  },
+  comparison: {
+    kicker: "בקשת הצעה",
+    title: "המסלולים שהשוויתם כבר איתנו",
+    lead: "נשאר רק לספר לנו מתי ומי נוסע.",
+  },
+  "direct-selection": {
+    kicker: "מסלול מהיר",
+    title: "כבר סגורים על הכיוון?",
+    lead: "בחרו מה מעניין אתכם — אפשר יותר מדבר אחד — וספרו לנו בקצרה מתי ומי נוסע.",
+  },
+};
+
 function QuotePage() {
   const { user, name: authName } = useAuth();
   const [state, setState] = useState<"idle" | "sending" | "sent" | "manual" | "failed">("idle");
-  const [interests, setInterests] = useState<string[]>([]);
   const [context, setContext] = useState<TripContext | null>(null);
+  const [selected, setSelected] = useState<SelectedItem[]>([]);
   const [form, setForm] = useState({
     dates: "",
     travelers: "",
@@ -70,20 +74,15 @@ function QuotePage() {
     email: "",
   });
 
-  // What the visitor already told us elsewhere on the site — don't ask twice.
+  // Whatever the visitor already told us elsewhere — never ask for it twice.
   useEffect(() => {
     const ctx = readTripContext();
     if (!ctx) return;
     setContext(ctx);
+    if (ctx.selected?.length) setSelected(ctx.selected);
     setForm((f) => ({ ...f, dates: f.dates || (ctx.time ?? "") }));
-    // From the questionnaire the direction is already known and shown separately,
-    // so the option buttons stay empty and only collect additions.
-    if (ctx.directions?.length && ctx.source !== "match") {
-      setInterests((cur) => (cur.length ? cur : ctx.directions!.slice(0, 3)));
-    }
   }, []);
 
-  // Signed-in visitors shouldn't retype their name and email.
   useEffect(() => {
     if (!user) return;
     setForm((f) => ({
@@ -96,15 +95,24 @@ function QuotePage() {
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const toggle = (opt: string) =>
-    setInterests((cur) => (cur.includes(opt) ? cur.filter((c) => c !== opt) : [...cur, opt]));
+  const source = (context?.source as string) || "direct-selection";
+  const intro = SOURCE_INTRO[source] ?? SOURCE_INTRO["direct-selection"]!;
+  const isPicker = source === "direct-selection";
 
-  const fromMatch = context?.source === "match" && !!context.directions?.length;
-  const recommended = fromMatch ? context!.directions![0]! : null;
-  const interestsText = [recommended, ...interests].filter(Boolean).join(", ");
+  const has = (kind: SelectedItem["kind"], slug: string) =>
+    selected.some((s) => s.kind === kind && s.slug === slug);
+
+  const toggle = (item: SelectedItem) =>
+    setSelected((cur) =>
+      cur.some((s) => s.kind === item.kind && s.slug === item.slug)
+        ? cur.filter((s) => !(s.kind === item.kind && s.slug === item.slug))
+        : [...cur, item],
+    );
+
+  const selectedText = selected.map((s) => s.name).join(", ");
 
   const waMessage = `היי, הגעתי דרך 'השביל הזה' ואני רוצה הצעה לטיול בנפאל.
-מעניין אותי: ${interestsText || "—"}
+מעניין אותי: ${selectedText || "—"}
 תקופה: ${form.dates || "—"}
 נוסעים: ${form.travelers || "—"}
 ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שעניתי בשאלון: ${context.summary}` : ""}
@@ -114,18 +122,19 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
     e.preventDefault();
     setState("sending");
     const result = await submitLead({
-      source: "quote-request",
+      source: `quote-request:${source}`,
       ...form,
-      interests: interestsText,
-      // Everything we already know, passed along with the lead as-is.
+      interests: selectedText,
+      selected: selected.map((s) => `${s.kind === "trek" ? "טרק" : "חוויה"}: ${s.name}`).join(", "),
+      considered: context?.considered?.join(", ") ?? "",
       quizAnswers: context?.summary ?? "",
-      recommended: context?.directions?.join(", ") ?? "",
-      contextSource: context?.source ?? "direct",
+      matchAnswers: context?.matchAnswers ? JSON.stringify(context.matchAnswers) : "",
+      fitScores: context?.fitScores?.map((f) => `${f.name}: ${f.score}%`).join(", ") ?? "",
+      contextSource: source,
       signedIn: user ? "yes" : "no",
     });
     setState(result === "sent" ? "sent" : result === "unconfigured" ? "manual" : "failed");
   }
-
 
   if (state === "sent") {
     return (
@@ -135,7 +144,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
           title="הבקשה נשלחה אלינו"
           lead="נחזור אליכם עם כיוון ראשוני והצעה. אם משהו דחוף, אפשר לכתוב לנו בוואטסאפ בינתיים."
         />
-        <Section>
+        <Section className="!pb-12">
           <Card>
             <p className="text-[15px] leading-relaxed text-ink/75">
               עד שנחזור אליכם אפשר להסתובב עוד קצת: יש עמוד נפרד לכל מסלול, ומרכז ידע על נפאל.
@@ -162,73 +171,100 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
 
   return (
     <>
-      <PageHero
-        kicker="מסלול מהיר"
-        title="כבר סגורים על הכיוון?"
-        lead="ספרו לנו בקצרה ונוכל להתחיל לבנות לכם הצעה. בלי שאלון — רק מה שצריך כדי לענות לעניין."
-      />
+      <PageHero kicker={intro.kicker} title={intro.title} lead={intro.lead} />
 
-      {context && (
-        <Section>
+      {/* Already chosen — shown back, removable, never asked again. */}
+      {selected.length > 0 && (
+        <Section className="!pb-2">
           <Card>
-            <p className="font-display text-[17px] font-bold">
-              {fromMatch ? "אנחנו כבר מכירים את הכיוון שלכם" : "מה שכבר ספרתם לנו"}
-            </p>
-            {recommended && (
-              <p className="mt-2 text-[14px] leading-relaxed text-ink/70">
-                הכיוון שיצא לכם: <span className="font-semibold">{recommended}</span>
-              </p>
+            <p className="font-display text-[17px] font-bold">מה שבחרתם</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {selected.map((s) => (
+                <li key={`${s.kind}:${s.slug}`}>
+                  <button
+                    type="button"
+                    onClick={() => toggle(s)}
+                    className="rounded-xl bg-saffron px-4 py-2.5 text-[13.5px] font-semibold text-parchment"
+                  >
+                    {s.name}
+                    <span className="ms-2 opacity-70">✕</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            {context?.summary && (
+              <p className="mt-3 text-[13.5px] leading-relaxed text-ink/65">{context.summary}</p>
             )}
-            {context.summary && (
-              <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/65">{context.summary}</p>
-            )}
-            {!fromMatch && context.directions?.length ? (
-              <p className="mt-2 text-[13.5px] leading-relaxed text-ink/65">
-                הכיוונים שיצאו לכם:{" "}
-                <span className="font-semibold">{context.directions.join(" · ")}</span>
+            {context?.considered?.length ? (
+              <p className="mt-2 text-[13px] leading-relaxed text-ink/50">
+                נעביר גם כרקע: {context.considered.join(" · ")}
               </p>
             ) : null}
-            <p className="mt-2.5 text-[13px] leading-relaxed text-ink/50">
-              {fromMatch
-                ? "כל זה יישלח יחד עם הבקשה — נשארו רק הפרטים החסרים."
-                : "כל זה יישלח יחד עם הבקשה, כדי שלא תצטרכו לספר שוב. אפשר לשנות למטה כל דבר."}
-            </p>
           </Card>
         </Section>
       )}
 
-      <Section>
-
-        <form onSubmit={onSubmit} className="space-y-4">
-          <fieldset>
-            <legend className={label}>
-              {fromMatch ? "מה עוד מעניין אתכם? (לא חובה)" : "מה מעניין אתכם? אפשר לבחור כמה"}
-            </legend>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {(fromMatch ? EXTRA_INTERESTS : INTERESTS).map((opt) => {
-                const on = interests.includes(opt);
-                return (
-                  <button
-                    key={opt}
-                    type="button"
-                    aria-pressed={on}
-                    onClick={() => toggle(opt)}
-                    className={`rounded-xl px-4 py-2.5 text-start text-[14px] font-medium ring-1 transition-colors ${
-                      on
-                        ? "bg-saffron text-parchment ring-saffron"
-                        : "bg-parchment text-ink/75 ring-ink/10"
-                    }`}
-                  >
-                    {on && <span className="me-1.5">✓</span>}
-                    {opt}
-                  </button>
-                );
-              })}
+      {/* Direct selection happens here — no separate route, no cart. */}
+      {isPicker && (
+        <Section title="מה מעניין אתכם?" className="!pb-2">
+          <p className="text-[13.5px] leading-relaxed text-ink/60">
+            אפשר לבחור כמה מסלולים וחוויות יחד.
+          </p>
+          <div className="mt-4 space-y-4">
+            <div>
+              <p className="text-[12px] font-semibold tracking-wide text-saffron">טרקים</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {trekItems.map((t) => {
+                  const on = has("trek", t.slug);
+                  return (
+                    <button
+                      key={t.slug}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => toggle({ kind: "trek", slug: t.slug, name: t.name })}
+                      className={`rounded-xl px-4 py-2.5 text-[14px] font-medium ring-1 transition-colors ${
+                        on
+                          ? "bg-saffron text-parchment ring-saffron"
+                          : "bg-parchment text-ink/75 ring-ink/10"
+                      }`}
+                    >
+                      {on && <span className="me-1.5">✓</span>}
+                      {t.name}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </fieldset>
+            <div>
+              <p className="text-[12px] font-semibold tracking-wide text-saffron">חוויות</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {experienceItems.map((x) => {
+                  const on = has("experience", x.slug);
+                  return (
+                    <button
+                      key={x.slug}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => toggle({ kind: "experience", slug: x.slug, name: x.name })}
+                      className={`rounded-xl px-4 py-2.5 text-[14px] font-medium ring-1 transition-colors ${
+                        on
+                          ? "bg-saffron text-parchment ring-saffron"
+                          : "bg-parchment text-ink/75 ring-ink/10"
+                      }`}
+                    >
+                      {on && <span className="me-1.5">✓</span>}
+                      {x.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </Section>
+      )}
 
-
-
+      <Section className="!pb-4">
+        <form onSubmit={onSubmit} className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className={label} htmlFor="dates">
@@ -256,32 +292,12 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
             </div>
           </div>
 
-          <div>
-            <label className={label} htmlFor="note">
-              משהו שכדאי שנדע
-            </label>
-            <textarea
-              id="note"
-              rows={3}
-              value={form.note}
-              onChange={set("note")}
-              placeholder="ניסיון קודם, מגבלות, מה חשוב לכם שיהיה בטיול"
-              className={field}
-            />
-          </div>
-
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className={label} htmlFor="name">
                 שם
               </label>
-              <input
-                id="name"
-                required
-                value={form.name}
-                onChange={set("name")}
-                className={field}
-              />
+              <input id="name" required value={form.name} onChange={set("name")} className={field} />
             </div>
             <div>
               <label className={label} htmlFor="phone">
@@ -298,19 +314,44 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
             </div>
           </div>
 
-          <div>
-            <label className={label} htmlFor="email">
-              אימייל (לא חובה)
-            </label>
-            <input
-              id="email"
-              type="email"
-              inputMode="email"
-              value={form.email}
-              onChange={set("email")}
-              className={field}
-            />
-          </div>
+          {/* Everything optional folded away. */}
+          <Accordion
+            items={[
+              {
+                title: "פרטים נוספים (לא חובה)",
+                content: (
+                  <div className="space-y-4">
+                    <div>
+                      <label className={label} htmlFor="note">
+                        משהו שכדאי שנדע
+                      </label>
+                      <textarea
+                        id="note"
+                        rows={3}
+                        value={form.note}
+                        onChange={set("note")}
+                        placeholder="ניסיון קודם, מגבלות, מה חשוב לכם שיהיה בטיול"
+                        className={field}
+                      />
+                    </div>
+                    <div>
+                      <label className={label} htmlFor="email">
+                        אימייל
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        inputMode="email"
+                        value={form.email}
+                        onChange={set("email")}
+                        className={field}
+                      />
+                    </div>
+                  </div>
+                ),
+              },
+            ]}
+          />
 
           <div className="flex flex-col gap-2.5 pt-1 sm:flex-row">
             <button
@@ -326,8 +367,8 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
           {state === "manual" && (
             <Card>
               <p className="text-[14px] leading-relaxed text-ink/75">
-                הטופס מוכן, אבל חסרה כאן כתובת השליחה של מנגנון הלידים — לכן הבקשה עדיין לא
-                נשלחת אוטומטית. בינתיים אפשר לשלוח את אותם פרטים בוואטסאפ.
+                הטופס מוכן, אבל חסרה כאן כתובת השליחה של מנגנון הלידים — לכן הבקשה עדיין לא נשלחת
+                אוטומטית. בינתיים אפשר לשלוח את אותם פרטים בוואטסאפ.
               </p>
             </Card>
           )}
@@ -342,30 +383,13 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
         </form>
       </Section>
 
-      <Section title="מי מקבל את הבקשה">
+      <Section title="מי מקבל את הבקשה" className="!pb-12">
         <Card>
           <p className="text-[14px] leading-relaxed text-ink/75">
             בארץ: אוהד הרץ. בנפאל: {NEPAL_PARTNER_NAME} — {NEPAL_PARTNER_ROLE}.
           </p>
           <p className="mt-1.5 text-[13px] leading-relaxed text-ink/50">{NEPAL_PARTNER_NOTE}</p>
         </Card>
-      </Section>
-
-      <Section title="עדיין מתלבטים?">
-        <div className="grid gap-3 sm:grid-cols-2">
-          <Link to="/match">
-            <Card className="h-full p-4">
-              <p className="font-display font-bold">מה מתאים לי?</p>
-              <p className="mt-1 text-[13px] text-ink/60">שבע שאלות קצרות, ואז כמה כיוונים</p>
-            </Card>
-          </Link>
-          <Link to="/treks">
-            <Card className="h-full p-4">
-              <p className="font-display font-bold">טרקים ומסלולים</p>
-              <p className="mt-1 text-[13px] text-ink/60">משך, גובה ומאמץ במבט אחד</p>
-            </Card>
-          </Link>
-        </div>
       </Section>
     </>
   );

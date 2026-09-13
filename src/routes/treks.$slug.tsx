@@ -1,13 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import {
+  Accordion,
   Card,
   EffortBars,
   Gallery,
   Insight,
   PageHero,
   Section,
-  
   WhatsappButton,
 } from "@/components/page";
 import { treks } from "@/lib/content";
@@ -108,7 +108,16 @@ function TrekPage() {
         </ul>
       </Section>
 
-      <Section title="מה חשוב לדעת">
+      {/* Day by day — rendered only when real per-day content exists. */}
+      {trek.dayByDay && trek.dayByDay.length > 0 && (
+        <Section title="יום אחרי יום">
+          <Accordion
+            items={trek.dayByDay.map((d) => ({ title: d.title, content: <p>{d.text}</p> }))}
+          />
+        </Section>
+      )}
+
+      <Section title="כדאי לדעת">
         <Insight text={trek.surprise} />
         <ul className="mt-4 space-y-3">
           {trek.details.map((d) => (
@@ -134,7 +143,8 @@ function TrekPage() {
             to="/quote"
             onClick={() =>
               saveTripContext({
-                source: "trek",
+                source: "trek-page",
+                selected: [{ kind: "trek", slug: trek.slug, name: trek.name }],
                 directions: [trek.name],
                 summary: `${trek.name} · ${trek.days} · ${trek.altitude} · ${trek.effortLabel}`,
               })
@@ -144,7 +154,7 @@ function TrekPage() {
             לקבלת הצעה למסלול הזה
           </Link>
           <Link
-            to="/treks"
+            to="/experiences"
             className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
           >
             לגלות את נפאל שמעבר לטרקים

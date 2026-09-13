@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as ContactRouteImport } from './routes/contact'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as MatchRouteImport } from './routes/match'
 import { Route as NepalRouteImport } from './routes/nepal'
@@ -22,11 +21,13 @@ import { Route as TreksRouteImport } from './routes/treks'
 import { Route as DestinationsIndexRouteImport } from './routes/destinations.index'
 import { Route as DestinationsBhutanRouteImport } from './routes/destinations.bhutan'
 import { Route as DestinationsTibetRouteImport } from './routes/destinations.tibet'
+import { Route as ExperiencesIndexRouteImport } from './routes/experiences.index'
 import { Route as ExperiencesSlugRouteImport } from './routes/experiences.$slug'
 import { Route as KnowledgeIndexRouteImport } from './routes/knowledge.index'
 import { Route as KnowledgeSlugRouteImport } from './routes/knowledge.$slug'
 import { Route as TreksIndexRouteImport } from './routes/treks.index'
 import { Route as TreksSlugRouteImport } from './routes/treks.$slug'
+import { Route as TreksCompareRouteImport } from './routes/treks.compare'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -41,11 +42,6 @@ const AboutRoute = AboutRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KnowledgeRoute = KnowledgeRouteImport.update({
@@ -93,6 +89,11 @@ const DestinationsTibetRoute = DestinationsTibetRouteImport.update({
   path: '/destinations/tibet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExperiencesIndexRoute = ExperiencesIndexRouteImport.update({
+  id: '/experiences/',
+  path: '/experiences/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExperiencesSlugRoute = ExperiencesSlugRouteImport.update({
   id: '/experiences/$slug',
   path: '/experiences/$slug',
@@ -118,12 +119,16 @@ const TreksSlugRoute = TreksSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => TreksRoute,
 } as any)
+const TreksCompareRoute = TreksCompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => TreksRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
-  '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
@@ -135,7 +140,9 @@ export interface FileRoutesByFullPath {
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
+  '/treks/compare': typeof TreksCompareRoute
   '/destinations/': typeof DestinationsIndexRoute
+  '/experiences/': typeof ExperiencesIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
   '/treks/': typeof TreksIndexRoute
 }
@@ -143,7 +150,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
-  '/contact': typeof ContactRoute
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
   '/profile': typeof ProfileRoute
@@ -153,7 +159,9 @@ export interface FileRoutesByTo {
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
+  '/treks/compare': typeof TreksCompareRoute
   '/destinations': typeof DestinationsIndexRoute
+  '/experiences': typeof ExperiencesIndexRoute
   '/knowledge': typeof KnowledgeIndexRoute
   '/treks': typeof TreksIndexRoute
 }
@@ -162,7 +170,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
-  '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
@@ -174,7 +181,9 @@ export interface FileRoutesById {
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
+  '/treks/compare': typeof TreksCompareRoute
   '/destinations/': typeof DestinationsIndexRoute
+  '/experiences/': typeof ExperiencesIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
   '/treks/': typeof TreksIndexRoute
 }
@@ -184,7 +193,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
-    | '/contact'
     | '/knowledge'
     | '/match'
     | '/nepal'
@@ -196,7 +204,9 @@ export interface FileRouteTypes {
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
+    | '/treks/compare'
     | '/destinations/'
+    | '/experiences/'
     | '/knowledge/'
     | '/treks/'
   fileRoutesByTo: FileRoutesByTo
@@ -204,7 +214,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
-    | '/contact'
     | '/match'
     | '/nepal'
     | '/profile'
@@ -214,7 +223,9 @@ export interface FileRouteTypes {
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
+    | '/treks/compare'
     | '/destinations'
+    | '/experiences'
     | '/knowledge'
     | '/treks'
   id:
@@ -222,7 +233,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
-    | '/contact'
     | '/knowledge'
     | '/match'
     | '/nepal'
@@ -234,7 +244,9 @@ export interface FileRouteTypes {
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
+    | '/treks/compare'
     | '/destinations/'
+    | '/experiences/'
     | '/knowledge/'
     | '/treks/'
   fileRoutesById: FileRoutesById
@@ -243,7 +255,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
-  ContactRoute: typeof ContactRoute
   KnowledgeRoute: typeof KnowledgeRouteWithChildren
   MatchRoute: typeof MatchRoute
   NepalRoute: typeof NepalRoute
@@ -254,6 +265,7 @@ export interface RootRouteChildren {
   DestinationsTibetRoute: typeof DestinationsTibetRoute
   ExperiencesSlugRoute: typeof ExperiencesSlugRoute
   DestinationsIndexRoute: typeof DestinationsIndexRoute
+  ExperiencesIndexRoute: typeof ExperiencesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -277,13 +289,6 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/knowledge': {
@@ -349,6 +354,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DestinationsTibetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/experiences/': {
+      id: '/experiences/'
+      path: '/experiences'
+      fullPath: '/experiences/'
+      preLoaderRoute: typeof ExperiencesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/experiences/$slug': {
       id: '/experiences/$slug'
       path: '/experiences/$slug'
@@ -384,6 +396,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TreksSlugRouteImport
       parentRoute: typeof TreksRoute
     }
+    '/treks/compare': {
+      id: '/treks/compare'
+      path: '/compare'
+      fullPath: '/treks/compare'
+      preLoaderRoute: typeof TreksCompareRouteImport
+      parentRoute: typeof TreksRoute
+    }
   }
 }
 
@@ -403,11 +422,13 @@ const KnowledgeRouteWithChildren = KnowledgeRoute._addFileChildren(
 
 interface TreksRouteChildren {
   TreksSlugRoute: typeof TreksSlugRoute
+  TreksCompareRoute: typeof TreksCompareRoute
   TreksIndexRoute: typeof TreksIndexRoute
 }
 
 const TreksRouteChildren: TreksRouteChildren = {
   TreksSlugRoute: TreksSlugRoute,
+  TreksCompareRoute: TreksCompareRoute,
   TreksIndexRoute: TreksIndexRoute,
 }
 
@@ -417,7 +438,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
-  ContactRoute: ContactRoute,
   KnowledgeRoute: KnowledgeRouteWithChildren,
   MatchRoute: MatchRoute,
   NepalRoute: NepalRoute,
@@ -428,6 +448,7 @@ const rootRouteChildren: RootRouteChildren = {
   DestinationsTibetRoute: DestinationsTibetRoute,
   ExperiencesSlugRoute: ExperiencesSlugRoute,
   DestinationsIndexRoute: DestinationsIndexRoute,
+  ExperiencesIndexRoute: ExperiencesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

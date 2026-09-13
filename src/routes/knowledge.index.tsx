@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
-import { Card, PageHero, QuickFacts, Section, TalkCta } from "@/components/page";
+import { Accordion, Card, PageHero, QuickFacts, Section } from "@/components/page";
 import { articles, knowledgeCategories, type KnowledgeCategory } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
 
@@ -61,29 +61,32 @@ function KnowledgePage() {
         lead="תשובות קצרות לשאלות שחוזרות בכל שיחה ראשונה, ולצידן מדריכים מלאים למי שרוצה להעמיק — גם בלי לתכנן טיול עדיין."
       />
 
-      <Section kicker="נפאל בכמה רגעים" title="כרטיס הביקור של המדינה">
+      <Section kicker="נפאל בכמה רגעים" title="כרטיס הביקור של המדינה" className="pb-4">
         <QuickFacts />
       </Section>
 
-      <Section title="תשובות קצרות">
-        <div className="space-y-3">
-          {quick.map((a) => (
-            <Card key={a.slug}>
-              <p className="font-display text-[16px] font-bold">{a.title}</p>
-              <p className="mt-1.5 text-[14.5px] leading-relaxed text-ink/70">{a.quickAnswer}</p>
-              <Link
-                to="/knowledge/$slug"
-                params={{ slug: a.slug }}
-                className="mt-3 inline-block text-[13px] font-semibold text-saffron"
-              >
-                לקריאת המדריך ←
-              </Link>
-            </Card>
-          ))}
-        </div>
+      {/* Short answers: long list, so it opens on demand. */}
+      <Section title="תשובות קצרות" className="py-4">
+        <Accordion
+          items={quick.map((a) => ({
+            title: a.title,
+            content: (
+              <>
+                <p>{a.quickAnswer}</p>
+                <Link
+                  to="/knowledge/$slug"
+                  params={{ slug: a.slug }}
+                  className="mt-2.5 inline-block text-[13px] font-semibold text-saffron"
+                >
+                  לקריאת המדריך ←
+                </Link>
+              </>
+            ),
+          }))}
+        />
       </Section>
 
-      <Section kicker="לפי נושא" title="כל התוכן">
+      <Section kicker="לפי נושא" title="כל התוכן" className="pt-4 pb-12">
         <div className="-mx-1 flex flex-wrap gap-2 px-1">
           <button
             type="button"
@@ -148,27 +151,9 @@ function KnowledgePage() {
         </div>
 
         {shown.length === 0 && (
-          <p className="mt-5 text-[14px] text-ink/60">
-            בנושא הזה עוד לא כתבנו מדריך. בינתיים אפשר לשאול אותנו ישירות.
-          </p>
+          <p className="mt-5 text-[14px] text-ink/60">בנושא הזה עוד לא כתבנו מדריך.</p>
         )}
       </Section>
-
-      <Section>
-        <Card>
-          <p className="text-[15px] leading-relaxed text-ink/75">
-            רוצים לדעת איזה מסלול מתאים לכם, לפני שנכנסים לפרטים הקטנים?
-          </p>
-          <Link
-            to="/match"
-            className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
-          >
-            בואו נמצא את השביל שלכם
-          </Link>
-        </Card>
-      </Section>
-
-      <TalkCta />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
-import { Card, Insight, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, Insight, PageHero, Section } from "@/components/page";
 import { articles } from "@/lib/content";
 
 export const Route = createFileRoute("/knowledge/$slug")({
@@ -105,7 +105,6 @@ function ArticlePage() {
         </div>
       </Section>
 
-      <TalkCta />
     </>
   );
 }

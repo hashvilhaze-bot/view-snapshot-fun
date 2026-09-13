@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { Card, PageHero, Section, TalkCta, WhatsappButton } from "@/components/page";
+import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
 import tibetImg from "@/assets/destinations/tibet.jpg";
 
 export const Route = createFileRoute("/destinations/tibet")({
@@ -72,10 +72,6 @@ function TibetPage() {
         </Card>
       </Section>
 
-      <TalkCta
-        title="רוצים לשמוע כשטיבט נפתחת?"
-        text="כתבו לנו מה מעניין אתכם, ונחזור אליכם עם מידע אמיתי ברגע שיהיה."
-      />
     </>
   );
 }

@@ -119,9 +119,14 @@ function TrekPage() {
 
       <Section title="כדאי לדעת">
         <Insight text={trek.surprise} />
-        <div className="mt-4">
-          <Accordion items={trek.details.map((d) => ({ title: d, content: <p>{d}</p> }))} />
-        </div>
+        <ul className="mt-4 space-y-3">
+          {trek.details.map((d) => (
+            <li key={d} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
+              <span className="font-bold text-saffron">·</span>
+              {d}
+            </li>
+          ))}
+        </ul>
       </Section>
 
       <Section title="מה אפשר לשלב סביב המסלול">

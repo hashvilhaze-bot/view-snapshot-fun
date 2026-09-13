@@ -87,39 +87,41 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
   );
 }
 
-export function TalkCta({
-  title = "בואו נדבר על השביל שלכם",
-  text = "שיחה קצרה, בלי התחייבות. נשמע מה מסקרן אתכם ונציע כמה כיוונים שמתאימים לימים שיש לכם.",
+/**
+ * Plus/accordion. Used only where it genuinely shortens the page:
+ * trek day-by-day, About / how we work, Quote extra details,
+ * long secondary content in Experiences and Knowledge.
+ */
+export function Accordion({
+  items,
+  className = "",
 }: {
-  title?: string;
-  text?: string;
+  items: { title: string; content: ReactNode }[];
+  className?: string;
 }) {
-  const wa = whatsappHref();
   return (
-    <Section>
-      <Card className="text-center">
-        <h2 className="font-display text-xl font-bold sm:text-2xl">{title}</h2>
-        <p className="mx-auto mt-2 max-w-[42ch] text-[15px] leading-relaxed text-ink/70">{text}</p>
-        <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
-          {wa && (
-            <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+    <div className={`space-y-2 ${className}`}>
+      {items.map((it) => (
+        <details
+          key={it.title}
+          className="group rounded-2xl border border-parchment/50 bg-parchment/85 ring-1 ring-ink/5"
+        >
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-[14.5px] font-semibold text-ink">
+            <span>{it.title}</span>
+            <span
+              aria-hidden="true"
+              className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-saffron/12 text-[15px] leading-none font-bold text-saffron"
             >
-              לכתוב בוואטסאפ
-            </a>
-          )}
-          <Link
-            to="/quote"
-            className="rounded-xl bg-parchment px-6 py-3.5 text-[15px] font-medium text-ink ring-1 ring-ink/10"
-          >
-            לקבלת הצעה אישית
-          </Link>
-        </div>
-      </Card>
-    </Section>
+              <span className="group-open:hidden">+</span>
+              <span className="hidden group-open:inline">−</span>
+            </span>
+          </summary>
+          <div className="px-4 pt-0.5 pb-4 text-[14px] leading-relaxed text-ink/75">
+            {it.content}
+          </div>
+        </details>
+      ))}
+    </div>
   );
 }
 

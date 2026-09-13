@@ -1,19 +1,23 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, X, User as UserIcon } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 
 import { WhatsappIcon } from "@/components/whatsapp-icon";
 
 import logoAsset from "@/assets/hashvil-haze-logo.png.asset.json";
-import { useAuth } from "@/hooks/use-auth";
 import { useLocale } from "@/hooks/use-locale";
 import { destinations } from "@/lib/destinations";
 import type { TranslationKey } from "@/lib/i18n";
 import { whatsappHref } from "@/lib/leads";
 
-/** Main nav. Destinations are one clean entry, so new ones don't crowd the bar. */
+/**
+ * Main nav: destinations, treks, experiences, knowledge, about — plus WhatsApp.
+ * Match, Quote, Contact and Auth are intentionally not in the visible nav.
+ * The authentication system itself stays in the codebase.
+ */
 const nav: { to: string; key: TranslationKey }[] = [
   { to: "/treks", key: "nav.treks" },
+  { to: "/experiences", key: "nav.experiences" },
   { to: "/knowledge", key: "nav.knowledge" },
   { to: "/about", key: "nav.about" },
 ];
@@ -22,7 +26,6 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [destOpen, setDestOpen] = useState(false);
   const destRef = useRef<HTMLDivElement>(null);
-  const { user, name, avatarUrl, signOut } = useAuth();
   const { t } = useLocale();
   const wa = whatsappHref();
 
@@ -88,7 +91,9 @@ export function SiteHeader() {
                     className="block px-4 py-2 text-[13px] text-parchment/75 hover:bg-brand-sky/15 hover:text-parchment"
                   >
                     {d.name}
-                    <span className="mt-0.5 block text-[11px] text-parchment/45">{d.character}</span>
+                    <span className="mt-0.5 block text-[11px] text-parchment/45">
+                      {d.character}
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -115,23 +120,11 @@ export function SiteHeader() {
               rel="noopener noreferrer"
               aria-label="וואטסאפ"
               title="וואטסאפ"
-              className="grid h-9 w-9 place-items-center rounded-full text-parchment/60 ring-1 ring-brand-line/30 transition-colors hover:text-parchment"
+              className="grid h-9 w-9 place-items-center rounded-full text-parchment/70 ring-1 ring-brand-line/30 transition-colors hover:text-parchment"
             >
               <WhatsappIcon className="h-[18px] w-[18px]" />
             </a>
           )}
-          <Link
-            to={user ? "/profile" : "/auth"}
-            aria-label={user ? t("auth.profile") : t("auth.signIn")}
-            title={user ? (name ?? t("auth.profile")) : t("auth.signIn")}
-            className="grid h-9 w-9 place-items-center rounded-full text-parchment/60 ring-1 ring-brand-line/30 transition-colors hover:text-parchment"
-          >
-            {user && avatarUrl ? (
-              <img src={avatarUrl} alt="" className="h-7 w-7 rounded-full object-cover" />
-            ) : (
-              <UserIcon className="h-4 w-4" />
-            )}
-          </Link>
         </div>
 
         <button
@@ -193,58 +186,20 @@ export function SiteHeader() {
               </li>
             ))}
           </ul>
-          <div className="mt-3 mb-1 flex gap-2">
-            {wa && (
+          {wa && (
+            <div className="mt-3 mb-2">
               <a
                 href={wa}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
-                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-saffron px-3 py-2.5 text-center text-[14px] font-semibold text-parchment"
+                className="flex items-center justify-center gap-2 rounded-lg bg-saffron px-3 py-2.5 text-center text-[14px] font-semibold text-parchment"
               >
                 <WhatsappIcon className="h-[18px] w-[18px]" />
-                וואטסאפ
+                {t("footer.whatsapp")}
               </a>
-            )}
-            <Link
-              to="/quote"
-              onClick={() => setOpen(false)}
-              className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
-            >
-              {t("cta.knowAlready")}
-            </Link>
-          </div>
-          <div className="mb-2 flex gap-2">
-            {user ? (
-              <>
-                <Link
-                  to="/profile"
-                  onClick={() => setOpen(false)}
-                  className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
-                >
-                  {t("auth.profile")}
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setOpen(false);
-                    void signOut();
-                  }}
-                  className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/70 ring-1 ring-brand-line/40"
-                >
-                  {t("auth.signOut")}
-                </button>
-              </>
-            ) : (
-              <Link
-                to="/auth"
-                onClick={() => setOpen(false)}
-                className="flex-1 rounded-lg px-3 py-2.5 text-center text-[14px] font-medium text-parchment/80 ring-1 ring-brand-line/40"
-              >
-                {t("auth.signIn")}
-              </Link>
-            )}
-          </div>
+            </div>
+          )}
         </nav>
       )}
     </header>

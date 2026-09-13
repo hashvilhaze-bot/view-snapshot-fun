@@ -1,86 +1,40 @@
-import { Link } from "@tanstack/react-router";
-
 import { CONTACT_EMAIL, CONTACT_PHONE, whatsappHref } from "@/lib/leads";
 import { useLocale } from "@/hooks/use-locale";
 
+/** Simple footer: WhatsApp, phone, email. No separate contact area. */
 export function SiteFooter() {
   const wa = whatsappHref();
   const { t } = useLocale();
 
   return (
-    <footer className="border-t border-parchment/15 bg-summit px-6 py-12 text-parchment/80">
-      <div className="mx-auto grid max-w-5xl gap-10 sm:grid-cols-3">
-        <div>
-          <p className="font-display text-lg font-bold text-parchment">השביל הזה</p>
-          <p className="mt-2.5 text-[14px] leading-relaxed text-parchment/75">
-            טיולים אישיים בנפאל ובהימלאיה, שנבנים סביב מה שאתם רוצים לחוות — עם כתובת אחת מהשיחה
-            הראשונה ועד החזרה הביתה.
-          </p>
-        </div>
+    <footer className="border-t border-parchment/15 bg-summit px-6 py-10 text-parchment/80">
+      <div className="mx-auto flex max-w-5xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <p className="font-display text-lg font-bold text-parchment">השביל הזה</p>
 
-        <nav className="text-[14px]" aria-label={t("footer.onSite")}>
-          <p className="mb-3 font-semibold text-parchment">{t("footer.onSite")}</p>
-          <ul className="space-y-2 text-parchment/75">
+        <ul className="flex flex-col gap-2 text-[14px] text-parchment/75 sm:flex-row sm:items-center sm:gap-6">
+          {wa && (
             <li>
-              <Link to="/destinations" className="hover:text-parchment">
-                {t("nav.destinations")}
-              </Link>
-            </li>
-            <li>
-              <Link to="/treks" className="hover:text-parchment">
-                {t("nav.treks")}
-              </Link>
-            </li>
-            <li>
-              <Link to="/match" className="hover:text-parchment">
-                {t("nav.match")}
-              </Link>
-            </li>
-            <li>
-              <Link to="/knowledge" className="hover:text-parchment">
-                {t("nav.knowledge")}
-              </Link>
-            </li>
-            <li>
-              <Link to="/quote" className="hover:text-parchment">
-                {t("nav.quote")}
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" className="hover:text-parchment">
-                {t("nav.about")}
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <div className="text-[14px]">
-          <p className="mb-3 font-semibold text-parchment">{t("footer.talkToUs")}</p>
-          <ul className="space-y-2 text-parchment/75">
-            {wa && (
-              <li>
-                <a
-                  href={wa}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-parchment"
-                >
-                  וואטסאפ · {CONTACT_PHONE}
-                </a>
-              </li>
-            )}
-            <li>
-              <a href={`tel:${CONTACT_PHONE}`} className="hover:text-parchment">
-                טלפון: {CONTACT_PHONE}
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-parchment"
+              >
+                {t("footer.whatsapp")} · {CONTACT_PHONE}
               </a>
             </li>
-            <li>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-parchment">
-                {CONTACT_EMAIL}
-              </a>
-            </li>
-          </ul>
-        </div>
+          )}
+          <li>
+            <a href={`tel:${CONTACT_PHONE}`} className="hover:text-parchment">
+              {CONTACT_PHONE}
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-parchment">
+              {CONTACT_EMAIL}
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

@@ -1,20 +1,19 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, X, User as UserIcon } from "lucide-react";
+import { ChevronDown, Menu, X, User as UserIcon, MessageCircle } from "lucide-react";
 
 import logoAsset from "@/assets/hashvil-haze-logo.png.asset.json";
 import { useAuth } from "@/hooks/use-auth";
 import { useLocale } from "@/hooks/use-locale";
 import { destinations } from "@/lib/destinations";
 import type { TranslationKey } from "@/lib/i18n";
+import { whatsappHref } from "@/lib/leads";
 
 /** Main nav. Destinations are one clean entry, so new ones don't crowd the bar. */
 const nav: { to: string; key: TranslationKey }[] = [
   { to: "/treks", key: "nav.treks" },
-  { to: "/match", key: "nav.match" },
   { to: "/knowledge", key: "nav.knowledge" },
   { to: "/about", key: "nav.about" },
-  { to: "/contact", key: "nav.contact" },
 ];
 
 export function SiteHeader() {
@@ -23,6 +22,7 @@ export function SiteHeader() {
   const destRef = useRef<HTMLDivElement>(null);
   const { user, name, avatarUrl, signOut } = useAuth();
   const { t } = useLocale();
+  const wa = whatsappHref();
 
   useEffect(() => {
     if (!destOpen) return;
@@ -106,6 +106,18 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
+          {wa && (
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="וואטסאפ"
+              title="וואטסאפ"
+              className="grid h-9 w-9 place-items-center rounded-full text-parchment/60 ring-1 ring-brand-line/30 transition-colors hover:text-parchment"
+            >
+              <MessageCircle className="h-4 w-4" />
+            </a>
+          )}
           <Link
             to={user ? "/profile" : "/auth"}
             aria-label={user ? t("auth.profile") : t("auth.signIn")}
@@ -180,13 +192,18 @@ export function SiteHeader() {
             ))}
           </ul>
           <div className="mt-3 mb-1 flex gap-2">
-            <Link
-              to="/contact"
-              onClick={() => setOpen(false)}
-              className="flex-1 rounded-lg bg-saffron px-3 py-2.5 text-center text-[14px] font-semibold text-parchment"
-            >
-              {t("cta.talk")}
-            </Link>
+            {wa && (
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-saffron px-3 py-2.5 text-center text-[14px] font-semibold text-parchment"
+              >
+                <MessageCircle className="h-4 w-4" />
+                וואטסאפ
+              </a>
+            )}
             <Link
               to="/quote"
               onClick={() => setOpen(false)}

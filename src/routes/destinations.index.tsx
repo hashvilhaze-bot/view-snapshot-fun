@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import valleyGolden from "@/assets/valley-golden.jpg";
-import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, PageHero, Section } from "@/components/page";
 import { destinations } from "@/lib/destinations";
 
 export const Route = createFileRoute("/destinations/")({
@@ -25,18 +25,19 @@ export const Route = createFileRoute("/destinations/")({
   }),
 });
 
+/** Country choice only: hero + country cards. The cards are the action. */
 function DestinationsPage() {
   return (
     <>
       <PageHero
         kicker="יעדים"
         title="לאן השביל יכול לקחת אתכם?"
-        lead="נפאל, בהוטן וטיבט נמצאות באותו אזור של העולם, אבל מציעות חוויות שונות מאוד. לפעמים מתחילים ממדינה שרוצים להגיע אליה, ולפעמים דווקא מסוג החוויה שמחפשים."
+        lead="נפאל, בהוטן וטיבט נמצאות באותו אזור של העולם, אבל מציעות חוויות שונות מאוד."
         image={valleyGolden}
         imageAlt="עמק בהימלאיה באור זהוב"
       />
 
-      <Section>
+      <Section className="pb-10">
         <div className="space-y-4">
           {destinations.map((d) => (
             <Card key={d.slug} className="overflow-hidden p-0">
@@ -70,23 +71,6 @@ function DestinationsPage() {
           ))}
         </div>
       </Section>
-
-      <Section title="ואם עוד לא בחרתם מדינה?">
-        <Card>
-          <p className="text-[15px] leading-relaxed text-ink/75">
-            רוב האנשים שמדברים איתנו לא מתחילים ממדינה, אלא ממה שהם רוצים לחוות: כמה ימים יש להם,
-            באיזה קצב הם רוצים ללכת, ומה חשוב להם באמת. אפשר להתחיל משם, ואת היעד נמצא ביחד.
-          </p>
-          <Link
-            to="/match"
-            className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
-          >
-            בואו נמצא את השביל שלכם
-          </Link>
-        </Card>
-      </Section>
-
-      <TalkCta />
     </>
   );
 }

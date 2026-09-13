@@ -7,7 +7,7 @@ import {
   Insight,
   PageHero,
   Section,
-  TalkCta,
+  
   WhatsappButton,
 } from "@/components/page";
 import { treks } from "@/lib/content";

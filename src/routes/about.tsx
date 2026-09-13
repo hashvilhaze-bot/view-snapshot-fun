@@ -4,7 +4,7 @@ import bedNathRegmi from "@/assets/bed-nath-regmi.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
 import ohadPhoto from "@/assets/ohad.jpg";
 import shalomTeam from "@/assets/shalom-team.jpg";
-import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { Accordion, Card, PageHero, Section } from "@/components/page";
 import { galleries } from "@/lib/galleries";
 import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_ROLE } from "@/lib/leads";
 
@@ -204,53 +204,31 @@ function AboutPage() {
         </div>
       </section>
 
-      <Section title="מהשיחה הראשונה ועד החזרה הביתה" className="py-6 sm:py-7">
-        <ol className="grid gap-2.5 sm:grid-cols-2">
-          {steps.map(([n, t, d]) => (
-            <li
-              key={n}
-              className="flex gap-3.5 rounded-2xl border border-parchment/50 bg-parchment/85 p-4 ring-1 ring-ink/5"
-            >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-saffron/12 font-display text-[13px] font-bold text-saffron">
-                {n}
-              </span>
-              <div>
-                <p className="text-[15px] font-semibold">{t}</p>
-                <p className="mt-1 text-[13.5px] leading-relaxed text-ink/70">{d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+      {/* "How we work" lives only here, folded so the page stays short. */}
+      <Section title="איך אנחנו עובדים" className="py-6 sm:py-7">
+        <Accordion
+          items={steps.map(([n, t, d]) => ({
+            title: `${n} · ${t}`,
+            content: <p>{d}</p>,
+          }))}
+        />
         <p className="mt-4 text-[14px] leading-relaxed text-ink/60">
           גם כשצריך לשנות תוכנית באמצע הטיול, יש מי שמטפל בזה — מי שנמצא בשטח יודע מה הובטח לכם, ומי
           שתכנן איתכם יודע מה קורה שם עכשיו.
         </p>
       </Section>
 
-      <Section title="להמשיך">
-        <div className="grid gap-3 sm:grid-cols-3">
-          <Link to="/treks">
-            <Card className="h-full p-4 transition-colors hover:border-saffron/40">
-              <p className="font-display font-bold">טרקים ומסלולים</p>
-              <p className="mt-1 text-[13px] text-ink/60">משך, גובה ומאמץ במבט אחד</p>
-            </Card>
+      <Section className="!pt-2 !pb-12">
+        <Card className="text-center">
+          <p className="font-display text-[18px] font-bold">נתחיל מהשיחה הראשונה?</p>
+          <Link
+            to="/match"
+            className="mt-4 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+          >
+            בואו נמצא את השביל שלכם
           </Link>
-          <Link to="/knowledge">
-            <Card className="h-full p-4 transition-colors hover:border-saffron/40">
-              <p className="font-display font-bold">מרכז הידע</p>
-              <p className="mt-1 text-[13px] text-ink/60">עונות, גובה, ציוד והכנות</p>
-            </Card>
-          </Link>
-          <Link to="/match">
-            <Card className="h-full p-4 transition-colors hover:border-saffron/40">
-              <p className="font-display font-bold">מה מתאים לי?</p>
-              <p className="mt-1 text-[13px] text-ink/60">שבע שאלות, ואז כמה כיוונים</p>
-            </Card>
-          </Link>
-        </div>
+        </Card>
       </Section>
-
-      <TalkCta />
     </>
   );
 }

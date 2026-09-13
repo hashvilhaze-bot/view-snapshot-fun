@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import valleyGolden from "@/assets/valley-golden.jpg";
-import { Card, EffortBars, PageHero, Section, TalkCta } from "@/components/page";
-import { experiences, treks } from "@/lib/content";
+import { Card, EffortBars, PageHero, Section } from "@/components/page";
+import { treks } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/treks/")({
@@ -114,34 +114,27 @@ function TreksPage() {
       </Section>
 
 
-      <Section title="נפאל שמעבר לטרקים" className="!pt-4 !pb-4">
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-          {experiences.map((e) => (
-            <Link key={e.slug} to="/experiences/$slug" params={{ slug: e.slug }}>
-              <Card className="h-full p-3.5 transition-colors hover:border-saffron/40">
-                <p className="font-display text-[15px] font-bold">{e.name}</p>
-                <p className="mt-1 text-[12px] leading-relaxed text-ink/60">{e.kicker}</p>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </Section>
-
-      <Section className="!pt-2">
+      <Section className="!pt-2 !pb-10">
         <Card>
           <p className="text-[15px] leading-relaxed text-ink/75">
-            לא בטוחים מה מתאים לכם? שבע שאלות קצרות, ואחריהן שניים־שלושה כיוונים עם הסבר.
+            לא בטוחים מה מתאים לכם? כמה שאלות קצרות, ואחריהן כמה כיוונים עם הסבר.
           </p>
-          <Link
-            to="/match"
-            className="mt-4 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
-          >
-            בואו נמצא את השביל שלכם
-          </Link>
+          <div className="mt-4 flex flex-col gap-2.5 sm:flex-row">
+            <Link
+              to="/match"
+              className="rounded-xl bg-saffron px-5 py-3 text-center text-[14px] font-semibold text-parchment"
+            >
+              בואו נמצא את השביל שלכם
+            </Link>
+            <Link
+              to="/treks/compare"
+              className="rounded-xl bg-parchment px-5 py-3 text-center text-[14px] font-medium text-ink ring-1 ring-ink/10"
+            >
+              להשוות בין מסלולים
+            </Link>
+          </div>
         </Card>
       </Section>
-
-      <TalkCta />
     </>
   );
 }

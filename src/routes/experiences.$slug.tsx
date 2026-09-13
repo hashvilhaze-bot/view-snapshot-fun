@@ -53,7 +53,7 @@ function ExperiencePage() {
         </ul>
       </Section>
 
-      <Section title="לשלב בטיול">
+      <Section title="משתלב טוב עם...">
         <Card>
           <p className="text-[15px] leading-relaxed text-ink/75">{item.combine}</p>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -67,7 +67,8 @@ function ExperiencePage() {
               to="/quote"
               onClick={() =>
                 saveTripContext({
-                  source: "experience",
+                  source: "experience-page",
+                  selected: [{ kind: "experience", slug: item.slug, name: item.name }],
                   directions: [item.name],
                   summary: `${item.name} — ${item.kicker}`,
                 })

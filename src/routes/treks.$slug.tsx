@@ -143,7 +143,8 @@ function TrekPage() {
             to="/quote"
             onClick={() =>
               saveTripContext({
-                source: "trek",
+                source: "trek-page",
+                selected: [{ kind: "trek", slug: trek.slug, name: trek.name }],
                 directions: [trek.name],
                 summary: `${trek.name} · ${trek.days} · ${trek.altitude} · ${trek.effortLabel}`,
               })
@@ -153,7 +154,7 @@ function TrekPage() {
             לקבלת הצעה למסלול הזה
           </Link>
           <Link
-            to="/treks"
+            to="/experiences"
             className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
           >
             לגלות את נפאל שמעבר לטרקים

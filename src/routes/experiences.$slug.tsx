@@ -109,18 +109,6 @@ function ExperiencePage() {
         </Card>
       </Section>
 
-      <Section title="חוויות נוספות">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {others.map((e) => (
-            <Link key={e.slug} to="/experiences/$slug" params={{ slug: e.slug }}>
-              <Card className="h-full p-4">
-                <p className="font-display text-[15px] font-bold">{e.name}</p>
-                <p className="mt-1 text-[12px] text-ink/60">{e.kicker}</p>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </Section>
 
     </>
   );

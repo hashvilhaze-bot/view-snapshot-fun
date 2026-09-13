@@ -27,6 +27,7 @@ import { Route as KnowledgeIndexRouteImport } from './routes/knowledge.index'
 import { Route as KnowledgeSlugRouteImport } from './routes/knowledge.$slug'
 import { Route as TreksIndexRouteImport } from './routes/treks.index'
 import { Route as TreksSlugRouteImport } from './routes/treks.$slug'
+import { Route as TreksCompareRouteImport } from './routes/treks.compare'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -118,6 +119,11 @@ const TreksSlugRoute = TreksSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => TreksRoute,
 } as any)
+const TreksCompareRoute = TreksCompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => TreksRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
+  '/treks/compare': typeof TreksCompareRoute
   '/destinations/': typeof DestinationsIndexRoute
   '/experiences/': typeof ExperiencesIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByTo {
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
+  '/treks/compare': typeof TreksCompareRoute
   '/destinations': typeof DestinationsIndexRoute
   '/experiences': typeof ExperiencesIndexRoute
   '/knowledge': typeof KnowledgeIndexRoute
@@ -173,6 +181,7 @@ export interface FileRoutesById {
   '/experiences/$slug': typeof ExperiencesSlugRoute
   '/knowledge/$slug': typeof KnowledgeSlugRoute
   '/treks/$slug': typeof TreksSlugRoute
+  '/treks/compare': typeof TreksCompareRoute
   '/destinations/': typeof DestinationsIndexRoute
   '/experiences/': typeof ExperiencesIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
+    | '/treks/compare'
     | '/destinations/'
     | '/experiences/'
     | '/knowledge/'
@@ -213,6 +223,7 @@ export interface FileRouteTypes {
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
+    | '/treks/compare'
     | '/destinations'
     | '/experiences'
     | '/knowledge'
@@ -233,6 +244,7 @@ export interface FileRouteTypes {
     | '/experiences/$slug'
     | '/knowledge/$slug'
     | '/treks/$slug'
+    | '/treks/compare'
     | '/destinations/'
     | '/experiences/'
     | '/knowledge/'
@@ -384,6 +396,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TreksSlugRouteImport
       parentRoute: typeof TreksRoute
     }
+    '/treks/compare': {
+      id: '/treks/compare'
+      path: '/compare'
+      fullPath: '/treks/compare'
+      preLoaderRoute: typeof TreksCompareRouteImport
+      parentRoute: typeof TreksRoute
+    }
   }
 }
 
@@ -403,11 +422,13 @@ const KnowledgeRouteWithChildren = KnowledgeRoute._addFileChildren(
 
 interface TreksRouteChildren {
   TreksSlugRoute: typeof TreksSlugRoute
+  TreksCompareRoute: typeof TreksCompareRoute
   TreksIndexRoute: typeof TreksIndexRoute
 }
 
 const TreksRouteChildren: TreksRouteChildren = {
   TreksSlugRoute: TreksSlugRoute,
+  TreksCompareRoute: TreksCompareRoute,
   TreksIndexRoute: TreksIndexRoute,
 }
 

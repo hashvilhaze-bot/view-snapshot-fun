@@ -25,6 +25,11 @@ export type Trek = {
   /** Ideas for combining this trek with the rest of Nepal. */
   combine: string[];
   note?: string;
+  /**
+   * Optional day-by-day breakdown, shown as an accordion on the trek page.
+   * Left undefined until real per-day content exists — nothing is invented.
+   */
+  dayByDay?: { title: string; text: string }[];
 };
 
 export const treks: Trek[] = [

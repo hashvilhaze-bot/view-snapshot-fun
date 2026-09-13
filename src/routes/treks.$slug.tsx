@@ -1,13 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import {
+  Accordion,
   Card,
   EffortBars,
   Gallery,
   Insight,
   PageHero,
   Section,
-  
   WhatsappButton,
 } from "@/components/page";
 import { treks } from "@/lib/content";

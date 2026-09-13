@@ -108,16 +108,20 @@ function TrekPage() {
         </ul>
       </Section>
 
-      <Section title="מה חשוב לדעת">
+      {/* Day by day — rendered only when real per-day content exists. */}
+      {trek.dayByDay && trek.dayByDay.length > 0 && (
+        <Section title="יום אחרי יום">
+          <Accordion
+            items={trek.dayByDay.map((d) => ({ title: d.title, content: <p>{d.text}</p> }))}
+          />
+        </Section>
+      )}
+
+      <Section title="כדאי לדעת">
         <Insight text={trek.surprise} />
-        <ul className="mt-4 space-y-3">
-          {trek.details.map((d) => (
-            <li key={d} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
-              <span className="font-bold text-saffron">·</span>
-              {d}
-            </li>
-          ))}
-        </ul>
+        <div className="mt-4">
+          <Accordion items={trek.details.map((d) => ({ title: d, content: <p>{d}</p> }))} />
+        </div>
       </Section>
 
       <Section title="מה אפשר לשלב סביב המסלול">

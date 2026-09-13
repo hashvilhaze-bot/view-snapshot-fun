@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { Card, PageHero, Section, TalkCta } from "@/components/page";
+import { Card, PageHero, Section, TalkCta, WhatsappButton } from "@/components/page";
 import bhutanImg from "@/assets/destinations/bhutan.jpg";
 
 export const Route = createFileRoute("/destinations/bhutan")({

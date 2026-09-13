@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, X, User as UserIcon, MessageCircle } from "lucide-react";
+import { ChevronDown, Menu, X, User as UserIcon } from "lucide-react";
+
+import { WhatsappIcon } from "@/components/whatsapp-icon";
 
 import logoAsset from "@/assets/hashvil-haze-logo.png.asset.json";
 import { useAuth } from "@/hooks/use-auth";
@@ -115,7 +117,7 @@ export function SiteHeader() {
               title="וואטסאפ"
               className="grid h-9 w-9 place-items-center rounded-full text-parchment/60 ring-1 ring-brand-line/30 transition-colors hover:text-parchment"
             >
-              <MessageCircle className="h-4 w-4" />
+              <WhatsappIcon className="h-[18px] w-[18px]" />
             </a>
           )}
           <Link
@@ -200,7 +202,7 @@ export function SiteHeader() {
                 onClick={() => setOpen(false)}
                 className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-saffron px-3 py-2.5 text-center text-[14px] font-semibold text-parchment"
               >
-                <MessageCircle className="h-4 w-4" />
+                <WhatsappIcon className="h-[18px] w-[18px]" />
                 וואטסאפ
               </a>
             )}

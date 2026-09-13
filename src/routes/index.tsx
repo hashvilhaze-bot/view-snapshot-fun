@@ -344,10 +344,10 @@ function Index() {
 
           <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
             <Link
-              to="/contact"
+              to="/quote"
               className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
             >
-              בואו נדבר
+              לקבלת הצעה אישית
             </Link>
             <WhatsappButton
               className="bg-parchment/15 text-parchment ring-parchment/30"

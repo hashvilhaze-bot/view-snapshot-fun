@@ -102,29 +102,38 @@ function QuotePage() {
   });
 
   // Whatever the visitor already told us elsewhere — never ask for it twice.
+  // The URL wins over stored session context: it describes the link that was
+  // just clicked, while the stored context may be from an earlier visit.
   useEffect(() => {
     const ctx = readTripContext();
-    if (ctx) {
+    const trek = search.trek ? trekItems.find((t) => t.slug === search.trek) : undefined;
+    const exp = search.experience
+      ? experienceItems.find((x) => x.slug === search.experience)
+      : undefined;
+    const urlWins = Boolean(trek || exp || search.source === "direct");
+
+    if (ctx && !urlWins) {
       setContext(ctx);
       if (ctx.selected?.length) setSelected(ctx.selected);
       setForm((f) => ({ ...f, dates: f.dates || (ctx.time ?? "") }));
     }
 
-    // URL fallback, so an early click never loses the selection.
-    if (search.trek) {
-      const trek = trekItems.find((t) => t.slug === search.trek);
-      if (trek) {
-        setUrlSource("trek-page");
-        if (!ctx?.selected?.length)
-          setSelected([{ kind: "trek", slug: trek.slug, name: trek.name }]);
-      }
-    } else if (search.experience) {
-      const exp = experienceItems.find((x) => x.slug === search.experience);
-      if (exp) {
-        setUrlSource("experience-page");
-        if (!ctx?.selected?.length)
-          setSelected([{ kind: "experience", slug: exp.slug, name: exp.name }]);
-      }
+    if (trek) {
+      setUrlSource("trek-page");
+      setSelected(
+        ctx?.source === "trek-page" && ctx.selected?.length
+          ? ctx.selected
+          : [{ kind: "trek", slug: trek.slug, name: trek.name }],
+      );
+      if (ctx?.source === "trek-page") setContext(ctx);
+    } else if (exp) {
+      setUrlSource("experience-page");
+      setSelected(
+        ctx?.source === "experience-page" && ctx.selected?.length
+          ? ctx.selected
+          : [{ kind: "experience", slug: exp.slug, name: exp.name }],
+      );
+      if (ctx?.source === "experience-page") setContext(ctx);
     } else if (search.source === "direct") {
       setUrlSource("direct-selection");
     }

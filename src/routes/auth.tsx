@@ -135,7 +135,7 @@ function AuthPage() {
                 התחברות עם Google
               </button>
 
-              <div className="my-5 flex items-center gap-3 text-[12px] text-ink/45">
+              <div className="my-5 flex items-center gap-3 text-[12px] text-ink/60">
                 <span className="h-px flex-1 bg-ink/10" />
                 או עם אימייל
                 <span className="h-px flex-1 bg-ink/10" />
@@ -173,7 +173,7 @@ function AuthPage() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   {mode === "signup" && (
-                    <p className="mt-1.5 text-[12px] text-ink/50">לפחות 8 תווים.</p>
+                    <p className="mt-1.5 text-[12px] text-ink/60">לפחות 8 תווים.</p>
                   )}
                 </div>
                 <button

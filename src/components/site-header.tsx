@@ -91,7 +91,7 @@ export function SiteHeader() {
                     className="block px-4 py-2 text-[13px] text-parchment/75 hover:bg-brand-sky/15 hover:text-parchment"
                   >
                     {d.name}
-                    <span className="mt-0.5 block text-[11px] text-parchment/45">
+                    <span className="mt-0.5 block text-[11px] text-parchment/65">
                       {d.character}
                     </span>
                   </Link>

@@ -61,12 +61,12 @@ function KnowledgePage() {
         lead="תשובות קצרות לשאלות שחוזרות בכל שיחה ראשונה, ולצידן מדריכים מלאים למי שרוצה להעמיק — גם בלי לתכנן טיול עדיין."
       />
 
-      <Section kicker="נפאל בכמה רגעים" title="כרטיס הביקור של המדינה" className="pb-4">
+      <Section kicker="נפאל בכמה רגעים" title="כרטיס הביקור של המדינה" className="!pt-4 !pb-3 sm:!pb-4">
         <QuickFacts />
       </Section>
 
       {/* Short answers: long list, so it opens on demand. */}
-      <Section title="תשובות קצרות" className="py-4">
+      <Section title="תשובות קצרות" className="!py-4">
         <Accordion
           items={quick.map((a) => ({
             title: a.title,
@@ -86,7 +86,7 @@ function KnowledgePage() {
         />
       </Section>
 
-      <Section kicker="לפי נושא" title="כל התוכן" className="pt-4 pb-12">
+      <Section kicker="לפי נושא" title="כל התוכן" className="!pt-4 !pb-12">
         <div className="-mx-1 flex flex-wrap gap-2 px-1">
           <button
             type="button"
@@ -94,7 +94,7 @@ function KnowledgePage() {
             className={`rounded-full px-4 py-2 text-[13px] font-medium ring-1 ${
               active === "all"
                 ? "bg-saffron text-parchment ring-saffron"
-                : "bg-parchment/70 text-ink/70 ring-ink/10"
+                : "bg-parchment/70 text-ink/75 ring-ink/10"
             }`}
           >
             הכול
@@ -108,7 +108,7 @@ function KnowledgePage() {
               className={`rounded-full px-4 py-2 text-[13px] font-medium ring-1 disabled:opacity-40 ${
                 active === c
                   ? "bg-saffron text-parchment ring-saffron"
-                  : "bg-parchment/70 text-ink/70 ring-ink/10"
+                  : "bg-parchment/70 text-ink/75 ring-ink/10"
               }`}
             >
               {c}
@@ -131,15 +131,17 @@ function KnowledgePage() {
                       loading="lazy"
                       width={1200}
                       height={800}
-                      className="aspect-[16/9] w-full object-cover"
+                      className="aspect-[21/9] w-full object-cover sm:aspect-[16/9]"
                     />
                   )}
-                  <div className="p-5">
+                  <div className="p-4 sm:p-5">
                     <p className="text-[11px] font-medium text-saffron">
                       {a.category} · {readMinutes(a.body)} דקות קריאה
                     </p>
-                    <p className="mt-1 font-display text-lg font-bold">{a.title}</p>
-                    <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{a.summary}</p>
+                    <p className="mt-1 font-display text-[16.5px] font-bold sm:text-lg">{a.title}</p>
+                    <p className="mt-1.5 text-[13.5px] leading-snug text-ink/75 sm:mt-2 sm:text-[14px] sm:leading-relaxed">
+                      {a.summary}
+                    </p>
                     <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
                       לקריאת המדריך ←
                     </span>

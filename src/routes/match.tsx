@@ -286,7 +286,7 @@ function MatchPage() {
           />
         </div>
 
-        <div className="mt-5 flex min-h-[340px] flex-col justify-center sm:mt-8 sm:min-h-[520px] sm:rounded-2xl sm:bg-parchment/70 sm:p-10 sm:ring-1 sm:ring-ink/8 lg:min-h-[560px] lg:p-14">
+        <div className="mt-5 flex min-h-[320px] flex-col justify-center sm:mt-7 sm:min-h-[300px] sm:rounded-2xl sm:bg-parchment/70 sm:p-10 sm:ring-1 sm:ring-ink/8 lg:min-h-[340px] lg:p-12">
           <h2 className="font-display text-[21px] leading-snug font-bold sm:text-[32px]">
             {LABELS[current]}
           </h2>

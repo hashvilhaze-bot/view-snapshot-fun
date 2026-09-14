@@ -4,9 +4,8 @@ import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
 import ohadPhoto from "@/assets/ohad.jpg";
 import shalomTeam from "@/assets/shalom-team.jpg";
-import { Card, Section } from "@/components/page";
+import { Section } from "@/components/page";
 import { galleries } from "@/lib/galleries";
-import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -23,6 +22,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "טרקים מקצרים ונגישים ועד מנאסלו, ולצידם קטמנדו, פוקרה, כפרים ותרבות.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     scripts: [
       {
@@ -41,14 +42,32 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+/**
+ * Nepal's range, shown rather than listed. Photos come from the site's own
+ * galleries (same alt text), the labels are single words, and nothing here
+ * links anywhere — this is a feeling, not a menu.
+ */
+const RANGE: { label: string; gallery: string; index?: number }[] = [
+  { label: "הרים", gallery: "annapurna-base-camp" },
+  { label: "כפרים", gallery: "villages" },
+  { label: "תרבות", gallery: "kathmandu" },
+  { label: "פוקרה", gallery: "pokhara" },
+  { label: "יוגה ורוגע", gallery: "yoga-rest" },
+  { label: "נהרות", gallery: "rafting" },
+  { label: "כמה ימי הליכה", gallery: "pokhara-hills" },
+  { label: "טרק מלא", gallery: "manaslu-circuit" },
+];
+
 function Index() {
-  const trekCover = galleries["annapurna-base-camp"]?.[0];
-  const experienceCover = galleries["kathmandu"]?.[0];
+  const range = RANGE.map((r) => ({
+    label: r.label,
+    photo: galleries[r.gallery]?.[r.index ?? 0],
+  })).filter((r) => r.photo);
 
   return (
     <>
       {/* SECTION 1 — HERO */}
-      <section className="relative flex min-h-[56svh] flex-col justify-end overflow-hidden sm:min-h-[60vh]">
+      <section className="relative flex min-h-[52svh] flex-col justify-end overflow-hidden sm:min-h-[60vh]">
         <img
           src={heroHimalaya}
           alt="רכס מושלג בהימלאיה בנפאל באור ראשון, עם ערפל שממלא את העמקים"
@@ -56,7 +75,7 @@ function Index() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-summit via-summit/45 to-transparent" />
 
-        <div className="relative mx-auto w-full max-w-4xl px-6 pb-11">
+        <div className="relative mx-auto w-full max-w-5xl px-6 pb-10 sm:pb-12">
           <p className="text-[12px] font-medium tracking-wide text-saffron">
             השביל הזה · מסעות בהתאמה אישית בהימלאיה
           </p>
@@ -73,11 +92,11 @@ function Index() {
               to="/match"
               className="rounded-xl bg-saffron px-5 py-3.5 text-center text-[15px] font-semibold text-parchment"
             >
-              בואו נמצא את השביל שלכם
+              עזרו לי למצוא כיוון
             </Link>
             <Link
               to="/quote"
-              onClick={() => saveTripContext({ source: "direct-selection" })}
+              search={{ source: "direct" }}
               className="rounded-xl bg-parchment/15 px-5 py-3.5 text-center text-[15px] font-medium text-parchment ring-1 ring-parchment/30"
             >
               אני יודע מה אני רוצה
@@ -86,70 +105,46 @@ function Index() {
         </div>
       </section>
 
-      {/* SECTION 2 — TREKS + EXPERIENCES, equal footing */}
-      <Section className="py-6 sm:py-8">
-        <div className="grid gap-3 sm:grid-cols-2">
-          <Link to="/treks" className="group block">
-            <Card className="flex h-full flex-col overflow-hidden p-0 transition-colors group-hover:border-saffron/40">
-              {trekCover && (
-                <div className="relative aspect-[16/10]">
-                  <img
-                    src={trekCover.src}
-                    alt={trekCover.alt}
-                    loading="lazy"
-                    width={1200}
-                    height={800}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </div>
-              )}
-              <div className="p-4">
-                <p className="text-[11px] font-semibold tracking-wide text-saffron">טרקים</p>
-                <h2 className="mt-1 font-display text-[18px] font-bold">
-                  יש יותר מדרך אחת לפגוש את ההימלאיה
-                </h2>
-                <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/65">
-                  מסלולים של כמה ימים ועד מסעות של שבועיים, לפי גובה, מספר ימים ואופי החוויה.
-                </p>
-                <span className="mt-3 inline-block text-[13.5px] font-semibold text-saffron">
-                  לטרקים ולמסלולים ←
-                </span>
+      {/* SECTION 2 — NEPAL CAN BE MANY THINGS */}
+      <Section
+        kicker="נפאל"
+        title="נפאל היא לא טרק אחד ולא סוג טיול אחד"
+        size="xwide"
+        className="py-7 sm:py-9"
+      >
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {range.map((r) => (
+            <figure key={r.label} className="relative overflow-hidden rounded-2xl">
+              <img
+                src={r.photo!.src}
+                alt={r.photo!.alt}
+                loading="lazy"
+                width={1200}
+                height={800}
+                className="aspect-[4/5] w-full object-cover sm:aspect-[3/4]"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-summit/90 to-transparent px-3 pt-8 pb-2.5">
+                <figcaption className="font-display text-[14px] font-bold text-parchment sm:text-[15px]">
+                  {r.label}
+                </figcaption>
               </div>
-            </Card>
-          </Link>
-
-          <Link to="/experiences" className="group block">
-            <Card className="flex h-full flex-col overflow-hidden p-0 transition-colors group-hover:border-saffron/40">
-              {experienceCover && (
-                <div className="relative aspect-[16/10]">
-                  <img
-                    src={experienceCover.src}
-                    alt={experienceCover.alt}
-                    loading="lazy"
-                    width={1200}
-                    height={800}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </div>
-              )}
-              <div className="p-4">
-                <p className="text-[11px] font-semibold tracking-wide text-saffron">חוויות</p>
-                <h2 className="mt-1 font-display text-[18px] font-bold">
-                  נפאל שמעבר לטרקים
-                </h2>
-                <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/65">
-                  ערים ותרבות, כפרים, יוגה ומנוחה, נהרות וג׳ונגל — לבד או לצד טרק.
-                </p>
-                <span className="mt-3 inline-block text-[13.5px] font-semibold text-saffron">
-                  לחוויות בנפאל ←
-                </span>
-              </div>
-            </Card>
-          </Link>
+            </figure>
+          ))}
         </div>
       </Section>
 
-      {/* SECTION 3 — TRUST / ABOUT TEASER */}
+      {/* SECTION 3 — THE IDEA */}
+      <Section size="wide" className="py-6 sm:py-8">
+        <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-5 sm:px-7 sm:py-6">
+          <p className="text-[12px] font-medium tracking-wide text-saffron">הדרך שלכם לנפאל</p>
+          <p className="mt-2 max-w-[54ch] text-[16px] leading-relaxed text-ink/80 sm:text-[17px]">
+            הטיול נבנה סביב מי שנוסע: הזמן שיש לכם, הקצב שנוח לכם והדברים שמעניינים אתכם. לא בוחרים
+            מסלול מהמדף ומתאימים אליו את עצמכם.
+          </p>
+        </div>
+      </Section>
+
+      {/* SECTION 4 — TRUST */}
       <section className="relative overflow-hidden">
         <img
           src={kathmanduDusk}
@@ -158,12 +153,12 @@ function Index() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-summit/82" />
-        <div className="relative mx-auto max-w-4xl px-6 py-10">
+        <div className="relative mx-auto max-w-5xl px-6 py-10">
           <p className="text-[12px] font-medium tracking-wide text-saffron">מי אנחנו</p>
           <h2 className="mt-1.5 font-display text-[21px] leading-snug font-bold text-parchment sm:text-2xl">
             מכירים אתכם כאן. מכירים את נפאל שם.
           </h2>
-          <div className="mt-5 grid gap-4 sm:grid-cols-[200px_minmax(0,1fr)] sm:items-center">
+          <div className="mt-5 grid gap-4 sm:grid-cols-[220px_minmax(0,1fr)] sm:items-center">
             <div className="grid grid-cols-2 gap-2">
               <img
                 src={ohadPhoto}

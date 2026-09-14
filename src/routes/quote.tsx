@@ -4,16 +4,30 @@ import { useEffect, useState } from "react";
 import { Accordion, Card, PageHero, Section, WhatsappButton } from "@/components/page";
 import { useAuth } from "@/hooks/use-auth";
 import { experienceItems, trekItems } from "@/lib/catalog";
-import {
-  NEPAL_PARTNER_NAME,
-  NEPAL_PARTNER_NOTE,
-  NEPAL_PARTNER_ROLE,
-  submitLead,
-} from "@/lib/leads";
+import { submitLead } from "@/lib/leads";
 import { readTripContext, type SelectedItem, type TripContext } from "@/lib/trip-context";
+
+/**
+ * The quote route accepts its starting point in the URL as well as in session
+ * context. That matters: a visitor who taps a trek CTA in the first fraction of
+ * a second after the page loads (before React attached its handler) still
+ * arrives here with the trek pre-selected, because the href itself carries it.
+ */
+type QuoteSearch = {
+  trek?: string | undefined;
+  experience?: string | undefined;
+  source?: string | undefined;
+};
+
+const str = (v: unknown): string | undefined => (typeof v === "string" && v ? v : undefined);
 
 export const Route = createFileRoute("/quote")({
   component: QuotePage,
+  validateSearch: (search: Record<string, unknown>): QuoteSearch => ({
+    trek: str(search["trek"]),
+    experience: str(search["experience"]),
+    source: str(search["source"]),
+  }),
   head: () => ({
     meta: [
       { title: "בקשת הצעה לטיול בנפאל | השביל הזה" },
@@ -24,13 +38,15 @@ export const Route = createFileRoute("/quote")({
       },
       { property: "og:title", content: "בקשת הצעה לטיול בנפאל" },
       { property: "og:description", content: "טופס קצר. נחזור אליכם עם כיוון והצעה." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
 });
 
 const field =
   "mt-1.5 w-full rounded-xl bg-parchment px-4 py-3 text-[15px] text-ink ring-1 ring-ink/10 outline-none placeholder:text-ink/35 focus:ring-2 focus:ring-saffron/60";
-const label = "text-[13px] font-medium text-ink/60";
+const label = "text-[13px] font-medium text-ink/65";
 
 const SOURCE_INTRO: Record<string, { kicker: string; title: string; lead: string }> = {
   match: {
@@ -60,11 +76,22 @@ const SOURCE_INTRO: Record<string, { kicker: string; title: string; lead: string
   },
 };
 
+/** How the already-made choice is presented back. Not a cart. */
+const SELECTED_LABEL: Record<string, string> = {
+  "trek-page": "בונים טיול סביב",
+  "experience-page": "הבקשה כוללת",
+  comparison: "המסלולים שבחרתם",
+  match: "מה שסימנתם",
+  "direct-selection": "מה שבחרתם",
+};
+
 function QuotePage() {
+  const search = Route.useSearch();
   const { user, name: authName } = useAuth();
   const [state, setState] = useState<"idle" | "sending" | "sent" | "manual" | "failed">("idle");
   const [context, setContext] = useState<TripContext | null>(null);
   const [selected, setSelected] = useState<SelectedItem[]>([]);
+  const [urlSource, setUrlSource] = useState<string | null>(null);
   const [form, setForm] = useState({
     dates: "",
     travelers: "",
@@ -77,10 +104,31 @@ function QuotePage() {
   // Whatever the visitor already told us elsewhere — never ask for it twice.
   useEffect(() => {
     const ctx = readTripContext();
-    if (!ctx) return;
-    setContext(ctx);
-    if (ctx.selected?.length) setSelected(ctx.selected);
-    setForm((f) => ({ ...f, dates: f.dates || (ctx.time ?? "") }));
+    if (ctx) {
+      setContext(ctx);
+      if (ctx.selected?.length) setSelected(ctx.selected);
+      setForm((f) => ({ ...f, dates: f.dates || (ctx.time ?? "") }));
+    }
+
+    // URL fallback, so an early click never loses the selection.
+    if (search.trek) {
+      const trek = trekItems.find((t) => t.slug === search.trek);
+      if (trek) {
+        setUrlSource("trek-page");
+        if (!ctx?.selected?.length)
+          setSelected([{ kind: "trek", slug: trek.slug, name: trek.name }]);
+      }
+    } else if (search.experience) {
+      const exp = experienceItems.find((x) => x.slug === search.experience);
+      if (exp) {
+        setUrlSource("experience-page");
+        if (!ctx?.selected?.length)
+          setSelected([{ kind: "experience", slug: exp.slug, name: exp.name }]);
+      }
+    } else if (search.source === "direct") {
+      setUrlSource("direct-selection");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -95,7 +143,7 @@ function QuotePage() {
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const source = (context?.source as string) || "direct-selection";
+  const source = (context?.source as string) || urlSource || "direct-selection";
   const intro = SOURCE_INTRO[source] ?? SOURCE_INTRO["direct-selection"]!;
   const isPicker = source === "direct-selection";
 
@@ -142,9 +190,10 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
         <PageHero
           kicker="קיבלנו"
           title="הבקשה נשלחה אלינו"
-          lead="נחזור אליכם עם כיוון ראשוני והצעה. אם משהו דחוף, אפשר לכתוב לנו בוואטסאפ בינתיים."
+          lead="נחזור אליכם עם כיוון ראשוני והצעה."
+          size="wide"
         />
-        <Section className="!pb-12">
+        <Section size="wide" className="!pb-12">
           <Card>
             <p className="text-[15px] leading-relaxed text-ink/75">
               עד שנחזור אליכם אפשר להסתובב עוד קצת: יש עמוד נפרד לכל מסלול, ומרכז ידע על נפאל.
@@ -171,32 +220,42 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
 
   return (
     <>
-      <PageHero kicker={intro.kicker} title={intro.title} lead={intro.lead} />
+      <PageHero kicker={intro.kicker} title={intro.title} lead={intro.lead} size="wide" />
 
-      {/* Already chosen — shown back, removable, never asked again. */}
+      {/* Already chosen — shown back plainly. Removable only where the visitor
+          is actively building a list (direct selection). */}
       {selected.length > 0 && (
-        <Section className="!pb-2">
+        <Section size="wide" className="!pb-2">
           <Card>
-            <p className="font-display text-[17px] font-bold">מה שבחרתם</p>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {selected.map((s) => (
-                <li key={`${s.kind}:${s.slug}`}>
-                  <button
-                    type="button"
-                    onClick={() => toggle(s)}
-                    className="rounded-xl bg-saffron px-4 py-2.5 text-[13.5px] font-semibold text-parchment"
-                  >
-                    {s.name}
-                    <span className="ms-2 opacity-70">✕</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <p className="text-[12px] font-semibold tracking-wide text-saffron">
+              {SELECTED_LABEL[source] ?? SELECTED_LABEL["direct-selection"]}
+            </p>
+            {isPicker ? (
+              <ul className="mt-2.5 flex flex-wrap gap-2">
+                {selected.map((s) => (
+                  <li key={`${s.kind}:${s.slug}`}>
+                    <button
+                      type="button"
+                      onClick={() => toggle(s)}
+                      aria-label={`להסיר את ${s.name}`}
+                      className="rounded-xl bg-saffron px-4 py-2.5 text-[13.5px] font-semibold text-parchment"
+                    >
+                      {s.name}
+                      <span className="ms-2 opacity-70">✕</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-1 font-display text-[18px] leading-snug font-bold">
+                {selected.map((s) => s.name).join(" · ")}
+              </p>
+            )}
             {context?.summary && (
-              <p className="mt-3 text-[13.5px] leading-relaxed text-ink/65">{context.summary}</p>
+              <p className="mt-3 text-[13.5px] leading-relaxed text-ink/70">{context.summary}</p>
             )}
             {context?.considered?.length ? (
-              <p className="mt-2 text-[13px] leading-relaxed text-ink/50">
+              <p className="mt-2 text-[13px] leading-relaxed text-ink/60">
                 נעביר גם כרקע: {context.considered.join(" · ")}
               </p>
             ) : null}
@@ -206,8 +265,8 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
 
       {/* Direct selection happens here — no separate route, no cart. */}
       {isPicker && (
-        <Section title="מה מעניין אתכם?" className="!pb-2">
-          <p className="text-[13.5px] leading-relaxed text-ink/60">
+        <Section size="wide" title="מה מעניין אתכם?" className="!pb-2">
+          <p className="text-[13.5px] leading-relaxed text-ink/70">
             אפשר לבחור כמה מסלולים וחוויות יחד.
           </p>
           <div className="mt-4 space-y-4">
@@ -225,7 +284,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
                       className={`rounded-xl px-4 py-2.5 text-[14px] font-medium ring-1 transition-colors ${
                         on
                           ? "bg-saffron text-parchment ring-saffron"
-                          : "bg-parchment text-ink/75 ring-ink/10"
+                          : "bg-parchment text-ink/80 ring-ink/10"
                       }`}
                     >
                       {on && <span className="me-1.5">✓</span>}
@@ -249,7 +308,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
                       className={`rounded-xl px-4 py-2.5 text-[14px] font-medium ring-1 transition-colors ${
                         on
                           ? "bg-saffron text-parchment ring-saffron"
-                          : "bg-parchment text-ink/75 ring-ink/10"
+                          : "bg-parchment text-ink/80 ring-ink/10"
                       }`}
                     >
                       {on && <span className="me-1.5">✓</span>}
@@ -263,7 +322,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
         </Section>
       )}
 
-      <Section className="!pb-4">
+      <Section size="wide" className="!pb-12">
         <form onSubmit={onSubmit} className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
@@ -353,23 +412,26 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
             ]}
           />
 
-          <div className="flex flex-col gap-2.5 pt-1 sm:flex-row">
+          <div className="pt-1">
             <button
               type="submit"
               disabled={state === "sending"}
-              className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-50"
+              className="w-full rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-50 sm:w-auto"
             >
               {state === "sending" ? "שולח…" : "שלחו בקשה להצעה"}
             </button>
-            <WhatsappButton message={waMessage} label="לשלוח את זה בוואטסאפ" />
           </div>
 
+          {/* WhatsApp appears only as a technical fallback when sending fails. */}
           {state === "manual" && (
             <Card>
               <p className="text-[14px] leading-relaxed text-ink/75">
                 הטופס מוכן, אבל חסרה כאן כתובת השליחה של מנגנון הלידים — לכן הבקשה עדיין לא נשלחת
                 אוטומטית. בינתיים אפשר לשלוח את אותם פרטים בוואטסאפ.
               </p>
+              <div className="mt-3">
+                <WhatsappButton message={waMessage} label="לשלוח את הפרטים בוואטסאפ" />
+              </div>
             </Card>
           )}
 
@@ -378,18 +440,12 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
               <p className="text-[14px] leading-relaxed text-ink/75">
                 השליחה לא עברה. אפשר לנסות שוב, או לשלוח לנו את הפרטים בוואטסאפ.
               </p>
+              <div className="mt-3">
+                <WhatsappButton message={waMessage} label="לשלוח את הפרטים בוואטסאפ" />
+              </div>
             </Card>
           )}
         </form>
-      </Section>
-
-      <Section title="מי מקבל את הבקשה" className="!pb-12">
-        <Card>
-          <p className="text-[14px] leading-relaxed text-ink/75">
-            בארץ: אוהד הרץ. בנפאל: {NEPAL_PARTNER_NAME} — {NEPAL_PARTNER_ROLE}.
-          </p>
-          <p className="mt-1.5 text-[13px] leading-relaxed text-ink/50">{NEPAL_PARTNER_NOTE}</p>
-        </Card>
       </Section>
     </>
   );

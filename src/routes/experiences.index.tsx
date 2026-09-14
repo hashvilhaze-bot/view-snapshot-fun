@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { Accordion, Card, PageHero, Section } from "@/components/page";
+import { Card, PageHero, Section } from "@/components/page";
 import { experiencesByCategory } from "@/lib/catalog";
 import { experiences } from "@/lib/content";
 import { galleries } from "@/lib/galleries";
@@ -64,7 +64,7 @@ function ExperiencesPage() {
                         {item.teaser}
                       </p>
                       {full?.combine && (
-                        <p className="mt-2 text-[12.5px] leading-relaxed text-ink/55">
+                        <p className="mt-2 text-[12.5px] leading-relaxed text-ink/65">
                           {full.combine}
                         </p>
                       )}
@@ -79,15 +79,6 @@ function ExperiencesPage() {
           </div>
         </Section>
       ))}
-
-      {/* Secondary content, folded away so it doesn't lengthen the page. */}
-      <Section title="שווה לדעת לפני שמשלבים" className="py-5">
-        <Accordion
-          items={experiences
-            .filter((e) => e.surprise)
-            .map((e) => ({ title: e.name, content: <p>{e.surprise}</p> }))}
-        />
-      </Section>
 
       <Section className="pt-2 pb-12">
         <Card className="text-center">

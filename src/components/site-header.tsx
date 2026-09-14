@@ -47,7 +47,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-brand-line/20 bg-summit/92 backdrop-blur-md">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-2.5 sm:px-5">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5 sm:gap-4 sm:px-5 sm:py-2.5">
         <Link
           to="/"
           className="-m-1 shrink-0 rounded-xl p-1"
@@ -57,7 +57,7 @@ export function SiteHeader() {
           <img
             src={logoAsset.url}
             alt="השביל הזה — מסעות בהתאמה אישית בהימלאיה"
-            className="h-[80px] w-auto rounded-lg object-contain sm:h-[92px]"
+            className="h-[52px] w-auto rounded-lg object-contain sm:h-[92px]"
           />
         </Link>
 
@@ -127,15 +127,29 @@ export function SiteHeader() {
           )}
         </div>
 
-        <button
-          type="button"
-          aria-label="תפריט"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-parchment/80 ring-1 ring-brand-line/40 md:hidden"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex shrink-0 items-center gap-1.5 md:hidden">
+          {wa && (
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="וואטסאפ"
+              title="וואטסאפ"
+              className="grid h-9 w-9 place-items-center rounded-full text-parchment/85 ring-1 ring-brand-line/40"
+            >
+              <WhatsappIcon className="h-[18px] w-[18px]" />
+            </a>
+          )}
+          <button
+            type="button"
+            aria-label="תפריט"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="grid h-9 w-9 place-items-center rounded-full text-parchment/80 ring-1 ring-brand-line/40"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {open && (

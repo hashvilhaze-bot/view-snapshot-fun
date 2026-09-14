@@ -1,9 +1,20 @@
-import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
 import { nepalQuickFacts } from "@/lib/content";
 import { whatsappHref } from "@/lib/leads";
 
+/**
+ * Content width. Default stays as it always was; `wide` and `xwide` exist so
+ * pages that genuinely need the room on desktop (Match, Quote, the treks grid
+ * and the comparison table) stop feeling lost inside a large viewport.
+ */
+export type SectionSize = "default" | "wide" | "xwide";
+
+const WIDTH: Record<SectionSize, string> = {
+  default: "max-w-4xl",
+  wide: "max-w-5xl",
+  xwide: "max-w-6xl",
+};
 
 export function PageHero({
   kicker,
@@ -11,12 +22,14 @@ export function PageHero({
   lead,
   image,
   imageAlt,
+  size = "default",
 }: {
   kicker?: string;
   title: string;
   lead?: string;
   image?: string;
   imageAlt?: string;
+  size?: SectionSize;
 }) {
   return (
     <section className="relative overflow-hidden">
@@ -30,7 +43,9 @@ export function PageHero({
           <div className="absolute inset-0 bg-summit/75" />
         </>
       )}
-      <div className={`relative mx-auto max-w-4xl px-6 ${image ? "pt-11 pb-12" : "pt-8 pb-5"}`}>
+      <div
+        className={`relative mx-auto ${WIDTH[size]} px-6 ${image ? "pt-11 pb-12" : "pt-8 pb-5"}`}
+      >
         {kicker && <p className="mb-2 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
         <h1
           className={`max-w-[26ch] font-display text-[26px] leading-tight font-bold text-balance sm:text-3xl ${
@@ -42,7 +57,7 @@ export function PageHero({
         {lead && (
           <p
             className={`mt-3 max-w-[50ch] text-[15px] leading-relaxed ${
-              image ? "text-parchment/85" : "text-ink/70"
+              image ? "text-parchment/85" : "text-ink/75"
             }`}
           >
             {lead}
@@ -58,14 +73,16 @@ export function Section({
   kicker,
   children,
   className = "",
+  size = "default",
 }: {
   title?: string;
   kicker?: string;
   children: ReactNode;
   className?: string;
+  size?: SectionSize;
 }) {
   return (
-    <section className={`mx-auto max-w-4xl px-6 py-7 sm:py-8 ${className}`}>
+    <section className={`mx-auto ${WIDTH[size]} px-6 py-6 sm:py-8 ${className}`}>
       {kicker && <p className="mb-1.5 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
       {title && (
         <h2 className="max-w-[30ch] font-display text-[22px] leading-snug font-bold text-balance sm:text-2xl">
@@ -90,7 +107,7 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
 /**
  * Plus/accordion. Used only where it genuinely shortens the page:
  * trek day-by-day, About / how we work, Quote extra details,
- * long secondary content in Experiences and Knowledge.
+ * long secondary content in Knowledge.
  */
 export function Accordion({
   items,
@@ -149,12 +166,12 @@ export function DidYouKnow({ text, action }: { text: string; action?: ReactNode 
 /** "נפאל בכמה רגעים" — verified basics, scannable, no article required. */
 export function QuickFacts() {
   return (
-    <dl className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+    <dl className="grid grid-cols-2 gap-2 sm:grid-cols-3">
       {nepalQuickFacts.map((f) => (
-        <div key={f.label} className="rounded-xl bg-parchment/80 px-4 py-3 ring-1 ring-ink/5">
-          <dt className="text-[11px] font-medium tracking-wide text-ink/45">{f.label}</dt>
+        <div key={f.label} className="rounded-xl bg-parchment/80 px-3.5 py-2.5 ring-1 ring-ink/5">
+          <dt className="text-[11px] font-medium tracking-wide text-ink/55">{f.label}</dt>
           <dd className="mt-0.5 font-display text-[15px] font-bold">{f.value}</dd>
-          {f.note && <p className="mt-1 text-[11.5px] leading-snug text-ink/55">{f.note}</p>}
+          {f.note && <p className="mt-0.5 text-[11.5px] leading-snug text-ink/65">{f.note}</p>}
         </div>
       ))}
     </dl>
@@ -184,6 +201,10 @@ export function WhatsappButton({
   );
 }
 
+/**
+ * Lead photo plus a deliberate two-up grid on mobile (three-up from `sm`),
+ * so a gallery never ends with one huge image next to an empty gap.
+ */
 export function Gallery({ photos }: { photos: { src: string; alt: string; caption: string }[] }) {
   const [lead, ...rest] = photos;
   if (!lead) return null;
@@ -198,14 +219,12 @@ export function Gallery({ photos }: { photos: { src: string; alt: string; captio
           height={800}
           className="aspect-[3/2] w-full rounded-2xl object-cover"
         />
-        <figcaption className="mt-1.5 px-1 text-[12px] text-ink/50">{lead.caption}</figcaption>
+        <figcaption className="mt-1.5 px-1 text-[12px] text-ink/60">{lead.caption}</figcaption>
       </figure>
       {rest.length > 0 && (
-        <div
-          className={`grid gap-2 ${rest.length % 2 === 1 ? "grid-cols-3" : "grid-cols-2 sm:grid-cols-3"}`}
-        >
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
           {rest.map((p) => (
-            <figure key={p.src}>
+            <figure key={p.src} className="min-w-0">
               <img
                 src={p.src}
                 alt={p.alt}
@@ -214,7 +233,7 @@ export function Gallery({ photos }: { photos: { src: string; alt: string; captio
                 height={800}
                 className="aspect-[4/3] w-full rounded-xl object-cover"
               />
-              <figcaption className="mt-1 px-0.5 text-[11px] leading-snug text-ink/50">
+              <figcaption className="mt-1 px-0.5 text-[11.5px] leading-snug text-ink/60">
                 {p.caption}
               </figcaption>
             </figure>
@@ -237,4 +256,3 @@ export function EffortBars({ level }: { level: number }) {
     </span>
   );
 }
-

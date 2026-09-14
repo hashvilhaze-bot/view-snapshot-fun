@@ -137,7 +137,7 @@ function MatchPage() {
             title="כאן שווה לדבר איתנו"
             lead="מה שסימנתם לא מצטרף לכיוון אחד ברור מתוך המסלולים והחוויות שכבר כתובים כאן — וזה בדיוק המקום שבו שיחה קצרה עוזרת יותר מרשימה."
           />
-          <Section className="!pb-12">
+          <Section size="wide" className="!pb-12">
             <Card>
               <p className="text-[14px] leading-relaxed text-ink/70">{summary}</p>
               <button
@@ -156,17 +156,18 @@ function MatchPage() {
     return (
       <>
         <PageHero
+          size="wide"
           kicker="סיימנו את השאלות"
           title="הכיוונים שמתאימים למה שסימנתם"
           lead="בחרו מה מסקרן אתכם — רק מה שתבחרו יעבור איתנו הלאה. את השאר נראה כרקע."
         />
 
-        <Section className="!pt-4">
-          <p className="text-[13.5px] leading-relaxed text-ink/60">{summary}</p>
+        <Section size="wide" className="!pt-4">
+          <p className="text-[13.5px] leading-relaxed text-ink/70">{summary}</p>
         </Section>
 
-        <Section className="!pt-3 !pb-4">
-          <div className="space-y-3">
+        <Section size="wide" className="!pt-3 !pb-4">
+          <div className="grid gap-3 lg:grid-cols-2">
             {results.map((r, i) => {
               const key = `${r.item.kind}:${r.item.slug}`;
               const on = picked.includes(key);
@@ -182,13 +183,13 @@ function MatchPage() {
                       {r.item.kind === "trek" ? "טרק" : "חוויה"}
                     </span>
                     {i === 0 && (
-                      <span className="text-[11px] font-semibold text-ink/45">
+                      <span className="text-[11px] font-semibold text-ink/60">
                         ההתאמה הגבוהה ביותר
                       </span>
                     )}
                   </div>
                   <p className="mt-2 font-display text-[19px] font-bold">{r.item.name}</p>
-                  <p className="mt-0.5 text-[12.5px] text-ink/50">{r.item.meta}</p>
+                  <p className="mt-0.5 text-[12.5px] text-ink/60">{r.item.meta}</p>
                   <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{r.item.teaser}</p>
                   {r.reasons.length > 0 && (
                     <ul className="mt-2.5 space-y-1.5">
@@ -215,7 +216,7 @@ function MatchPage() {
                       className={`rounded-xl px-4 py-2.5 text-[13.5px] font-semibold ring-1 transition-colors ${
                         on
                           ? "bg-saffron text-parchment ring-saffron"
-                          : "bg-parchment text-ink/75 ring-ink/10"
+                          : "bg-parchment text-ink/80 ring-ink/10"
                       }`}
                     >
                       {on ? "✓ נבחר" : "מסקרן אותי"}
@@ -234,7 +235,7 @@ function MatchPage() {
           </div>
         </Section>
 
-        <Section className="!pt-2 !pb-12">
+        <Section size="wide" className="!pt-2 !pb-12">
           <button
             type="button"
             onClick={toQuote}
@@ -243,7 +244,7 @@ function MatchPage() {
           >
             {picked.length > 1 ? "לקבלת הצעה לכיוונים שבחרתי" : "לקבלת הצעה לכיוון שבחרתי"}
           </button>
-          <p className="mt-2.5 text-[13px] text-ink/50">
+          <p className="mt-2.5 text-[13px] text-ink/65">
             {picked.length === 0
               ? "בחרו לפחות כיוון אחד כדי להמשיך."
               : "השאר יעבור אלינו כרקע, לא כבקשה."}
@@ -268,13 +269,14 @@ function MatchPage() {
   return (
     <>
       <PageHero
+        size="wide"
         kicker="מה מתאים לי?"
         title="בואו נמצא את השביל שלכם"
         lead="כמה שאלות קצרות, ואז כמה כיוונים מתוך הטרקים והחוויות שלנו."
       />
 
-      <Section className="!pt-4 !pb-12">
-        <p className="text-[12.5px] font-medium tracking-wide text-ink/45">
+      <Section size="wide" className="!pt-4 !pb-12">
+        <p className="text-[12.5px] font-medium tracking-wide text-ink/60 sm:text-[14px]">
           שאלה {Math.min(step + 1, total)} מתוך {total}
         </p>
         <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-ink/10">
@@ -284,8 +286,8 @@ function MatchPage() {
           />
         </div>
 
-        <div className="mt-5 min-h-[340px] sm:min-h-[400px]">
-          <h2 className="font-display text-[21px] leading-snug font-bold sm:text-2xl">
+        <div className="mt-5 min-h-[340px] sm:mt-8 sm:min-h-[460px]">
+          <h2 className="font-display text-[21px] leading-snug font-bold sm:text-[30px]">
             {LABELS[current]}
           </h2>
 
@@ -301,10 +303,10 @@ function MatchPage() {
                   onClick={() =>
                     current === "interests" ? toggleInterest(opt) : setSingle(current, opt)
                   }
-                  className={`rounded-xl px-4 py-3 text-[14.5px] font-medium ring-1 transition-colors ${
+                  className={`rounded-xl px-4 py-3 text-[14.5px] font-medium ring-1 transition-colors sm:px-5 sm:py-4 sm:text-[16px] ${
                     on
                       ? "bg-saffron text-parchment ring-saffron"
-                      : "bg-parchment text-ink/75 ring-ink/10"
+                      : "bg-parchment text-ink/80 ring-ink/10"
                   }`}
                 >
                   {on && <span className="me-1.5">✓</span>}

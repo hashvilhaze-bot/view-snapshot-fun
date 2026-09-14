@@ -33,19 +33,25 @@ function TreksPage() {
         lead="יש מי שרוצה ללכת גבוה ורחוק, ויש מי שמעדיף כמה ימים בהרים ואחריהם מרפסת מול האגם בפוקרה. ההבדל האמיתי הוא בגובה, במספר הימים ובאופי החוויה."
         image={valleyGolden}
         imageAlt="עמק בהימלאיה באור זהוב"
+        size="xwide"
       />
 
-      <Section className="!pt-6 !pb-2">
+      <Section size="xwide" className="!pt-6 !pb-2">
         <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-4">
           <p className="text-[15px] leading-relaxed text-ink/80">
             לא חייבים לבחור מסלול מתוך הרשימה. המסלולים כאן הם נקודת פתיחה ורעיונות — אפשר לקצר,
             להאריך, לשנות קצב ורמת קושי, לשלב כמה מסלולים או לבנות משהו אחר לגמרי לפי מי שנוסע.
           </p>
+          <p className="mt-3">
+            <Link to="/treks/compare" className="text-[13.5px] font-semibold text-saffron">
+              להשוות בין מסלולים זה לצד זה ←
+            </Link>
+          </p>
         </div>
       </Section>
 
-      <Section title="מסלולים" className="!pt-4 !pb-4">
-        <div className="grid gap-3 sm:grid-cols-2">
+      <Section size="xwide" title="מסלולים" className="!pt-4 !pb-4">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {treks.map((t) => {
             const photo = galleries[t.slug]?.[0];
             return (
@@ -80,26 +86,26 @@ function TreksPage() {
                     {!photo && <h3 className="font-display text-lg font-bold">{t.name}</h3>}
                     <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[12.5px] text-ink/70">
                       <div>
-                        <dt className="text-ink/45">משך</dt>
+                        <dt className="text-ink/60">משך</dt>
                         <dd className="font-medium">{t.days}</dd>
                       </div>
                       <div>
-                        <dt className="text-ink/45">גובה</dt>
+                        <dt className="text-ink/60">גובה</dt>
                         <dd className="font-medium">{t.altitude}</dd>
                       </div>
                       <div>
-                        <dt className="text-ink/45">ימים בנפאל</dt>
+                        <dt className="text-ink/60">ימים בנפאל</dt>
                         <dd className="font-medium">מ־{t.totalDaysMin} ומעלה</dd>
                       </div>
                       <div>
-                        <dt className="text-ink/45">מאמץ</dt>
+                        <dt className="text-ink/60">מאמץ</dt>
                         <dd className="pt-1.5">
                           <EffortBars level={t.effort} />
                         </dd>
                       </div>
                     </dl>
                     <p className="mt-2.5 mb-3 text-[13.5px] leading-relaxed text-ink/70">
-                      <span className="text-ink/45">למי מתאים: </span>
+                      <span className="text-ink/60">למי מתאים: </span>
                       {t.fit}
                     </p>
                     <span className="mt-auto inline-block self-start rounded-xl bg-parchment px-4 py-2 text-[13px] font-semibold text-saffron ring-1 ring-ink/10 group-hover:bg-saffron group-hover:text-parchment">
@@ -114,7 +120,7 @@ function TreksPage() {
       </Section>
 
 
-      <Section className="!pt-2 !pb-10">
+      <Section size="xwide" className="!pt-2 !pb-10">
         <Card>
           <p className="text-[15px] leading-relaxed text-ink/75">
             לא בטוחים מה מתאים לכם? כמה שאלות קצרות, ואחריהן כמה כיוונים עם הסבר.

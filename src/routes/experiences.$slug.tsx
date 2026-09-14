@@ -23,6 +23,8 @@ export const Route = createFileRoute("/experiences/$slug")({
         { name: "description", content: item.intro },
         { property: "og:title", content: `${item.name} — ${item.kicker}` },
         { property: "og:description", content: item.intro },
+        { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
     };
   },
@@ -59,7 +61,7 @@ function ExperiencePage() {
             <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {facts.map((f) => (
                 <div key={f.label}>
-                  <dt className="text-[12px] uppercase tracking-wide text-ink/50">{f.label}</dt>
+                  <dt className="text-[12px] uppercase tracking-wide text-ink/60">{f.label}</dt>
                   <dd className="mt-0.5 text-[15px] font-medium">{f.value}</dd>
                 </div>
               ))}
@@ -84,15 +86,24 @@ function ExperiencePage() {
       <Section title="משתלב טוב עם...">
         <Card>
           <p className="text-[15px] leading-relaxed text-ink/75">{item.combine}</p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Link
-              to="/treks"
-              className="rounded-xl bg-parchment px-4 py-2.5 text-[14px] font-medium text-ink ring-1 ring-ink/10"
-            >
-              לפרטי המסלולים
+          <p className="mt-4">
+            <Link to="/treks" className="text-[13.5px] font-semibold text-saffron">
+              לפרטי המסלולים ←
             </Link>
+          </p>
+        </Card>
+      </Section>
+
+      {/* One primary action: the experience is already part of the request. */}
+      <Section className="!pb-12">
+        <Card className="text-center">
+          <p className="text-[13.5px] leading-relaxed text-ink/70">
+            הבקשה תכלול את החוויה הזו — לא נבקש לבחור אותה שוב.
+          </p>
+          <div className="mt-3">
             <Link
               to="/quote"
+              search={{ experience: item.slug }}
               onClick={() =>
                 saveTripContext({
                   source: "experience-page",
@@ -101,9 +112,9 @@ function ExperiencePage() {
                   summary: `${item.name} — ${item.kicker}`,
                 })
               }
-              className="rounded-xl bg-saffron px-4 py-2.5 text-[14px] font-semibold text-parchment"
+              className="inline-block rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
             >
-              לקבלת הצעה שכוללת את זה
+              הבקשה כוללת: {item.name}
             </Link>
           </div>
         </Card>

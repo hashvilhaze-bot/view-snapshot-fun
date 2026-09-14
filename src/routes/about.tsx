@@ -29,21 +29,6 @@ export const Route = createFileRoute("/about")({
   }),
 });
 
-const cards = [
-  {
-    t: "מכירים אתכם כאן",
-    d: "שיחה אישית בעברית, הקשבה ותכנון שמתחשב בזמן שיש לכם, בקצב, בניסיון ובמה שאתם רוצים לפגוש בדרך.",
-  },
-  {
-    t: "ניסיון מקומי בנפאל",
-    d: "סוכנות שלום מביאה היכרות עמוקה עם המדינה, מדריכים מוסמכים שגדלו באזורים שאליהם הולכים וצוות שיודע לנהל את הטיול בשטח.",
-  },
-  {
-    t: "אתכם לאורך כל הדרך",
-    d: "כתובת אחת וליווי רציף — מהשיחה הראשונה, דרך התכנון וההכנות, לאורך הטיול ועד החזרה הביתה.",
-  },
-];
-
 const steps: [string, string, string][] = [
   [
     "01",
@@ -119,25 +104,14 @@ function AboutPage() {
         </div>
       </Section>
 
-      <Section>
-        <div className="grid gap-3 sm:grid-cols-3">
-          {cards.map((c) => (
-            <Card key={c.t} className="h-full">
-              <p className="font-display text-[16px] font-bold">{c.t}</p>
-              <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{c.d}</p>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
       {/* SHALOM — the local capability, in depth */}
-      <section className="bg-summit px-6 py-10">
+      <section className="bg-summit px-6 py-8 sm:py-10">
         <div className="mx-auto max-w-4xl">
           <p className="text-[12px] font-medium tracking-wide text-saffron">השותף בנפאל</p>
           <h2 className="mt-1.5 max-w-[26ch] font-display text-[22px] leading-snug font-bold text-parchment sm:text-2xl">
             סוכנות שלום — הניסיון המקומי שמאחורי הטיול
           </h2>
-          <div className="mt-5 flex flex-col gap-6 sm:flex-row sm:gap-7">
+          <div className="mt-4 flex flex-col gap-4 sm:mt-5 sm:flex-row sm:gap-7">
             <div className="shrink-0 sm:w-56 md:w-64">
               <img
                 src={bedNathRegmi}
@@ -145,13 +119,13 @@ function AboutPage() {
                 loading="lazy"
                 className="aspect-[4/5] w-40 rounded-2xl object-cover object-top ring-1 ring-parchment/20 sm:w-full"
               />
-              <p className="mt-2.5 text-[14px] leading-relaxed text-parchment/70">
+              <p className="mt-2.5 text-[14px] leading-relaxed text-parchment/75">
                 <span className="font-semibold text-parchment">{NEPAL_PARTNER_NAME}</span>
                 <br />
                 {NEPAL_PARTNER_ROLE} — איש הקשר הקבוע שלכם בצד הנפאלי.
               </p>
             </div>
-            <div className="space-y-3 text-[14.5px] leading-relaxed text-parchment/80">
+            <div className="space-y-2.5 text-[14px] leading-relaxed text-parchment/80 sm:space-y-3 sm:text-[14.5px]">
               <p>
                 ההפעלה בשטח נעשית עם Shalom Rafting Treks &amp; Expedition — סוכנות מקומית רשומה
                 מתאמל שבקטמנדו, שפועלת מ־2010 ומתמחה בטרקים, במסעות נהר ובטיולי תרבות וטבע בנפאל.
@@ -170,7 +144,7 @@ function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="mt-7 grid gap-2.5 sm:grid-cols-[3fr_2fr]">
+          <div className="mt-5 grid gap-2 sm:mt-7 sm:grid-cols-[3fr_2fr] sm:gap-2.5">
             <figure>
               <img
                 src={shalomTeam}
@@ -180,7 +154,7 @@ function AboutPage() {
                 height={1069}
                 className="aspect-[3/2] h-full w-full rounded-2xl object-cover"
               />
-              <figcaption className="mt-1.5 px-1 text-[12px] text-parchment/50">
+              <figcaption className="mt-1.5 px-1 text-[12px] text-parchment/65">
                 הצוות של סוכנות שלום במשרד בתאמל, קטמנדו
               </figcaption>
             </figure>
@@ -212,7 +186,7 @@ function AboutPage() {
             content: <p>{d}</p>,
           }))}
         />
-        <p className="mt-4 text-[14px] leading-relaxed text-ink/60">
+        <p className="mt-4 text-[14px] leading-relaxed text-ink/70">
           גם כשצריך לשנות תוכנית באמצע הטיול, יש מי שמטפל בזה — מי שנמצא בשטח יודע מה הובטח לכם, ומי
           שתכנן איתכם יודע מה קורה שם עכשיו.
         </p>

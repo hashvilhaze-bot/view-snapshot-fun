@@ -98,8 +98,12 @@ export function scoreItem(item: CatalogItem, answers: MatchAnswers): MatchResult
 
   if (answers.interests.length > 0 && item.interests.length > 0) {
     const hits = item.interests.filter((t) => answers.interests.includes(t));
+    // Tuning: an item that touches none of the stated interests is not a match,
+    // however close its pace happens to be. Keeps a relaxed, non-trek answer
+    // from being answered with treks.
+    if (hits.length === 0) return null;
     parts.push({ weight: 0.3, value: hits.length / answers.interests.length });
-    if (hits.length > 0) reasons.push(`נוגע במה שסימנתם: ${hits.join(", ")}.`);
+    reasons.push(`נוגע במה שסימנתם: ${hits.join(", ")}.`);
   }
 
   const fitness = answers.fitness ? LEVEL[answers.fitness] : undefined;

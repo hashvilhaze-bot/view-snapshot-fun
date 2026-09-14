@@ -142,7 +142,7 @@ function ProfilePage() {
               className="h-16 w-16 rounded-full object-cover ring-1 ring-ink/10"
             />
           ) : (
-            <div className="grid h-16 w-16 place-items-center rounded-full bg-parchment text-[20px] font-semibold text-ink/50 ring-1 ring-ink/10">
+            <div className="grid h-16 w-16 place-items-center rounded-full bg-parchment text-[20px] font-semibold text-ink/60 ring-1 ring-ink/10">
               {(form.display_name || name || "?").slice(0, 1)}
             </div>
           )}

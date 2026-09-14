@@ -49,18 +49,20 @@ function NepalPage() {
         imageAlt="רכס מושלג בהימלאיה באור ראשון"
       />
 
-      <Section kicker="נפאל בכמה רגעים" className="py-5">
-        <div className="grid gap-2.5 sm:grid-cols-3">
+      <Section kicker="נפאל בכמה רגעים" className="!py-4 sm:!py-6">
+        <div className="grid gap-2 sm:grid-cols-3">
           {facts.map((f) => (
-            <Card key={f.n} className="p-4">
-              <p className="font-display text-lg font-bold text-saffron sm:text-xl">{f.n}</p>
-              <p className="mt-1 text-[13px] leading-relaxed text-ink/70 sm:text-[14px]">{f.t}</p>
+            <Card key={f.n} className="!p-3.5">
+              <p className="font-display text-[16px] font-bold text-saffron sm:text-xl">{f.n}</p>
+              <p className="mt-0.5 text-[12.5px] leading-snug text-ink/70 sm:mt-1 sm:text-[14px] sm:leading-relaxed">
+                {f.t}
+              </p>
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section title="ההרים, והכול מסביבם" className="py-5">
+      <Section title="ההרים, והכול מסביבם" className="!py-4 sm:!py-6">
         <p className="text-[15px] leading-relaxed text-ink/70">
           ההימלאיה בנפאל אינה מסלול אחד. יש הליכה של שלושה ימים בין כפרים בגבעות, ויש מעברים בגובה
           חמשת אלפים מטר שדורשים שבועיים. ומסביב להרים יש סמטאות קטמנדו, בוקר מול ההרים בפוקרה,
@@ -71,11 +73,11 @@ function NepalPage() {
         </div>
       </Section>
 
-      <Section title="מאיפה נכנסים" className="py-5">
+      <Section title="מאיפה נכנסים" className="!py-4 sm:!py-6">
         <div className="grid gap-3 sm:grid-cols-2">
           <Link to="/treks" className="group block">
             <Card className="flex h-full flex-col overflow-hidden p-0 transition-colors group-hover:border-saffron/40">
-              <div className="relative aspect-[16/9]">
+              <div className="relative aspect-[16/9] sm:aspect-[16/10]">
                 <img
                   src={annapurna1}
                   alt="מטיילים במחנה הבסיס של אנאפורנה מול קיר הפסגה באור בוקר"
@@ -85,7 +87,7 @@ function NepalPage() {
                   className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>
-              <div className="p-4">
+              <div className="p-3.5 sm:p-4">
                 <p className="font-display text-[17px] font-bold">טרקים ומסלולים</p>
                 <p className="mt-1 text-[13.5px] leading-relaxed text-ink/65">
                   מהליכה של שלושה ימים בגבעות ועד מסעות של שבועיים בגובה.
@@ -99,7 +101,7 @@ function NepalPage() {
 
           <Link to="/experiences" className="group block">
             <Card className="flex h-full flex-col overflow-hidden p-0 transition-colors group-hover:border-saffron/40">
-              <div className="relative aspect-[16/9]">
+              <div className="relative aspect-[16/9] sm:aspect-[16/10]">
                 <img
                   src={kathmandu2}
                   alt="כיכר מקדשים נווארית עם גגות פגודה מדורגים וקורות עץ מגולפים"
@@ -109,7 +111,7 @@ function NepalPage() {
                   className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>
-              <div className="p-4">
+              <div className="p-3.5 sm:p-4">
                 <p className="font-display text-[17px] font-bold">חוויות בנפאל</p>
                 <p className="mt-1 text-[13.5px] leading-relaxed text-ink/65">
                   ערים ותרבות, כפרים, יוגה ומנוחה, נהרות וג׳ונגל.
@@ -135,7 +137,7 @@ function NepalPage() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-summit/80" />
-        <div className="relative mx-auto max-w-4xl px-6 py-10 text-center">
+        <div className="relative mx-auto max-w-4xl px-6 py-9 text-center sm:py-10">
           <h2 className="font-display text-[21px] font-bold text-balance text-parchment sm:text-2xl">
             ההימלאיה היא סיבה מצוינת להגיע לנפאל. היא ממש לא הסיבה היחידה להישאר
           </h2>

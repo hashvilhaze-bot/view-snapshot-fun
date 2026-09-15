@@ -77,14 +77,14 @@ function Index() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-summit via-summit/45 to-transparent" />
 
-        <div className="relative mx-auto w-full max-w-5xl px-6 pb-10 sm:pb-12">
-          <p className="text-[12px] font-medium tracking-wide text-saffron">
+        <div className="relative mx-auto w-full max-w-6xl px-6 pb-10 sm:pb-12 lg:pb-16">
+          <p className="text-[12px] font-medium tracking-wide text-saffron lg:text-[13px]">
             השביל הזה · מסעות בהתאמה אישית בהימלאיה
           </p>
-          <h1 className="mt-2 font-display text-[32px] leading-[1.08] font-bold text-parchment drop-shadow-sm sm:text-[44px]">
+          <h1 className="mt-2 font-display text-[32px] leading-[1.08] font-bold text-parchment drop-shadow-sm sm:text-[44px] lg:text-[54px]">
             השביל שלכם מתחיל כאן
           </h1>
-          <p className="mt-3 max-w-[40ch] text-[15px] leading-relaxed text-parchment/90">
+          <p className="mt-3 max-w-[40ch] text-[15px] leading-relaxed text-parchment/90 lg:max-w-[48ch] lg:text-[17px]">
             נפאל יכולה להיות שבועיים בהרים, כמה ימים של הליכה בין כפרים, טיול שמשלב טבע ותרבות — או
             משהו שעוד לא ידעתם שאפשר לעשות שם. אנחנו מתחילים במה שאתם רוצים לחוות, ומשם בונים את
             הטיול שמתאים לכם.

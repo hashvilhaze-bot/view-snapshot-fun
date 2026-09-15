@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
-import ohadPhoto from "@/assets/ohad.jpg";
+import ohadPhotoAsset from "@/assets/ohad-solo-portrait.jpg.asset.json";
 import shalomTeam from "@/assets/shalom-team.jpg";
 import { Section } from "@/components/page";
 import { galleries } from "@/lib/galleries";
@@ -166,7 +166,7 @@ function Index() {
           <div className="mt-5 grid gap-4 sm:grid-cols-[300px_minmax(0,1fr)] sm:items-center lg:mt-7 lg:gap-8 lg:grid-cols-[380px_minmax(0,1fr)]">
             <div className="grid grid-cols-2 gap-2">
               <img
-                src={ohadPhoto}
+                src={ohadPhotoAsset.url}
                 alt="אוהד הרץ מול פסגות ההימלאיה בנפאל"
                 loading="lazy"
                 className="aspect-[3/4] w-full rounded-xl object-cover object-[50%_18%]"

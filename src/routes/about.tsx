@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import bedNathRegmi from "@/assets/bed-nath-regmi.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
-import ohadPhoto from "@/assets/ohad.jpg";
+import ohadPhotoAsset from "@/assets/ohad-solo-portrait.jpg.asset.json";
 import shalomTeam from "@/assets/shalom-team.jpg";
 import { Accordion, Card, PageHero, Section } from "@/components/page";
 import { galleries } from "@/lib/galleries";
@@ -80,7 +80,7 @@ function AboutPage() {
       <Section title="השביל הזה" className="py-6 sm:py-7">
         <div className="flex flex-col gap-5 sm:flex-row sm:gap-7">
           <img
-            src={ohadPhoto}
+            src={ohadPhotoAsset.url}
             alt="אוהד הרץ מול פסגות ההימלאיה בנפאל"
             loading="lazy"
             className="aspect-[3/2] w-full shrink-0 rounded-2xl object-cover sm:aspect-[4/5] sm:w-64 md:w-72"

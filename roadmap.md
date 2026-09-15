@@ -1,5 +1,8 @@
 # השביל הזה — roadmap
 
+## Current
+- [x] Replace Ohad's photo on Home and About with the uploaded solo portrait crop only
+
 ## Done (round 3)
 - Logo presence in header + tighter mobile menu with CTA
 - Hero: open image, brand + "המסע מתחיל בך." + one-line offer + CTA

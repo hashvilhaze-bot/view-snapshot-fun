@@ -114,16 +114,19 @@ function Index() {
         size="xwide"
         className="py-7 sm:py-9"
       >
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <div className="grid auto-rows-[124px] grid-cols-2 gap-2.5 sm:auto-rows-[160px] lg:auto-rows-[196px] lg:grid-cols-3">
           {range.map((r) => (
-            <figure key={r.label} className="relative overflow-hidden rounded-2xl">
+            <figure
+              key={r.label}
+              className={`relative overflow-hidden rounded-2xl ${r.cell}`}
+            >
               <img
                 src={r.photo!.src}
                 alt={r.photo!.alt}
                 loading="lazy"
                 width={1200}
                 height={800}
-                className="aspect-[4/5] w-full object-cover sm:aspect-[3/4]"
+                className="h-full w-full object-cover"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-summit/90 to-transparent px-3 pt-8 pb-2.5">
                 <figcaption className="font-display text-[14px] font-bold text-parchment sm:text-[15px]">

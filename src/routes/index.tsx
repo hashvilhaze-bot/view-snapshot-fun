@@ -47,15 +47,16 @@ export const Route = createFileRoute("/")({
  * galleries (same alt text), the labels are single words, and nothing here
  * links anywhere — this is a feeling, not a menu.
  */
-const RANGE: { label: string; gallery: string; index?: number }[] = [
-  { label: "הרים", gallery: "annapurna-base-camp" },
-  { label: "כפרים", gallery: "villages" },
-  { label: "תרבות", gallery: "kathmandu" },
-  { label: "פוקרה", gallery: "pokhara" },
-  { label: "יוגה ורוגע", gallery: "yoga-rest" },
-  { label: "נהרות", gallery: "rafting" },
-  { label: "כמה ימי הליכה", gallery: "pokhara-hills" },
-  { label: "טרק מלא", gallery: "manaslu-circuit" },
+const RANGE: { label: string; gallery: string; index?: number; cell: string }[] = [
+  {
+    label: "הרים",
+    gallery: "annapurna-base-camp",
+    cell: "col-span-2 row-span-2 lg:col-span-2 lg:row-span-2",
+  },
+  { label: "תרבות", gallery: "kathmandu", cell: "col-span-1 row-span-1" },
+  { label: "פוקרה", gallery: "pokhara", cell: "col-span-1 row-span-1" },
+  { label: "יוגה ורוגע", gallery: "yoga-rest", cell: "col-span-2 row-span-1" },
+  { label: "כפרים", gallery: "villages", cell: "col-span-2 row-span-1 lg:col-span-1" },
 ];
 
 function Index() {

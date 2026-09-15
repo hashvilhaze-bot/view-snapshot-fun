@@ -62,6 +62,7 @@ const RANGE: { label: string; gallery: string; index?: number; cell: string }[] 
 function Index() {
   const range = RANGE.map((r) => ({
     label: r.label,
+    cell: r.cell,
     photo: galleries[r.gallery]?.[r.index ?? 0],
   })).filter((r) => r.photo);
 

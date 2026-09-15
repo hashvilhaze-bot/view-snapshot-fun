@@ -139,10 +139,10 @@ function Index() {
       </Section>
 
       {/* SECTION 3 — THE IDEA */}
-      <Section size="wide" className="py-6 sm:py-8">
-        <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-5 sm:px-7 sm:py-6">
+      <Section size="xwide" className="py-6 sm:py-8">
+        <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-5 sm:px-7 sm:py-6 lg:px-9 lg:py-8">
           <p className="text-[12px] font-medium tracking-wide text-saffron">הדרך שלכם לנפאל</p>
-          <p className="mt-2 max-w-[54ch] text-[16px] leading-relaxed text-ink/80 sm:text-[17px]">
+          <p className="mt-2 max-w-[54ch] text-[16px] leading-relaxed text-ink/80 sm:text-[17px] lg:max-w-[64ch] lg:text-[18px]">
             הטיול נבנה סביב מי שנוסע: הזמן שיש לכם, הקצב שנוח לכם והדברים שמעניינים אתכם. לא בוחרים
             מסלול מהמדף ומתאימים אליו את עצמכם.
           </p>

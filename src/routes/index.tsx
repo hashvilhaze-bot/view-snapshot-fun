@@ -158,28 +158,28 @@ function Index() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-summit/82" />
-        <div className="relative mx-auto max-w-5xl px-6 py-10">
+        <div className="relative mx-auto max-w-6xl px-6 py-10 lg:py-14">
           <p className="text-[12px] font-medium tracking-wide text-saffron">מי אנחנו</p>
-          <h2 className="mt-1.5 font-display text-[21px] leading-snug font-bold text-parchment sm:text-2xl">
+          <h2 className="mt-1.5 font-display text-[21px] leading-snug font-bold text-parchment sm:text-2xl lg:text-[30px]">
             מכירים אתכם כאן. מכירים את נפאל שם.
           </h2>
-          <div className="mt-5 grid gap-4 sm:grid-cols-[220px_minmax(0,1fr)] sm:items-center">
+          <div className="mt-5 grid gap-4 sm:grid-cols-[300px_minmax(0,1fr)] sm:items-center lg:mt-7 lg:gap-8 lg:grid-cols-[380px_minmax(0,1fr)]">
             <div className="grid grid-cols-2 gap-2">
               <img
                 src={ohadPhoto}
                 alt="אוהד הרץ מול פסגות ההימלאיה בנפאל"
                 loading="lazy"
-                className="aspect-[4/3] w-full rounded-xl object-cover"
+                className="aspect-[3/4] w-full rounded-xl object-cover object-[50%_18%]"
               />
               <img
                 src={shalomTeam}
                 alt="צוות סוכנות שלום במשרד בתאמל, קטמנדו"
                 loading="lazy"
-                className="aspect-[4/3] w-full rounded-xl object-cover"
+                className="aspect-[3/4] w-full rounded-xl object-cover"
               />
             </div>
             <div>
-              <p className="text-[15px] leading-relaxed text-parchment/85">
+              <p className="text-[15px] leading-relaxed text-parchment/85 lg:text-[17px]">
                 ״השביל הזה״ נולד מחיבור פשוט: מישהו כאן שמקשיב לכם, מבין מה אתם מחפשים ומלווה אתכם
                 לאורך הדרך — וצוות מקומי ותיק בנפאל שמכיר את השבילים, המקומות והאנשים שמאחוריהם.
               </p>

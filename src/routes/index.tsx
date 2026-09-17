@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
 import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
-import ohadPhotoAsset from "@/assets/ohad-coffee-home.jpg.asset.json";
+import ohadPhotoAsset from "@/assets/ohad-coffee-home-tight.jpg.asset.json";
 import shalomTeam from "@/assets/shalom-team.jpg";
 import { Section } from "@/components/page";
 import { galleries } from "@/lib/galleries";

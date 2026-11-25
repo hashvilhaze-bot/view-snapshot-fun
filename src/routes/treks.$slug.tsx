@@ -9,7 +9,7 @@ import { Itinerary } from "@/components/renewed/itinerary";
 import { Breadcrumbs, MatchLink } from "@/components/content-navigation";
 import { breadcrumbData, structuredData } from "@/lib/navigation-meta";
 import { ArticleCard } from "@/components/archive-cards";
-import { publicMeta, PUBLIC_ORIGIN } from "@/lib/public-meta";
+import { managedMeta, PUBLIC_ORIGIN } from "@/lib/public-meta";
 import { publishedExample } from "@/lib/treks/editor-content";
 import { trekCopy } from "@/lib/treks/trek-copy";
 
@@ -23,9 +23,10 @@ export const Route = createFileRoute("/treks/$slug")({
     const example = await publishedExample(params.slug, defaults);
     return { trek, example, faq: trekFaq(trek.name, example, trek.fit, trek.combine) };
   },
-  head: ({ loaderData }) => ({
+  head: ({ loaderData, match }) => ({
     ...(loaderData
-      ? publicMeta(
+      ? managedMeta(
+          match.context.cms,
           loaderData.trek.name + " | טרקים בנפאל | השביל הזה",
           loaderData.example.description,
           "/treks/" + loaderData.trek.slug,

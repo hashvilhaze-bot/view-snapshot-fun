@@ -1,6 +1,6 @@
 import { Breadcrumbs, MatchPrompt } from "@/components/content-navigation";
 import { breadcrumbData, structuredData } from "@/lib/navigation-meta";
-import { PUBLIC_ORIGIN, publicMeta } from "@/lib/public-meta";
+import { PUBLIC_ORIGIN, managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { Card, Gallery, Insight, PageHero, Section } from "@/components/page";
@@ -15,13 +15,14 @@ export const Route = createFileRoute("/experiences/$slug")({
     if (!item) throw notFound();
     return { item };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, match }) => {
     if (!loaderData) {
       return { meta: [{ title: "לא נמצא" }, { name: "robots", content: "noindex" }] };
     }
     const { item } = loaderData;
     return {
-      ...publicMeta(
+      ...managedMeta(
+        match.context.cms,
         item.name + " | " + item.kicker + " | השביל הזה",
         item.intro,
         "/experiences/" + item.slug,

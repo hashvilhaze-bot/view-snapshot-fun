@@ -23,7 +23,14 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as TreksRouteImport } from './routes/treks'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
+import { Route as AdminHistoryRouteImport } from './routes/admin.history'
 import { Route as AdminHomeRouteImport } from './routes/admin.home'
+import { Route as AdminIntegrationsRouteImport } from './routes/admin.integrations'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
+import { Route as AdminSeoRouteImport } from './routes/admin.seo'
+import { Route as AdminStatisticsRouteImport } from './routes/admin.statistics'
 import { Route as AdminTreksRouteImport } from './routes/admin.treks'
 import { Route as DestinationsIndexRouteImport } from './routes/destinations.index'
 import { Route as DestinationsBhutanRouteImport } from './routes/destinations.bhutan'
@@ -110,9 +117,44 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminCalendarRoute = AdminCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHistoryRoute = AdminHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminHomeRoute = AdminHomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminIntegrationsRoute = AdminIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSeoRoute = AdminSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminStatisticsRoute = AdminStatisticsRouteImport.update({
+  id: '/statistics',
+  path: '/statistics',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminTreksRoute = AdminTreksRouteImport.update({
@@ -205,7 +247,14 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/quote': typeof QuoteRoute
   '/treks': typeof TreksRouteWithChildren
+  '/admin/calendar': typeof AdminCalendarRoute
+  '/admin/history': typeof AdminHistoryRoute
   '/admin/home': typeof AdminHomeRoute
+  '/admin/integrations': typeof AdminIntegrationsRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/statistics': typeof AdminStatisticsRoute
   '/admin/treks': typeof AdminTreksRoute
   '/destinations/bhutan': typeof DestinationsBhutanRoute
   '/destinations/tibet': typeof DestinationsTibetRoute
@@ -233,7 +282,14 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/quote': typeof QuoteRoute
+  '/admin/calendar': typeof AdminCalendarRoute
+  '/admin/history': typeof AdminHistoryRoute
   '/admin/home': typeof AdminHomeRoute
+  '/admin/integrations': typeof AdminIntegrationsRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/statistics': typeof AdminStatisticsRoute
   '/admin/treks': typeof AdminTreksRoute
   '/destinations/bhutan': typeof DestinationsBhutanRoute
   '/destinations/tibet': typeof DestinationsTibetRoute
@@ -266,7 +322,14 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/quote': typeof QuoteRoute
   '/treks': typeof TreksRouteWithChildren
+  '/admin/calendar': typeof AdminCalendarRoute
+  '/admin/history': typeof AdminHistoryRoute
   '/admin/home': typeof AdminHomeRoute
+  '/admin/integrations': typeof AdminIntegrationsRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/statistics': typeof AdminStatisticsRoute
   '/admin/treks': typeof AdminTreksRoute
   '/destinations/bhutan': typeof DestinationsBhutanRoute
   '/destinations/tibet': typeof DestinationsTibetRoute
@@ -300,7 +363,14 @@ export interface FileRouteTypes {
     | '/profile'
     | '/quote'
     | '/treks'
+    | '/admin/calendar'
+    | '/admin/history'
     | '/admin/home'
+    | '/admin/integrations'
+    | '/admin/leads'
+    | '/admin/reports'
+    | '/admin/seo'
+    | '/admin/statistics'
     | '/admin/treks'
     | '/destinations/bhutan'
     | '/destinations/tibet'
@@ -328,7 +398,14 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/profile'
     | '/quote'
+    | '/admin/calendar'
+    | '/admin/history'
     | '/admin/home'
+    | '/admin/integrations'
+    | '/admin/leads'
+    | '/admin/reports'
+    | '/admin/seo'
+    | '/admin/statistics'
     | '/admin/treks'
     | '/destinations/bhutan'
     | '/destinations/tibet'
@@ -360,7 +437,14 @@ export interface FileRouteTypes {
     | '/profile'
     | '/quote'
     | '/treks'
+    | '/admin/calendar'
+    | '/admin/history'
     | '/admin/home'
+    | '/admin/integrations'
+    | '/admin/leads'
+    | '/admin/reports'
+    | '/admin/seo'
+    | '/admin/statistics'
     | '/admin/treks'
     | '/destinations/bhutan'
     | '/destinations/tibet'
@@ -500,11 +584,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/calendar': {
+      id: '/admin/calendar'
+      path: '/calendar'
+      fullPath: '/admin/calendar'
+      preLoaderRoute: typeof AdminCalendarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/history': {
+      id: '/admin/history'
+      path: '/history'
+      fullPath: '/admin/history'
+      preLoaderRoute: typeof AdminHistoryRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/home': {
       id: '/admin/home'
       path: '/home'
       fullPath: '/admin/home'
       preLoaderRoute: typeof AdminHomeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/integrations': {
+      id: '/admin/integrations'
+      path: '/integrations'
+      fullPath: '/admin/integrations'
+      preLoaderRoute: typeof AdminIntegrationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/seo': {
+      id: '/admin/seo'
+      path: '/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AdminSeoRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/statistics': {
+      id: '/admin/statistics'
+      path: '/statistics'
+      fullPath: '/admin/statistics'
+      preLoaderRoute: typeof AdminStatisticsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/treks': {
@@ -616,13 +749,27 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminCalendarRoute: typeof AdminCalendarRoute
+  AdminHistoryRoute: typeof AdminHistoryRoute
   AdminHomeRoute: typeof AdminHomeRoute
+  AdminIntegrationsRoute: typeof AdminIntegrationsRoute
+  AdminLeadsRoute: typeof AdminLeadsRoute
+  AdminReportsRoute: typeof AdminReportsRoute
+  AdminSeoRoute: typeof AdminSeoRoute
+  AdminStatisticsRoute: typeof AdminStatisticsRoute
   AdminTreksRoute: typeof AdminTreksRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminCalendarRoute: AdminCalendarRoute,
+  AdminHistoryRoute: AdminHistoryRoute,
   AdminHomeRoute: AdminHomeRoute,
+  AdminIntegrationsRoute: AdminIntegrationsRoute,
+  AdminLeadsRoute: AdminLeadsRoute,
+  AdminReportsRoute: AdminReportsRoute,
+  AdminSeoRoute: AdminSeoRoute,
+  AdminStatisticsRoute: AdminStatisticsRoute,
   AdminTreksRoute: AdminTreksRoute,
   AdminIndexRoute: AdminIndexRoute,
 }

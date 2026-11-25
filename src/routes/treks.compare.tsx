@@ -1,6 +1,6 @@
 import { Breadcrumbs } from "@/components/content-navigation";
 import { breadcrumbData } from "@/lib/navigation-meta";
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
@@ -10,8 +10,9 @@ import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/treks/compare")({
   component: ComparePage,
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "השוואת טרקים בנפאל — משך, גובה ומאמץ | השביל הזה",
       "בוחרים שני מסלולים או שלושה ורואים אותם זה מול זה: משך, גובה מקסימלי, ימים בנפאל, רמת מאמץ ולמי המסלול מתאים.",
       "/treks/compare",

@@ -1,4 +1,4 @@
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import bedNathRegmi from "@/assets/bed-nath-regmi.jpg";
@@ -12,8 +12,9 @@ import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_ROLE } from "@/lib/leads";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
-  head: () =>
-    publicMeta(
+  head: ({ match }) =>
+    managedMeta(
+      match.context.cms,
       "מי אנחנו — השביל הזה",
       "היכרות אישית ותכנון בעברית עם אוהד, וניסיון מקומי עמוק בנפאל עם סוכנות שלום מקטמנדו — מעטפת אחת מהשיחה הראשונה ועד החזרה הביתה.",
       "/about",

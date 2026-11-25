@@ -1,11 +1,12 @@
-import { publicMeta } from "@/lib/public-meta";
+import { FormVerification } from "@/components/form-verification";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import { Accordion, Card, PageHero, Section, WhatsappButton } from "@/components/page";
 import { useAuth } from "@/hooks/use-auth";
 import { experienceItems, trekItems } from "@/lib/catalog";
-import { submitLead } from "@/lib/leads";
+import { useLeadSubmission } from "@/lib/leads";
 import { readTripContext, type SelectedItem, type TripContext } from "@/lib/trip-context";
 
 /**
@@ -29,12 +30,16 @@ export const Route = createFileRoute("/quote")({
     experience: str(search["experience"]),
     source: str(search["source"]),
   }),
-  head: () => publicMeta(
-    "בקשת הצעה לטיול בנפאל | השביל הזה",
-    "בוחרים את המסלולים והחוויות שמעניינים אתכם, משאירים כמה פרטים קצרים — ומתחילים לבנות הצעה לטיול בנפאל.",
-    "/quote", "website", undefined,
-    { title: "בקשת הצעה לטיול בנפאל", description: "טופס קצר. נחזור אליכם עם כיוון והצעה." },
-  ),
+  head: ({ match }) =>
+    managedMeta(
+      match.context.cms,
+      "בקשת הצעה לטיול בנפאל | השביל הזה",
+      "בוחרים את המסלולים והחוויות שמעניינים אתכם, משאירים כמה פרטים קצרים — ומתחילים לבנות הצעה לטיול בנפאל.",
+      "/quote",
+      "website",
+      undefined,
+      { title: "בקשת הצעה לטיול בנפאל", description: "טופס קצר. נחזור אליכם עם כיוון והצעה." },
+    ),
 });
 
 const field =
@@ -79,9 +84,10 @@ const SELECTED_LABEL: Record<string, string> = {
 };
 
 function QuotePage() {
+  const { submitLead, attempt } = useLeadSubmission("quote");
   const search = Route.useSearch();
   const { user, name: authName } = useAuth();
-  const [state, setState] = useState<"idle" | "sending" | "sent" | "manual" | "failed">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "failed">("idle");
   const [context, setContext] = useState<TripContext | null>(null);
   const [selected, setSelected] = useState<SelectedItem[]>([]);
   const [urlSource, setUrlSource] = useState<string | null>(null);
@@ -171,19 +177,24 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setState("sending");
-    const result = await submitLead({
-      source: `quote-request:${source}`,
-      ...form,
-      interests: selectedText,
-      selected: selected.map((s) => `${s.kind === "trek" ? "טרק" : "חוויה"}: ${s.name}`).join(", "),
-      considered: context?.considered?.join(", ") ?? "",
-      quizAnswers: context?.summary ?? "",
-      matchAnswers: context?.matchAnswers ? JSON.stringify(context.matchAnswers) : "",
-      fitScores: context?.fitScores?.map((f) => `${f.name}: ${f.score}%`).join(", ") ?? "",
-      contextSource: source,
-      signedIn: user ? "yes" : "no",
-    });
-    setState(result === "sent" ? "sent" : result === "unconfigured" ? "manual" : "failed");
+    const result = await submitLead(
+      {
+        source: `quote-request:${source}`,
+        ...form,
+        interests: selectedText,
+        selected: selected
+          .map((s) => `${s.kind === "trek" ? "טרק" : "חוויה"}: ${s.name}`)
+          .join(", "),
+        considered: context?.considered?.join(", ") ?? "",
+        quizAnswers: context?.summary ?? "",
+        matchAnswers: context?.matchAnswers ? JSON.stringify(context.matchAnswers) : "",
+        fitScores: context?.fitScores?.map((f) => `${f.name}: ${f.score}%`).join(", ") ?? "",
+        contextSource: source,
+        signedIn: user ? "yes" : "no",
+      },
+      e.currentTarget as HTMLFormElement,
+    );
+    setState(result);
   }
 
   if (state === "sent") {
@@ -254,7 +265,9 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
               </p>
             )}
             {context?.summary && (
-              <p className="mt-3 text-[0.84375rem] leading-relaxed text-ink/70">{context.summary}</p>
+              <p className="mt-3 text-[0.84375rem] leading-relaxed text-ink/70">
+                {context.summary}
+              </p>
             )}
             {context?.considered?.length ? (
               <p className="mt-2 text-[0.8125rem] leading-relaxed text-ink/60">
@@ -358,7 +371,15 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
               <label className={label} htmlFor="name">
                 שם (חובה)
               </label>
-              <input id="name" autoComplete="name" required value={form.name} onChange={set("name")} className={field} />
+              <input
+                id="name"
+                maxLength={160}
+                autoComplete="name"
+                required
+                value={form.name}
+                onChange={set("name")}
+                className={field}
+              />
             </div>
             <div>
               <label className={label} htmlFor="phone">
@@ -366,6 +387,9 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
               </label>
               <input
                 id="phone"
+                pattern="[+0-9 \.\(\)\-]{7,30}"
+                minLength={7}
+                maxLength={30}
                 type="tel"
                 autoComplete="tel"
                 required
@@ -418,6 +442,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
           />
 
           <div className="pt-1">
+            <FormVerification attempt={attempt} />
             <button
               type="submit"
               aria-describedby="quote-privacy"
@@ -428,20 +453,13 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
             </button>
           </div>
 
-          <p id="quote-privacy" className="p-muted text-sm">הפרטים ובחירות המסלול יגיעו לאוהד כדי שיוכל לחזור אליכם עם הצעה. <Link to="/privacy" className="p-link">איך אנחנו משתמשים בפרטים</Link></p>
+          <p id="quote-privacy" className="p-muted text-sm">
+            הפרטים ובחירות המסלול יגיעו לאוהד כדי שיוכל לחזור אליכם עם הצעה.{" "}
+            <Link to="/privacy" className="p-link">
+              איך אנחנו משתמשים בפרטים
+            </Link>
+          </p>
           {/* WhatsApp appears only as a technical fallback when sending fails. */}
-          {state === "manual" && (
-            <Card>
-              <p className="text-[0.875rem] leading-relaxed text-ink/75">
-                הטופס מוכן, אבל חסרה כאן כתובת השליחה של מנגנון הלידים — לכן הבקשה עדיין לא נשלחת
-                אוטומטית. בינתיים אפשר לשלוח את אותם פרטים בוואטסאפ.
-              </p>
-              <div className="mt-3">
-                <WhatsappButton message={waMessage} label="לשלוח את הפרטים בוואטסאפ" />
-              </div>
-            </Card>
-          )}
-
           {state === "failed" && (
             <Card>
               <p className="text-[0.875rem] leading-relaxed text-ink/75">

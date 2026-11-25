@@ -1,6 +1,6 @@
 import { Breadcrumbs } from "@/components/content-navigation";
 import { breadcrumbData } from "@/lib/navigation-meta";
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
@@ -8,8 +8,9 @@ import tibetImg from "@/assets/destinations/tibet.jpg";
 
 export const Route = createFileRoute("/destinations/tibet")({
   component: TibetPage,
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "טיבט — יעד שנפתח אצלנו בקרוב | השביל הזה",
       "טיבט היא גובה ומרחב: רמה פתוחה, אורות חדים ומנזרים. אנחנו בונים כרגע את התוכן המקצועי ליעד, ואפשר לדבר איתנו על טיול בטיבט.",
       "/destinations/tibet",

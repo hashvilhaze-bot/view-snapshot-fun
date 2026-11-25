@@ -1,6 +1,6 @@
 import { Breadcrumbs } from "@/components/content-navigation";
 import { breadcrumbData } from "@/lib/navigation-meta";
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { Card, PageHero, Section, WhatsappButton } from "@/components/page";
@@ -8,8 +8,9 @@ import bhutanImg from "@/assets/destinations/bhutan.jpg";
 
 export const Route = createFileRoute("/destinations/bhutan")({
   component: BhutanPage,
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "בהוטן — יעד שנפתח אצלנו בקרוב | השביל הזה",
       "בהוטן היא חוויה שקטה ומסודרת בהימלאיה המזרחית, שונה מאוד מנפאל. אנחנו בונים כרגע את התוכן המקצועי ליעד, ואפשר לדבר איתנו על טיול בבהוטן.",
       "/destinations/bhutan",

@@ -1,3 +1,6 @@
+import { fetchPublicConfig } from "@/lib/cms";
+import { observePage } from "@/lib/form-attribution";
+import { Measurement } from "@/components/measurement";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -50,9 +53,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          העמוד לא נטען
-        </h1>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">העמוד לא נטען</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           אפשר לנסות לטעון אותו שוב או לחזור לדף הבית.
         </p>
@@ -79,9 +80,24 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  beforeLoad: async ({ context }) => ({
+    cms: await context.queryClient.fetchQuery({
+      queryKey: ["cms-public"],
+      queryFn: fetchPublicConfig,
+      staleTime: 20000,
+    }),
+  }),
+  head: ({ match }) => ({
     meta: [
       { charSet: "utf-8" },
+      ...(match.context.cms?.integrations.verification
+        ? [
+            {
+              name: "google-site-verification",
+              content: match.context.cms.integrations.verification,
+            },
+          ]
+        : []),
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { property: "og:site_name", content: "השביל הזה" },
       { property: "og:type", content: "website" },
@@ -123,6 +139,9 @@ function RootComponent() {
   // The /pilot design preview renders its own chrome.
   const isPilot = useRouterState({ select: (st) => st.location.pathname.startsWith("/pilot") });
   const pathname = useRouterState({ select: (st) => st.location.pathname });
+  useEffect(() => {
+    observePage(pathname);
+  }, [pathname]);
   useSiteMotion(isPilot ? "" : pathname);
   const [, section, slug] = pathname.split("/");
   const footerTrek = section === "treks" && slug !== "compare" ? slug : undefined;
@@ -132,7 +151,14 @@ function RootComponent() {
       <div
         className={`${isPilot ? "" : "pilot site-public"} flex min-h-screen flex-col bg-background text-foreground antialiased`}
       >
-        {!isPilot && <><a href="#main-content" className="site-skip">דילוג לתוכן העמוד</a><SiteHeader /></>}
+        {!isPilot && (
+          <>
+            <a href="#main-content" className="site-skip">
+              דילוג לתוכן העמוד
+            </a>
+            <SiteHeader />
+          </>
+        )}
         {isPilot ? (
           // The pilot layout renders its own single <main>.
           <Outlet />
@@ -142,6 +168,7 @@ function RootComponent() {
             <Outlet />
           </main>
         )}
+        {!isPilot && <Measurement path={pathname} />}
         {!isPilot && <SiteFooter {...(footerTrek ? { trek: footerTrek } : {})} />}
       </div>
     </QueryClientProvider>

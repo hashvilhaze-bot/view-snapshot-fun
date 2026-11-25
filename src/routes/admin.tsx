@@ -1,3 +1,4 @@
+import { adminSections } from "@/components/admin/sections";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -46,14 +47,18 @@ function Admin() {
         <p>החשבון המחובר אינו מורשה לערוך את האתר.</p>
       ) : (
         <>
-          <nav className="cms-tabs" aria-label="ניווט מערכת הניהול">
-            <Link to="/admin" activeOptions={{ exact: true }}>
-              סקירה
-            </Link>
-            <Link to="/admin/home">דף הבית</Link>
-            <Link to="/admin/treks">מסלולים</Link>
-          </nav>
-          <Outlet />
+          <div className="ops-shell">
+            <nav className="ops-nav" aria-label="ניווט מערכת הניהול">
+              {adminSections.map((s) => (
+                <Link key={s.to} to={s.to} activeOptions={{ exact: true }}>
+                  {s.name}
+                </Link>
+              ))}
+            </nav>
+            <div className="ops-work">
+              <Outlet />
+            </div>
+          </div>
         </>
       )}
     </section>

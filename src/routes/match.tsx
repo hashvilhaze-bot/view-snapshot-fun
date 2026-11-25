@@ -1,4 +1,4 @@
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
@@ -18,12 +18,19 @@ import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/match")({
   component: MatchPage,
-  head: () => publicMeta(
-    "מה מתאים לי? — למצוא את השביל שלכם בנפאל | השביל הזה",
-    "כמה שאלות קצרות על זמן, קצב ומה שמעניין אתכם — ומהן כמה כיוונים מתוך הטרקים והחוויות שלנו, עם הסבר למה הם מתאימים.",
-    "/match", "website", undefined,
-    { title: "מה מתאים לי? — למצוא את השביל שלכם בנפאל", description: "לא קטלוג. כמה שאלות, ואז כיוונים שמתאימים לימים ולקצב שלכם." },
-  ),
+  head: ({ match }) =>
+    managedMeta(
+      match.context.cms,
+      "מה מתאים לי? — למצוא את השביל שלכם בנפאל | השביל הזה",
+      "כמה שאלות קצרות על זמן, קצב ומה שמעניין אתכם — ומהן כמה כיוונים מתוך הטרקים והחוויות שלנו, עם הסבר למה הם מתאימים.",
+      "/match",
+      "website",
+      undefined,
+      {
+        title: "מה מתאים לי? — למצוא את השביל שלכם בנפאל",
+        description: "לא קטלוג. כמה שאלות, ואז כיוונים שמתאימים לימים ולקצב שלכם.",
+      },
+    ),
 });
 
 type StepId = "time" | "pace" | "interests" | "fitness" | "trekExperience";

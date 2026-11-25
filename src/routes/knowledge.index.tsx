@@ -1,4 +1,4 @@
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
@@ -19,8 +19,9 @@ const quickTitles: Record<string, string> = {
 const quick = articles.filter((a) => a.quickAnswer);
 export const Route = createFileRoute("/knowledge/")({
   component: KnowledgePage,
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "מרכז ידע — נפאל, טרקים, תכנון ותרבות | השביל הזה",
       "כל התוכן המקצועי במקום אחד: תשובות קצרות למתי נוסעים ואיך עובד הגובה, ולצידן מאמרים על בחירת טרק, יום בשביל, אוכל ותרבות בנפאל.",
       "/knowledge",

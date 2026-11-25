@@ -1,6 +1,6 @@
 import { MatchPrompt, Breadcrumbs } from "@/components/content-navigation";
 import { breadcrumbData } from "@/lib/navigation-meta";
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
@@ -10,8 +10,9 @@ import { Card, Insight, PageHero, Section } from "@/components/page";
 
 export const Route = createFileRoute("/nepal")({
   component: NepalPage,
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "נפאל — מה יש שם, ולמה זה מיוחד | השביל הזה",
       "נפאל בכמה רגעים: הרים, ערים, כפרים וג׳ונגל במדינה קטנה אחת — ומכאן הכניסה לטרקים, לחוויות שמעבר להם ולמרכז הידע.",
       "/nepal",

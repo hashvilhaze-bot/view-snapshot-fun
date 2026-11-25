@@ -1,4 +1,4 @@
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { collectionData } from "@/lib/navigation-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
@@ -8,8 +8,9 @@ import { destinations } from "@/lib/destinations";
 
 export const Route = createFileRoute("/destinations/")({
   component: DestinationsPage,
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "יעדים — נפאל, בהוטן וטיבט | השביל הזה",
       "נפאל, בהוטן וטיבט נמצאות באותו אזור של העולם ומציעות חוויות שונות מאוד. אפשר להתחיל מיעד, ואפשר להתחיל מסוג החוויה שמחפשים.",
       "/destinations",

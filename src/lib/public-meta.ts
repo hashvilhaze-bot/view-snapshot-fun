@@ -27,3 +27,40 @@ export function publicMeta(
     links: [{ rel: "canonical", href: url }],
   };
 }
+
+export function managedMeta(
+  cms: import("./cms").PublicConfig | undefined,
+  ...args: Parameters<typeof publicMeta>
+) {
+  const [originalTitle, originalDescription, path, type, originalImage, share] = args;
+  const seo = cms?.pages[path] ?? {};
+  const defaults = publicMeta(...args);
+  const result = publicMeta(
+    seo.title || originalTitle,
+    seo.description || originalDescription,
+    path,
+    type,
+    seo.image || originalImage,
+    {
+      title: seo.title || share?.title || originalTitle,
+      description: seo.description || share?.description || originalDescription,
+    },
+  );
+  return {
+    ...result,
+    meta: [
+      ...result.meta.map((tag) => {
+        if (tag.property === "og:title") return { ...tag, "data-default": originalTitle };
+        if (tag.property === "og:description")
+          return { ...tag, "data-default": originalDescription };
+        if (tag.property === "og:image")
+          return {
+            ...tag,
+            "data-default": defaults.meta.find((t) => t.property === "og:image")?.content,
+          };
+        return tag;
+      }),
+      ...(seo.noindex ? [{ name: "robots", content: "noindex, follow" }] : []),
+    ],
+  };
+}

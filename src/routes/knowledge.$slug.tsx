@@ -1,5 +1,5 @@
 import { coverForArticle } from "@/lib/article-cover";
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { Insight, PageHero } from "@/components/page";
@@ -18,12 +18,13 @@ export const Route = createFileRoute("/knowledge/$slug")({
     if (article.journal && !body) throw notFound();
     return { article, body };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, match }) => {
     if (!loaderData) {
       return { meta: [{ title: "לא נמצא" }, { name: "robots", content: "noindex" }] };
     }
     const { article } = loaderData;
-    const meta = publicMeta(
+    const meta = managedMeta(
+      match.context.cms,
       article.title + (article.journal ? " | השביל הזה" : " | מדריכים לנפאל | השביל הזה"),
       article.summary,
       "/knowledge/" + article.slug,

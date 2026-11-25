@@ -70,6 +70,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cms_public_config: { Args: Record<PropertyKey, never>; Returns: Json }
+      cms_read: { Args: {section:string;opts:Json}; Returns: Json }
+      cms_edit: { Args: {action_name:string;target_key:string;expected:number;value:Json}; Returns: undefined }
+      cms_receive_lead: { Args: {ticket:string;form_kind:string;origin_path:string;source_channel:string;fields:Json;challenge:string}; Returns: boolean }
       can_edit_treks: { Args: Record<PropertyKey, never>; Returns: boolean }
       write_site_revision: {
         Args: { page_key: string; expected_revision: number; page_content: Json; publish_now: boolean }

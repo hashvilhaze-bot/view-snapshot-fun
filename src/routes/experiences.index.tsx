@@ -1,5 +1,5 @@
 import { collectionData } from "@/lib/navigation-meta";
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { Card, PageHero, Section } from "@/components/page";
@@ -9,8 +9,9 @@ import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/experiences/")({
   component: ExperiencesPage,
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "חוויות בנפאל — ערים, כפרים, יוגה, נהרות וג׳ונגל | השביל הזה",
       "נפאל שמעבר לטרקים: קטמנדו ופוקרה, כפרים וטרסות, יוגה ומנוחה, רפטינג וצ׳יטוואן. כל אחת מהחוויות עומדת בזכות עצמה, וגם משתלבת לצד מסלול הליכה.",
       "/experiences",

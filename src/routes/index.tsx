@@ -10,14 +10,15 @@ import { FaqList } from "@/components/renewed/faq";
 import { homePhotos } from "@/lib/home-photos";
 import { HomeHero } from "@/components/renewed/home-hero";
 
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { heroPhotos } from "@/lib/home-hero-photos";
 import { publishedHome } from "@/lib/home-content";
 
 export const Route = createFileRoute("/")({
   loader: publishedHome,
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "השביל הזה | טיולים אישיים וטרקים בנפאל",
       "תכנון טיול אישי בנפאל עם אוהד. מכירים את ההרים, את הכפרים ואת תשעת הטרקים, ובונים יחד דרך שמתאימה לכם.",
       "/",

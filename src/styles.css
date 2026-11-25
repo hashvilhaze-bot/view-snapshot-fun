@@ -4,6 +4,7 @@
 @import "./renewed.css";
 @import "./site-layout.css";
 @import "./inner-pages.css";
+@import "./admin.css";
 
 @custom-variant dark (&:is(.dark *));
 

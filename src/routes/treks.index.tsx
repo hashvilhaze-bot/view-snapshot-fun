@@ -4,13 +4,14 @@ import valleyGolden from "@/assets/valley-golden.jpg";
 import { Card, EffortBars, PageHero, Section } from "@/components/page";
 import { treks } from "@/lib/content";
 import { collectionData } from "@/lib/navigation-meta";
-import { publicMeta } from "@/lib/public-meta";
+import { managedMeta } from "@/lib/public-meta";
 import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/treks/")({
   component: TreksPage,
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "תשעה טרקים בנפאל | השביל הזה",
       "מפון היל ועד אוורסט בייס קמפ. משווים בין תשעה מסלולים לפי החוויה, הגובה ומספר ימי ההליכה ומתכננים טיול אישי.",
       "/treks",

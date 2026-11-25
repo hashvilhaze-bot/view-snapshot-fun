@@ -1,15 +1,17 @@
+import { FormVerification } from "@/components/form-verification";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { PageHero } from "@/components/page";
 import { MatchPrompt } from "@/components/content-navigation";
-import { CONTACT_EMAIL, CONTACT_PHONE, whatsappHref, submitLead } from "@/lib/leads";
-import { publicMeta, PUBLIC_ORIGIN } from "@/lib/public-meta";
+import { CONTACT_EMAIL, CONTACT_PHONE, whatsappHref, useLeadSubmission } from "@/lib/leads";
+import { managedMeta, PUBLIC_ORIGIN } from "@/lib/public-meta";
 import { structuredData } from "@/lib/navigation-meta";
 import portrait from "@/assets/ohad-coffee-portrait.jpg.asset.json";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    ...publicMeta(
+  head: ({ match }) => ({
+    ...managedMeta(
+      match.context.cms,
       "צור קשר עם אוהד הרץ | השביל הזה",
       "שאלות על טרקים או על תכנון טיול אישי לנפאל? אפשר לשלוח פנייה לאוהד הרץ, לכתוב בוואטסאפ, להתקשר או לפנות בדוא״ל.",
       "/contact",
@@ -36,6 +38,7 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 function Contact() {
+  const { submitLead, attempt } = useLeadSubmission("contact");
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
   const wa = whatsappHref();
@@ -65,13 +68,16 @@ function Contact() {
     busy.current = true;
     setState("sending");
     try {
-      const result = await submitLead({
-        source: "contact-page",
-        name: value("name"),
-        phone: value("phone"),
-        note: value("note"),
-        email: value("email"),
-      });
+      const result = await submitLead(
+        {
+          source: "contact-page",
+          name: value("name"),
+          phone: value("phone"),
+          note: value("note"),
+          email: value("email"),
+        },
+        form,
+      );
       setState(result === "sent" ? "sent" : "failed");
     } catch {
       setState("failed");
@@ -143,6 +149,7 @@ function Contact() {
                 <p className="contact-policy">
                   הפרטים ישמשו למענה לפנייה. <Link to="/privacy">פרטיות ופרטי הפנייה</Link>
                 </p>
+                <FormVerification attempt={attempt} />
                 <button
                   className="p-btn p-btn-primary"
                   type="submit"

@@ -1,5 +1,6 @@
 import "./lib/error-capture";
-import { articles, experiences, treks } from "./lib/content";
+import { sitePages } from "./lib/site-pages";
+import { fetchPublicConfig } from "./lib/cms";
 import { PUBLIC_ORIGIN } from "./lib/public-meta";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
@@ -49,25 +50,8 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     if (new URL(request.url).pathname === "/sitemap.xml") {
-      const paths = [
-        "/",
-        "/treks",
-        "/treks/compare",
-        "/experiences",
-        "/knowledge",
-        "/about",
-        "/contact",
-        "/nepal",
-        "/destinations",
-        "/destinations/bhutan",
-        "/destinations/tibet",
-        "/quote",
-        "/privacy",
-        "/match",
-        ...treks.map((t) => "/treks/" + t.slug),
-        ...experiences.map((x) => "/experiences/" + x.slug),
-        ...articles.map((x) => "/knowledge/" + x.slug),
-      ];
+      const { pages } = await fetchPublicConfig();
+      const paths = sitePages.map((p) => p.path).filter((path) => !pages[path]?.noindex);
       const urls = paths
         .map((path) => "<url><loc>" + PUBLIC_ORIGIN + path + "</loc></url>")
         .join("\n");

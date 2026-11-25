@@ -71,6 +71,10 @@ export type Database = {
     }
     Functions: {
       can_edit_treks: { Args: Record<PropertyKey, never>; Returns: boolean }
+      write_site_revision: {
+        Args: { page_key: string; expected_revision: number; page_content: Json; publish_now: boolean }
+        Returns: number
+      }
       write_trek_revision: {
         Args: { trek_slug: string; expected_revision: number; page_content: Json; publish_now: boolean }
         Returns: number

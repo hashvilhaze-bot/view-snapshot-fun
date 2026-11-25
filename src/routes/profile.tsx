@@ -163,7 +163,7 @@ function ProfilePage() {
 
         {editorId === user.id && (
           <Link className="p-link mt-4 inline-block" to="/admin">
-            לניהול המסלולים
+            למערכת הניהול
           </Link>
         )}
         <form onSubmit={onSubmit} className="mt-8 space-y-6">

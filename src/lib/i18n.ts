@@ -26,6 +26,9 @@ export const LOCALE_LABEL: Record<Locale, string> = { he: "עברית", en: "Eng
 export const dictionary = {
   he: {
     "nav.home": "דף הבית",
+    "nav.menu": "תפריט",
+    "nav.close": "סגירה",
+    "cta.writeOhad": "לכתוב לאוהד",
     "nav.nepal": "נפאל",
     "nav.destinations": "יעדים",
     "nav.allDestinations": "כל היעדים",
@@ -47,6 +50,9 @@ export const dictionary = {
   },
   en: {
     "nav.home": "Home",
+    "nav.menu": "Menu",
+    "nav.close": "Close",
+    "cta.writeOhad": "Write to Ohad",
     "nav.nepal": "Nepal",
     "nav.destinations": "Destinations",
     "nav.allDestinations": "All destinations",

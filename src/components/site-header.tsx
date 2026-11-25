@@ -1,256 +1,177 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import {
-  BookOpen,
-  ChevronDown,
-  Compass,
-  Globe2,
-  House,
-  Menu,
-  Mountain,
-  Users,
-  X,
-  type LucideIcon,
-} from "lucide-react";
-
-import { WhatsappIcon } from "@/components/whatsapp-icon";
-
-import logoAsset from "@/assets/hashvil-haze-logo.png.asset.json";
+import logo from "@/assets/hashvil-haze-logo.png.asset.json";
 import { useLocale } from "@/hooks/use-locale";
 import { destinations } from "@/lib/destinations";
-import type { TranslationKey } from "@/lib/i18n";
 import { whatsappHref } from "@/lib/leads";
 
-/**
- * Main nav: destinations, treks, experiences, knowledge, about — plus WhatsApp.
- * Match, Quote, Contact and Auth are intentionally not in the visible nav.
- * The authentication system itself stays in the codebase.
- */
-const nav: { to: string; key: TranslationKey; icon: LucideIcon }[] = [
-  { to: "/treks", key: "nav.treks", icon: Mountain },
-  { to: "/experiences", key: "nav.experiences", icon: Compass },
-  { to: "/knowledge", key: "nav.knowledge", icon: BookOpen },
-  { to: "/about", key: "nav.about", icon: Users },
-];
+const links = [
+  ["/treks", "nav.treks"],
+  ["/experiences", "nav.experiences"],
+  ["/knowledge", "nav.knowledge"],
+  ["/about", "nav.about"],
+] as const;
 
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
-  const [destOpen, setDestOpen] = useState(false);
-  const destRef = useRef<HTMLDivElement>(null);
-  const menuButton = useRef<HTMLButtonElement>(null);
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  return <Navigation key={pathname} pathname={pathname} />;
+}
+
+function Navigation({ pathname }: { pathname: string }) {
   const { t } = useLocale();
   const wa = whatsappHref();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [destOpen, setDestOpen] = useState<"hover" | "pinned" | null>(null);
+  const header = useRef<HTMLElement>(null);
+  const group = useRef<HTMLDivElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const mobileToggle = useRef<HTMLButtonElement>(null);
+  const navigation = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (mobileOpen) navigation.current?.querySelector("a")?.focus({ preventScroll: true });
+  }, [mobileOpen]);
+
+  function close() {
+    setMobileOpen(false);
+    setDestOpen(null);
+  }
 
   useEffect(() => {
-    if (!open) return;
-    const closeOnEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        menuButton.current?.focus();
+    if (!mobileOpen && !destOpen) return;
+    function outside(event: PointerEvent) {
+      if (!(event.target instanceof Node)) return;
+      if (!header.current?.contains(event.target)) close();
+      else if (!group.current?.contains(event.target)) setDestOpen(null);
+    }
+    function escape(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      if (destOpen) {
+        setDestOpen(null);
+        trigger.current?.focus();
+      } else if (mobileOpen) {
+        setMobileOpen(false);
+        mobileToggle.current?.focus();
       }
-    };
-    document.addEventListener("keydown", closeOnEscape);
-    return () => document.removeEventListener("keydown", closeOnEscape);
-  }, [open]);
-
-  useEffect(() => {
-    if (!destOpen) return;
-    const onDown = (e: MouseEvent) => {
-      if (destRef.current && !destRef.current.contains(e.target as Node)) setDestOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDestOpen(false);
-    };
-    document.addEventListener("mousedown", onDown);
-    document.addEventListener("keydown", onKey);
+    }
+    const media = window.matchMedia("(min-width: 64rem)");
+    media.addEventListener("change", close);
+    document.addEventListener("pointerdown", outside);
+    document.addEventListener("keydown", escape);
     return () => {
-      document.removeEventListener("mousedown", onDown);
-      document.removeEventListener("keydown", onKey);
+      media.removeEventListener("change", close);
+      document.removeEventListener("pointerdown", outside);
+      document.removeEventListener("keydown", escape);
     };
-  }, [destOpen]);
+  }, [mobileOpen, destOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-brand-line/20 bg-[#f8f8f3]/95 backdrop-blur-md">
-      <div className="site-frame flex items-center justify-between gap-3 py-1.5 sm:py-2.5">
-        <Link
-          to="/"
-          className="-m-1 shrink-0 rounded-xl p-1"
-          onClick={() => setOpen(false)}
-          aria-label="השביל הזה, דף הבית"
-        >
-          <img
-            src={logoAsset.url}
-            alt="השביל הזה"
-            className="h-[3.25rem] w-auto rounded-lg object-contain sm:h-[3.75rem]"
-          />
+    <header
+      ref={header}
+      className="site-header"
+      onBlur={(event) => {
+        if (mobileOpen && event.relatedTarget && !event.currentTarget.contains(event.relatedTarget))
+          close();
+      }}
+    >
+      <div className="site-frame site-nav-bar">
+        <Link to="/" aria-label="השביל הזה, דף הבית" onClick={close} className="site-brand">
+          <img src={logo.url} alt="השביל הזה" width={160} height={72} />
         </Link>
-
-        <nav aria-label="ניווט ראשי" className="site-nav hidden items-center lg:flex">
-          <Link to="/" activeOptions={{ exact: true }} className="site-nav-link">
-            <House aria-hidden="true" />
+        <nav
+          ref={navigation}
+          id="site-navigation"
+          aria-label="ניווט ראשי"
+          className="site-nav"
+          data-mobile-open={mobileOpen}
+        >
+          <Link to="/" activeOptions={{ exact: true }} className="site-nav-link" onClick={close}>
             {t("nav.home")}
           </Link>
-          <div className="relative" ref={destRef}>
+          <div
+            ref={group}
+            className="dest-nav"
+            onPointerEnter={(event) => {
+              if (
+                event.pointerType === "mouse" &&
+                window.matchMedia("(min-width: 64rem) and (hover: hover)").matches
+              )
+                setDestOpen((open) => open ?? "hover");
+            }}
+            onPointerLeave={() =>
+              setDestOpen((open) =>
+                open === "hover" && !group.current?.contains(document.activeElement) ? null : open,
+              )
+            }
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) setDestOpen(null);
+            }}
+          >
             <button
+              ref={trigger}
               type="button"
-              aria-expanded={destOpen}
-              aria-haspopup="true"
-              onClick={() => setDestOpen((v) => !v)}
-              className="flex items-center gap-1 rounded-full px-3 py-1.5 text-[0.9375rem] font-semibold text-ink/85 transition-colors hover:text-ink"
+              className="site-nav-link"
+              aria-expanded={!!destOpen}
+              aria-controls="site-destinations"
+              data-current={pathname === "/nepal" || pathname.startsWith("/destinations")}
+              onClick={() => setDestOpen((open) => (open === "pinned" ? null : "pinned"))}
             >
-              <Globe2 aria-hidden="true" />
               {t("nav.destinations")}
-              <ChevronDown className="h-3.5 w-3.5" />
             </button>
-            {destOpen && (
-              <div className="absolute end-0 mt-1 w-56 overflow-hidden rounded-2xl border border-brand-line/25 bg-[#f8f8f3] py-1.5 shadow-xl backdrop-blur-md">
+            <div id="site-destinations" hidden={!destOpen} className="dest-popover">
+              <div className="dest-card">
+                {destinations.map((d) => (
+                  <Link key={d.slug} to={d.to} onClick={close} className="dest-option">
+                    <div>
+                      <strong>{d.name}</strong>
+                      <span>{d.character}</span>
+                    </div>
+                    <img
+                      src={"/nav/" + d.slug + ".webp"}
+                      alt=""
+                      width={104}
+                      height={68}
+                      loading="lazy"
+                    />
+                  </Link>
+                ))}
                 <Link
                   to="/destinations"
-                  onClick={() => setDestOpen(false)}
-                  className="block px-4 py-2 text-[0.8125rem] font-semibold text-ink/85 hover:bg-brand-sky/15"
+                  activeOptions={{ exact: true }}
+                  className="dest-all"
+                  onClick={close}
                 >
                   {t("nav.allDestinations")}
                 </Link>
-                <div className="my-1 border-t border-brand-line/20" />
-                {destinations.map((d) => (
-                  <Link
-                    key={d.slug}
-                    to={d.to}
-                    onClick={() => setDestOpen(false)}
-                    className="block px-4 py-2 text-[0.8125rem] text-ink/75 hover:bg-brand-sky/15 hover:text-ink"
-                  >
-                    {d.name}
-                    <span className="mt-0.5 block text-[0.6875rem] text-ink/65">{d.character}</span>
-                  </Link>
-                ))}
               </div>
-            )}
+            </div>
           </div>
-
-          {nav.map((n) => (
-            <Link
-              key={n.to}
-              to={n.to}
-              activeProps={{ className: "text-ink bg-brand-sky/15" }}
-              className="rounded-full px-3 py-1.5 text-[0.9375rem] font-semibold text-ink/85 transition-colors hover:text-ink"
-            >
-              <n.icon aria-hidden="true" />
-              {t(n.key)}
+          {links.map(([to, key]) => (
+            <Link key={to} to={to} className="site-nav-link" onClick={close}>
+              {t(key)}
             </Link>
           ))}
         </nav>
-
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="site-header-actions">
           {wa && (
-            <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="וואטסאפ"
-              title="וואטסאפ"
-              className="grid h-9 w-9 place-items-center rounded-full text-ink/70 ring-1 ring-brand-line/30 transition-colors hover:text-ink"
-            >
-              <WhatsappIcon className="h-[1.125rem] w-[1.125rem]" />
-            </a>
-          )}
-        </div>
-
-        <div className="flex shrink-0 items-center gap-1.5 lg:hidden">
-          {wa && (
-            <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="וואטסאפ"
-              title="וואטסאפ"
-              className="grid h-9 w-9 place-items-center rounded-full text-ink/85 ring-1 ring-brand-line/40"
-            >
-              <WhatsappIcon className="h-[1.125rem] w-[1.125rem]" />
+            <a className="site-contact" href={wa} target="_blank" rel="noopener noreferrer">
+              {t("cta.writeOhad")}
             </a>
           )}
           <button
             type="button"
-            aria-label="תפריט"
-            ref={menuButton}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="grid h-9 w-9 place-items-center rounded-full text-ink/80 ring-1 ring-brand-line/40"
+            ref={mobileToggle}
+            className="site-menu-toggle"
+            aria-expanded={mobileOpen}
+            aria-controls="site-navigation"
+            onClick={() => {
+              setMobileOpen(!mobileOpen);
+              setDestOpen(null);
+            }}
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? t("nav.close") : t("nav.menu")}
           </button>
         </div>
       </div>
-
-      {open && (
-        <nav
-          aria-label="ניווט ראשי בנייד"
-          className="site-mobile-nav site-frame border-t border-brand-line/20 py-2 lg:hidden"
-        >
-          <ul className="divide-y divide-brand-line/15">
-            <li>
-              <Link
-                to="/"
-                onClick={() => setOpen(false)}
-                activeProps={{ className: "text-ink" }}
-                className="block px-1 py-2.5 text-[0.875rem] font-medium text-ink/75"
-              >
-                <House aria-hidden="true" />
-                {t("nav.home")}
-              </Link>
-            </li>
-            <li className="py-2">
-              <Link
-                to="/destinations"
-                onClick={() => setOpen(false)}
-                className="block px-1 py-1 text-[0.875rem] font-semibold text-ink/85"
-              >
-                <Globe2 aria-hidden="true" />
-                {t("nav.destinations")}
-              </Link>
-              <ul className="mt-1 ms-3 space-y-1 border-s border-brand-line/25 ps-3">
-                {destinations.map((d) => (
-                  <li key={d.slug}>
-                    <Link
-                      to={d.to}
-                      onClick={() => setOpen(false)}
-                      className="block py-1.5 text-[0.875rem] text-ink/70"
-                    >
-                      {d.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-            {nav.map((n) => (
-              <li key={n.to}>
-                <Link
-                  to={n.to}
-                  onClick={() => setOpen(false)}
-                  activeProps={{ className: "text-ink" }}
-                  className="block px-1 py-2.5 text-[0.875rem] font-medium text-ink/75"
-                >
-                  <n.icon aria-hidden="true" />
-                  {t(n.key)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          {wa && (
-            <div className="mt-3 mb-2">
-              <a
-                href={wa}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-center gap-2 rounded-lg bg-saffron px-3 py-2.5 text-center text-[0.875rem] font-semibold text-ink"
-              >
-                <WhatsappIcon className="h-[1.125rem] w-[1.125rem]" />
-                {t("footer.whatsapp")}
-              </a>
-            </div>
-          )}
-        </nav>
-      )}
     </header>
   );
 }

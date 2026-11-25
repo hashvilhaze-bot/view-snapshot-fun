@@ -15,7 +15,7 @@ export function PilotCtas({ trek }: { trek?: string }) {
       </Link>
       {wa && (
         <a href={wa} target="_blank" rel="noopener noreferrer" className="p-btn p-btn-ghost">
-          לאוהד בוואטסאפ
+          לכתוב לאוהד
         </a>
       )}
     </div>

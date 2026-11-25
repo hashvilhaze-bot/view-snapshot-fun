@@ -21,6 +21,9 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as TreksRouteImport } from './routes/treks'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminHomeRouteImport } from './routes/admin.home'
+import { Route as AdminTreksRouteImport } from './routes/admin.treks'
 import { Route as DestinationsIndexRouteImport } from './routes/destinations.index'
 import { Route as DestinationsBhutanRouteImport } from './routes/destinations.bhutan'
 import { Route as DestinationsTibetRouteImport } from './routes/destinations.tibet'
@@ -96,6 +99,21 @@ const TreksRoute = TreksRouteImport.update({
   path: '/treks',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHomeRoute = AdminHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTreksRoute = AdminTreksRouteImport.update({
+  id: '/treks',
+  path: '/treks',
+  getParentRoute: () => AdminRoute,
+} as any)
 const DestinationsIndexRoute = DestinationsIndexRouteImport.update({
   id: '/destinations/',
   path: '/destinations/',
@@ -170,7 +188,7 @@ const PilotTreksSlugRoute = PilotTreksSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
   '/match': typeof MatchRoute
@@ -180,6 +198,8 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/quote': typeof QuoteRoute
   '/treks': typeof TreksRouteWithChildren
+  '/admin/home': typeof AdminHomeRoute
+  '/admin/treks': typeof AdminTreksRoute
   '/destinations/bhutan': typeof DestinationsBhutanRoute
   '/destinations/tibet': typeof DestinationsTibetRoute
   '/experiences/$slug': typeof ExperiencesSlugRoute
@@ -187,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/pilot/quote': typeof PilotQuoteRoute
   '/treks/$slug': typeof TreksSlugRoute
   '/treks/compare': typeof TreksCompareRoute
+  '/admin/': typeof AdminIndexRoute
   '/destinations/': typeof DestinationsIndexRoute
   '/experiences/': typeof ExperiencesIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
@@ -198,13 +219,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/match': typeof MatchRoute
   '/nepal': typeof NepalRoute
   '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/quote': typeof QuoteRoute
+  '/admin/home': typeof AdminHomeRoute
+  '/admin/treks': typeof AdminTreksRoute
   '/destinations/bhutan': typeof DestinationsBhutanRoute
   '/destinations/tibet': typeof DestinationsTibetRoute
   '/experiences/$slug': typeof ExperiencesSlugRoute
@@ -212,6 +234,7 @@ export interface FileRoutesByTo {
   '/pilot/quote': typeof PilotQuoteRoute
   '/treks/$slug': typeof TreksSlugRoute
   '/treks/compare': typeof TreksCompareRoute
+  '/admin': typeof AdminIndexRoute
   '/destinations': typeof DestinationsIndexRoute
   '/experiences': typeof ExperiencesIndexRoute
   '/knowledge': typeof KnowledgeIndexRoute
@@ -224,7 +247,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
   '/match': typeof MatchRoute
@@ -234,6 +257,8 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/quote': typeof QuoteRoute
   '/treks': typeof TreksRouteWithChildren
+  '/admin/home': typeof AdminHomeRoute
+  '/admin/treks': typeof AdminTreksRoute
   '/destinations/bhutan': typeof DestinationsBhutanRoute
   '/destinations/tibet': typeof DestinationsTibetRoute
   '/experiences/$slug': typeof ExperiencesSlugRoute
@@ -241,6 +266,7 @@ export interface FileRoutesById {
   '/pilot/quote': typeof PilotQuoteRoute
   '/treks/$slug': typeof TreksSlugRoute
   '/treks/compare': typeof TreksCompareRoute
+  '/admin/': typeof AdminIndexRoute
   '/destinations/': typeof DestinationsIndexRoute
   '/experiences/': typeof ExperiencesIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
@@ -264,6 +290,8 @@ export interface FileRouteTypes {
     | '/profile'
     | '/quote'
     | '/treks'
+    | '/admin/home'
+    | '/admin/treks'
     | '/destinations/bhutan'
     | '/destinations/tibet'
     | '/experiences/$slug'
@@ -271,6 +299,7 @@ export interface FileRouteTypes {
     | '/pilot/quote'
     | '/treks/$slug'
     | '/treks/compare'
+    | '/admin/'
     | '/destinations/'
     | '/experiences/'
     | '/knowledge/'
@@ -282,13 +311,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/admin'
     | '/auth'
     | '/match'
     | '/nepal'
     | '/privacy'
     | '/profile'
     | '/quote'
+    | '/admin/home'
+    | '/admin/treks'
     | '/destinations/bhutan'
     | '/destinations/tibet'
     | '/experiences/$slug'
@@ -296,6 +326,7 @@ export interface FileRouteTypes {
     | '/pilot/quote'
     | '/treks/$slug'
     | '/treks/compare'
+    | '/admin'
     | '/destinations'
     | '/experiences'
     | '/knowledge'
@@ -317,6 +348,8 @@ export interface FileRouteTypes {
     | '/profile'
     | '/quote'
     | '/treks'
+    | '/admin/home'
+    | '/admin/treks'
     | '/destinations/bhutan'
     | '/destinations/tibet'
     | '/experiences/$slug'
@@ -324,6 +357,7 @@ export interface FileRouteTypes {
     | '/pilot/quote'
     | '/treks/$slug'
     | '/treks/compare'
+    | '/admin/'
     | '/destinations/'
     | '/experiences/'
     | '/knowledge/'
@@ -336,7 +370,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
   KnowledgeRoute: typeof KnowledgeRouteWithChildren
   MatchRoute: typeof MatchRoute
@@ -439,6 +473,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TreksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/home': {
+      id: '/admin/home'
+      path: '/home'
+      fullPath: '/admin/home'
+      preLoaderRoute: typeof AdminHomeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/treks': {
+      id: '/admin/treks'
+      path: '/treks'
+      fullPath: '/admin/treks'
+      preLoaderRoute: typeof AdminTreksRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/destinations/': {
       id: '/destinations/'
       path: '/destinations'
@@ -540,6 +595,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminHomeRoute: typeof AdminHomeRoute
+  AdminTreksRoute: typeof AdminTreksRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminHomeRoute: AdminHomeRoute,
+  AdminTreksRoute: AdminTreksRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface KnowledgeRouteChildren {
   KnowledgeSlugRoute: typeof KnowledgeSlugRoute
   KnowledgeIndexRoute: typeof KnowledgeIndexRoute
@@ -587,7 +656,7 @@ const TreksRouteWithChildren = TreksRoute._addFileChildren(TreksRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
   KnowledgeRoute: KnowledgeRouteWithChildren,
   MatchRoute: MatchRoute,

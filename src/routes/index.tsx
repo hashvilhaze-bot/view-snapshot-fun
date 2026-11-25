@@ -12,8 +12,10 @@ import { HomeHero } from "@/components/renewed/home-hero";
 
 import { publicMeta } from "@/lib/public-meta";
 import { heroPhotos } from "@/lib/home-hero-photos";
+import { publishedHome } from "@/lib/home-content";
 
 export const Route = createFileRoute("/")({
+  loader: publishedHome,
   head: () => ({
     ...publicMeta(
       "השביל הזה | טיולים אישיים וטרקים בנפאל",
@@ -64,7 +66,7 @@ function Home() {
   return (
     <>
       {/* HERO */}
-      <HomeHero />
+      <HomeHero content={Route.useLoaderData()} />
 
       {/* INTRO */}
       <section className="p-section">

@@ -1,0 +1,53 @@
+/* Pilot design (scoped to .pilot). Loaded only by /pilot routes. */
+@font-face{font-family:"Pompei Block FS";font-weight:300;font-style:normal;font-display:swap;src:url("/fonts/pompei/PompeiBlock_FS-Light.woff2") format("woff2"),url("/fonts/pompei/PompeiBlock_FS-Light.woff") format("woff")}
+@font-face{font-family:"Pompei Block FS";font-weight:400;font-style:normal;font-display:swap;src:url("/fonts/pompei/Pompei_Block_FS-Regular.woff2") format("woff2"),url("/fonts/pompei/Pompei_Block_FS-Regular.woff") format("woff")}
+@font-face{font-family:"Pompei Block FS";font-weight:600;font-style:normal;font-display:swap;src:url("/fonts/pompei/Pompei_Block_FS-Demibold.woff2") format("woff2"),url("/fonts/pompei/Pompei_Block_FS-Demibold.woff") format("woff")}
+@font-face{font-family:"Pompei Block FS";font-weight:900;font-style:normal;font-display:swap;src:url("/fonts/pompei/Pompei_Block_FS-Black.woff2") format("woff2"),url("/fonts/pompei/Pompei_Block_FS-Black.woff") format("woff")}
+
+.pilot{
+  --p-paper:#F8F8F3; --p-ink:#1D3447; --p-band:#172E46; --p-mist:#EAF0F3;
+  --p-accent:#C36428; --p-cta:#A54D1B; --p-muted:#5A6974; --p-line:rgba(29,52,71,.14);
+  background:var(--p-paper); color:var(--p-ink);
+  font-family:"Pompei Block FS","Heebo",system-ui,sans-serif; font-weight:400;
+  font-size:17px; line-height:1.6; min-height:100vh;
+}
+@media (min-width:768px){.pilot{font-size:18px}}
+.pilot h1,.pilot h2,.pilot h3{font-family:inherit;color:inherit;margin:0}
+.pilot .p-wrap{max-width:1200px;margin-inline:auto;padding-inline:20px}
+@media (min-width:768px){.pilot .p-wrap{padding-inline:40px}}
+.pilot .p-read{max-width:680px}
+.pilot .p-section{padding-block:48px}
+@media (min-width:768px){.pilot .p-section{padding-block:80px}}
+.pilot .p-h1{font-weight:900;line-height:1.1;font-size:38px}
+@media (min-width:768px){.pilot .p-h1{font-size:62px}}
+.pilot .p-h2{font-weight:600;line-height:1.2;font-size:28px}
+@media (min-width:768px){.pilot .p-h2{font-size:40px}}
+.pilot .p-h3{font-weight:600;line-height:1.3;font-size:20px}
+.pilot .p-lead{font-weight:300;font-size:19px;line-height:1.55}
+@media (min-width:768px){.pilot .p-lead{font-size:22px}}
+.pilot .p-kicker{font-weight:600;font-size:14px;letter-spacing:.02em;color:var(--p-cta)}
+.pilot .p-muted{color:var(--p-muted)}
+.pilot .p-mist{background:var(--p-mist)}
+.pilot .p-band{background:var(--p-band);color:var(--p-paper)}
+.pilot .p-band .p-kicker{color:#E9A877}
+.pilot .p-band .p-muted{color:rgba(248,248,243,.78)}
+.pilot .p-card{border:1px solid var(--p-line);border-radius:10px;background:#fff;overflow:hidden}
+.pilot .p-ctas{display:flex;flex-direction:column;gap:12px}
+@media (min-width:640px){.pilot .p-ctas{flex-direction:row;flex-wrap:wrap}}
+.pilot .p-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 26px;border-radius:8px;font-weight:600;font-size:17px;text-decoration:none;cursor:pointer;border:2px solid transparent;font-family:inherit}
+.pilot .p-btn-primary{background:var(--p-cta);color:#fff}
+.pilot .p-btn-primary:hover{background:#8E4116}
+.pilot .p-btn-ghost{background:transparent;color:var(--p-ink);border-color:var(--p-ink)}
+.pilot .p-btn-ghost:hover{background:var(--p-ink);color:var(--p-paper)}
+.pilot .p-on-photo .p-btn-ghost{color:#fff;border-color:#fff}
+.pilot .p-on-photo .p-btn-ghost:hover{background:#fff;color:var(--p-ink)}
+.pilot a:focus-visible,.pilot button:focus-visible,.pilot input:focus-visible,.pilot select:focus-visible,.pilot textarea:focus-visible{outline:3px solid var(--p-accent);outline-offset:3px}
+.pilot .p-link{color:var(--p-cta);font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.pilot .p-band .p-link{color:#F1B98E}
+.pilot .p-field{display:block;width:100%;margin-top:6px;padding:12px 14px;border:1px solid rgba(29,52,71,.35);border-radius:8px;background:#fff;color:var(--p-ink);font:inherit;font-size:17px}
+.pilot .p-field[aria-invalid="true"]{border-color:#B3261E;border-width:2px}
+.pilot .p-error{color:#B3261E;font-size:15px;margin-top:4px}
+.pilot .p-label{font-weight:600;font-size:16px}
+.pilot .p-notice{border:1px dashed var(--p-cta);background:#FBF1EA;border-radius:8px;padding:12px 16px;font-size:16px}
+.pilot .p-chip{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:var(--p-mist);border:1px solid var(--p-line);font-weight:600}
+.pilot .p-hero-shade{background:linear-gradient(to top,rgba(23,46,70,.92),rgba(23,46,70,.45) 55%,rgba(23,46,70,.1))}

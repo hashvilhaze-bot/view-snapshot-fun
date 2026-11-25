@@ -83,3 +83,6 @@
 - עמודי בסיס /destinations/bhutan ו /destinations/tibet (ללא תוכן שלא אומת)
 - רישום יעדים ב-src/lib/destinations.ts להוספת יעדים בעתיד
 - פתוח: תוכן מקצועי אמיתי לבהוטן וטיבט; סיווג מאמרי מרכז ידע לפי יעד כשיהיה תוכן
+
+## Pilot (stage 2)
+- [x] Design pilot under /pilot, /pilot/treks/manaslu-circuit, /pilot/quote (noindex, simulated form, Pompei fonts)

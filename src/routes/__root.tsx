@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
+  useRouterState,
   Link,
   createRootRouteWithContext,
   useRouter,
@@ -123,16 +124,18 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  // The /pilot design preview renders its own chrome.
+  const isPilot = useRouterState({ select: (st) => st.location.pathname.startsWith("/pilot") });
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col bg-background text-foreground antialiased">
-        <SiteHeader />
+        {!isPilot && <SiteHeader />}
         <main className="flex-1">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
         </main>
-        <SiteFooter />
+        {!isPilot && <SiteFooter />}
       </div>
     </QueryClientProvider>
   );

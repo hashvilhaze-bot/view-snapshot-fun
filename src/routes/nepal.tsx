@@ -1,3 +1,4 @@
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
@@ -8,21 +9,12 @@ import { Card, Insight, PageHero, Section } from "@/components/page";
 
 export const Route = createFileRoute("/nepal")({
   component: NepalPage,
-  head: () => ({
-    meta: [
-      { title: "נפאל — מה יש שם, ולמה זה מיוחד | השביל הזה" },
-      {
-        name: "description",
-        content:
-          "נפאל בכמה רגעים: הרים, ערים, כפרים וג׳ונגל במדינה קטנה אחת — ומכאן הכניסה לטרקים, לחוויות שמעבר להם ולמרכז הידע.",
-      },
-      { property: "og:title", content: "נפאל — מה יש שם, ולמה זה מיוחד" },
-      {
-        property: "og:description",
-        content: "מדינה קטנה שמכילה עולמות: הרים, עמקים, ערים ותרבות חיה.",
-      },
-    ],
-  }),
+  head: () => publicMeta(
+    "נפאל — מה יש שם, ולמה זה מיוחד | השביל הזה",
+    "נפאל בכמה רגעים: הרים, ערים, כפרים וג׳ונגל במדינה קטנה אחת — ומכאן הכניסה לטרקים, לחוויות שמעבר להם ולמרכז הידע.",
+    "/nepal", "website", heroHimalaya,
+    { title: "נפאל — מה יש שם, ולמה זה מיוחד", description: "מדינה קטנה שמכילה עולמות: הרים, עמקים, ערים ותרבות חיה." },
+  ),
 });
 
 /** Quick facts — three, on purpose. */
@@ -53,8 +45,8 @@ function NepalPage() {
         <div className="grid gap-2 sm:grid-cols-3">
           {facts.map((f) => (
             <Card key={f.n} className="!p-3.5">
-              <p className="font-display text-[16px] font-bold text-saffron sm:text-xl">{f.n}</p>
-              <p className="mt-0.5 text-[12.5px] leading-snug text-ink/70 sm:mt-1 sm:text-[14px] sm:leading-relaxed">
+              <p className="font-display text-[1rem] font-bold text-saffron sm:text-xl">{f.n}</p>
+              <p className="mt-0.5 text-[0.78125rem] leading-snug text-ink/70 sm:mt-1 sm:text-[0.875rem] sm:leading-relaxed">
                 {f.t}
               </p>
             </Card>
@@ -63,7 +55,7 @@ function NepalPage() {
       </Section>
 
       <Section title="ההרים, והכול מסביבם" className="!py-4 sm:!py-6">
-        <p className="text-[15px] leading-relaxed text-ink/70">
+        <p className="text-[0.9375rem] leading-relaxed text-ink/70">
           ההימלאיה בנפאל אינה מסלול אחד. יש הליכה של שלושה ימים בין כפרים בגבעות, ויש מעברים בגובה
           חמשת אלפים מטר שדורשים שבועיים. ומסביב להרים יש סמטאות קטמנדו, בוקר מול ההרים בפוקרה,
           כפרים בין טרסות, נהרות, ג׳ונגל ויוגה. לא חייבים לבחור בין טרק לטיול רגוע.
@@ -88,11 +80,11 @@ function NepalPage() {
                 />
               </div>
               <div className="p-3.5 sm:p-4">
-                <p className="font-display text-[17px] font-bold">טרקים ומסלולים</p>
-                <p className="mt-1 text-[13.5px] leading-relaxed text-ink/65">
+                <p className="font-display text-[1.0625rem] font-bold">טרקים ומסלולים</p>
+                <p className="mt-1 text-[0.84375rem] leading-relaxed text-ink/65">
                   מהליכה של שלושה ימים בגבעות ועד מסעות של שבועיים בגובה.
                 </p>
-                <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
+                <span className="mt-3 inline-block text-[0.8125rem] font-semibold text-saffron">
                   לטרקים ולמסלולים ←
                 </span>
               </div>
@@ -112,11 +104,11 @@ function NepalPage() {
                 />
               </div>
               <div className="p-3.5 sm:p-4">
-                <p className="font-display text-[17px] font-bold">חוויות בנפאל</p>
-                <p className="mt-1 text-[13.5px] leading-relaxed text-ink/65">
+                <p className="font-display text-[1.0625rem] font-bold">חוויות בנפאל</p>
+                <p className="mt-1 text-[0.84375rem] leading-relaxed text-ink/65">
                   ערים ותרבות, כפרים, יוגה ומנוחה, נהרות וג׳ונגל.
                 </p>
-                <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
+                <span className="mt-3 inline-block text-[0.8125rem] font-semibold text-saffron">
                   לחוויות בנפאל ←
                 </span>
               </div>
@@ -124,7 +116,7 @@ function NepalPage() {
           </Link>
         </div>
 
-        <Link to="/knowledge" className="mt-4 inline-block text-[14px] font-semibold text-saffron">
+        <Link to="/knowledge" className="mt-4 inline-block text-[0.875rem] font-semibold text-saffron">
           למרכז הידע למטיילים בנפאל ←
         </Link>
       </Section>
@@ -138,15 +130,15 @@ function NepalPage() {
         />
         <div className="absolute inset-0 bg-summit/80" />
         <div className="relative mx-auto max-w-4xl px-6 py-9 text-center sm:py-10">
-          <h2 className="font-display text-[21px] font-bold text-balance text-parchment sm:text-2xl">
+          <h2 className="font-display text-[1.3125rem] font-bold text-balance text-parchment sm:text-2xl">
             ההימלאיה היא סיבה מצוינת להגיע לנפאל. היא ממש לא הסיבה היחידה להישאר
           </h2>
-          <p className="mx-auto mt-3 max-w-[46ch] text-[15px] leading-relaxed text-parchment/85">
+          <p className="mx-auto mt-3 max-w-[46ch] text-[0.9375rem] leading-relaxed text-parchment/85">
             כמה שאלות קצרות, ואחריהן כמה כיוונים מתוך הטרקים והחוויות שלנו.
           </p>
           <Link
             to="/match"
-            className="mt-5 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+            className="mt-5 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[0.9375rem] font-semibold text-parchment"
           >
             בואו נמצא את השביל שלכם
           </Link>

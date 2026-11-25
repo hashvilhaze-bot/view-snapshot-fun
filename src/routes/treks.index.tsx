@@ -32,12 +32,12 @@ function TreksPage() {
 
       <Section size="xwide" className="!pt-6 !pb-2">
         <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-4">
-          <p className="text-[15px] leading-relaxed text-ink/80">
+          <p className="text-[0.9375rem] leading-relaxed text-ink/80">
             כאן אפשר לבחור נקודת מוצא לטיול. אפשר להוסיף לילה בכפר, להקדיש יום לתצפית או לשלב כמה
             ימים לצד האגם בפוקרה. את הדרך נבנה יחד לפי מי שנוסע.
           </p>
           <p className="mt-3">
-            <Link to="/treks/compare" className="text-[13.5px] font-semibold text-saffron">
+            <Link to="/treks/compare" className="text-[0.84375rem] font-semibold text-saffron">
               להשוות בין מסלולים זה לצד זה ←
             </Link>
           </p>
@@ -71,14 +71,14 @@ function TreksPage() {
                           {t.name}
                         </h3>
                       </div>
-                      <span className="absolute top-3 end-3 rounded-full bg-parchment/90 px-2.5 py-1 text-[11px] font-semibold text-saffron">
+                      <span className="absolute top-3 end-3 rounded-full bg-parchment/90 px-2.5 py-1 text-[0.6875rem] font-semibold text-saffron">
                         {t.effortLabel}
                       </span>
                     </div>
                   )}
                   <div className="flex flex-1 flex-col p-4">
                     {!photo && <h3 className="font-display text-lg font-bold">{t.name}</h3>}
-                    <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[12.5px] text-ink/70">
+                    <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[0.78125rem] text-ink/70">
                       <div>
                         <dt className="text-ink/60">משך</dt>
                         <dd className="font-medium">{t.days}</dd>
@@ -98,11 +98,11 @@ function TreksPage() {
                         </dd>
                       </div>
                     </dl>
-                    <p className="mt-2.5 mb-3 text-[13.5px] leading-relaxed text-ink/70">
+                    <p className="mt-2.5 mb-3 text-[0.84375rem] leading-relaxed text-ink/70">
                       <span className="text-ink/60">למי מתאים: </span>
                       {t.fit}
                     </p>
-                    <span className="mt-auto inline-block self-start rounded-xl bg-parchment px-4 py-2 text-[13px] font-semibold text-saffron ring-1 ring-ink/10 group-hover:bg-saffron group-hover:text-parchment">
+                    <span className="mt-auto inline-block self-start rounded-xl bg-parchment px-4 py-2 text-[0.8125rem] font-semibold text-saffron ring-1 ring-ink/10 group-hover:bg-saffron group-hover:text-parchment">
                       פרטים
                     </span>
                   </div>
@@ -115,19 +115,19 @@ function TreksPage() {
 
       <Section size="xwide" className="!pt-2 !pb-10">
         <Card>
-          <p className="text-[15px] leading-relaxed text-ink/75">
+          <p className="text-[0.9375rem] leading-relaxed text-ink/75">
             לא בטוחים מה מתאים לכם? כמה שאלות קצרות, ואחריהן כמה כיוונים עם הסבר.
           </p>
           <div className="mt-4 flex flex-col gap-2.5 sm:flex-row">
             <Link
               to="/match"
-              className="rounded-xl bg-saffron px-5 py-3 text-center text-[14px] font-semibold text-parchment"
+              className="rounded-xl bg-saffron px-5 py-3 text-center text-[0.875rem] font-semibold text-parchment"
             >
               בואו נמצא את השביל שלכם
             </Link>
             <Link
               to="/treks/compare"
-              className="rounded-xl bg-parchment px-5 py-3 text-center text-[14px] font-medium text-ink ring-1 ring-ink/10"
+              className="rounded-xl bg-parchment px-5 py-3 text-center text-[0.875rem] font-medium text-ink ring-1 ring-ink/10"
             >
               להשוות בין מסלולים
             </Link>

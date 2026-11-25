@@ -6,15 +6,17 @@ import { examples, faqSchema, trekFaq } from "@/lib/treks/itineraries";
 import { FaqList } from "@/components/renewed/faq";
 import { Itinerary } from "@/components/renewed/itinerary";
 import { publicMeta } from "@/lib/public-meta";
+import { publishedExample } from "@/lib/treks/editor-content";
 import { trekCopy } from "@/lib/treks/trek-copy";
 
 export const Route = createFileRoute("/treks/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     if (params.slug === "pokhara-hills")
       throw redirect({ to: "/experiences/$slug", params: { slug: "pokhara" }, statusCode: 301 });
     const trek = treks.find((t) => t.slug === params.slug);
-    const example = examples[params.slug];
-    if (!trek || !example) throw notFound();
+    const defaults = examples[params.slug];
+    if (!trek || !defaults) throw notFound();
+    const example = await publishedExample(params.slug, defaults);
     return { trek, example, faq: trekFaq(trek.name, example, trek.fit, trek.combine) };
   },
   head: ({ loaderData }) => ({
@@ -54,7 +56,7 @@ function TrekPage() {
   return (
     <>
       <div className="p-wrap pt-6">
-        <nav aria-label="פירורי לחם" className="p-muted text-[15px]">
+        <nav aria-label="פירורי לחם" className="p-muted text-[0.9375rem]">
           <Link to="/" className="p-link">
             בית
           </Link>{" "}
@@ -80,7 +82,7 @@ function TrekPage() {
               <img
                 src={hero.src}
                 alt={hero.alt}
-                className="aspect-[4/3] w-full rounded-[10px] object-cover"
+                className="aspect-[4/3] w-full rounded-[0.625rem] object-cover"
               />
               {hero.credit && (
                 <figcaption className="p-muted text-sm mt-2">
@@ -101,10 +103,10 @@ function TrekPage() {
       </section>
 
       <section className="p-wrap mt-10">
-        <dl className="p-mist m-0 grid gap-x-6 gap-y-4 rounded-[10px] p-6 sm:grid-cols-2 lg:grid-cols-5">
+        <dl className="p-mist m-0 grid gap-x-6 gap-y-4 rounded-[0.625rem] p-6 sm:grid-cols-2 lg:grid-cols-5">
           {facts.map(([k, v]) => (
             <div key={k}>
-              <dt className="p-muted text-[14px]">{k}</dt>
+              <dt className="p-muted text-[0.875rem]">{k}</dt>
               <dd className="m-0 mt-1 font-semibold">{v}</dd>
             </div>
           ))}
@@ -170,9 +172,9 @@ function TrekPage() {
                     src={p.src}
                     alt={p.alt}
                     loading="lazy"
-                    className="aspect-[3/2] w-full rounded-[10px] object-cover"
+                    className="aspect-[3/2] w-full rounded-[0.625rem] object-cover"
                   />
-                  <figcaption className="p-muted mt-2 text-[15px]">{p.caption}</figcaption>
+                  <figcaption className="p-muted mt-2 text-[0.9375rem]">{p.caption}</figcaption>
                 </figure>
               ))}
             </div>
@@ -190,8 +192,14 @@ function TrekPage() {
           </p>
           <Itinerary stages={example.stages} />
           {example.extensions.length > 0 && (
-            <section id="route-options" aria-labelledby="route-options-title" className="mt-10 scroll-mt-24">
-              <h2 id="route-options-title" className="p-h2">עוד אפשרות לאורך הדרך</h2>
+            <section
+              id="route-options"
+              aria-labelledby="route-options-title"
+              className="mt-10 scroll-mt-24"
+            >
+              <h2 id="route-options-title" className="p-h2">
+                עוד אפשרות לאורך הדרך
+              </h2>
               {example.extensions.map((extension) => (
                 <article className="p-card mt-5 p-6" key={extension.title}>
                   <h3 className="p-h3">{extension.title}</h3>
@@ -200,7 +208,9 @@ function TrekPage() {
                     <p>{extension.timing}</p>
                     {extension.stages && (
                       <ol className="list-decimal space-y-2 ps-6">
-                        {extension.stages.map((stage) => <li key={stage}>{stage}</li>)}
+                        {extension.stages.map((stage) => (
+                          <li key={stage}>{stage}</li>
+                        ))}
                       </ol>
                     )}
                   </div>
@@ -219,7 +229,7 @@ function TrekPage() {
 
       <section className="p-section">
         <div className="p-wrap">
-          <div className="p-band rounded-[10px] p-8 md:p-12">
+          <div className="p-band rounded-[0.625rem] p-8 md:p-12">
             <h2 className="p-h2">רוצים לבנות טיול סביב {trek.name}?</h2>
             <p className="p-muted mt-3">ספרו לנו מתי ומי נוסע, ואוהד יחזור אליכם.</p>
             <div className="p-on-photo mt-7">

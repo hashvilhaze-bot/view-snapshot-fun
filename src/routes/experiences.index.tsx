@@ -1,3 +1,4 @@
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { Card, PageHero, Section } from "@/components/page";
@@ -7,23 +8,12 @@ import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/experiences/")({
   component: ExperiencesPage,
-  head: () => ({
-    meta: [
-      { title: "חוויות בנפאל — ערים, כפרים, יוגה, נהרות וג׳ונגל | השביל הזה" },
-      {
-        name: "description",
-        content:
-          "נפאל שמעבר לטרקים: קטמנדו ופוקרה, כפרים וטרסות, יוגה ומנוחה, רפטינג וצ׳יטוואן. כל אחת מהחוויות עומדת בזכות עצמה, וגם משתלבת לצד מסלול הליכה.",
-      },
-      { property: "og:title", content: "חוויות בנפאל — מעבר לטרקים" },
-      {
-        property: "og:description",
-        content: "ערים ותרבות, כפרים ואנשים, טבע רגוע ויוגה, מים ואדרנלין, טבע וחיות.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => publicMeta(
+    "חוויות בנפאל — ערים, כפרים, יוגה, נהרות וג׳ונגל | השביל הזה",
+    "נפאל שמעבר לטרקים: קטמנדו ופוקרה, כפרים וטרסות, יוגה ומנוחה, רפטינג וצ׳יטוואן. כל אחת מהחוויות עומדת בזכות עצמה, וגם משתלבת לצד מסלול הליכה.",
+    "/experiences", "website", galleries["kathmandu"]?.[0]?.src,
+    { title: "חוויות בנפאל — מעבר לטרקים", description: "ערים ותרבות, כפרים ואנשים, טבע רגוע ויוגה, מים ואדרנלין, טבע וחיות." },
+  ),
 });
 
 function ExperiencesPage() {
@@ -58,17 +48,17 @@ function ExperiencesPage() {
                       />
                     )}
                     <div className="p-4">
-                      <p className="text-[11px] font-medium text-saffron">{item.meta}</p>
-                      <p className="mt-1 font-display text-[17px] font-bold">{item.name}</p>
-                      <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/70">
+                      <p className="text-[0.6875rem] font-medium text-saffron">{item.meta}</p>
+                      <p className="mt-1 font-display text-[1.0625rem] font-bold">{item.name}</p>
+                      <p className="mt-1.5 text-[0.84375rem] leading-relaxed text-ink/70">
                         {item.teaser}
                       </p>
                       {full?.combine && (
-                        <p className="mt-2 text-[12.5px] leading-relaxed text-ink/65">
+                        <p className="mt-2 text-[0.78125rem] leading-relaxed text-ink/65">
                           {full.combine}
                         </p>
                       )}
-                      <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
+                      <span className="mt-3 inline-block text-[0.8125rem] font-semibold text-saffron">
                         פרטים ←
                       </span>
                     </div>
@@ -82,13 +72,13 @@ function ExperiencesPage() {
 
       <Section className="pt-2 pb-12">
         <Card className="text-center">
-          <p className="font-display text-[18px] font-bold">לא בטוחים מה מתאים לכם?</p>
-          <p className="mx-auto mt-2 max-w-[42ch] text-[14px] leading-relaxed text-ink/70">
+          <p className="font-display text-[1.125rem] font-bold">לא בטוחים מה מתאים לכם?</p>
+          <p className="mx-auto mt-2 max-w-[42ch] text-[0.875rem] leading-relaxed text-ink/70">
             כמה שאלות קצרות, ואז נציע לכם כמה כיוונים מתוך הטרקים והחוויות שלנו.
           </p>
           <Link
             to="/match"
-            className="mt-4 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+            className="mt-4 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[0.9375rem] font-semibold text-parchment"
           >
             בואו נמצא את השביל שלכם
           </Link>

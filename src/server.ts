@@ -61,6 +61,7 @@ export default {
         "/destinations/bhutan",
         "/destinations/tibet",
         "/quote",
+        "/privacy",
         "/match",
         ...treks.map((t) => "/treks/" + t.slug),
         ...experiences.map((x) => "/experiences/" + x.slug),

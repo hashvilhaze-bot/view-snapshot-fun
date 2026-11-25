@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/use-auth";
 export const Route = createFileRoute("/profile")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex, nofollow" },
       { title: "האזור האישי · השביל הזה" },
       {
         name: "description",
@@ -37,9 +38,9 @@ const INTEREST_OPTIONS = [
 const SEASONS = ["אביב (מרץ–מאי)", "סתיו (אוקטובר–נובמבר)", "עדיין לא החלטנו"] as const;
 const GROUPS = ["לבד", "זוג", "משפחה", "קבוצת חברים"] as const;
 
-const label = "block text-[13px] font-medium text-ink/70";
+const label = "block text-[0.8125rem] font-medium text-ink/70";
 const input =
-  "mt-1.5 w-full rounded-xl bg-parchment px-4 py-3 text-[15px] text-ink ring-1 ring-ink/10 outline-none focus:ring-2 focus:ring-saffron/50";
+  "mt-1.5 w-full rounded-xl bg-parchment px-4 py-3 text-[0.9375rem] text-ink ring-1 ring-ink/10 outline-none focus:ring-2 focus:ring-saffron/50";
 
 function ProfilePage() {
   const { user, loading, name, avatarUrl, signOut } = useAuth();
@@ -51,10 +52,14 @@ function ProfilePage() {
     notes: "",
   });
   const [interests, setInterests] = useState<string[]>([]);
+  const [editorId, setEditorId] = useState("");
 
   useEffect(() => {
     if (!user) return;
     let active = true;
+    void supabase.rpc("can_edit_treks").then(({ data }) => {
+      if (active) setEditorId(data === true ? user.id : "");
+    });
     setState("loading");
     supabase
       .from("profiles")
@@ -103,7 +108,9 @@ function ProfilePage() {
   if (loading) {
     return (
       <div className="bg-sand">
-        <div className="mx-auto max-w-2xl px-4 py-16 text-[14px] text-ink/60 sm:px-5">רק רגע…</div>
+        <div className="mx-auto max-w-2xl px-4 py-16 text-[0.875rem] text-ink/60 sm:px-5">
+          רק רגע…
+        </div>
       </div>
     );
   }
@@ -113,13 +120,13 @@ function ProfilePage() {
       <div className="bg-sand">
         <div className="mx-auto max-w-md px-4 py-14 sm:px-5">
           <div className="rounded-2xl bg-parchment p-6 ring-1 ring-ink/10">
-            <h1 className="font-display text-[26px] text-ink">האזור האישי</h1>
-            <p className="mt-2 text-[14px] leading-relaxed text-ink/70">
+            <h1 className="font-display text-[1.625rem] text-ink">האזור האישי</h1>
+            <p className="mt-2 text-[0.875rem] leading-relaxed text-ink/70">
               כדי לראות ולערוך את הפרופיל וההעדפות שלכם, צריך להתחבר קודם.
             </p>
             <Link
               to="/auth"
-              className="mt-5 inline-block rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
+              className="mt-5 inline-block rounded-xl bg-saffron px-5 py-3 text-[0.875rem] font-semibold text-parchment"
             >
               להתחברות
             </Link>
@@ -142,18 +149,23 @@ function ProfilePage() {
               className="h-16 w-16 rounded-full object-cover ring-1 ring-ink/10"
             />
           ) : (
-            <div className="grid h-16 w-16 place-items-center rounded-full bg-parchment text-[20px] font-semibold text-ink/60 ring-1 ring-ink/10">
+            <div className="grid h-16 w-16 place-items-center rounded-full bg-parchment text-[1.25rem] font-semibold text-ink/60 ring-1 ring-ink/10">
               {(form.display_name || name || "?").slice(0, 1)}
             </div>
           )}
           <div>
-            <h1 className="font-display text-[26px] leading-tight text-ink sm:text-[30px]">
+            <h1 className="font-display text-[1.625rem] leading-tight text-ink sm:text-[1.875rem]">
               {form.display_name || name || "האזור האישי"}
             </h1>
-            <p className="text-[13px] text-ink/60">{user.email}</p>
+            <p className="text-[0.8125rem] text-ink/60">{user.email}</p>
           </div>
         </div>
 
+        {editorId === user.id && (
+          <Link className="p-link mt-4 inline-block" to="/admin">
+            לניהול המסלולים
+          </Link>
+        )}
         <form onSubmit={onSubmit} className="mt-8 space-y-6">
           <div>
             <label className={label} htmlFor="display_name">
@@ -178,7 +190,7 @@ function ProfilePage() {
                     type="button"
                     aria-pressed={on}
                     onClick={() => toggle(opt)}
-                    className={`rounded-xl px-4 py-2.5 text-start text-[14px] font-medium ring-1 transition-colors ${
+                    className={`rounded-xl px-4 py-2.5 text-start text-[0.875rem] font-medium ring-1 transition-colors ${
                       on
                         ? "bg-saffron text-parchment ring-saffron"
                         : "bg-parchment text-ink/75 ring-ink/10"
@@ -248,25 +260,25 @@ function ProfilePage() {
             <button
               type="submit"
               disabled={state === "saving"}
-              className="rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment disabled:opacity-60"
+              className="rounded-xl bg-saffron px-5 py-3 text-[0.875rem] font-semibold text-parchment disabled:opacity-60"
             >
               {state === "saving" ? "שומרים…" : "שמירת העדפות"}
             </button>
             <button
               type="button"
               onClick={signOut}
-              className="rounded-xl px-5 py-3 text-[14px] font-medium text-ink/70 ring-1 ring-ink/15"
+              className="rounded-xl px-5 py-3 text-[0.875rem] font-medium text-ink/70 ring-1 ring-ink/15"
             >
               התנתקות
             </button>
-            {state === "saved" && <span className="text-[13px] text-ink/70">נשמר ✓</span>}
+            {state === "saved" && <span className="text-[0.8125rem] text-ink/70">נשמר ✓</span>}
             {state === "failed" && (
-              <span className="text-[13px] text-saffron">השמירה לא הצליחה. נסו שוב.</span>
+              <span className="text-[0.8125rem] text-saffron">השמירה לא הצליחה. נסו שוב.</span>
             )}
           </div>
         </form>
 
-        <p className="mt-8 text-[13px] text-ink/55">
+        <p className="mt-8 text-[0.8125rem] text-ink/55">
           רוצים שנחזור אליכם עם הצעה?{" "}
           <Link to="/quote" className="underline decoration-saffron/60 underline-offset-4">
             לבקשת הצעה

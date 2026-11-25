@@ -25,7 +25,7 @@ export const LOCALE_LABEL: Record<Locale, string> = { he: "עברית", en: "Eng
 /** UI shell strings. Page content lives in content.ts and is Hebrew-only for now. */
 export const dictionary = {
   he: {
-    "nav.home": "בית",
+    "nav.home": "דף הבית",
     "nav.nepal": "נפאל",
     "nav.destinations": "יעדים",
     "nav.allDestinations": "כל היעדים",

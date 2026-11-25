@@ -1,3 +1,4 @@
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import bedNathRegmi from "@/assets/bed-nath-regmi.jpg";
@@ -11,23 +12,12 @@ import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_ROLE } from "@/lib/leads";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
-  head: () => ({
-    meta: [
-      { title: "מי אנחנו — השביל הזה" },
-      {
-        name: "description",
-        content:
-          "היכרות אישית ותכנון בעברית עם אוהד, וניסיון מקומי עמוק בנפאל עם סוכנות שלום מקטמנדו — מעטפת אחת מהשיחה הראשונה ועד החזרה הביתה.",
-      },
-      { property: "og:title", content: "מי אנחנו — השביל הזה" },
-      {
-        property: "og:description",
-        content: "האנשים, הניסיון המקומי והליווי שנמשך לאורך כל הטיול.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => publicMeta(
+    "מי אנחנו — השביל הזה",
+    "היכרות אישית ותכנון בעברית עם אוהד, וניסיון מקומי עמוק בנפאל עם סוכנות שלום מקטמנדו — מעטפת אחת מהשיחה הראשונה ועד החזרה הביתה.",
+    "/about", "website", kathmanduDusk,
+    { title: "מי אנחנו — השביל הזה", description: "האנשים, הניסיון המקומי והליווי שנמשך לאורך כל הטיול." },
+  ),
 });
 
 const steps: [string, string, string][] = [
@@ -89,7 +79,7 @@ function AboutPage() {
               className="aspect-[3/2] w-full rounded-2xl object-cover sm:aspect-[4/5]"
             />
           </picture>
-          <div className="space-y-3 text-[15px] leading-relaxed text-ink/75 sm:pt-1">
+          <div className="space-y-3 text-[0.9375rem] leading-relaxed text-ink/75 sm:pt-1">
             <p>
               אני אוהד, מרמות מנשה. אחרי הצבא יצאתי כמו כולנו לטיול הגדול במזרח — בתכניות היו כל
               מדינות המזרח, אלא שהתגלגלתי להודו ולנפאל, ושם נשארתי הרבה יותר ממה שתכננתי.
@@ -111,8 +101,8 @@ function AboutPage() {
       {/* SHALOM — the local capability, in depth */}
       <section className="bg-summit px-6 py-8 sm:py-10">
         <div className="mx-auto max-w-4xl">
-          <p className="text-[12px] font-medium tracking-wide text-saffron">השותף בנפאל</p>
-          <h2 className="mt-1.5 max-w-[26ch] font-display text-[22px] leading-snug font-bold text-parchment sm:text-2xl">
+          <p className="text-[0.75rem] font-medium tracking-wide text-saffron">השותף בנפאל</p>
+          <h2 className="mt-1.5 max-w-[26ch] font-display text-[1.375rem] leading-snug font-bold text-parchment sm:text-2xl">
             סוכנות שלום — הניסיון המקומי שמאחורי הטיול
           </h2>
           <div className="mt-4 flex flex-col gap-4 sm:mt-5 sm:flex-row sm:gap-7">
@@ -123,13 +113,13 @@ function AboutPage() {
                 loading="lazy"
                 className="aspect-[4/5] w-40 rounded-2xl object-cover object-top ring-1 ring-parchment/20 sm:w-full"
               />
-              <p className="mt-2.5 text-[14px] leading-relaxed text-parchment/75">
+              <p className="mt-2.5 text-[0.875rem] leading-relaxed text-parchment/75">
                 <span className="font-semibold text-parchment">{NEPAL_PARTNER_NAME}</span>
                 <br />
                 {NEPAL_PARTNER_ROLE} — איש הקשר הקבוע שלכם בצד הנפאלי.
               </p>
             </div>
-            <div className="space-y-2.5 text-[14px] leading-relaxed text-parchment/80 sm:space-y-3 sm:text-[14.5px]">
+            <div className="space-y-2.5 text-[0.875rem] leading-relaxed text-parchment/80 sm:space-y-3 sm:text-[0.90625rem]">
               <p>
                 ההפעלה בשטח נעשית עם Shalom Rafting Treks &amp; Expedition — סוכנות מקומית רשומה
                 מתאמל שבקטמנדו, שפועלת מ־2010 ומתמחה בטרקים, במסעות נהר ובטיולי תרבות וטבע בנפאל.
@@ -158,7 +148,7 @@ function AboutPage() {
                 height={1069}
                 className="aspect-[3/2] h-full w-full rounded-2xl object-cover"
               />
-              <figcaption className="mt-1.5 px-1 text-[12px] text-parchment/65">
+              <figcaption className="mt-1.5 px-1 text-[0.75rem] text-parchment/65">
                 הצוות של סוכנות שלום במשרד בתאמל, קטמנדו
               </figcaption>
             </figure>
@@ -190,7 +180,7 @@ function AboutPage() {
             content: <p>{d}</p>,
           }))}
         />
-        <p className="mt-4 text-[14px] leading-relaxed text-ink/70">
+        <p className="mt-4 text-[0.875rem] leading-relaxed text-ink/70">
           גם כשצריך לשנות תוכנית באמצע הטיול, יש מי שמטפל בזה — מי שנמצא בשטח יודע מה הובטח לכם, ומי
           שתכנן איתכם יודע מה קורה שם עכשיו.
         </p>
@@ -198,10 +188,10 @@ function AboutPage() {
 
       <Section className="!pt-2 !pb-12">
         <Card className="text-center">
-          <p className="font-display text-[18px] font-bold">נתחיל מהשיחה הראשונה?</p>
+          <p className="font-display text-[1.125rem] font-bold">נתחיל מהשיחה הראשונה?</p>
           <Link
             to="/match"
-            className="mt-4 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+            className="mt-4 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[0.9375rem] font-semibold text-parchment"
           >
             בואו נמצא את השביל שלכם
           </Link>

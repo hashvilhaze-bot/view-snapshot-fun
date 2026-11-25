@@ -6,8 +6,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/auth")({
+  validateSearch: (search): { next?: "admin" } => search["next"] === "admin" ? { next: "admin" } : {},
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex, nofollow" },
       { title: "התחברות · השביל הזה" },
       {
         name: "description",
@@ -24,11 +26,13 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
-const label = "block text-[13px] font-medium text-ink/70";
+const label = "block text-[0.8125rem] font-medium text-ink/70";
 const input =
-  "mt-1.5 w-full rounded-xl bg-parchment px-4 py-3 text-[15px] text-ink ring-1 ring-ink/10 outline-none focus:ring-2 focus:ring-saffron/50";
+  "mt-1.5 w-full rounded-xl bg-parchment px-4 py-3 text-[0.9375rem] text-ink ring-1 ring-ink/10 outline-none focus:ring-2 focus:ring-saffron/50";
 
 function AuthPage() {
+  const { next } = Route.useSearch();
+  const destination = next === "admin" ? "/admin" : "/profile";
   const { user, name, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -40,18 +44,18 @@ function AuthPage() {
 
   useEffect(() => {
     if (user) {
-      const t = setTimeout(() => navigate({ to: "/profile" }), 800);
+      const t = setTimeout(() => navigate({ to: destination }), 800);
       return () => clearTimeout(t);
     }
     return;
-  }, [user, navigate]);
+  }, [user, navigate, destination]);
 
   async function signInWithGoogle() {
     setBusy(true);
     setError(null);
     setNotice(null);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+      redirect_uri: next === "admin" ? new URL("/admin", window.location.origin).href : window.location.origin,
     });
     if (result.error) {
       setBusy(false);
@@ -94,30 +98,30 @@ function AuthPage() {
     <div className="bg-sand">
       <div className="mx-auto max-w-md px-4 py-14 sm:px-5">
         <div className="rounded-2xl bg-parchment p-6 ring-1 ring-ink/10 sm:p-8">
-          <h1 className="font-display text-[26px] leading-tight text-ink sm:text-[30px]">
+          <h1 className="font-display text-[1.625rem] leading-tight text-ink sm:text-[1.875rem]">
             {mode === "signup" ? "פתיחת חשבון" : "התחברות"}
           </h1>
-          <p className="mt-2 text-[14px] leading-relaxed text-ink/70">
+          <p className="mt-2 text-[0.875rem] leading-relaxed text-ink/70">
             ההתחברות אופציונלית — אפשר לשלוח פנייה גם בלעדיה. מי שמתחבר יכול לשמור את העדפות
             הטיול שלו ולחזור אליהן.
           </p>
 
           {loading ? (
-            <p className="mt-6 text-[14px] text-ink/60">רק רגע…</p>
+            <p className="mt-6 text-[0.875rem] text-ink/60">רק רגע…</p>
           ) : user ? (
             <div className="mt-6">
-              <p className="text-[15px] text-ink">מחוברים{name ? ` בשם ${name}` : ""} ✓</p>
+              <p className="text-[0.9375rem] text-ink">מחוברים{name ? ` בשם ${name}` : ""} ✓</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <Link
                   to="/profile"
-                  className="rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
+                  className="rounded-xl bg-saffron px-5 py-3 text-[0.875rem] font-semibold text-parchment"
                 >
                   לאזור האישי
                 </Link>
                 <button
                   type="button"
                   onClick={signOut}
-                  className="rounded-xl px-5 py-3 text-[14px] font-medium text-ink/70 ring-1 ring-ink/15"
+                  className="rounded-xl px-5 py-3 text-[0.875rem] font-medium text-ink/70 ring-1 ring-ink/15"
                 >
                   התנתקות
                 </button>
@@ -129,13 +133,13 @@ function AuthPage() {
                 type="button"
                 onClick={signInWithGoogle}
                 disabled={busy}
-                className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-parchment px-5 py-3.5 text-[15px] font-semibold text-ink ring-1 ring-ink/15 transition-colors hover:bg-sand disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-parchment px-5 py-3.5 text-[0.9375rem] font-semibold text-ink ring-1 ring-ink/15 transition-colors hover:bg-sand disabled:opacity-60"
               >
                 <GoogleMark />
                 התחברות עם Google
               </button>
 
-              <div className="my-5 flex items-center gap-3 text-[12px] text-ink/60">
+              <div className="my-5 flex items-center gap-3 text-[0.75rem] text-ink/60">
                 <span className="h-px flex-1 bg-ink/10" />
                 או עם אימייל
                 <span className="h-px flex-1 bg-ink/10" />
@@ -173,20 +177,20 @@ function AuthPage() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   {mode === "signup" && (
-                    <p className="mt-1.5 text-[12px] text-ink/60">לפחות 8 תווים.</p>
+                    <p className="mt-1.5 text-[0.75rem] text-ink/60">לפחות 8 תווים.</p>
                   )}
                 </div>
                 <button
                   type="submit"
                   disabled={busy}
-                  className="w-full rounded-xl bg-saffron px-5 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-60"
+                  className="w-full rounded-xl bg-saffron px-5 py-3.5 text-[0.9375rem] font-semibold text-parchment disabled:opacity-60"
                 >
                   {busy ? "רק רגע…" : mode === "signup" ? "פתיחת חשבון" : "התחברות"}
                 </button>
               </form>
 
-              {error && <p className="mt-3 text-[13px] text-saffron">{error}</p>}
-              {notice && <p className="mt-3 text-[13px] text-ink/75">{notice}</p>}
+              {error && <p className="mt-3 text-[0.8125rem] text-saffron">{error}</p>}
+              {notice && <p className="mt-3 text-[0.8125rem] text-ink/75">{notice}</p>}
 
               <button
                 type="button"
@@ -195,14 +199,14 @@ function AuthPage() {
                   setError(null);
                   setNotice(null);
                 }}
-                className="mt-4 text-[13px] text-ink/65 underline decoration-saffron/60 underline-offset-4"
+                className="mt-4 text-[0.8125rem] text-ink/65 underline decoration-saffron/60 underline-offset-4"
               >
                 {mode === "signup" ? "יש לי כבר חשבון — להתחברות" : "אין לי חשבון — פתיחת חשבון"}
               </button>
             </div>
           )}
 
-          <p className="mt-6 text-[13px] text-ink/55">
+          <p className="mt-6 text-[0.8125rem] text-ink/55">
             עדיין רק מסתכלים?{" "}
             <Link to="/treks" className="underline decoration-saffron/60 underline-offset-4">
               לטרקים ולחוויות

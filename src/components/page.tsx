@@ -11,9 +11,9 @@ import { whatsappHref } from "@/lib/leads";
 export type SectionSize = "default" | "wide" | "xwide";
 
 const WIDTH: Record<SectionSize, string> = {
-  default: "max-w-4xl",
-  wide: "max-w-5xl",
-  xwide: "max-w-6xl",
+  default: "site-frame site-reading",
+  wide: "site-frame",
+  xwide: "site-frame",
 };
 
 export function PageHero({
@@ -48,7 +48,7 @@ export function PageHero({
       >
         {kicker && <p className="mb-2 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
         <h1
-          className={`max-w-[26ch] font-display text-[26px] leading-tight font-bold text-balance sm:text-3xl ${
+          className={`max-w-[26ch] font-display text-[1.625rem] leading-tight font-bold text-balance sm:text-3xl ${
             image ? "text-parchment" : "text-ink"
           }`}
         >
@@ -56,7 +56,7 @@ export function PageHero({
         </h1>
         {lead && (
           <p
-            className={`mt-3 max-w-[50ch] text-[15px] leading-relaxed ${
+            className={`mt-3 max-w-[50ch] text-[0.9375rem] leading-relaxed ${
               image ? "text-parchment/85" : "text-ink/75"
             }`}
           >
@@ -85,7 +85,7 @@ export function Section({
     <section className={`mx-auto ${WIDTH[size]} px-6 py-6 sm:py-8 ${className}`}>
       {kicker && <p className="mb-1.5 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
       {title && (
-        <h2 className="max-w-[30ch] font-display text-[22px] leading-snug font-bold text-balance sm:text-2xl">
+        <h2 className="max-w-[30ch] font-display text-[1.375rem] leading-snug font-bold text-balance sm:text-2xl">
           {title}
         </h2>
       )}
@@ -123,17 +123,17 @@ export function Accordion({
           key={it.title}
           className="group rounded-2xl border border-parchment/50 bg-parchment/85 ring-1 ring-ink/5"
         >
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-[14.5px] font-semibold text-ink">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-[0.90625rem] font-semibold text-ink">
             <span>{it.title}</span>
             <span
               aria-hidden="true"
-              className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-saffron/12 text-[15px] leading-none font-bold text-saffron"
+              className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-saffron/12 text-[0.9375rem] leading-none font-bold text-saffron"
             >
               <span className="group-open:hidden">+</span>
               <span className="hidden group-open:inline">−</span>
             </span>
           </summary>
-          <div className="px-4 pt-0.5 pb-4 text-[14px] leading-relaxed text-ink/75">
+          <div className="px-4 pt-0.5 pb-4 text-[0.875rem] leading-relaxed text-ink/75">
             {it.content}
           </div>
         </details>
@@ -146,8 +146,8 @@ export function Accordion({
 export function Insight({ text, title = "שווה לדעת" }: { text: string; title?: string }) {
   return (
     <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-4">
-      <p className="text-[11px] font-semibold tracking-wide text-saffron">{title}</p>
-      <p className="mt-1.5 text-[15px] leading-relaxed text-ink/80">{text}</p>
+      <p className="text-[0.6875rem] font-semibold tracking-wide text-saffron">{title}</p>
+      <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink/80">{text}</p>
     </div>
   );
 }
@@ -156,9 +156,9 @@ export function Insight({ text, title = "שווה לדעת" }: { text: string; t
 export function DidYouKnow({ text, action }: { text: string; action?: ReactNode }) {
   return (
     <div className="rounded-2xl bg-summit px-5 py-4 text-parchment">
-      <p className="text-[11px] font-semibold tracking-wide text-saffron">הידעת?</p>
-      <p className="mt-1.5 text-[15px] leading-relaxed text-parchment/85">{text}</p>
-      {action && <div className="mt-3 text-[13.5px] font-semibold text-saffron">{action}</div>}
+      <p className="text-[0.6875rem] font-semibold tracking-wide text-saffron">הידעת?</p>
+      <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-parchment/85">{text}</p>
+      {action && <div className="mt-3 text-[0.84375rem] font-semibold text-saffron">{action}</div>}
     </div>
   );
 }
@@ -169,9 +169,9 @@ export function QuickFacts() {
     <dl className="grid grid-cols-2 gap-2 sm:grid-cols-3">
       {nepalQuickFacts.map((f) => (
         <div key={f.label} className="rounded-xl bg-parchment/80 px-3.5 py-2.5 ring-1 ring-ink/5">
-          <dt className="text-[11px] font-medium tracking-wide text-ink/55">{f.label}</dt>
-          <dd className="mt-0.5 font-display text-[15px] font-bold">{f.value}</dd>
-          {f.note && <p className="mt-0.5 text-[11.5px] leading-snug text-ink/65">{f.note}</p>}
+          <dt className="text-[0.6875rem] font-medium tracking-wide text-ink/55">{f.label}</dt>
+          <dd className="mt-0.5 font-display text-[0.9375rem] font-bold">{f.value}</dd>
+          {f.note && <p className="mt-0.5 text-[0.71875rem] leading-snug text-ink/65">{f.note}</p>}
         </div>
       ))}
     </dl>
@@ -194,7 +194,7 @@ export function WhatsappButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`rounded-xl bg-parchment px-5 py-3 text-[14px] font-medium text-ink ring-1 ring-ink/10 ${className}`}
+      className={`rounded-xl bg-parchment px-5 py-3 text-[0.875rem] font-medium text-ink ring-1 ring-ink/10 ${className}`}
     >
       {label}
     </a>
@@ -219,7 +219,7 @@ export function Gallery({ photos }: { photos: { src: string; alt: string; captio
           height={800}
           className="aspect-[3/2] w-full rounded-2xl object-cover"
         />
-        <figcaption className="mt-1.5 px-1 text-[12px] text-ink/60">{lead.caption}</figcaption>
+        <figcaption className="mt-1.5 px-1 text-[0.75rem] text-ink/60">{lead.caption}</figcaption>
       </figure>
       {rest.length > 0 && (
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -233,7 +233,7 @@ export function Gallery({ photos }: { photos: { src: string; alt: string; captio
                 height={800}
                 className="aspect-[4/3] w-full rounded-xl object-cover"
               />
-              <figcaption className="mt-1 px-0.5 text-[11.5px] leading-snug text-ink/60">
+              <figcaption className="mt-1 px-0.5 text-[0.71875rem] leading-snug text-ink/60">
                 {p.caption}
               </figcaption>
             </figure>

@@ -1,0 +1,295 @@
+/* One fluid type and spacing scale per device. All rem-based utilities inherit it. */
+:root:has(.site-public) {
+  font-size: clamp(100%, 1.25vw, 125%);
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  :root:has(.site-public) {
+    font-size: clamp(100%, 1.9vw, 112.5%);
+  }
+}
+@media (max-width: 639px) {
+  :root:has(.site-public) {
+    font-size: clamp(100%, 4.1vw, 110%);
+  }
+}
+.site-public {
+  --site-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --site-width: min(100%, 84rem);
+  --site-section: clamp(2.75rem, 5.5vw, 5rem);
+  --site-gap: clamp(0.85rem, 1.6vw, 1.5rem);
+}
+.site-public .site-frame,
+.site-public .p-wrap {
+  width: var(--site-width);
+  max-width: none;
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+  text-align: start;
+}
+.site-reading > div > p {
+  max-inline-size: 68ch;
+}
+.site-public .p-wrap.text-center {
+  text-align: center;
+}
+.site-public .p-section {
+  padding-block: var(--site-section);
+}
+.site-public :where(section[id], main[id]) {
+  scroll-margin-block-start: 5.25rem;
+}
+.site-nav {
+  gap: 0.15rem;
+}
+.site-nav > a,
+.site-nav > div > button,
+.site-mobile-nav > ul > li > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.75rem;
+}
+.site-nav > a,
+.site-nav > div > button {
+  padding-inline: 0.62rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.site-nav > a[aria-current="page"] {
+  color: var(--p-cta);
+}
+.site-nav svg,
+.site-mobile-nav li > a svg,
+.route-facts svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+  stroke-width: 1.7;
+}
+.site-public .p-btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+.site-public header > div > div > :is(button, a) {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+.site-skip {
+  position: fixed;
+  z-index: 100;
+  inset-inline-start: var(--site-gutter);
+  inset-block-start: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: white;
+  color: var(--p-ink);
+  transform: translateY(-150%);
+}
+.site-skip:focus {
+  transform: translateY(0);
+}
+.site-public :focus-visible {
+  outline: 0.125rem solid currentColor;
+  outline-offset: 0.15rem;
+}
+.route-viewer {
+  max-inline-size: 64rem;
+  margin-block: var(--site-gap);
+}
+.route-legend,
+.route-facts,
+.route-arrows,
+.route-days {
+  display: flex;
+  align-items: center;
+}
+.route-legend,
+.route-facts {
+  flex-wrap: wrap;
+  gap: 0.5rem var(--site-gap);
+}
+.route-legend {
+  padding: 0;
+  margin-block-end: 0.9rem;
+  list-style: none;
+  font-size: 0.875rem;
+}
+.route-legend li,
+.route-facts span,
+.route-arrows button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.route-viewer [data-kind] {
+  --day-color: #606f79;
+  --day-style: solid;
+}
+.route-viewer [data-kind="acclimatization"] {
+  --day-color: var(--p-cta);
+}
+.route-viewer [data-kind="transfer"] {
+  --day-style: dashed;
+}
+.route-legend i {
+  width: 1.5rem;
+  border-top: 0.15rem var(--day-style) var(--day-color);
+}
+.route-days {
+  gap: 0.3rem;
+  overflow-x: auto;
+  padding: 0.35rem 0.2rem 0.55rem;
+  scrollbar-width: thin;
+}
+.route-days button {
+  position: relative;
+  flex: none;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.45rem;
+  color: var(--p-ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+.route-days button::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0.65rem;
+  inset-block-end: 0.35rem;
+  border-top: 0.15rem var(--day-style) var(--day-color);
+}
+.route-days button[aria-selected="true"] {
+  color: white;
+  background: var(--p-ink);
+}
+.route-days button[aria-selected="true"]::after {
+  border-color: white;
+}
+.route-card {
+  padding: clamp(1rem, 2.3vw, 2rem);
+  background: white;
+  border: 1px solid var(--p-line);
+  border-radius: 0.65rem;
+}
+.route-card section[hidden],
+.route-viewer:has(.route-all[open]) .route-interactive {
+  display: none;
+}
+.route-card h3 {
+  margin-block: 0.4rem;
+}
+.route-facts {
+  margin-block: 0.7rem;
+  color: var(--p-muted);
+  font-size: 0.9375rem;
+}
+.route-arrows {
+  justify-content: space-between;
+  border-top: 1px solid var(--p-line);
+  margin-block-start: 1rem;
+  padding-block-start: 0.5rem;
+}
+.route-arrows button {
+  min-height: 2.75rem;
+  font-weight: 600;
+  color: var(--p-cta);
+  cursor: pointer;
+}
+.route-arrows button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.route-arrows svg {
+  width: 1rem;
+  height: 1rem;
+}
+.route-all {
+  margin-block-start: 0.5rem;
+}
+.route-all summary {
+  width: fit-content;
+  min-height: 2.75rem;
+  padding-block: 0.6rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.route-all:not([open]) summary span:last-child,
+.route-all[open] summary span:first-child {
+  display: none;
+}
+.route-all ol {
+  list-style: none;
+  padding: 0;
+}
+.route-all li {
+  border-block-start: 1px solid var(--p-line);
+  padding-block: 1rem;
+}
+.route-all li p {
+  max-inline-size: 65ch;
+}
+.content-admin {
+  display: grid;
+  gap: var(--site-gap);
+}
+.content-admin > * {
+  max-inline-size: 60rem;
+}
+.content-admin label,
+.admin-fields {
+  display: grid;
+  gap: 0.4rem;
+}
+.admin-fields {
+  gap: var(--site-gap);
+}
+.content-admin :is(input, textarea, select) {
+  width: 100%;
+  background: white;
+  border: 1px solid #9fa9af;
+  border-radius: 0.4rem;
+  padding: 0.6rem 0.8rem;
+}
+.content-admin textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+.content-admin button:not(.p-btn),
+.admin-actions a {
+  min-height: 2.75rem;
+  color: var(--p-cta);
+  font-weight: 600;
+  cursor: pointer;
+  text-align: start;
+}
+.content-admin button:disabled {
+  opacity: 0.52;
+  cursor: default;
+}
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.25rem;
+}
+.admin-stage {
+  border-block-start: 1px solid var(--p-line);
+}
+.admin-stage summary {
+  cursor: pointer;
+  padding-block: 0.8rem;
+  font-weight: 600;
+}
+.admin-preview {
+  padding: var(--site-gap);
+}
+@media print {
+  .route-interactive,
+  .route-legend,
+  .route-all summary {
+    display: none;
+  }
+  .route-all::details-content {
+    content-visibility: visible;
+  }
+}

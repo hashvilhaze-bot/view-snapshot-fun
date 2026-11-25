@@ -1,3 +1,4 @@
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { Card, Gallery, Insight, PageHero, Section } from "@/components/page";
@@ -17,16 +18,7 @@ export const Route = createFileRoute("/experiences/$slug")({
       return { meta: [{ title: "לא נמצא" }, { name: "robots", content: "noindex" }] };
     }
     const { item } = loaderData;
-    return {
-      meta: [
-        { title: `${item.name} — ${item.kicker} | השביל הזה` },
-        { name: "description", content: item.intro },
-        { property: "og:title", content: `${item.name} — ${item.kicker}` },
-        { property: "og:description", content: item.intro },
-        { property: "og:type", content: "article" },
-        { name: "twitter:card", content: "summary_large_image" },
-      ],
-    };
+    return publicMeta(item.name + " | " + item.kicker + " | השביל הזה", item.intro, "/experiences/" + item.slug, "article", galleries[item.slug]?.[0]?.src);
   },
   component: ExperiencePage,
 });
@@ -61,8 +53,8 @@ function ExperiencePage() {
             <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {facts.map((f) => (
                 <div key={f.label}>
-                  <dt className="text-[12px] uppercase tracking-wide text-ink/60">{f.label}</dt>
-                  <dd className="mt-0.5 text-[15px] font-medium">{f.value}</dd>
+                  <dt className="text-[0.75rem] uppercase tracking-wide text-ink/60">{f.label}</dt>
+                  <dd className="mt-0.5 text-[0.9375rem] font-medium">{f.value}</dd>
                 </div>
               ))}
             </dl>
@@ -75,7 +67,7 @@ function ExperiencePage() {
         <Insight text={item.surprise} />
         <ul className="mt-4 space-y-3">
           {item.details.map((d) => (
-            <li key={d} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
+            <li key={d} className="flex gap-3 text-[0.9375rem] leading-relaxed text-ink/75">
               <span className="font-bold text-saffron">·</span>
               {d}
             </li>
@@ -85,9 +77,9 @@ function ExperiencePage() {
 
       <Section title="משתלב טוב עם...">
         <Card>
-          <p className="text-[15px] leading-relaxed text-ink/75">{item.combine}</p>
+          <p className="text-[0.9375rem] leading-relaxed text-ink/75">{item.combine}</p>
           <p className="mt-4">
-            <Link to="/treks" className="text-[13.5px] font-semibold text-saffron">
+            <Link to="/treks" className="text-[0.84375rem] font-semibold text-saffron">
               לפרטי המסלולים ←
             </Link>
           </p>
@@ -97,7 +89,7 @@ function ExperiencePage() {
       {/* One primary action: the experience is already part of the request. */}
       <Section className="!pb-12">
         <Card className="text-center">
-          <p className="text-[13.5px] leading-relaxed text-ink/70">
+          <p className="text-[0.84375rem] leading-relaxed text-ink/70">
             הבקשה תכלול את החוויה הזו — לא נבקש לבחור אותה שוב.
           </p>
           <div className="mt-3">
@@ -112,7 +104,7 @@ function ExperiencePage() {
                   summary: `${item.name} — ${item.kicker}`,
                 })
               }
-              className="inline-block rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+              className="inline-block rounded-xl bg-saffron px-6 py-3.5 text-[0.9375rem] font-semibold text-parchment"
             >
               הבקשה כוללת: {item.name}
             </Link>

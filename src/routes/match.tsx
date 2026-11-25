@@ -1,3 +1,4 @@
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
@@ -17,21 +18,12 @@ import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/match")({
   component: MatchPage,
-  head: () => ({
-    meta: [
-      { title: "מה מתאים לי? — למצוא את השביל שלכם בנפאל | השביל הזה" },
-      {
-        name: "description",
-        content:
-          "כמה שאלות קצרות על זמן, קצב ומה שמעניין אתכם — ומהן כמה כיוונים מתוך הטרקים והחוויות שלנו, עם הסבר למה הם מתאימים.",
-      },
-      { property: "og:title", content: "מה מתאים לי? — למצוא את השביל שלכם בנפאל" },
-      {
-        property: "og:description",
-        content: "לא קטלוג. כמה שאלות, ואז כיוונים שמתאימים לימים ולקצב שלכם.",
-      },
-    ],
-  }),
+  head: () => publicMeta(
+    "מה מתאים לי? — למצוא את השביל שלכם בנפאל | השביל הזה",
+    "כמה שאלות קצרות על זמן, קצב ומה שמעניין אתכם — ומהן כמה כיוונים מתוך הטרקים והחוויות שלנו, עם הסבר למה הם מתאימים.",
+    "/match", "website", undefined,
+    { title: "מה מתאים לי? — למצוא את השביל שלכם בנפאל", description: "לא קטלוג. כמה שאלות, ואז כיוונים שמתאימים לימים ולקצב שלכם." },
+  ),
 });
 
 type StepId = "time" | "pace" | "interests" | "fitness" | "trekExperience";
@@ -139,11 +131,11 @@ function MatchPage() {
           />
           <Section size="wide" className="!pb-12">
             <Card>
-              <p className="text-[14px] leading-relaxed text-ink/70">{summary}</p>
+              <p className="text-[0.875rem] leading-relaxed text-ink/70">{summary}</p>
               <button
                 type="button"
                 onClick={toQuote}
-                className="mt-4 rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+                className="mt-4 rounded-xl bg-saffron px-6 py-3.5 text-[0.9375rem] font-semibold text-parchment"
               >
                 להעביר את זה אלינו
               </button>
@@ -163,7 +155,7 @@ function MatchPage() {
         />
 
         <Section size="wide" className="!pt-4">
-          <p className="text-[13.5px] leading-relaxed text-ink/70">{summary}</p>
+          <p className="text-[0.84375rem] leading-relaxed text-ink/70">{summary}</p>
         </Section>
 
         <Section size="wide" className="!pt-3 !pb-4">
@@ -179,24 +171,24 @@ function MatchPage() {
                   }`}
                 >
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-saffron/12 px-2.5 py-1 text-[11px] font-semibold text-saffron">
+                    <span className="rounded-full bg-saffron/12 px-2.5 py-1 text-[0.6875rem] font-semibold text-saffron">
                       {r.item.kind === "trek" ? "טרק" : "חוויה"}
                     </span>
                     {i === 0 && (
-                      <span className="text-[11px] font-semibold text-ink/60">
+                      <span className="text-[0.6875rem] font-semibold text-ink/60">
                         ההתאמה הגבוהה ביותר
                       </span>
                     )}
                   </div>
-                  <p className="mt-2 font-display text-[19px] font-bold">{r.item.name}</p>
-                  <p className="mt-0.5 text-[12.5px] text-ink/60">{r.item.meta}</p>
-                  <p className="mt-2 text-[14px] leading-relaxed text-ink/70">{r.item.teaser}</p>
+                  <p className="mt-2 font-display text-[1.1875rem] font-bold">{r.item.name}</p>
+                  <p className="mt-0.5 text-[0.78125rem] text-ink/60">{r.item.meta}</p>
+                  <p className="mt-2 text-[0.875rem] leading-relaxed text-ink/70">{r.item.teaser}</p>
                   {r.reasons.length > 0 && (
                     <ul className="mt-2.5 space-y-1.5">
                       {r.reasons.map((reason) => (
                         <li
                           key={reason}
-                          className="flex gap-2 text-[13px] leading-relaxed text-ink/65"
+                          className="flex gap-2 text-[0.8125rem] leading-relaxed text-ink/65"
                         >
                           <span className="font-bold text-saffron">·</span>
                           {reason}
@@ -213,7 +205,7 @@ function MatchPage() {
                           cur.includes(key) ? cur.filter((k) => k !== key) : [...cur, key],
                         )
                       }
-                      className={`rounded-xl px-4 py-2.5 text-[13.5px] font-semibold ring-1 transition-colors ${
+                      className={`rounded-xl px-4 py-2.5 text-[0.84375rem] font-semibold ring-1 transition-colors ${
                         on
                           ? "bg-saffron text-parchment ring-saffron"
                           : "bg-parchment text-ink/80 ring-ink/10"
@@ -224,7 +216,7 @@ function MatchPage() {
                     <Link
                       to={r.item.kind === "trek" ? "/treks/$slug" : "/experiences/$slug"}
                       params={{ slug: r.item.slug }}
-                      className="text-[13px] font-semibold text-saffron"
+                      className="text-[0.8125rem] font-semibold text-saffron"
                     >
                       פרטים ←
                     </Link>
@@ -240,11 +232,11 @@ function MatchPage() {
             type="button"
             onClick={toQuote}
             disabled={picked.length === 0}
-            className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-45"
+            className="rounded-xl bg-saffron px-6 py-3.5 text-[0.9375rem] font-semibold text-parchment disabled:opacity-45"
           >
             {picked.length > 1 ? "לקבלת הצעה לכיוונים שבחרתי" : "לקבלת הצעה לכיוון שבחרתי"}
           </button>
-          <p className="mt-2.5 text-[13px] text-ink/65">
+          <p className="mt-2.5 text-[0.8125rem] text-ink/65">
             {picked.length === 0
               ? "בחרו לפחות כיוון אחד כדי להמשיך."
               : "השאר יעבור אלינו כרקע, לא כבקשה."}
@@ -276,7 +268,7 @@ function MatchPage() {
       />
 
       <Section size="wide" className="!pt-4 !pb-12">
-        <p className="text-[12.5px] font-medium tracking-wide text-ink/60 sm:text-[14px]">
+        <p className="text-[0.78125rem] font-medium tracking-wide text-ink/60 sm:text-[0.875rem]">
           שאלה {Math.min(step + 1, total)} מתוך {total}
         </p>
         <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-ink/10">
@@ -286,8 +278,8 @@ function MatchPage() {
           />
         </div>
 
-        <div className="mt-5 flex min-h-[320px] flex-col justify-center sm:mt-7 sm:min-h-[300px] sm:rounded-2xl sm:bg-parchment/70 sm:p-10 sm:ring-1 sm:ring-ink/8 lg:min-h-[340px] lg:p-12">
-          <h2 className="font-display text-[21px] leading-snug font-bold sm:text-[32px]">
+        <div className="mt-5 flex min-h-[20rem] flex-col justify-center sm:mt-7 sm:min-h-[18.75rem] sm:rounded-2xl sm:bg-parchment/70 sm:p-10 sm:ring-1 sm:ring-ink/8 lg:min-h-[21.25rem] lg:p-12">
+          <h2 className="font-display text-[1.3125rem] leading-snug font-bold sm:text-[2rem]">
             {LABELS[current]}
           </h2>
 
@@ -303,7 +295,7 @@ function MatchPage() {
                   onClick={() =>
                     current === "interests" ? toggleInterest(opt) : setSingle(current, opt)
                   }
-                  className={`rounded-xl px-4 py-3 text-[14.5px] font-medium ring-1 transition-colors sm:px-5 sm:py-4 sm:text-[16px] ${
+                  className={`rounded-xl px-4 py-3 text-[0.90625rem] font-medium ring-1 transition-colors sm:px-5 sm:py-4 sm:text-[1rem] ${
                     on
                       ? "bg-saffron text-parchment ring-saffron"
                       : "bg-parchment text-ink/80 ring-ink/10"
@@ -321,7 +313,7 @@ function MatchPage() {
               <button
                 type="button"
                 onClick={() => setStep((s) => Math.max(0, s - 1))}
-                className="text-[13.5px] font-medium text-ink/55"
+                className="text-[0.84375rem] font-medium text-ink/55"
               >
                 ← חזרה
               </button>
@@ -331,7 +323,7 @@ function MatchPage() {
                 type="button"
                 onClick={next}
                 disabled={!answered}
-                className="rounded-xl bg-saffron px-5 py-3 text-[14.5px] font-semibold text-parchment disabled:opacity-45"
+                className="rounded-xl bg-saffron px-5 py-3 text-[0.90625rem] font-semibold text-parchment disabled:opacity-45"
               >
                 להמשיך
               </button>

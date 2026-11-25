@@ -1,5 +1,5 @@
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { PUBLIC_ORIGIN } from "@/lib/public-meta";
 import { useEffect, useState } from "react";
 
 import { Accordion, Card, PageHero, Section, WhatsappButton } from "@/components/page";
@@ -29,26 +29,17 @@ export const Route = createFileRoute("/quote")({
     experience: str(search["experience"]),
     source: str(search["source"]),
   }),
-  head: () => ({
-    links: [{ rel: "canonical", href: PUBLIC_ORIGIN + "/quote" }],
-    meta: [
-      { title: "בקשת הצעה לטיול בנפאל | השביל הזה" },
-      {
-        name: "description",
-        content:
-          "בוחרים את המסלולים והחוויות שמעניינים אתכם, משאירים כמה פרטים קצרים — ומתחילים לבנות הצעה לטיול בנפאל.",
-      },
-      { property: "og:title", content: "בקשת הצעה לטיול בנפאל" },
-      { property: "og:description", content: "טופס קצר. נחזור אליכם עם כיוון והצעה." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => publicMeta(
+    "בקשת הצעה לטיול בנפאל | השביל הזה",
+    "בוחרים את המסלולים והחוויות שמעניינים אתכם, משאירים כמה פרטים קצרים — ומתחילים לבנות הצעה לטיול בנפאל.",
+    "/quote", "website", undefined,
+    { title: "בקשת הצעה לטיול בנפאל", description: "טופס קצר. נחזור אליכם עם כיוון והצעה." },
+  ),
 });
 
 const field =
-  "mt-1.5 w-full rounded-xl bg-parchment px-4 py-3 text-[15px] text-ink ring-1 ring-ink/10 outline-none placeholder:text-ink/35 focus:ring-2 focus:ring-saffron/60";
-const label = "text-[13px] font-medium text-ink/65";
+  "mt-1.5 w-full rounded-xl bg-parchment px-4 py-3 text-[0.9375rem] text-ink ring-1 ring-ink/10 outline-none placeholder:text-ink/35 focus:ring-2 focus:ring-saffron/60";
+const label = "text-[0.8125rem] font-medium text-ink/65";
 
 const SOURCE_INTRO: Record<string, { kicker: string; title: string; lead: string }> = {
   match: {
@@ -206,19 +197,19 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
         />
         <Section size="wide" className="!pb-12">
           <Card>
-            <p className="text-[15px] leading-relaxed text-ink/75">
+            <p className="text-[0.9375rem] leading-relaxed text-ink/75">
               עד שנחזור אליכם אפשר להסתובב עוד קצת: יש עמוד נפרד לכל מסלול, ומרכז ידע על נפאל.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
                 to="/treks"
-                className="rounded-xl bg-saffron px-5 py-3 text-[14px] font-semibold text-parchment"
+                className="rounded-xl bg-saffron px-5 py-3 text-[0.875rem] font-semibold text-parchment"
               >
                 טרקים ומסלולים
               </Link>
               <Link
                 to="/knowledge"
-                className="rounded-xl bg-parchment px-5 py-3 text-[14px] font-medium text-ink ring-1 ring-ink/10"
+                className="rounded-xl bg-parchment px-5 py-3 text-[0.875rem] font-medium text-ink ring-1 ring-ink/10"
               >
                 מרכז ידע
               </Link>
@@ -238,7 +229,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
       {selected.length > 0 && (
         <Section size="wide" className="!pb-2">
           <Card>
-            <p className="text-[12px] font-semibold tracking-wide text-saffron">
+            <p className="text-[0.75rem] font-semibold tracking-wide text-saffron">
               {SELECTED_LABEL[source] ?? SELECTED_LABEL["direct-selection"]}
             </p>
             {isPicker ? (
@@ -249,7 +240,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
                       type="button"
                       onClick={() => toggle(s)}
                       aria-label={`להסיר את ${s.name}`}
-                      className="rounded-xl bg-saffron px-4 py-2.5 text-[13.5px] font-semibold text-parchment"
+                      className="rounded-xl bg-saffron px-4 py-2.5 text-[0.84375rem] font-semibold text-parchment"
                     >
                       {s.name}
                       <span className="ms-2 opacity-70">✕</span>
@@ -258,15 +249,15 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
                 ))}
               </ul>
             ) : (
-              <p className="mt-1 font-display text-[18px] leading-snug font-bold">
+              <p className="mt-1 font-display text-[1.125rem] leading-snug font-bold">
                 {selected.map((s) => s.name).join(" · ")}
               </p>
             )}
             {context?.summary && (
-              <p className="mt-3 text-[13.5px] leading-relaxed text-ink/70">{context.summary}</p>
+              <p className="mt-3 text-[0.84375rem] leading-relaxed text-ink/70">{context.summary}</p>
             )}
             {context?.considered?.length ? (
-              <p className="mt-2 text-[13px] leading-relaxed text-ink/60">
+              <p className="mt-2 text-[0.8125rem] leading-relaxed text-ink/60">
                 נעביר גם כרקע: {context.considered.join(" · ")}
               </p>
             ) : null}
@@ -277,12 +268,12 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
       {/* Direct selection happens here — no separate route, no cart. */}
       {isPicker && (
         <Section size="wide" title="מה מעניין אתכם?" className="!pb-2">
-          <p className="text-[13.5px] leading-relaxed text-ink/70">
+          <p className="text-[0.84375rem] leading-relaxed text-ink/70">
             אפשר לבחור כמה מסלולים וחוויות יחד.
           </p>
           <div className="mt-4 space-y-4">
             <div>
-              <p className="text-[12px] font-semibold tracking-wide text-saffron">טרקים</p>
+              <p className="text-[0.75rem] font-semibold tracking-wide text-saffron">טרקים</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {trekItems.map((t) => {
                   const on = has("trek", t.slug);
@@ -292,7 +283,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
                       type="button"
                       aria-pressed={on}
                       onClick={() => toggle({ kind: "trek", slug: t.slug, name: t.name })}
-                      className={`rounded-xl px-4 py-2.5 text-[14px] font-medium ring-1 transition-colors ${
+                      className={`rounded-xl px-4 py-2.5 text-[0.875rem] font-medium ring-1 transition-colors ${
                         on
                           ? "bg-saffron text-parchment ring-saffron"
                           : "bg-parchment text-ink/80 ring-ink/10"
@@ -306,7 +297,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
               </div>
             </div>
             <div>
-              <p className="text-[12px] font-semibold tracking-wide text-saffron">חוויות</p>
+              <p className="text-[0.75rem] font-semibold tracking-wide text-saffron">חוויות</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {experienceItems.map((x) => {
                   const on = has("experience", x.slug);
@@ -316,7 +307,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
                       type="button"
                       aria-pressed={on}
                       onClick={() => toggle({ kind: "experience", slug: x.slug, name: x.name })}
-                      className={`rounded-xl px-4 py-2.5 text-[14px] font-medium ring-1 transition-colors ${
+                      className={`rounded-xl px-4 py-2.5 text-[0.875rem] font-medium ring-1 transition-colors ${
                         on
                           ? "bg-saffron text-parchment ring-saffron"
                           : "bg-parchment text-ink/80 ring-ink/10"
@@ -365,16 +356,18 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className={label} htmlFor="name">
-                שם
+                שם (חובה)
               </label>
-              <input id="name" required value={form.name} onChange={set("name")} className={field} />
+              <input id="name" autoComplete="name" required value={form.name} onChange={set("name")} className={field} />
             </div>
             <div>
               <label className={label} htmlFor="phone">
-                טלפון
+                טלפון (חובה)
               </label>
               <input
                 id="phone"
+                type="tel"
+                autoComplete="tel"
                 required
                 inputMode="tel"
                 value={form.phone}
@@ -410,6 +403,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
                       </label>
                       <input
                         id="email"
+                        autoComplete="email"
                         type="email"
                         inputMode="email"
                         value={form.email}
@@ -426,17 +420,19 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
           <div className="pt-1">
             <button
               type="submit"
+              aria-describedby="quote-privacy"
               disabled={state === "sending"}
-              className="w-full rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment disabled:opacity-50 sm:w-auto"
+              className="w-full rounded-xl bg-saffron px-6 py-3.5 text-[0.9375rem] font-semibold text-parchment disabled:opacity-50 sm:w-auto"
             >
               {state === "sending" ? "שולח…" : "שלחו בקשה להצעה"}
             </button>
           </div>
 
+          <p id="quote-privacy" className="p-muted text-sm">הפרטים ובחירות המסלול יגיעו לאוהד כדי שיוכל לחזור אליכם עם הצעה. <Link to="/privacy" className="p-link">איך אנחנו משתמשים בפרטים</Link></p>
           {/* WhatsApp appears only as a technical fallback when sending fails. */}
           {state === "manual" && (
             <Card>
-              <p className="text-[14px] leading-relaxed text-ink/75">
+              <p className="text-[0.875rem] leading-relaxed text-ink/75">
                 הטופס מוכן, אבל חסרה כאן כתובת השליחה של מנגנון הלידים — לכן הבקשה עדיין לא נשלחת
                 אוטומטית. בינתיים אפשר לשלוח את אותם פרטים בוואטסאפ.
               </p>
@@ -448,7 +444,7 @@ ${form.note ? `הערה: ${form.note}` : ""}${context?.summary ? `\nמה שענ�
 
           {state === "failed" && (
             <Card>
-              <p className="text-[14px] leading-relaxed text-ink/75">
+              <p className="text-[0.875rem] leading-relaxed text-ink/75">
                 השליחה לא עברה. אפשר לנסות שוב, או לשלוח לנו את הפרטים בוואטסאפ.
               </p>
               <div className="mt-3">

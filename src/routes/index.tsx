@@ -90,14 +90,14 @@ function Home() {
       </section>
 
       {/* CATEGORIES */}
-      <section id="nepal" className="pb-12 md:pb-20" style={{ scrollMarginTop: 16 }}>
+      <section id="nepal" className="pb-12 md:pb-20" style={{ scrollMarginTop: "5.25rem" }}>
         <div className="p-wrap">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="p-kicker">טרקים, תרבות, כפרים וזמן מול האגם</p>
               <h2 className="p-h2 mt-2">יש הרבה דרכים לחוות את נפאל</h2>
             </div>
-            <p className="p-muted max-w-[36ch] text-[16px]">
+            <p className="p-muted max-w-[36ch] text-[1rem]">
               נכיר את האפשרויות ונבחר מה מתאים. אפשר גם לשלב כמה כיוונים בטיול אחד.
             </p>
           </div>
@@ -107,8 +107,8 @@ function Home() {
                 <img src={mountains.src} alt={mountains.alt} loading="lazy" />
                 <span className="p-cat-shade" />
                 <span className="p-cat-body">
-                  <span className="p-h3 block text-[26px]">ללכת אל ההרים</span>
-                  <span className="mt-1 block text-[15px]">
+                  <span className="p-h3 block text-[1.625rem]">ללכת אל ההרים</span>
+                  <span className="mt-1 block text-[0.9375rem]">
                     הליכות קצרות וטרקים בהימלאיה · לדוגמה: סובב מנסלו
                   </span>
                 </span>
@@ -119,8 +119,8 @@ function Home() {
                 <img src={alley.src} alt={alley.alt} loading="lazy" />
                 <span className="p-cat-shade" />
                 <span className="p-cat-body">
-                  <span className="p-h3 block text-[26px]">להכיר מקרוב</span>
-                  <span className="mt-1 block text-[15px]">סמטאות, מקדשים וכפרים</span>
+                  <span className="p-h3 block text-[1.625rem]">להכיר מקרוב</span>
+                  <span className="mt-1 block text-[0.9375rem]">סמטאות, מקדשים וכפרים</span>
                 </span>
               </Link>
             )}
@@ -129,8 +129,8 @@ function Home() {
                 <img src={lake.src} alt={lake.alt} loading="lazy" />
                 <span className="p-cat-shade" />
                 <span className="p-cat-body">
-                  <span className="p-h3 block text-[26px]">לקחת את הזמן</span>
-                  <span className="mt-1 block text-[15px]">אגם, נוף הרים וקצב רגוע</span>
+                  <span className="p-h3 block text-[1.625rem]">לקחת את הזמן</span>
+                  <span className="mt-1 block text-[0.9375rem]">אגם, נוף הרים וקצב רגוע</span>
                 </span>
               </Link>
             )}
@@ -173,10 +173,10 @@ function Home() {
           ))}
         </div>
       </section>
-      <section id="about" className="p-mist" style={{ scrollMarginTop: 16 }}>
+      <section id="about" className="p-mist" style={{ scrollMarginTop: "5.25rem" }}>
         <div className="grid md:grid-cols-[1.1fr_1fr]">
           <div className="px-5 py-12 md:px-16 md:py-20">
-            <div className="max-w-[560px]">
+            <div className="max-w-[35rem]">
               <p className="p-kicker">נעים להכיר, אני אוהד</p>
               <h2 className="p-h2 mt-3">
                 איתי מתכננים.
@@ -195,14 +195,14 @@ function Home() {
               </div>
               <dl className="p-rule m-0 mt-8 grid gap-6 pt-6 sm:grid-cols-2">
                 <div>
-                  <dt className="p-kicker text-[13px]">אוהד הרץ</dt>
+                  <dt className="p-kicker text-[0.8125rem]">אוהד הרץ</dt>
                   <dd className="m-0 mt-1 font-semibold">תכנון וקשר אישי</dd>
-                  <dd className="m-0 p-muted text-[15px]">היכרות, הכנה ותיאום מול החברה המקומית</dd>
+                  <dd className="m-0 p-muted text-[0.9375rem]">היכרות, הכנה ותיאום מול החברה המקומית</dd>
                 </div>
                 <div>
-                  <dt className="p-kicker text-[13px]">סוכנות שלום בנפאל</dt>
+                  <dt className="p-kicker text-[0.8125rem]">סוכנות שלום בנפאל</dt>
                   <dd className="m-0 mt-1 font-semibold">ארגון וביצוע בשטח</dd>
-                  <dd className="m-0 p-muted text-[15px]">הלינות, הנסיעות והשירותים שסוכמו</dd>
+                  <dd className="m-0 p-muted text-[0.9375rem]">הלינות, הנסיעות והשירותים שסוכמו</dd>
                 </div>
               </dl>
               <Link
@@ -214,7 +214,7 @@ function Home() {
               </Link>
             </div>
           </div>
-          <div className="relative min-h-[420px]">
+          <div className="relative min-h-[26.25rem]">
             <img
               src={ohadPhotoAsset.url}
               alt="אוהד בהפסקת קפה בשביל בנפאל, מחזיק שקית קפה"
@@ -227,34 +227,34 @@ function Home() {
       </section>
 
       {/* PROCESS */}
-      <section id="process" className="p-section" style={{ scrollMarginTop: 16 }}>
+      <section id="process" className="p-section" style={{ scrollMarginTop: "5.25rem" }}>
         <div className="p-wrap">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="p-kicker">מהשיחה הראשונה ועד החזרה</p>
               <h2 className="p-h2 mt-2">מה מקבלים לאורך הדרך?</h2>
             </div>
-            <p className="p-muted max-w-[34ch] text-[16px]">
+            <p className="p-muted max-w-[34ch] text-[1rem]">
               תכנון אישי, הכנה לנסיעה וקשר שממשיך גם במהלך הטיול.
             </p>
           </div>
           <ol className="mt-10 grid list-none gap-8 p-0 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map(([t, d], i) => (
               <li key={t} className="p-rule pt-5">
-                <span className="text-[14px] font-semibold" style={{ color: "var(--p-cta)" }}>
+                <span className="text-[0.875rem] font-semibold" style={{ color: "var(--p-cta)" }}>
                   0{i + 1}
                 </span>
                 <h3 className="p-h3 mt-2">{t}</h3>
-                <p className="p-muted mt-2 text-[16px]">{d}</p>
+                <p className="p-muted mt-2 text-[1rem]">{d}</p>
               </li>
             ))}
           </ol>
           <div
-            className="p-mist mt-10 grid gap-3 rounded-[6px] p-6 md:grid-cols-[auto_1fr] md:gap-10"
+            className="p-mist mt-10 grid gap-3 rounded-[0.375rem] p-6 md:grid-cols-[auto_1fr] md:gap-10"
             style={{ borderInlineStart: "3px solid var(--p-accent)" }}
           >
             <p className="m-0 font-semibold">איך זה נראה בתכנון עצמו?</p>
-            <p className="m-0 p-muted text-[16px]">
+            <p className="m-0 p-muted text-[1rem]">
               אם בקבוצה יש העדפות שונות, נברר מי רוצה ללכת יותר ומי מעדיף זמן רגוע, כמה זמן להקדיש
               לכל מקום ואיך להכין את המעברים. את הבחירות האלה נתרגם לתוכנית ונתאם מול החברה המקומית.
             </p>
@@ -282,14 +282,14 @@ function Home() {
                 </p>
                 <p>זה כיוון שאפשר לפתח יחד. את משך הטיול, ההליכות והסדר נתאים לעונה, לזמן ולכם.</p>
               </div>
-              <p className="p-rule mt-6 pt-4 text-[15px]">קטמנדו ← כפרים ושבילים ← פוקרה</p>
+              <p className="p-rule mt-6 pt-4 text-[0.9375rem]">קטמנדו ← כפרים ושבילים ← פוקרה</p>
             </div>
             <div className="relative">
               <img
                 src={village.src}
                 alt={village.alt}
                 loading="lazy"
-                className="aspect-[4/3] w-full rounded-[6px] object-cover"
+                className="aspect-[4/3] w-full rounded-[0.375rem] object-cover"
               />
             </div>
           </div>
@@ -355,13 +355,13 @@ function Home() {
           ))}
         </div>
       </section>
-      <section id="faq" className="p-section p-rule" style={{ scrollMarginTop: 16 }}>
+      <section id="faq" className="p-section p-rule" style={{ scrollMarginTop: "5.25rem" }}>
         <div className="p-wrap grid gap-8 md:grid-cols-[1fr_1.6fr] md:gap-16">
           <div>
             <p className="p-kicker">לפני שמתחילים</p>
             <h2 className="p-h2 mt-3">מה חשוב לכם לדעת על הטיול?</h2>
             {wa && (
-              <p className="p-muted mt-4 text-[16px]">
+              <p className="p-muted mt-4 text-[1rem]">
                 יש שאלה נוספת?{" "}
                 <a
                   href={wa}

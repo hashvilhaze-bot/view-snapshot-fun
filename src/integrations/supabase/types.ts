@@ -14,6 +14,18 @@ export type Database = {
   }
   public: {
     Tables: {
+      trek_published: {
+        Row: { slug: string; revision: number; content: Json }
+        Insert: never
+        Update: never
+        Relationships: []
+      }
+      trek_revisions: {
+        Row: { slug: string; revision: number; content: Json; published: boolean; created_at: string; edited_by: string }
+        Insert: never
+        Update: never
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -58,7 +70,11 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      can_edit_treks: { Args: Record<PropertyKey, never>; Returns: boolean }
+      write_trek_revision: {
+        Args: { trek_slug: string; expected_revision: number; page_content: Json; publish_now: boolean }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never

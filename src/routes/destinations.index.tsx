@@ -1,3 +1,4 @@
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import valleyGolden from "@/assets/valley-golden.jpg";
@@ -6,23 +7,12 @@ import { destinations } from "@/lib/destinations";
 
 export const Route = createFileRoute("/destinations/")({
   component: DestinationsPage,
-  head: () => ({
-    meta: [
-      { title: "יעדים — נפאל, בהוטן וטיבט | השביל הזה" },
-      {
-        name: "description",
-        content:
-          "נפאל, בהוטן וטיבט נמצאות באותו אזור של העולם ומציעות חוויות שונות מאוד. אפשר להתחיל מיעד, ואפשר להתחיל מסוג החוויה שמחפשים.",
-      },
-      { property: "og:title", content: "לאן השביל יכול לקחת אתכם?" },
-      {
-        property: "og:description",
-        content: "שלושה עולמות שונים באותו אזור של ההימלאיה — ודרך אחת למצוא את שלכם.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => publicMeta(
+    "יעדים — נפאל, בהוטן וטיבט | השביל הזה",
+    "נפאל, בהוטן וטיבט נמצאות באותו אזור של העולם ומציעות חוויות שונות מאוד. אפשר להתחיל מיעד, ואפשר להתחיל מסוג החוויה שמחפשים.",
+    "/destinations", "website", valleyGolden,
+    { title: "לאן השביל יכול לקחת אתכם?", description: "שלושה עולמות שונים באותו אזור של ההימלאיה — ודרך אחת למצוא את שלכם." },
+  ),
 });
 
 /** Country choice only: hero + country cards. The cards are the action. */
@@ -52,16 +42,16 @@ function DestinationsPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <h2 className="font-display text-xl font-bold">{d.name}</h2>
                     {d.status === "opening" && (
-                      <span className="rounded-full bg-mist/20 px-2.5 py-1 text-[11px] font-semibold text-ink/60">
+                      <span className="rounded-full bg-mist/20 px-2.5 py-1 text-[0.6875rem] font-semibold text-ink/60">
                         נפתח בקרוב
                       </span>
                     )}
                   </div>
-                  <p className="mt-1 text-[13px] text-ink/55">{d.character}</p>
-                  <p className="mt-3 text-[14px] leading-relaxed text-ink/75">{d.blurb}</p>
+                  <p className="mt-1 text-[0.8125rem] text-ink/55">{d.character}</p>
+                  <p className="mt-3 text-[0.875rem] leading-relaxed text-ink/75">{d.blurb}</p>
                   <Link
                     to={d.to}
-                    className="mt-4 inline-block text-[14px] font-semibold text-saffron"
+                    className="mt-4 inline-block text-[0.875rem] font-semibold text-saffron"
                   >
                     {d.cta} ←
                   </Link>

@@ -1,3 +1,4 @@
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
@@ -7,23 +8,12 @@ import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/treks/compare")({
   component: ComparePage,
-  head: () => ({
-    meta: [
-      { title: "השוואת טרקים בנפאל — משך, גובה ומאמץ | השביל הזה" },
-      {
-        name: "description",
-        content:
-          "בוחרים שני מסלולים או שלושה ורואים אותם זה מול זה: משך, גובה מקסימלי, ימים בנפאל, רמת מאמץ ולמי המסלול מתאים.",
-      },
-      { property: "og:title", content: "השוואת טרקים בנפאל" },
-      {
-        property: "og:description",
-        content: "מסלול מול מסלול — משך, גובה, ימים בנפאל ורמת מאמץ.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => publicMeta(
+    "השוואת טרקים בנפאל — משך, גובה ומאמץ | השביל הזה",
+    "בוחרים שני מסלולים או שלושה ורואים אותם זה מול זה: משך, גובה מקסימלי, ימים בנפאל, רמת מאמץ ולמי המסלול מתאים.",
+    "/treks/compare", "website", undefined,
+    { title: "השוואת טרקים בנפאל", description: "מסלול מול מסלול — משך, גובה, ימים בנפאל ורמת מאמץ." },
+  ),
 });
 
 /**
@@ -43,7 +33,7 @@ const ROWS: { label: string; render: (t: Trek) => React.ReactNode; has: (t: Trek
     render: (t) => (
       <span className="flex flex-wrap items-center gap-2">
         <EffortBars level={t.effort} />
-        <span className="text-[12.5px] text-ink/70">{t.effortLabel}</span>
+        <span className="text-[0.78125rem] text-ink/70">{t.effortLabel}</span>
       </span>
     ),
     has: (t) => Boolean(t.effort),
@@ -93,7 +83,7 @@ function ComparePage() {
                 type="button"
                 aria-pressed={on}
                 onClick={() => toggle(t.slug)}
-                className={`rounded-xl px-4 py-2.5 text-[13.5px] font-medium ring-1 transition-colors ${
+                className={`rounded-xl px-4 py-2.5 text-[0.84375rem] font-medium ring-1 transition-colors ${
                   on
                     ? "bg-saffron text-parchment ring-saffron"
                     : "bg-parchment text-ink/80 ring-ink/10"
@@ -106,14 +96,14 @@ function ComparePage() {
           })}
         </div>
         {picked.length >= 3 && (
-          <p className="mt-2 text-[12.5px] text-ink/65">אפשר להשוות עד שלושה מסלולים יחד.</p>
+          <p className="mt-2 text-[0.78125rem] text-ink/65">אפשר להשוות עד שלושה מסלולים יחד.</p>
         )}
       </Section>
 
       {chosen.length === 0 ? (
         <Section size="xwide" className="!pt-0 !pb-12">
           <Card>
-            <p className="text-[14px] leading-relaxed text-ink/75">
+            <p className="text-[0.875rem] leading-relaxed text-ink/75">
               בחרו מסלול או שניים כדי לראות אותם כאן זה מול זה.
             </p>
           </Card>
@@ -124,8 +114,8 @@ function ComparePage() {
           <div className="grid gap-3 sm:grid-cols-2 lg:hidden">
             {chosen.map((t) => (
               <Card key={t.slug} className="h-full">
-                <p className="font-display text-[17px] font-bold">{t.name}</p>
-                <dl className="mt-3 space-y-2 text-[13px] text-ink/75">
+                <p className="font-display text-[1.0625rem] font-bold">{t.name}</p>
+                <dl className="mt-3 space-y-2 text-[0.8125rem] text-ink/75">
                   {rows.map((r) => (
                     <div key={r.label} className="flex justify-between gap-3">
                       <dt className="shrink-0 text-ink/60">{r.label}</dt>
@@ -136,7 +126,7 @@ function ComparePage() {
                 <Link
                   to="/treks/$slug"
                   params={{ slug: t.slug }}
-                  className="mt-3 inline-block text-[13px] font-semibold text-saffron"
+                  className="mt-3 inline-block text-[0.8125rem] font-semibold text-saffron"
                 >
                   לעמוד המסלול ←
                 </Link>
@@ -146,18 +136,18 @@ function ComparePage() {
 
           {/* Desktop: a real side-by-side table. */}
           <div className="hidden overflow-hidden rounded-2xl border border-parchment/50 bg-parchment/85 ring-1 ring-ink/5 lg:block">
-            <table className="w-full border-collapse text-start text-[13.5px]">
+            <table className="w-full border-collapse text-start text-[0.84375rem]">
               <caption className="sr-only">השוואת נתוני המסלולים שנבחרו</caption>
               <thead>
                 <tr className="border-b border-ink/10">
-                  <th scope="col" className="w-40 px-4 py-3 text-start text-[12px] text-ink/60">
+                  <th scope="col" className="w-40 px-4 py-3 text-start text-[0.75rem] text-ink/60">
                     נתון
                   </th>
                   {chosen.map((t) => (
                     <th
                       key={t.slug}
                       scope="col"
-                      className="px-4 py-3 text-start font-display text-[16px] font-bold text-ink"
+                      className="px-4 py-3 text-start font-display text-[1rem] font-bold text-ink"
                     >
                       <Link to="/treks/$slug" params={{ slug: t.slug }} className="hover:underline">
                         {t.name}
@@ -171,7 +161,7 @@ function ComparePage() {
                   <tr key={r.label} className="border-b border-ink/8 last:border-0">
                     <th
                       scope="row"
-                      className="px-4 py-3 text-start align-top text-[12.5px] font-medium text-ink/60"
+                      className="px-4 py-3 text-start align-top text-[0.78125rem] font-medium text-ink/60"
                     >
                       {r.label}
                     </th>
@@ -193,7 +183,7 @@ function ComparePage() {
             <button
               type="button"
               onClick={toQuote}
-              className="rounded-xl bg-saffron px-6 py-3.5 text-[15px] font-semibold text-parchment"
+              className="rounded-xl bg-saffron px-6 py-3.5 text-[0.9375rem] font-semibold text-parchment"
             >
               {chosen.length > 1 ? "לקבלת הצעה למסלולים האלה" : "לקבלת הצעה למסלול הזה"}
             </button>

@@ -1,3 +1,5 @@
+import { coverForArticle } from "@/lib/article-cover";
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { Card, Insight, PageHero, Section } from "@/components/page";
@@ -14,12 +16,27 @@ export const Route = createFileRoute("/knowledge/$slug")({
       return { meta: [{ title: "לא נמצא" }, { name: "robots", content: "noindex" }] };
     }
     const { article } = loaderData;
+    const meta = publicMeta(
+      article.title + " | השביל הזה",
+      article.summary,
+      "/knowledge/" + article.slug,
+      "article",
+      coverForArticle(article.slug)?.src,
+    );
     return {
-      meta: [
-        { title: `${article.title} — נפאל | השביל הזה` },
-        { name: "description", content: article.summary },
-        { property: "og:title", content: article.title },
-        { property: "og:description", content: article.summary },
+      ...meta,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: article.title,
+            description: article.summary,
+            inLanguage: "he",
+            mainEntityOfPage: meta.links[0]!.href,
+          }).replace(/</g, "\\u003c"),
+        },
       ],
     };
   },
@@ -73,7 +90,7 @@ function ArticlePage() {
       <Section>
         <div className="space-y-4">
           {article.body.map((p) => (
-            <p key={p} className="text-[15px] leading-relaxed text-ink/75">
+            <p key={p} className="text-[0.9375rem] leading-relaxed text-ink/75">
               {p}
             </p>
           ))}
@@ -86,7 +103,7 @@ function ArticlePage() {
             <Link key={n.t} to={n.to}>
               <Card className="h-full p-4 transition-colors hover:border-saffron/40">
                 <p className="font-display font-bold">{n.t}</p>
-                <p className="mt-1 text-[13px] text-ink/60">{n.d}</p>
+                <p className="mt-1 text-[0.8125rem] text-ink/60">{n.d}</p>
               </Card>
             </Link>
           ))}
@@ -98,13 +115,12 @@ function ArticlePage() {
           {others.map((a) => (
             <Link key={a.slug} to="/knowledge/$slug" params={{ slug: a.slug }}>
               <Card className="h-full p-4">
-                <p className="font-display text-[15px] font-bold">{a.title}</p>
+                <p className="font-display text-[0.9375rem] font-bold">{a.title}</p>
               </Card>
             </Link>
           ))}
         </div>
       </Section>
-
     </>
   );
 }

@@ -1,21 +1,10 @@
+import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Accordion, Card, PageHero, QuickFacts, Section } from "@/components/page";
 import { articles, knowledgeCategories, type KnowledgeCategory } from "@/lib/content";
-import { galleries } from "@/lib/galleries";
-
-/** A photo from the site's own galleries that matches each guide's subject. */
-const articleCover: Record<string, [string, number]> = {
-  altitude: ["everest-base-camp", 2],
-  "when-to-go": ["poon-hill", 0],
-  "lodges-permits": ["annapurna-base-camp", 2],
-  "gear-money": ["pokhara", 2],
-  "choosing-trek": ["pokhara-hills", 0],
-  "manaslu-vs-annapurna": ["manaslu-circuit", 1],
-  "day-on-trail": ["villages", 2],
-  "culture-food": ["kathmandu", 2],
-};
+import { coverForArticle } from "@/lib/article-cover";
 
 function readMinutes(body: string[]) {
   const words = body.join(" ").split(/\s+/).filter(Boolean).length;
@@ -24,23 +13,12 @@ function readMinutes(body: string[]) {
 
 export const Route = createFileRoute("/knowledge/")({
   component: KnowledgePage,
-  head: () => ({
-    meta: [
-      { title: "מרכז ידע — נפאל, טרקים, תכנון ותרבות | השביל הזה" },
-      {
-        name: "description",
-        content:
-          "כל התוכן המקצועי במקום אחד: תשובות קצרות למתי נוסעים ואיך עובד הגובה, ולצידן מאמרים על בחירת טרק, יום בשביל, אוכל ותרבות בנפאל.",
-      },
-      { property: "og:title", content: "מרכז ידע — נפאל, טרקים, תכנון ותרבות" },
-      {
-        property: "og:description",
-        content: "תשובה פשוטה קודם, העמקה אחר כך. תוכן שאפשר לקרוא גם בלי לתכנן טיול.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => publicMeta(
+    "מרכז ידע — נפאל, טרקים, תכנון ותרבות | השביל הזה",
+    "כל התוכן המקצועי במקום אחד: תשובות קצרות למתי נוסעים ואיך עובד הגובה, ולצידן מאמרים על בחירת טרק, יום בשביל, אוכל ותרבות בנפאל.",
+    "/knowledge", "website", undefined,
+    { title: "מרכז ידע — נפאל, טרקים, תכנון ותרבות", description: "תשובה פשוטה קודם, העמקה אחר כך. תוכן שאפשר לקרוא גם בלי לתכנן טיול." },
+  ),
 });
 
 function KnowledgePage() {
@@ -76,7 +54,7 @@ function KnowledgePage() {
                 <Link
                   to="/knowledge/$slug"
                   params={{ slug: a.slug }}
-                  className="mt-2.5 inline-block text-[13px] font-semibold text-saffron"
+                  className="mt-2.5 inline-block text-[0.8125rem] font-semibold text-saffron"
                 >
                   לקריאת המדריך ←
                 </Link>
@@ -91,7 +69,7 @@ function KnowledgePage() {
           <button
             type="button"
             onClick={() => setActive("all")}
-            className={`rounded-full px-4 py-2 text-[13px] font-medium ring-1 ${
+            className={`rounded-full px-4 py-2 text-[0.8125rem] font-medium ring-1 ${
               active === "all"
                 ? "bg-saffron text-parchment ring-saffron"
                 : "bg-parchment/70 text-ink/75 ring-ink/10"
@@ -105,22 +83,21 @@ function KnowledgePage() {
               type="button"
               onClick={() => setActive(c)}
               disabled={n === 0}
-              className={`rounded-full px-4 py-2 text-[13px] font-medium ring-1 disabled:opacity-40 ${
+              className={`rounded-full px-4 py-2 text-[0.8125rem] font-medium ring-1 disabled:opacity-40 ${
                 active === c
                   ? "bg-saffron text-parchment ring-saffron"
                   : "bg-parchment/70 text-ink/75 ring-ink/10"
               }`}
             >
               {c}
-              {n > 0 && <span className="ms-1.5 text-[11px] opacity-60">{n}</span>}
+              {n > 0 && <span className="ms-1.5 text-[0.6875rem] opacity-60">{n}</span>}
             </button>
           ))}
         </div>
 
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {shown.map((a) => {
-            const ref = articleCover[a.slug];
-            const cover = ref ? galleries[ref[0]]?.[ref[1]] : undefined;
+            const cover = coverForArticle(a.slug);
             return (
               <Link key={a.slug} to="/knowledge/$slug" params={{ slug: a.slug }}>
                 <Card className="h-full overflow-hidden p-0 transition-colors hover:border-saffron/40">
@@ -135,14 +112,14 @@ function KnowledgePage() {
                     />
                   )}
                   <div className="p-4 sm:p-5">
-                    <p className="text-[11px] font-medium text-saffron">
+                    <p className="text-[0.6875rem] font-medium text-saffron">
                       {a.category} · {readMinutes(a.body)} דקות קריאה
                     </p>
-                    <p className="mt-1 font-display text-[16.5px] font-bold sm:text-lg">{a.title}</p>
-                    <p className="mt-1.5 text-[13.5px] leading-snug text-ink/75 sm:mt-2 sm:text-[14px] sm:leading-relaxed">
+                    <p className="mt-1 font-display text-[1.03125rem] font-bold sm:text-lg">{a.title}</p>
+                    <p className="mt-1.5 text-[0.84375rem] leading-snug text-ink/75 sm:mt-2 sm:text-[0.875rem] sm:leading-relaxed">
                       {a.summary}
                     </p>
-                    <span className="mt-3 inline-block text-[13px] font-semibold text-saffron">
+                    <span className="mt-3 inline-block text-[0.8125rem] font-semibold text-saffron">
                       לקריאת המדריך ←
                     </span>
                   </div>
@@ -153,7 +130,7 @@ function KnowledgePage() {
         </div>
 
         {shown.length === 0 && (
-          <p className="mt-5 text-[14px] text-ink/60">בנושא הזה עוד לא כתבנו מדריך.</p>
+          <p className="mt-5 text-[0.875rem] text-ink/60">בנושא הזה עוד לא כתבנו מדריך.</p>
         )}
       </Section>
     </>

@@ -51,6 +51,7 @@ export function SiteFooter({ trek }: { trek?: string }) {
                 </li>
               ))}
             </ul>
+            <Link to="/privacy" className="p-link">פרטיות ופרטי הפנייה</Link>
             <h2 className="p-h3 mt-5">שומרים על קשר</h2>
             <p className="mt-3">
               <a href={`tel:${CONTACT_PHONE.replace(/-/g, "")}`}>

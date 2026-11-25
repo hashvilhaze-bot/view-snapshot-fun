@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { ContactCtas } from "@/components/renewed/contact-ctas";
 import { treks } from "@/lib/content";
+import { journalArticles } from "@/lib/journal/catalog";
 import { galleries } from "@/lib/galleries";
 import { examples, faqSchema, trekFaq } from "@/lib/treks/itineraries";
 import { FaqList } from "@/components/renewed/faq";
@@ -44,6 +45,7 @@ export const Route = createFileRoute("/treks/$slug")({
 function TrekPage() {
   const { trek, example, faq } = Route.useLoaderData();
   const copy = trekCopy[trek.slug];
+  const reading = journalArticles.filter((a) => a.journal?.treks.includes(trek.slug));
   const photos = galleries[trek.slug] ?? [];
   const hero = photos[0];
   const facts: [string, string][] = [
@@ -225,6 +227,20 @@ function TrekPage() {
           <h2 className="p-h2">שאלות על {trek.name}</h2>
           <FaqList items={faq} />
         </div>
+        {reading.length > 0 && (
+          <aside className="p-wrap jr-trek-reading">
+            <h2 className="p-h3">לקריאה לפני הטרק</h2>
+            <ul>
+              {reading.map((a) => (
+                <li key={a.slug}>
+                  <Link to="/knowledge/$slug" params={{ slug: a.slug }}>
+                    {a.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )}
       </section>
 
       <section className="p-section">

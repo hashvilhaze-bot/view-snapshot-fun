@@ -1,4 +1,6 @@
 import { galleries } from "./galleries";
+import { journalArticles } from "./journal/catalog";
+import { journalPhotos } from "./journal/photos";
 
 /** A photo from the site's own galleries that matches each guide's subject. */
 const articleCover: Record<string, [string, number]> = {
@@ -13,6 +15,8 @@ const articleCover: Record<string, [string, number]> = {
 };
 
 export function coverForArticle(slug: string) {
+  const journal = journalArticles.find((a) => a.slug === slug)?.journal;
+  if (journal) return journalPhotos[journal.cover];
   const ref = articleCover[slug];
   return ref ? galleries[ref[0]]?.[ref[1]] : undefined;
 }

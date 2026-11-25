@@ -1,4 +1,5 @@
 import { createTrekCatalog } from "./treks/catalog";
+import { journalArticles, type JournalMeta } from "./journal/catalog";
 
 export type Trek = {
   slug: string;
@@ -146,6 +147,7 @@ export const knowledgeCategories = [
 export type KnowledgeCategory = (typeof knowledgeCategories)[number];
 
 export type Article = {
+  journal?: JournalMeta;
   slug: string;
   title: string;
   kicker: string;
@@ -160,6 +162,7 @@ export type Article = {
 };
 
 export const articles: Article[] = [
+  ...journalArticles,
   {
     slug: "altitude",
     title: "גובה והתאקלמות",

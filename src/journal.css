@@ -1,0 +1,208 @@
+.journal {
+  color: var(--p-ink);
+}
+.jr-intro {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 4.25rem);
+  padding-block: clamp(1.75rem, 4.6vw, 4.75rem);
+  align-items: center;
+}
+.jr-heading {
+  min-width: 0;
+}
+.jr-back,
+.jr-body a,
+.jr-trek-reading a {
+  color: var(--p-cta);
+  text-decoration: underline;
+  text-decoration-thickness: 0.065em;
+  text-underline-offset: 0.22em;
+}
+.jr-back {
+  display: inline-block;
+  font-size: 0.95rem;
+}
+.jr-meta {
+  margin-block: clamp(1.4rem, 2.8vw, 3.2rem) 0.65rem;
+  color: var(--p-muted);
+  font-size: 0.94rem;
+}
+.jr-heading h1 {
+  margin: 0;
+  font-size: clamp(2.25rem, 4.1vw, 4.25rem);
+  font-weight: 750;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.jr-deck {
+  max-width: 48ch;
+  margin-block-start: 1.1rem;
+  font-size: clamp(1.1rem, 1.5vw, 1.45rem);
+  line-height: 1.55;
+}
+.journal figure {
+  margin: 0;
+  min-width: 0;
+}
+.journal figure img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.55rem;
+  background: var(--p-line);
+}
+.jr-cover img {
+  aspect-ratio: 3/2;
+  height: auto;
+}
+.journal figcaption {
+  display: block;
+  font-size: 0.81rem;
+  color: var(--p-muted);
+  line-height: 1.55;
+  margin-block-start: 0.5rem;
+}
+.journal figcaption a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.jr-layout {
+  display: grid;
+  align-items: start;
+  gap: clamp(1.3rem, 4vw, 4.5rem);
+  padding-block: clamp(1.5rem, 3.5vw, 4rem) clamp(3rem, 6vw, 7rem);
+  border-block-start: 1px solid var(--p-line);
+}
+.jr-contents {
+  min-width: 0;
+}
+.jr-side {
+  display: none;
+}
+.jr-mobile {
+  border-block: 1px solid var(--p-line);
+}
+.jr-mobile summary {
+  padding-block: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.jr-contents ol {
+  list-style: decimal;
+  padding-inline-start: 1.55rem;
+}
+.jr-contents li {
+  padding-inline-start: 0.15rem;
+}
+.jr-contents li::marker {
+  color: var(--p-muted);
+  font-size: 0.82em;
+}
+.jr-contents li a {
+  display: block;
+  padding-block: 0.32rem;
+}
+.jr-contents li a:hover {
+  color: var(--p-cta);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.jr-mobile ol {
+  padding-block-end: 0.75rem;
+}
+.jr-body {
+  width: 100%;
+  min-width: 0;
+  max-width: 43rem;
+  font-size: clamp(1.06rem, 1.3vw, 1.23rem);
+  line-height: 1.75;
+  overflow-wrap: break-word;
+}
+.jr-body p + p {
+  margin-block-start: 0.9em;
+}
+.jr-body section {
+  margin-block-start: clamp(2.25rem, 4vw, 4rem);
+  scroll-margin-top: 6rem;
+}
+.jr-body h2 {
+  font-size: clamp(1.65rem, 2.5vw, 2.45rem);
+  line-height: 1.19;
+  margin-block-end: 0.6em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.jr-body h3,
+.jr-trek-reading h2 {
+  font-size: clamp(1.22rem, 1.6vw, 1.55rem);
+  line-height: 1.32;
+  font-weight: 600;
+}
+.jr-body h3 {
+  margin-block: 1.45em 0.4em;
+}
+.jr-body strong {
+  font-weight: 600;
+}
+.jr-body .jr-photo {
+  margin-block: 1.6rem 0.5rem;
+}
+.jr-photo img {
+  aspect-ratio: 3/2;
+  height: auto;
+}
+.jr-next,
+.jr-trek-reading {
+  margin-block-start: clamp(2rem, 4.5vw, 5rem);
+  border-block-start: 1px solid var(--p-line);
+  padding-block-start: 1.5rem;
+}
+.jr-next ul,
+.jr-trek-reading ul {
+  display: grid;
+  gap: 0.45em;
+}
+.jr-trek-reading ul {
+  margin-block-start: 0.75rem;
+}
+@media (min-width: 56rem) {
+  .jr-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
+  }
+  .jr-layout {
+    grid-template-columns: minmax(13rem, 18rem) minmax(0, 43rem);
+    justify-content: center;
+  }
+  .jr-contents {
+    position: sticky;
+    top: 6rem;
+  }
+  .jr-side {
+    display: block;
+    padding-inline-end: 1rem;
+    border-inline-end: 1px solid var(--p-line);
+    max-height: calc(100dvh - 7rem);
+    overflow-y: auto;
+  }
+  .jr-side p {
+    font-weight: 600;
+    margin-block-end: 0.6rem;
+  }
+  .jr-mobile {
+    display: none;
+  }
+}
+@media print {
+  .jr-contents,
+  .jr-back,
+  .jr-next {
+    display: none;
+  }
+  .jr-intro,
+  .jr-layout {
+    display: block;
+  }
+  .jr-body {
+    max-width: none;
+  }
+}

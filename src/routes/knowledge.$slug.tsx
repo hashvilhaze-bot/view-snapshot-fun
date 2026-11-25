@@ -4,12 +4,16 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { Card, Insight, PageHero, Section } from "@/components/page";
 import { articles } from "@/lib/content";
+import { loadJournal } from "@/lib/journal/load";
+import { JournalArticle } from "@/components/journal-article";
 
 export const Route = createFileRoute("/knowledge/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const article = articles.find((a) => a.slug === params.slug);
     if (!article) throw notFound();
-    return { article };
+    const body = article.journal ? await loadJournal(article.slug) : undefined;
+    if (article.journal && !body) throw notFound();
+    return { article, body };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -34,6 +38,9 @@ export const Route = createFileRoute("/knowledge/$slug")({
             headline: article.title,
             description: article.summary,
             inLanguage: "he",
+            articleSection: article.category,
+            image: meta.meta.find((tag) => "property" in tag && tag.property === "og:image")
+              ?.content,
             mainEntityOfPage: meta.links[0]!.href,
           }).replace(/</g, "\\u003c"),
         },
@@ -73,7 +80,9 @@ const defaultNext = [
 ];
 
 function ArticlePage() {
-  const { article } = Route.useLoaderData();
+  const { article, body } = Route.useLoaderData();
+  if (article.journal && body)
+    return <JournalArticle article={article} meta={article.journal} body={body} />;
   const others = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
   const next = nextSteps[article.slug] ?? defaultNext;
 

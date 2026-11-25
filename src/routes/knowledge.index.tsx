@@ -13,12 +13,18 @@ function readMinutes(body: string[]) {
 
 export const Route = createFileRoute("/knowledge/")({
   component: KnowledgePage,
-  head: () => publicMeta(
-    "מרכז ידע — נפאל, טרקים, תכנון ותרבות | השביל הזה",
-    "כל התוכן המקצועי במקום אחד: תשובות קצרות למתי נוסעים ואיך עובד הגובה, ולצידן מאמרים על בחירת טרק, יום בשביל, אוכל ותרבות בנפאל.",
-    "/knowledge", "website", undefined,
-    { title: "מרכז ידע — נפאל, טרקים, תכנון ותרבות", description: "תשובה פשוטה קודם, העמקה אחר כך. תוכן שאפשר לקרוא גם בלי לתכנן טיול." },
-  ),
+  head: () =>
+    publicMeta(
+      "מרכז ידע — נפאל, טרקים, תכנון ותרבות | השביל הזה",
+      "כל התוכן המקצועי במקום אחד: תשובות קצרות למתי נוסעים ואיך עובד הגובה, ולצידן מאמרים על בחירת טרק, יום בשביל, אוכל ותרבות בנפאל.",
+      "/knowledge",
+      "website",
+      undefined,
+      {
+        title: "מרכז ידע — נפאל, טרקים, תכנון ותרבות",
+        description: "תשובה פשוטה קודם, העמקה אחר כך. תוכן שאפשר לקרוא גם בלי לתכנן טיול.",
+      },
+    ),
 });
 
 function KnowledgePage() {
@@ -39,7 +45,11 @@ function KnowledgePage() {
         lead="תשובות קצרות לשאלות שחוזרות בכל שיחה ראשונה, ולצידן מדריכים מלאים למי שרוצה להעמיק — גם בלי לתכנן טיול עדיין."
       />
 
-      <Section kicker="נפאל בכמה רגעים" title="כרטיס הביקור של המדינה" className="!pt-4 !pb-3 sm:!pb-4">
+      <Section
+        kicker="נפאל בכמה רגעים"
+        title="כרטיס הביקור של המדינה"
+        className="!pt-4 !pb-3 sm:!pb-4"
+      >
         <QuickFacts />
       </Section>
 
@@ -113,14 +123,16 @@ function KnowledgePage() {
                   )}
                   <div className="p-4 sm:p-5">
                     <p className="text-[0.6875rem] font-medium text-saffron">
-                      {a.category} · {readMinutes(a.body)} דקות קריאה
+                      {a.category} · {a.journal?.minutes ?? readMinutes(a.body)} דקות קריאה
                     </p>
-                    <p className="mt-1 font-display text-[1.03125rem] font-bold sm:text-lg">{a.title}</p>
+                    <p className="mt-1 font-display text-[1.03125rem] font-bold sm:text-lg">
+                      {a.title}
+                    </p>
                     <p className="mt-1.5 text-[0.84375rem] leading-snug text-ink/75 sm:mt-2 sm:text-[0.875rem] sm:leading-relaxed">
                       {a.summary}
                     </p>
                     <span className="mt-3 inline-block text-[0.8125rem] font-semibold text-saffron">
-                      לקריאת המדריך ←
+                      {a.journal ? "לקריאת המאמר" : "לקריאת המדריך"} ←
                     </span>
                   </div>
                 </Card>

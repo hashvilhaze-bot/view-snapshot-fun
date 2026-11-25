@@ -85,6 +85,9 @@
 - פתוח: תוכן מקצועי אמיתי לבהוטן וטיבט; סיווג מאמרי מרכז ידע לפי יעד כשיהיה תוכן
 
 ## Pilot (stage 2)
+- [ ] Public renewal: promote approved home/chrome/design without changing lead delivery.
+- [ ] Canonical nine treks with factual itineraries, integrated extensions and old URL preservation.
+- [ ] Public metadata/canonicals/sitemap and desktop/mobile QA without real test submissions.
 - [x] Design pilot under /pilot, /pilot/treks/manaslu-circuit, /pilot/quote (noindex, simulated form, Pompei fonts)
 - [x] Pilot only: shared footer, four extra photos, replaying GSAP, RTL text alignment.
 - [x] Eight trek examples with sourced daily stages, local editor and single-source FAQ schema.

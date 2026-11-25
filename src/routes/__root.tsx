@@ -16,6 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { DEFAULT_LOCALE, documentAttrs } from "@/lib/i18n";
+import { useSiteMotion } from "@/components/renewed/site-motion";
 
 function NotFoundComponent() {
   return (
@@ -127,10 +128,12 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   // The /pilot design preview renders its own chrome.
   const isPilot = useRouterState({ select: (st) => st.location.pathname.startsWith("/pilot") });
+  const pathname = useRouterState({ select: (st) => st.location.pathname });
+  useSiteMotion(isPilot ? '/archived' : pathname);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col bg-background text-foreground antialiased">
+      <div className={`${isPilot ? '' : 'pilot'} flex min-h-screen flex-col bg-background text-foreground antialiased`}>
         {!isPilot && <SiteHeader />}
         {isPilot ? (
           // The pilot layout renders its own single <main>.

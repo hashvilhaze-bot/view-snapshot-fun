@@ -45,10 +45,10 @@ function PilotTrek() {
   const photos = galleries[trek.slug] ?? [];
   const hero = photos[0];
   const facts: [string, string][] = [
-    ["טווח ימי הליכה באתר", `${trek.trekDaysMin}–${trek.trekDaysMax} ימי הליכה`],
+    ["ימי הליכה", `${trek.trekDaysMin}–${trek.trekDaysMax} ימי הליכה`],
     ["ימים בנפאל, לפחות", `${trek.totalDaysMin} ימים`],
     ["קושי", trek.effortLabel],
-    ["גובה מרבי בדוגמה", example.altitude],
+    ["הנקודה הגבוהה במסלול המוצע", example.altitude],
     ["אופי האזור", trek.character],
   ];
   return (
@@ -167,19 +167,19 @@ function PilotTrek() {
           <h2 className="p-h2">איך הדרך יכולה להיראות</h2>
           <p className="p-muted mt-4 p-read">{example.difference}</p>
           <p className="p-notice mt-5">
-            זו גרסת דוגמה, לא תוכנית סגורה. הזמנים אינם הבטחה, ואינם כוללים את כל העצירות או ימי
-            השהייה בנפאל.
+            כך אפשר לחלק את הדרך. את התוכנית נבנה יחד לפי הקצב שלכם, הלינות והתנאים בשטח.
+            הזמנים משוערים ואינם כוללים את כל העצירות או ימי השהייה בנפאל.
           </p>
           <TrekItinerary key={trek.slug} slug={trek.slug} />
           <details className="p-rule mt-8">
-            <summary>על מה מבוססת הדוגמה?</summary>
+            <summary>מקור נוסף על המסלול</summary>
             <p>{example.version} · נבדק ב־25.11.2026.</p>
             <a href={example.source} target="_blank" rel="noopener noreferrer" className="p-link">
-              למקור לבדיקת רצף הימים והזמנים
+              לפירוט המסלול והזמנים במקור
             </a>
             <p className="p-muted mt-3">
-              הטקסט והתצוגה נכתבו לפיילוט. לא אומצו מחירים, תנאי שירות, כללי היתר או הוראות רפואיות
-              מהמקור.
+              ההפניה היא למידע על הדרך. את השירותים, ההיתרים וההיערכות לנסיעה נברר בנפרד כחלק
+              מהתכנון שלכם.
             </p>
           </details>
           <Link

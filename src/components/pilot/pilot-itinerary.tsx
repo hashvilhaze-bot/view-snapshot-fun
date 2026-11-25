@@ -35,7 +35,7 @@ export function PilotItinerary({ stages }: { stages: Stage[] }) {
               <span aria-hidden> ← </span>
               {s.end}
             </strong>
-            <span className="p-muted">{s.time || "זמן לא צוין במקור"}</span>
+            <span className="p-muted">{s.time || (s.kind === "acclimatization" ? "משך הפעילות לפי התכנון האישי" : s.kind === "transfer" ? "משך הנסיעה לפי התכנון והתנאים" : "משך ההליכה ייקבע לפי חלוקת היום")}</span>
           </li>
         ))}
       </ol>
@@ -49,7 +49,7 @@ export function PilotItinerary({ stages }: { stages: Stage[] }) {
                 </span>
               </summary>
               <p className="p-kicker">
-                {STAGE_LABELS[s.kind]} · {s.time || "אין הערכת שעות מבוססת ליום זה"}
+                {STAGE_LABELS[s.kind]} · {s.time || (s.kind === "acclimatization" ? "משך הפעילות לפי התכנון האישי" : s.kind === "transfer" ? "משך הנסיעה לפי התכנון והתנאים" : "משך ההליכה ייקבע לפי חלוקת היום")}
               </p>
               <p className="p-muted pb-5">{s.story}</p>
             </details>

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { treks } from "@/lib/content";
+import { treks } from "@/lib/pilot/legacy-treks";
 import { validPilotSlug } from "@/lib/pilot/itineraries";
 import { Button } from "@/components/ui/button";
 

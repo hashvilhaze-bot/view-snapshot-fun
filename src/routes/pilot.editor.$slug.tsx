@@ -4,17 +4,19 @@ import { ArrowDown, ArrowUp, Plus, RotateCcw, Save, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { PilotItinerary, usePilotStages } from "@/components/pilot/pilot-itinerary";
 import {
-  examples,
   storageKey,
   STAGE_LABELS,
   type Stage,
   type StageKind,
 } from "@/lib/pilot/itineraries";
+import { examples } from "@/lib/treks/itineraries";
 import { treks } from "@/lib/content";
+import { examples as archivedExamples } from "@/lib/pilot/itineraries";
+import { treks as archivedTreks } from "@/lib/pilot/legacy-treks";
 export const Route = createFileRoute("/pilot/editor/$slug")({
   loader: ({ params }) => {
-    const trek = treks.find((t) => t.slug === params.slug);
-    const example = examples[params.slug];
+    const trek = treks.find((t) => t.slug === params.slug) ?? archivedTreks.find((t) => t.slug === params.slug);
+    const example = examples[params.slug] ?? archivedExamples[params.slug];
     if (!trek || !example) throw notFound();
     return { trek, example };
   },

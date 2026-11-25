@@ -3,25 +3,19 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import valleyGolden from "@/assets/valley-golden.jpg";
 import { Card, EffortBars, PageHero, Section } from "@/components/page";
 import { treks } from "@/lib/content";
+import { publicMeta } from "@/lib/public-meta";
 import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/treks/")({
   component: TreksPage,
-  head: () => ({
-    meta: [
-      { title: "טרקים ומסלולים בנפאל | השביל הזה" },
-      {
-        name: "description",
-        content:
-          "מסלולים מקצרים ונגישים ועד מנאסלו, ולצידם קטמנדו, פוקרה, כפרים, רפטינג וצ׳יטוואן. משך, גובה, מאמץ ולמי זה מתאים.",
-      },
-      { property: "og:title", content: "טרקים ומסלולים בנפאל" },
-      {
-        property: "og:description",
-        content: "ספקטרום שלם של מסלולים וחוויות, עם הנתונים שחשובים באמת.",
-      },
-    ],
-  }),
+  head: () =>
+    publicMeta(
+      "תשעה טרקים בנפאל | השביל הזה",
+      "מפון היל ועד אוורסט בייס קמפ. משווים בין תשעה מסלולים לפי החוויה, הגובה ומספר ימי ההליכה ומתכננים טיול אישי.",
+      "/treks",
+      "website",
+      valleyGolden,
+    ),
 });
 
 function TreksPage() {
@@ -39,8 +33,8 @@ function TreksPage() {
       <Section size="xwide" className="!pt-6 !pb-2">
         <div className="rounded-2xl border-e-4 border-saffron bg-parchment/70 px-5 py-4">
           <p className="text-[15px] leading-relaxed text-ink/80">
-            לא חייבים לבחור מסלול מתוך הרשימה. המסלולים כאן הם נקודת פתיחה ורעיונות — אפשר לקצר,
-            להאריך, לשנות קצב ורמת קושי, לשלב כמה מסלולים או לבנות משהו אחר לגמרי לפי מי שנוסע.
+            כאן אפשר לבחור נקודת מוצא לטיול. אפשר להוסיף לילה בכפר, להקדיש יום לתצפית או לשלב כמה
+            ימים לצד האגם בפוקרה. את הדרך נבנה יחד לפי מי שנוסע.
           </p>
           <p className="mt-3">
             <Link to="/treks/compare" className="text-[13.5px] font-semibold text-saffron">
@@ -50,7 +44,7 @@ function TreksPage() {
         </div>
       </Section>
 
-      <Section size="xwide" title="מסלולים" className="!pt-4 !pb-4">
+      <Section size="xwide" title="תשעה טרקים בנפאל" className="!pt-4 !pb-4">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {treks.map((t) => {
             const photo = galleries[t.slug]?.[0];
@@ -118,7 +112,6 @@ function TreksPage() {
           })}
         </div>
       </Section>
-
 
       <Section size="xwide" className="!pt-2 !pb-10">
         <Card>

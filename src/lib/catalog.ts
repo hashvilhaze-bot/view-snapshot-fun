@@ -61,7 +61,8 @@ export type CatalogItem = {
 
 /** Interest tags per trek, read off the existing `character` / `fit` text. */
 const TREK_INTERESTS: Record<string, InterestTag[]> = {
-  "pokhara-hills": ["הרים וטרקים", "כפרים ואנשים"],
+  "gosaikunda": ["הרים וטרקים"],
+  "khopra-danda": ["הרים וטרקים", "כפרים ואנשים"],
   "poon-hill": ["הרים וטרקים"],
   "mardi-himal": ["הרים וטרקים"],
   "langtang-valley": ["הרים וטרקים", "כפרים ואנשים"],

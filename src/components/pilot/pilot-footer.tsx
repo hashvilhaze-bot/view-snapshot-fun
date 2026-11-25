@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/hashvil-haze-logo.png.asset.json";
 import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/leads";
-import { treks } from "@/lib/content";
+import { treks } from "@/lib/pilot/legacy-treks";
 import { PilotCtas } from "./pilot-ctas";
 const HOME_LINKS: [string, string][] = [
   ["nepal", "לגלות את נפאל"],

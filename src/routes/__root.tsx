@@ -129,11 +129,15 @@ function RootComponent() {
   // The /pilot design preview renders its own chrome.
   const isPilot = useRouterState({ select: (st) => st.location.pathname.startsWith("/pilot") });
   const pathname = useRouterState({ select: (st) => st.location.pathname });
-  useSiteMotion(isPilot ? '/archived' : pathname);
+  useSiteMotion(isPilot ? "" : pathname);
+  const [, section, slug] = pathname.split("/");
+  const footerTrek = section === "treks" && slug !== "compare" ? slug : undefined;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className={`${isPilot ? '' : 'pilot'} flex min-h-screen flex-col bg-background text-foreground antialiased`}>
+      <div
+        className={`${isPilot ? "" : "pilot"} flex min-h-screen flex-col bg-background text-foreground antialiased`}
+      >
         {!isPilot && <SiteHeader />}
         {isPilot ? (
           // The pilot layout renders its own single <main>.
@@ -144,7 +148,7 @@ function RootComponent() {
             <Outlet />
           </main>
         )}
-        {!isPilot && <SiteFooter />}
+        {!isPilot && <SiteFooter {...(footerTrek ? { trek: footerTrek } : {})} />}
       </div>
     </QueryClientProvider>
   );

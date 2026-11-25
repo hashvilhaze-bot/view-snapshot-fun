@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PilotCtas } from "@/components/pilot/pilot-ctas";
-import { treks } from "@/lib/content";
+import { treks } from "@/lib/pilot/legacy-treks";
 import { galleries } from "@/lib/galleries";
 import { examples, faqSchema, trekFaq } from "@/lib/pilot/itineraries";
 import { PilotFaq } from "@/components/pilot/pilot-faq";

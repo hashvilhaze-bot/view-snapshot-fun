@@ -1,4 +1,6 @@
 import "./lib/error-capture";
+import { articles, experiences, treks } from "./lib/content";
+import { PUBLIC_ORIGIN } from "./lib/public-meta";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
@@ -46,6 +48,34 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    if (new URL(request.url).pathname === "/sitemap.xml") {
+      const paths = [
+        "/",
+        "/treks",
+        "/treks/compare",
+        "/experiences",
+        "/knowledge",
+        "/about",
+        "/nepal",
+        "/destinations",
+        "/destinations/bhutan",
+        "/destinations/tibet",
+        "/quote",
+        "/match",
+        ...treks.map((t) => "/treks/" + t.slug),
+        ...experiences.map((x) => "/experiences/" + x.slug),
+        ...articles.map((x) => "/knowledge/" + x.slug),
+      ];
+      const urls = paths
+        .map((path) => "<url><loc>" + PUBLIC_ORIGIN + path + "</loc></url>")
+        .join("\n");
+      return new Response(
+        '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
+          urls +
+          "</urlset>",
+        { headers: { "Content-Type": "application/xml; charset=utf-8" } },
+      );
+    }
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

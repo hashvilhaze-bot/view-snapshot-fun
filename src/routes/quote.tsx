@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { PUBLIC_ORIGIN } from "@/lib/public-meta";
 import { useEffect, useState } from "react";
 
 import { Accordion, Card, PageHero, Section, WhatsappButton } from "@/components/page";
@@ -29,6 +30,7 @@ export const Route = createFileRoute("/quote")({
     source: str(search["source"]),
   }),
   head: () => ({
+    links: [{ rel: "canonical", href: PUBLIC_ORIGIN + "/quote" }],
     meta: [
       { title: "בקשת הצעה לטיול בנפאל | השביל הזה" },
       {

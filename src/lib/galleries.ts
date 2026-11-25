@@ -44,7 +44,10 @@ import ebc1 from "@/assets/gallery/everest-1.jpg";
 import ebc2 from "@/assets/gallery/everest-2.jpg";
 import ebc3 from "@/assets/gallery/everest-3.jpg";
 
-export type Photo = { src: string; alt: string; caption: string };
+import khopra from "@/assets/gallery/khopra-danda.jpg";
+import gosaikunda from "@/assets/gallery/gosaikunda.jpg";
+
+export type Photo = { src: string; alt: string; caption: string; credit?: { author: string; source: string } };
 
 /**
  * Original photography produced for this site (no third-party stock licensing).
@@ -52,6 +55,8 @@ export type Photo = { src: string; alt: string; caption: string };
  * distinctive detail, so a visitor can picture the day, not just the view.
  */
 export const galleries: Record<string, Photo[]> = {
+  gosaikunda: [{ src: gosaikunda, alt: "אגם גוסאיקונדה בין המדרונות הגבוהים של לנגטנג", caption: "אגם גוסאיקונדה", credit: { author: "Ummidnp", source: "https://commons.wikimedia.org/wiki/File:The_Gosaikunda_lake.jpg" } }],
+  "khopra-danda": [{ src: khopra, alt: "פסגת דהאולגירי כפי שהיא נראית מרכס קופרה דנדה", caption: "דהאולגירי מרכס קופרה", credit: { author: "Thapaliyashreeram", source: "https://commons.wikimedia.org/wiki/File:View_from_Khopra.jpg" } }],
   "manaslu-circuit": [
     {
       src: manaslu1,

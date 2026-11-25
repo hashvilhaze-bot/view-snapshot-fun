@@ -4,7 +4,7 @@ import ohadPhotoAsset from "@/assets/ohad-coffee-portrait.jpg.asset.json";
 import { PilotCtas } from "@/components/pilot/pilot-ctas";
 import { galleries } from "@/lib/galleries";
 import { whatsappHref } from "@/lib/leads";
-import { treks } from "@/lib/content";
+import { treks } from "@/lib/pilot/legacy-treks";
 import { HOME_FAQ, faqSchema } from "@/lib/pilot/itineraries";
 import { PilotFaq } from "@/components/pilot/pilot-faq";
 import { homePhotos } from "@/lib/pilot/home-photos";

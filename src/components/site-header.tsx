@@ -46,18 +46,18 @@ export function SiteHeader() {
   }, [destOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-brand-line/20 bg-summit/92 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-brand-line/20 bg-[#f8f8f3]/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5 sm:gap-4 sm:px-5 sm:py-2.5">
         <Link
           to="/"
           className="-m-1 shrink-0 rounded-xl p-1"
           onClick={() => setOpen(false)}
-          aria-label="השביל הזה — דף הבית"
+          aria-label="השביל הזה, דף הבית"
         >
           <img
             src={logoAsset.url}
-            alt="השביל הזה — מסעות בהתאמה אישית בהימלאיה"
-            className="h-[52px] w-auto rounded-lg object-contain sm:h-[92px]"
+            alt="השביל הזה"
+            className="h-[52px] w-auto rounded-lg object-contain sm:h-[60px]"
           />
         </Link>
 
@@ -68,17 +68,17 @@ export function SiteHeader() {
               aria-expanded={destOpen}
               aria-haspopup="true"
               onClick={() => setDestOpen((v) => !v)}
-              className="flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/70 transition-colors hover:text-parchment"
+              className="flex items-center gap-1 rounded-full px-3 py-1.5 text-[15px] font-semibold text-ink/85 transition-colors hover:text-ink"
             >
               {t("nav.destinations")}
               <ChevronDown className="h-3.5 w-3.5" />
             </button>
             {destOpen && (
-              <div className="absolute end-0 mt-1 w-56 overflow-hidden rounded-2xl border border-brand-line/25 bg-summit/98 py-1.5 shadow-xl backdrop-blur-md">
+              <div className="absolute end-0 mt-1 w-56 overflow-hidden rounded-2xl border border-brand-line/25 bg-[#f8f8f3] py-1.5 shadow-xl backdrop-blur-md">
                 <Link
                   to="/destinations"
                   onClick={() => setDestOpen(false)}
-                  className="block px-4 py-2 text-[13px] font-semibold text-parchment/85 hover:bg-brand-sky/15"
+                  className="block px-4 py-2 text-[13px] font-semibold text-ink/85 hover:bg-brand-sky/15"
                 >
                   {t("nav.allDestinations")}
                 </Link>
@@ -88,10 +88,10 @@ export function SiteHeader() {
                     key={d.slug}
                     to={d.to}
                     onClick={() => setDestOpen(false)}
-                    className="block px-4 py-2 text-[13px] text-parchment/75 hover:bg-brand-sky/15 hover:text-parchment"
+                    className="block px-4 py-2 text-[13px] text-ink/75 hover:bg-brand-sky/15 hover:text-ink"
                   >
                     {d.name}
-                    <span className="mt-0.5 block text-[11px] text-parchment/65">
+                    <span className="mt-0.5 block text-[11px] text-ink/65">
                       {d.character}
                     </span>
                   </Link>
@@ -104,8 +104,8 @@ export function SiteHeader() {
             <Link
               key={n.to}
               to={n.to}
-              activeProps={{ className: "text-parchment bg-brand-sky/15" }}
-              className="rounded-full px-3 py-1.5 text-[13px] font-medium text-parchment/70 transition-colors hover:text-parchment"
+              activeProps={{ className: "text-ink bg-brand-sky/15" }}
+              className="rounded-full px-3 py-1.5 text-[15px] font-semibold text-ink/85 transition-colors hover:text-ink"
             >
               {t(n.key)}
             </Link>
@@ -120,7 +120,7 @@ export function SiteHeader() {
               rel="noopener noreferrer"
               aria-label="וואטסאפ"
               title="וואטסאפ"
-              className="grid h-9 w-9 place-items-center rounded-full text-parchment/70 ring-1 ring-brand-line/30 transition-colors hover:text-parchment"
+              className="grid h-9 w-9 place-items-center rounded-full text-ink/70 ring-1 ring-brand-line/30 transition-colors hover:text-ink"
             >
               <WhatsappIcon className="h-[18px] w-[18px]" />
             </a>
@@ -135,7 +135,7 @@ export function SiteHeader() {
               rel="noopener noreferrer"
               aria-label="וואטסאפ"
               title="וואטסאפ"
-              className="grid h-9 w-9 place-items-center rounded-full text-parchment/85 ring-1 ring-brand-line/40"
+              className="grid h-9 w-9 place-items-center rounded-full text-ink/85 ring-1 ring-brand-line/40"
             >
               <WhatsappIcon className="h-[18px] w-[18px]" />
             </a>
@@ -145,7 +145,7 @@ export function SiteHeader() {
             aria-label="תפריט"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="grid h-9 w-9 place-items-center rounded-full text-parchment/80 ring-1 ring-brand-line/40"
+            className="grid h-9 w-9 place-items-center rounded-full text-ink/80 ring-1 ring-brand-line/40"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -159,8 +159,8 @@ export function SiteHeader() {
               <Link
                 to="/"
                 onClick={() => setOpen(false)}
-                activeProps={{ className: "text-parchment" }}
-                className="block px-1 py-2.5 text-[14px] font-medium text-parchment/75"
+                activeProps={{ className: "text-ink" }}
+                className="block px-1 py-2.5 text-[14px] font-medium text-ink/75"
               >
                 {t("nav.home")}
               </Link>
@@ -169,7 +169,7 @@ export function SiteHeader() {
               <Link
                 to="/destinations"
                 onClick={() => setOpen(false)}
-                className="block px-1 py-1 text-[14px] font-semibold text-parchment/85"
+                className="block px-1 py-1 text-[14px] font-semibold text-ink/85"
               >
                 {t("nav.destinations")}
               </Link>
@@ -179,7 +179,7 @@ export function SiteHeader() {
                     <Link
                       to={d.to}
                       onClick={() => setOpen(false)}
-                      className="block py-1.5 text-[14px] text-parchment/70"
+                      className="block py-1.5 text-[14px] text-ink/70"
                     >
                       {d.name}
                     </Link>
@@ -192,8 +192,8 @@ export function SiteHeader() {
                 <Link
                   to={n.to}
                   onClick={() => setOpen(false)}
-                  activeProps={{ className: "text-parchment" }}
-                  className="block px-1 py-2.5 text-[14px] font-medium text-parchment/75"
+                  activeProps={{ className: "text-ink" }}
+                  className="block px-1 py-2.5 text-[14px] font-medium text-ink/75"
                 >
                   {t(n.key)}
                 </Link>
@@ -207,7 +207,7 @@ export function SiteHeader() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center gap-2 rounded-lg bg-saffron px-3 py-2.5 text-center text-[14px] font-semibold text-parchment"
+                className="flex items-center justify-center gap-2 rounded-lg bg-saffron px-3 py-2.5 text-center text-[14px] font-semibold text-ink"
               >
                 <WhatsappIcon className="h-[18px] w-[18px]" />
                 {t("footer.whatsapp")}

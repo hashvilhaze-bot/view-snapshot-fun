@@ -1,6 +1,7 @@
 import { useLayoutEffect } from "react";
 export function useSiteMotion(pathname: string) {
   useLayoutEffect(() => {
+    if (!pathname) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (reduced.matches) return;
     let cancelled = false;

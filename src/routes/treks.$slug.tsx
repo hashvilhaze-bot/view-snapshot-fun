@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { ContactCtas } from "@/components/renewed/contact-ctas";
 import { treks } from "@/lib/content";
 import { journalArticles } from "@/lib/journal/catalog";
@@ -6,7 +6,10 @@ import { galleries } from "@/lib/galleries";
 import { examples, faqSchema, trekFaq } from "@/lib/treks/itineraries";
 import { FaqList } from "@/components/renewed/faq";
 import { Itinerary } from "@/components/renewed/itinerary";
-import { publicMeta } from "@/lib/public-meta";
+import { Breadcrumbs, MatchLink } from "@/components/content-navigation";
+import { breadcrumbData, structuredData } from "@/lib/navigation-meta";
+import { ArticleCard } from "@/components/archive-cards";
+import { publicMeta, PUBLIC_ORIGIN } from "@/lib/public-meta";
 import { publishedExample } from "@/lib/treks/editor-content";
 import { trekCopy } from "@/lib/treks/trek-copy";
 
@@ -32,6 +35,23 @@ export const Route = createFileRoute("/treks/$slug")({
       : { meta: [{ name: "robots", content: "noindex" }] }),
     scripts: loaderData
       ? [
+          breadcrumbData("treks", loaderData.trek.slug, loaderData.trek.name),
+          structuredData({
+            "@context": "https://schema.org",
+            "@type": "TouristTrip",
+            name: loaderData.trek.name,
+            description: loaderData.example.description,
+            url: PUBLIC_ORIGIN + "/treks/" + loaderData.trek.slug,
+            itinerary: {
+              "@type": "ItemList",
+              itemListElement: loaderData.example.stages.map((stage, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                item: { "@type": "Place", name: stage.end },
+                description: stage.story,
+              })),
+            },
+          }),
           {
             type: "application/ld+json",
             children: JSON.stringify(faqSchema(loaderData.faq)).replace(/</g, "\\u003c"),
@@ -57,18 +77,7 @@ function TrekPage() {
   ];
   return (
     <>
-      <div className="p-wrap pt-6">
-        <nav aria-label="פירורי לחם" className="p-muted text-[0.9375rem]">
-          <Link to="/" className="p-link">
-            בית
-          </Link>{" "}
-          <span aria-hidden>/</span>{" "}
-          <Link to="/treks" className="p-link">
-            טרקים
-          </Link>{" "}
-          <span aria-hidden>/</span> <span aria-current="page">{trek.name}</span>
-        </nav>
-      </div>
+      <Breadcrumbs group="treks" slug={trek.slug} name={trek.name} />
       <section className="p-wrap pt-6">
         <div className="grid items-end gap-8 lg:grid-cols-[1.1fr_1fr]">
           <div>
@@ -126,6 +135,9 @@ function TrekPage() {
               כל מסלול כאן הוא נקודת התחלה. את הלינות, הקצב והימים מסביב נבנה לפי הזמן והאנשים
               שנוסעים.
             </p>
+            <div className="mt-5">
+              <MatchLink />
+            </div>
           </div>
           <div className="p-read">
             <h2 className="p-h2">רגעים בולטים</h2>
@@ -230,15 +242,11 @@ function TrekPage() {
         {reading.length > 0 && (
           <aside className="p-wrap jr-trek-reading">
             <h2 className="p-h3">לקריאה לפני הטרק</h2>
-            <ul>
+            <div className="archive-grid archive-pair">
               {reading.map((a) => (
-                <li key={a.slug}>
-                  <Link to="/knowledge/$slug" params={{ slug: a.slug }}>
-                    {a.title}
-                  </Link>
-                </li>
+                <ArticleCard key={a.slug} article={a} />
               ))}
-            </ul>
+            </div>
           </aside>
         )}
       </section>

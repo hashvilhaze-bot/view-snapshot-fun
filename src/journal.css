@@ -4,33 +4,25 @@
 .jr-intro {
   display: grid;
   gap: clamp(1.5rem, 4vw, 4.25rem);
-  padding-block: clamp(1.75rem, 4.6vw, 4.75rem);
+  padding-block: clamp(1.6rem, 3.6vw, 3rem);
   align-items: center;
 }
 .jr-heading {
   min-width: 0;
 }
-.jr-back,
-.jr-body a,
-.jr-trek-reading a {
+.jr-body a {
   color: var(--p-cta);
   text-decoration: underline;
   text-decoration-thickness: 0.065em;
   text-underline-offset: 0.22em;
 }
-.jr-back {
-  display: inline-block;
-  font-size: 0.95rem;
-}
 .jr-meta {
-  margin-block: clamp(1.4rem, 2.8vw, 3.2rem) 0.65rem;
+  margin-block: 0 0.65rem;
   color: var(--p-muted);
   font-size: 0.94rem;
 }
 .jr-heading h1 {
   margin: 0;
-  font-size: clamp(2.25rem, 4.1vw, 4.25rem);
-  font-weight: 750;
   line-height: 1.1;
   text-wrap: balance;
 }
@@ -70,7 +62,7 @@
   display: grid;
   align-items: start;
   gap: clamp(1.3rem, 4vw, 4.5rem);
-  padding-block: clamp(1.5rem, 3.5vw, 4rem) clamp(3rem, 6vw, 7rem);
+  padding-block: clamp(1.5rem, 3.5vw, 4rem) clamp(1rem, 2.6vw, 2.5rem);
   border-block-start: 1px solid var(--p-line);
 }
 .jr-contents {
@@ -132,8 +124,7 @@
   font-weight: 700;
   text-wrap: balance;
 }
-.jr-body h3,
-.jr-trek-reading h2 {
+.jr-body h3 {
   font-size: clamp(1.22rem, 1.6vw, 1.55rem);
   line-height: 1.32;
   font-weight: 600;
@@ -150,20 +141,6 @@
 .jr-photo img {
   aspect-ratio: 3/2;
   height: auto;
-}
-.jr-next,
-.jr-trek-reading {
-  margin-block-start: clamp(2rem, 4.5vw, 5rem);
-  border-block-start: 1px solid var(--p-line);
-  padding-block-start: 1.5rem;
-}
-.jr-next ul,
-.jr-trek-reading ul {
-  display: grid;
-  gap: 0.45em;
-}
-.jr-trek-reading ul {
-  margin-block-start: 0.75rem;
 }
 @media (min-width: 56rem) {
   .jr-intro {
@@ -194,8 +171,7 @@
 }
 @media print {
   .jr-contents,
-  .jr-back,
-  .jr-next {
+  .content-archive {
     display: none;
   }
   .jr-intro,

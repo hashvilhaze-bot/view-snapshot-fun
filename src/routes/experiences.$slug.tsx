@@ -1,4 +1,6 @@
-import { publicMeta } from "@/lib/public-meta";
+import { Breadcrumbs, MatchPrompt } from "@/components/content-navigation";
+import { breadcrumbData, structuredData } from "@/lib/navigation-meta";
+import { PUBLIC_ORIGIN, publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { Card, Gallery, Insight, PageHero, Section } from "@/components/page";
@@ -18,7 +20,29 @@ export const Route = createFileRoute("/experiences/$slug")({
       return { meta: [{ title: "לא נמצא" }, { name: "robots", content: "noindex" }] };
     }
     const { item } = loaderData;
-    return publicMeta(item.name + " | " + item.kicker + " | השביל הזה", item.intro, "/experiences/" + item.slug, "article", galleries[item.slug]?.[0]?.src);
+    return {
+      ...publicMeta(
+        item.name + " | " + item.kicker + " | השביל הזה",
+        item.intro,
+        "/experiences/" + item.slug,
+        "article",
+        galleries[item.slug]?.[0]?.src,
+      ),
+      scripts: [
+        breadcrumbData("experiences", item.slug, item.name),
+        structuredData({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: item.name,
+          description: item.intro,
+          inLanguage: "he",
+          mainEntityOfPage: PUBLIC_ORIGIN + "/experiences/" + item.slug,
+          image: galleries[item.slug]?.[0]?.src
+            ? new URL(galleries[item.slug]![0]!.src, PUBLIC_ORIGIN).href
+            : undefined,
+        }),
+      ],
+    };
   },
   component: ExperiencePage,
 });
@@ -41,11 +65,20 @@ function ExperiencePage() {
 
   return (
     <>
-      <PageHero kicker={item.kicker} title={item.name} lead={item.intro} />
+      <Breadcrumbs group="experiences" slug={item.slug} name={item.name} />
+      <PageHero
+        kicker={item.kicker}
+        title={item.name}
+        lead={item.intro}
+        image={photos[0]?.src}
+        imageAlt={photos[0]?.alt}
+      />
 
-      <Section>
-        <Gallery photos={photos} />
-      </Section>
+      {photos.length > 1 && (
+        <Section>
+          <Gallery photos={photos.slice(1)} />
+        </Section>
+      )}
 
       {facts.length > 0 && (
         <Section>
@@ -61,7 +94,6 @@ function ExperiencePage() {
           </Card>
         </Section>
       )}
-
 
       <Section title="מה יש שם">
         <Insight text={item.surprise} />
@@ -112,7 +144,9 @@ function ExperiencePage() {
         </Card>
       </Section>
 
-
+      <Section>
+        <MatchPrompt />
+      </Section>
     </>
   );
 }

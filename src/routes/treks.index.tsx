@@ -3,19 +3,22 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import valleyGolden from "@/assets/valley-golden.jpg";
 import { Card, EffortBars, PageHero, Section } from "@/components/page";
 import { treks } from "@/lib/content";
+import { collectionData } from "@/lib/navigation-meta";
 import { publicMeta } from "@/lib/public-meta";
 import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/treks/")({
   component: TreksPage,
-  head: () =>
-    publicMeta(
+  head: () => ({
+    ...publicMeta(
       "תשעה טרקים בנפאל | השביל הזה",
       "מפון היל ועד אוורסט בייס קמפ. משווים בין תשעה מסלולים לפי החוויה, הגובה ומספר ימי ההליכה ומתכננים טיול אישי.",
       "/treks",
       "website",
       valleyGolden,
     ),
+    scripts: [collectionData("treks", treks)],
+  }),
 });
 
 function TreksPage() {
@@ -66,18 +69,13 @@ function TreksPage() {
                         height={800}
                         className="aspect-[16/10] w-full object-cover"
                       />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-summit/85 to-transparent px-4 pt-10 pb-3">
-                        <h3 className="font-display text-lg leading-tight font-bold text-parchment">
-                          {t.name}
-                        </h3>
-                      </div>
                       <span className="absolute top-3 end-3 rounded-full bg-parchment/90 px-2.5 py-1 text-[0.6875rem] font-semibold text-saffron">
                         {t.effortLabel}
                       </span>
                     </div>
                   )}
                   <div className="flex flex-1 flex-col p-4">
-                    {!photo && <h3 className="font-display text-lg font-bold">{t.name}</h3>}
+                    <h3 className="p-h3 mb-3">{t.name}</h3>
                     <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[0.78125rem] text-ink/70">
                       <div>
                         <dt className="text-ink/60">משך</dt>

@@ -1,3 +1,4 @@
+import { collectionData } from "@/lib/navigation-meta";
 import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
@@ -8,12 +9,20 @@ import { galleries } from "@/lib/galleries";
 
 export const Route = createFileRoute("/experiences/")({
   component: ExperiencesPage,
-  head: () => publicMeta(
-    "חוויות בנפאל — ערים, כפרים, יוגה, נהרות וג׳ונגל | השביל הזה",
-    "נפאל שמעבר לטרקים: קטמנדו ופוקרה, כפרים וטרסות, יוגה ומנוחה, רפטינג וצ׳יטוואן. כל אחת מהחוויות עומדת בזכות עצמה, וגם משתלבת לצד מסלול הליכה.",
-    "/experiences", "website", galleries["kathmandu"]?.[0]?.src,
-    { title: "חוויות בנפאל — מעבר לטרקים", description: "ערים ותרבות, כפרים ואנשים, טבע רגוע ויוגה, מים ואדרנלין, טבע וחיות." },
-  ),
+  head: () => ({
+    ...publicMeta(
+      "חוויות בנפאל — ערים, כפרים, יוגה, נהרות וג׳ונגל | השביל הזה",
+      "נפאל שמעבר לטרקים: קטמנדו ופוקרה, כפרים וטרסות, יוגה ומנוחה, רפטינג וצ׳יטוואן. כל אחת מהחוויות עומדת בזכות עצמה, וגם משתלבת לצד מסלול הליכה.",
+      "/experiences",
+      "website",
+      galleries["kathmandu"]?.[0]?.src,
+      {
+        title: "חוויות בנפאל — מעבר לטרקים",
+        description: "ערים ותרבות, כפרים ואנשים, טבע רגוע ויוגה, מים ואדרנלין, טבע וחיות.",
+      },
+    ),
+    scripts: [collectionData("experiences", experiences)],
+  }),
 });
 
 function ExperiencesPage() {
@@ -24,6 +33,8 @@ function ExperiencesPage() {
     <>
       <PageHero
         kicker="חוויות"
+        image={galleries["villages"]?.[0]?.src}
+        imageAlt={galleries["villages"]?.[0]?.alt}
         title="נפאל שמעבר לטרקים"
         lead="ערים ותרבות, כפרים, יוגה ומנוחה, נהרות וג׳ונגל. כל אחת מהחוויות עומדת בזכות עצמה, וכולן משתלבות גם לצד מסלול הליכה."
       />

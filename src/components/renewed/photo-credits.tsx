@@ -1,14 +1,17 @@
-import { heroPhotos } from "@/lib/home-hero-photos";
+import { journalPhotos } from "@/lib/journal/photos";
 
 export function PhotoCredits() {
   return (
     <details className="p-photo-credits">
-      <summary>קרדיטים לצילומי הפתיחה</summary>
+      <summary>קרדיטים לצילומים</summary>
       <ul>
-        {heroPhotos.map((photo) => (
+        {Object.values(journalPhotos).map((photo) => (
           <li key={photo.src}>
             <a href={photo.source}>{photo.name}</a> של <bdi>{photo.author}</bdi>
-            {" · "}<a href={photo.licenseUrl}><bdi>{photo.license}</bdi></a>
+            {" · "}
+            <a href={photo.licenseUrl}>
+              <bdi>{photo.license}</bdi>
+            </a>
           </li>
         ))}
       </ul>

@@ -10,6 +10,7 @@ const links = [
   ["/experiences", "nav.experiences"],
   ["/knowledge", "nav.knowledge"],
   ["/about", "nav.about"],
+  ["/contact", "nav.contact"],
 ] as const;
 
 export function SiteHeader() {

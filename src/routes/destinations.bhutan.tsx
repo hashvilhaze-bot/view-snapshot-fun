@@ -1,3 +1,5 @@
+import { Breadcrumbs } from "@/components/content-navigation";
+import { breadcrumbData } from "@/lib/navigation-meta";
 import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
@@ -6,17 +8,26 @@ import bhutanImg from "@/assets/destinations/bhutan.jpg";
 
 export const Route = createFileRoute("/destinations/bhutan")({
   component: BhutanPage,
-  head: () => publicMeta(
-    "בהוטן — יעד שנפתח אצלנו בקרוב | השביל הזה",
-    "בהוטן היא חוויה שקטה ומסודרת בהימלאיה המזרחית, שונה מאוד מנפאל. אנחנו בונים כרגע את התוכן המקצועי ליעד, ואפשר לדבר איתנו על טיול בבהוטן.",
-    "/destinations/bhutan", "website", bhutanImg,
-    { title: "בהוטן — הימלאיה בקצב אחר", description: "יעד שאנחנו בונים כרגע, בלי הבטחות ובלי פרטים שלא אימתנו." },
-  ),
+  head: () => ({
+    ...publicMeta(
+      "בהוטן — יעד שנפתח אצלנו בקרוב | השביל הזה",
+      "בהוטן היא חוויה שקטה ומסודרת בהימלאיה המזרחית, שונה מאוד מנפאל. אנחנו בונים כרגע את התוכן המקצועי ליעד, ואפשר לדבר איתנו על טיול בבהוטן.",
+      "/destinations/bhutan",
+      "website",
+      bhutanImg,
+      {
+        title: "בהוטן — הימלאיה בקצב אחר",
+        description: "יעד שאנחנו בונים כרגע, בלי הבטחות ובלי פרטים שלא אימתנו.",
+      },
+    ),
+    scripts: [breadcrumbData("destinations", "bhutan", "בהוטן")],
+  }),
 });
 
 function BhutanPage() {
   return (
     <>
+      <Breadcrumbs group="destinations" slug="bhutan" name="בהוטן" />
       <PageHero
         kicker="בהוטן"
         title="הימלאיה בקצב אחר"
@@ -45,8 +56,8 @@ function BhutanPage() {
         <Card>
           <p className="text-[0.9375rem] leading-relaxed text-ink/75">
             אנחנו בונים כרגע את התוכן המקצועי לבהוטן: מסלולים, עונות, נהלי כניסה ומידע שימושי. עד
-            שהמידע יהיה מאומת לא נכתוב אותו כאן. בינתיים, אם בהוטן מעניינת אתכם, הדרך הטובה היא
-            שיחה — נספר מה כבר סגור ומה עוד בבנייה.
+            שהמידע יהיה מאומת לא נכתוב אותו כאן. בינתיים, אם בהוטן מעניינת אתכם, הדרך הטובה היא שיחה
+            — נספר מה כבר סגור ומה עוד בבנייה.
           </p>
           <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
             <WhatsappButton
@@ -63,7 +74,6 @@ function BhutanPage() {
           </div>
         </Card>
       </Section>
-
     </>
   );
 }

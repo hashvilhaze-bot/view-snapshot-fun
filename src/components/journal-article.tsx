@@ -1,7 +1,8 @@
 import { Fragment, type ReactNode } from "react";
 import "@/journal.css";
-import { Link } from "@tanstack/react-router";
-import { articles, treks, type Article } from "@/lib/content";
+import { Breadcrumbs } from "./content-navigation";
+import { RelatedArchive } from "./archive-cards";
+import { type Article } from "@/lib/content";
 import type { JournalMeta } from "@/lib/journal/catalog";
 import type { ArticleChapter, JournalBody } from "@/lib/journal/load";
 import { journalPhotos, type JournalPhoto, type PhotoKey } from "@/lib/journal/photos";
@@ -84,19 +85,15 @@ export function JournalArticle({
   meta: JournalMeta;
   body: JournalBody;
 }) {
-  const related = meta.related.map((s) => articles.find((a) => a.slug === s)).filter((x) => !!x);
-  const routes = meta.treks.map((s) => treks.find((t) => t.slug === s)).filter((x) => !!x);
   return (
     <article className="journal" lang="he" dir="rtl">
+      <Breadcrumbs group="knowledge" slug={article.slug} name={article.title} />
       <div className="site-frame jr-intro">
         <div className="jr-heading">
-          <Link to="/knowledge" className="jr-back">
-            מרכז הידע
-          </Link>
           <p className="jr-meta">
             {article.kicker} <span aria-hidden="true">·</span> {meta.minutes} דקות קריאה
           </p>
-          <h1>{article.title}</h1>
+          <h1 className="p-h1">{article.title}</h1>
           <p className="jr-deck">{article.summary}</p>
         </div>
         <Photo id={meta.cover} cover />
@@ -129,30 +126,9 @@ export function JournalArticle({
               {meta.photos[section.id] && <Photo id={meta.photos[section.id]!} />}
             </section>
           ))}
-          <aside className="jr-next" aria-label="המשך קריאה">
-            <h2>להמשיך לקרוא</h2>
-            <ul>
-              {related.map((a) => (
-                <li key={a.slug}>
-                  <Link to="/knowledge/$slug" params={{ slug: a.slug }}>
-                    {a.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <h3>מסלולים מהאזור</h3>
-            <ul>
-              {routes.map((t) => (
-                <li key={t.slug}>
-                  <Link to="/treks/$slug" params={{ slug: t.slug }}>
-                    {t.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </aside>
         </div>
       </div>
+      <RelatedArchive article={article} />
     </article>
   );
 }

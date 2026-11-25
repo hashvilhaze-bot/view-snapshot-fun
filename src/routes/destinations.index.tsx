@@ -1,4 +1,5 @@
 import { publicMeta } from "@/lib/public-meta";
+import { collectionData } from "@/lib/navigation-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import valleyGolden from "@/assets/valley-golden.jpg";
@@ -7,12 +8,20 @@ import { destinations } from "@/lib/destinations";
 
 export const Route = createFileRoute("/destinations/")({
   component: DestinationsPage,
-  head: () => publicMeta(
-    "יעדים — נפאל, בהוטן וטיבט | השביל הזה",
-    "נפאל, בהוטן וטיבט נמצאות באותו אזור של העולם ומציעות חוויות שונות מאוד. אפשר להתחיל מיעד, ואפשר להתחיל מסוג החוויה שמחפשים.",
-    "/destinations", "website", valleyGolden,
-    { title: "לאן השביל יכול לקחת אתכם?", description: "שלושה עולמות שונים באותו אזור של ההימלאיה — ודרך אחת למצוא את שלכם." },
-  ),
+  head: () => ({
+    ...publicMeta(
+      "יעדים — נפאל, בהוטן וטיבט | השביל הזה",
+      "נפאל, בהוטן וטיבט נמצאות באותו אזור של העולם ומציעות חוויות שונות מאוד. אפשר להתחיל מיעד, ואפשר להתחיל מסוג החוויה שמחפשים.",
+      "/destinations",
+      "website",
+      valleyGolden,
+      {
+        title: "לאן השביל יכול לקחת אתכם?",
+        description: "שלושה עולמות שונים באותו אזור של ההימלאיה — ודרך אחת למצוא את שלכם.",
+      },
+    ),
+    scripts: [collectionData("destinations", destinations)],
+  }),
 });
 
 /** Country choice only: hero + country cards. The cards are the action. */

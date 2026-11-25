@@ -1,25 +1,34 @@
+import { MatchPrompt, Breadcrumbs } from "@/components/content-navigation";
+import { breadcrumbData } from "@/lib/navigation-meta";
 import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
-import kathmanduDusk from "@/assets/kathmandu-dusk.jpg";
 import annapurna1 from "@/assets/gallery/annapurna-1.jpg";
 import kathmandu2 from "@/assets/gallery/kathmandu-2.jpg";
 import { Card, Insight, PageHero, Section } from "@/components/page";
 
 export const Route = createFileRoute("/nepal")({
   component: NepalPage,
-  head: () => publicMeta(
-    "נפאל — מה יש שם, ולמה זה מיוחד | השביל הזה",
-    "נפאל בכמה רגעים: הרים, ערים, כפרים וג׳ונגל במדינה קטנה אחת — ומכאן הכניסה לטרקים, לחוויות שמעבר להם ולמרכז הידע.",
-    "/nepal", "website", heroHimalaya,
-    { title: "נפאל — מה יש שם, ולמה זה מיוחד", description: "מדינה קטנה שמכילה עולמות: הרים, עמקים, ערים ותרבות חיה." },
-  ),
+  head: () => ({
+    ...publicMeta(
+      "נפאל — מה יש שם, ולמה זה מיוחד | השביל הזה",
+      "נפאל בכמה רגעים: הרים, ערים, כפרים וג׳ונגל במדינה קטנה אחת — ומכאן הכניסה לטרקים, לחוויות שמעבר להם ולמרכז הידע.",
+      "/nepal",
+      "website",
+      heroHimalaya,
+      {
+        title: "נפאל — מה יש שם, ולמה זה מיוחד",
+        description: "מדינה קטנה שמכילה עולמות: הרים, עמקים, ערים ותרבות חיה.",
+      },
+    ),
+    scripts: [breadcrumbData("destinations", "nepal", "נפאל")],
+  }),
 });
 
 /** Quick facts — three, on purpose. */
 const facts = [
-  { n: "8 מתוך 10", t: "מהפסגות הגבוהות בעולם נמצאות בנפאל, במדינה אחת קטנה." },
+  { n: "8 מתוך 14", t: "מהפסגות שגובהן עולה על 8,000 מטר נמצאות בנפאל או על גבולה." },
   {
     n: "מ־60 עד 8,849 מ׳",
     t: "מהשפלה הטרופית ועד פסגת האוורסט. הפרש הגבהים הזה הוא כל הסיפור של נפאל.",
@@ -33,10 +42,11 @@ const facts = [
 function NepalPage() {
   return (
     <>
+      <Breadcrumbs group="destinations" slug="nepal" name="נפאל" />
       <PageHero
         kicker="נפאל"
         title="נפאל היא הרבה יותר מטרק"
-        lead="טרק מאתגר בגובה, כמה ימים רגועים בין כפרים, מפגש עם תרבות אחרת או שילוב של הכול — במדינה בגודל של ישראל שבתוכה שמונה מעשר הפסגות הגבוהות בעולם."
+        lead="טרק בגובה, כמה ימים בין כפרים או ביקור בערים של עמק קטמנדו. בנפאל נמצאות שמונה מ־14 הפסגות בעולם שגובהן מעל 8,000 מטר, ומדרום להן משתרעים יערות ומישורים חמים."
         image={heroHimalaya}
         imageAlt="רכס מושלג בהימלאיה באור ראשון"
       />
@@ -116,34 +126,17 @@ function NepalPage() {
           </Link>
         </div>
 
-        <Link to="/knowledge" className="mt-4 inline-block text-[0.875rem] font-semibold text-saffron">
+        <Link
+          to="/knowledge"
+          className="mt-4 inline-block text-[0.875rem] font-semibold text-saffron"
+        >
           למרכז הידע למטיילים בנפאל ←
         </Link>
       </Section>
 
-      <section className="relative overflow-hidden">
-        <img
-          src={kathmanduDusk}
-          alt="חצר מקדשים בקטמנדו בשעת בין ערביים"
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-summit/80" />
-        <div className="relative mx-auto max-w-4xl px-6 py-9 text-center sm:py-10">
-          <h2 className="font-display text-[1.3125rem] font-bold text-balance text-parchment sm:text-2xl">
-            ההימלאיה היא סיבה מצוינת להגיע לנפאל. היא ממש לא הסיבה היחידה להישאר
-          </h2>
-          <p className="mx-auto mt-3 max-w-[46ch] text-[0.9375rem] leading-relaxed text-parchment/85">
-            כמה שאלות קצרות, ואחריהן כמה כיוונים מתוך הטרקים והחוויות שלנו.
-          </p>
-          <Link
-            to="/match"
-            className="mt-5 inline-block rounded-xl bg-saffron px-6 py-3.5 text-[0.9375rem] font-semibold text-parchment"
-          >
-            בואו נמצא את השביל שלכם
-          </Link>
-        </div>
-      </section>
+      <Section>
+        <MatchPrompt />
+      </Section>
     </>
   );
 }

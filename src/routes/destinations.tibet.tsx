@@ -1,3 +1,5 @@
+import { Breadcrumbs } from "@/components/content-navigation";
+import { breadcrumbData } from "@/lib/navigation-meta";
 import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
@@ -6,17 +8,26 @@ import tibetImg from "@/assets/destinations/tibet.jpg";
 
 export const Route = createFileRoute("/destinations/tibet")({
   component: TibetPage,
-  head: () => publicMeta(
-    "טיבט — יעד שנפתח אצלנו בקרוב | השביל הזה",
-    "טיבט היא גובה ומרחב: רמה פתוחה, אורות חדים ומנזרים. אנחנו בונים כרגע את התוכן המקצועי ליעד, ואפשר לדבר איתנו על טיול בטיבט.",
-    "/destinations/tibet", "website", tibetImg,
-    { title: "טיבט — גובה, מרחב ואופק רחוק", description: "יעד שאנחנו בונים כרגע, בלי הבטחות ובלי פרטים שלא אימתנו." },
-  ),
+  head: () => ({
+    ...publicMeta(
+      "טיבט — יעד שנפתח אצלנו בקרוב | השביל הזה",
+      "טיבט היא גובה ומרחב: רמה פתוחה, אורות חדים ומנזרים. אנחנו בונים כרגע את התוכן המקצועי ליעד, ואפשר לדבר איתנו על טיול בטיבט.",
+      "/destinations/tibet",
+      "website",
+      tibetImg,
+      {
+        title: "טיבט — גובה, מרחב ואופק רחוק",
+        description: "יעד שאנחנו בונים כרגע, בלי הבטחות ובלי פרטים שלא אימתנו.",
+      },
+    ),
+    scripts: [breadcrumbData("destinations", "tibet", "טיבט")],
+  }),
 });
 
 function TibetPage() {
   return (
     <>
+      <Breadcrumbs group="destinations" slug="tibet" name="טיבט" />
       <PageHero
         kicker="טיבט"
         title="גובה, מרחב ואופק רחוק"
@@ -29,7 +40,8 @@ function TibetPage() {
         <div className="grid gap-3 sm:grid-cols-2">
           <Card>
             <p className="text-[0.9375rem] leading-relaxed text-ink/75">
-              למי שנמשך למרחבים ריקים יותר מלשבילים ירוקים, ומוכן לטיול שבו הגובה מורגש כמעט כל הזמן.
+              למי שנמשך למרחבים ריקים יותר מלשבילים ירוקים, ומוכן לטיול שבו הגובה מורגש כמעט כל
+              הזמן.
             </p>
           </Card>
           <Card>
@@ -61,7 +73,6 @@ function TibetPage() {
           </div>
         </Card>
       </Section>
-
     </>
   );
 }

@@ -41,6 +41,12 @@ export function SiteFooter({ trek }: { trek?: string }) {
                 <Link to="/knowledge">מרכז הידע</Link>
               </li>
               <li>
+                <Link to="/match">שאלון הכוונה לטיול</Link>
+              </li>
+              <li>
+                <Link to="/contact">צור קשר</Link>
+              </li>
+              <li>
                 <Link to="/experiences">חוויות בנפאל</Link>
               </li>
               {HOME_LINKS.map(([hash, label]) => (
@@ -51,7 +57,9 @@ export function SiteFooter({ trek }: { trek?: string }) {
                 </li>
               ))}
             </ul>
-            <Link to="/privacy" className="p-link">פרטיות ופרטי הפנייה</Link>
+            <Link to="/privacy" className="p-link">
+              פרטיות ופרטי הפנייה
+            </Link>
             <h2 className="p-h3 mt-5">שומרים על קשר</h2>
             <p className="mt-3">
               <a href={`tel:${CONTACT_PHONE.replace(/-/g, "")}`}>

@@ -1,3 +1,5 @@
+import { Breadcrumbs } from "@/components/content-navigation";
+import { breadcrumbData } from "@/lib/navigation-meta";
 import { publicMeta } from "@/lib/public-meta";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
@@ -8,12 +10,20 @@ import { saveTripContext } from "@/lib/trip-context";
 
 export const Route = createFileRoute("/treks/compare")({
   component: ComparePage,
-  head: () => publicMeta(
-    "השוואת טרקים בנפאל — משך, גובה ומאמץ | השביל הזה",
-    "בוחרים שני מסלולים או שלושה ורואים אותם זה מול זה: משך, גובה מקסימלי, ימים בנפאל, רמת מאמץ ולמי המסלול מתאים.",
-    "/treks/compare", "website", undefined,
-    { title: "השוואת טרקים בנפאל", description: "מסלול מול מסלול — משך, גובה, ימים בנפאל ורמת מאמץ." },
-  ),
+  head: () => ({
+    ...publicMeta(
+      "השוואת טרקים בנפאל — משך, גובה ומאמץ | השביל הזה",
+      "בוחרים שני מסלולים או שלושה ורואים אותם זה מול זה: משך, גובה מקסימלי, ימים בנפאל, רמת מאמץ ולמי המסלול מתאים.",
+      "/treks/compare",
+      "website",
+      undefined,
+      {
+        title: "השוואת טרקים בנפאל",
+        description: "מסלול מול מסלול — משך, גובה, ימים בנפאל ורמת מאמץ.",
+      },
+    ),
+    scripts: [breadcrumbData("treks", "compare", "השוואת מסלולים")],
+  }),
 });
 
 /**
@@ -66,6 +76,7 @@ function ComparePage() {
 
   return (
     <>
+      <Breadcrumbs group="treks" slug="compare" name="השוואת מסלולים" />
       <PageHero
         kicker="השוואה"
         title="מסלול מול מסלול"
@@ -166,10 +177,7 @@ function ComparePage() {
                       {r.label}
                     </th>
                     {chosen.map((t) => (
-                      <td
-                        key={t.slug}
-                        className="px-4 py-3 align-top leading-relaxed text-ink/80"
-                      >
+                      <td key={t.slug} className="px-4 py-3 align-top leading-relaxed text-ink/80">
                         {r.has(t) ? r.render(t) : "—"}
                       </td>
                     ))}

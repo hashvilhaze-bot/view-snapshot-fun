@@ -285,10 +285,10 @@ export const articles: Article[] = [
 
 /** Verified quick facts. A visiting card for the country, not an encyclopedia. */
 export const nepalQuickFacts: { label: string; value: string; note?: string }[] = [
-  { label: "בירה", value: "קטמנדו", note: "העיר הגדולה בנפאל, ושדה התעופה הבינלאומי היחיד" },
+  { label: "בירה", value: "קטמנדו", note: "בעמק קטמנדו נמצא נמל התעופה טריבהובן" },
   { label: "מטבע", value: "רופי נפאלי (NPR)", note: "על השביל עובדים במזומן" },
   { label: "שפה", value: "נפאלית", note: "לצידה עשרות שפות מקומיות; אנגלית נפוצה בתיירות" },
-  { label: "אזור זמן", value: "UTC+5:45", note: "אזור הזמן היחיד בעולם עם הפרש של 45 דקות" },
+  { label: "אזור זמן", value: "UTC+5:45", note: "אותה שעה בכל רחבי נפאל" },
   { label: "אוכלוסייה", value: "כ־29 מיליון", note: "מפקד 2021" },
   { label: "עונות הטיול", value: "אוקטובר–נובמבר, מרץ–אפריל", note: "יולי–אוגוסט הם מונסון" },
 ];

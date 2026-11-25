@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { FaqList } from "./renewed/faq";
+import { cn } from "@/lib/utils";
 import { nepalQuickFacts } from "@/lib/content";
 import { whatsappHref } from "@/lib/leads";
 
@@ -23,45 +25,34 @@ export function PageHero({
   image,
   imageAlt,
   size = "default",
+  actions,
 }: {
   kicker?: string;
   title: string;
   lead?: string;
-  image?: string;
-  imageAlt?: string;
+  image?: string | undefined;
+  imageAlt?: string | undefined;
   size?: SectionSize;
+  actions?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden">
-      {image && (
-        <>
+    <section className="inner-hero">
+      <div className={WIDTH[size] + " inner-hero-grid" + (image ? " has-image" : "")}>
+        <div className="inner-hero-copy">
+          {kicker && <p className="p-kicker">{kicker}</p>}
+          <h1 className="p-h1">{title}</h1>
+          {lead && <p className="p-lead">{lead}</p>}
+          {actions && <div className="hero-actions">{actions}</div>}
+        </div>
+        {image && (
           <img
             src={image}
             alt={imageAlt ?? ""}
-            className="absolute inset-0 h-full w-full object-cover"
+            width={1000}
+            height={700}
+            fetchPriority="high"
+            className="inner-hero-photo"
           />
-          <div className="absolute inset-0 bg-summit/75" />
-        </>
-      )}
-      <div
-        className={`relative mx-auto ${WIDTH[size]} px-6 ${image ? "pt-11 pb-12" : "pt-8 pb-5"}`}
-      >
-        {kicker && <p className="mb-2 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
-        <h1
-          className={`max-w-[26ch] font-display text-[1.625rem] leading-tight font-bold text-balance sm:text-3xl ${
-            image ? "text-parchment" : "text-ink"
-          }`}
-        >
-          {title}
-        </h1>
-        {lead && (
-          <p
-            className={`mt-3 max-w-[50ch] text-[0.9375rem] leading-relaxed ${
-              image ? "text-parchment/85" : "text-ink/75"
-            }`}
-          >
-            {lead}
-          </p>
         )}
       </div>
     </section>
@@ -82,26 +73,16 @@ export function Section({
   size?: SectionSize;
 }) {
   return (
-    <section className={`mx-auto ${WIDTH[size]} px-6 py-6 sm:py-8 ${className}`}>
-      {kicker && <p className="mb-1.5 text-xs font-medium tracking-wide text-saffron">{kicker}</p>}
-      {title && (
-        <h2 className="max-w-[30ch] font-display text-[1.375rem] leading-snug font-bold text-balance sm:text-2xl">
-          {title}
-        </h2>
-      )}
+    <section className={`mx-auto ${WIDTH[size]} inner-section ${className}`}>
+      {kicker && <p className="p-kicker">{kicker}</p>}
+      {title && <h2 className="p-h2 inner-section-title">{title}</h2>}
       <div className={title ? "mt-4" : ""}>{children}</div>
     </section>
   );
 }
 
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return (
-    <div
-      className={`rounded-2xl border border-parchment/50 bg-parchment/85 p-5 ring-1 ring-ink/5 ${className}`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={cn("p-card p-5", className)}>{children}</div>;
 }
 
 /**
@@ -117,28 +98,10 @@ export function Accordion({
   className?: string;
 }) {
   return (
-    <div className={`space-y-2 ${className}`}>
-      {items.map((it) => (
-        <details
-          key={it.title}
-          className="group rounded-2xl border border-parchment/50 bg-parchment/85 ring-1 ring-ink/5"
-        >
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-[0.90625rem] font-semibold text-ink">
-            <span>{it.title}</span>
-            <span
-              aria-hidden="true"
-              className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-saffron/12 text-[0.9375rem] leading-none font-bold text-saffron"
-            >
-              <span className="group-open:hidden">+</span>
-              <span className="hidden group-open:inline">−</span>
-            </span>
-          </summary>
-          <div className="px-4 pt-0.5 pb-4 text-[0.875rem] leading-relaxed text-ink/75">
-            {it.content}
-          </div>
-        </details>
-      ))}
-    </div>
+    <FaqList
+      className={className}
+      items={items.map(({ title, content }) => ({ question: title, answer: content }))}
+    />
   );
 }
 
@@ -166,12 +129,12 @@ export function DidYouKnow({ text, action }: { text: string; action?: ReactNode 
 /** "נפאל בכמה רגעים" — verified basics, scannable, no article required. */
 export function QuickFacts() {
   return (
-    <dl className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+    <dl className="quick-facts">
       {nepalQuickFacts.map((f) => (
-        <div key={f.label} className="rounded-xl bg-parchment/80 px-3.5 py-2.5 ring-1 ring-ink/5">
-          <dt className="text-[0.6875rem] font-medium tracking-wide text-ink/55">{f.label}</dt>
+        <div key={f.label} className="fact-cell">
+          <dt className="fact-term">{f.label}</dt>
           <dd className="mt-0.5 font-display text-[0.9375rem] font-bold">{f.value}</dd>
-          {f.note && <p className="mt-0.5 text-[0.71875rem] leading-snug text-ink/65">{f.note}</p>}
+          {f.note && <p className="fact-note">{f.note}</p>}
         </div>
       ))}
     </dl>
@@ -222,7 +185,7 @@ export function Gallery({ photos }: { photos: { src: string; alt: string; captio
         <figcaption className="mt-1.5 px-1 text-[0.75rem] text-ink/60">{lead.caption}</figcaption>
       </figure>
       {rest.length > 0 && (
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="quick-facts">
           {rest.map((p) => (
             <figure key={p.src} className="min-w-0">
               <img

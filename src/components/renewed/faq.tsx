@@ -1,11 +1,17 @@
-import type { Faq } from "@/lib/treks/itineraries";
-export function FaqList({ items }: { items: Faq[] }) {
+import type { ReactNode } from "react";
+export function FaqList({
+  items,
+  className = "",
+}: {
+  items: { question: string; answer: ReactNode }[];
+  className?: string;
+}) {
   return (
-    <div>
+    <div className={"site-faq " + className}>
       {items.map(({ question, answer }) => (
-        <details key={question} className="p-rule last:border-b">
+        <details key={question} className="p-rule">
           <summary>{question}</summary>
-          <p className="p-muted m-0 pb-5 text-[1rem]">{answer}</p>
+          <div className="faq-response">{answer}</div>
         </details>
       ))}
     </div>

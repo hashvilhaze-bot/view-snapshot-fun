@@ -56,6 +56,7 @@ export default {
         "/experiences",
         "/knowledge",
         "/about",
+        "/contact",
         "/nepal",
         "/destinations",
         "/destinations/bhutan",

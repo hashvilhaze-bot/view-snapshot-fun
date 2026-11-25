@@ -3,6 +3,7 @@
 @import "tw-animate-css";
 @import "./renewed.css";
 @import "./site-layout.css";
+@import "./inner-pages.css";
 
 @custom-variant dark (&:is(.dark *));
 

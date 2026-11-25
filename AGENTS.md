@@ -13,3 +13,4 @@
 - Store editor overrides locally under a pilot-specific slug key and read them after hydration; SSR must retain accessible default stages.
 - Generate pilot FAQ JSON-LD in leaf route heads from the exact FAQ arrays rendered on the page to avoid divergent or duplicate schema.
 - Load GSAP and ScrollTrigger inside the pilot layout effect and clean its context on route changes; default content must remain visible without JavaScript.
+- Keep home photo depth and wide/detail motion in a desktop media context with clipped images; resizing, reduced motion and route cleanup must restore the static composition without moving adjacent text.

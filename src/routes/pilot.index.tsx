@@ -170,9 +170,11 @@ function PilotHome() {
       {/* OHAD */}
       <section className="p-section p-mist">
         <div className="p-wrap p-photo-pair">
-          {homePhotos.slice(0, 2).map((p) => (
+          {homePhotos.slice(0, 2).map((p, i) => (
             <figure className="m-0" key={p.src}>
+              <div className={i === 0 ? "p-depth-frame" : "p-photo-frame"}>
               <img
+                data-p-depth={i === 0 ? "" : undefined}
                 src={p.src}
                 srcSet={p.srcSet}
                 sizes="(max-width: 767px) calc(100vw - 40px), 640px"
@@ -182,6 +184,7 @@ function PilotHome() {
                 width={1200}
                 height={800}
               />
+              </div>
               <figcaption className="p-muted mt-3">{p.caption}</figcaption>
             </figure>
           ))}
@@ -312,9 +315,24 @@ function PilotHome() {
 
       {/* FAQ */}
       <section className="pb-12 md:pb-20">
-        <div className="p-wrap p-photo-pair p-photo-pair-reverse">
+        <div className="p-wrap p-photo-pair p-photo-pair-reverse p-detail-pair">
           {homePhotos.slice(2).map((p) => (
             <figure className="m-0" key={p.src}>
+              {p === homePhotos[3] ? (
+                <div className="p-photo-story" data-p-photo-story>
+                  <div className="p-story-wide" data-p-story-frame>
+                    <img src={p.src} srcSet={p.srcSet} sizes="(max-width: 767px) calc(100vw - 40px), 640px" alt={p.alt} loading="lazy" decoding="async" width={1200} height={800} />
+                  </div>
+                  <div className="p-story-details">
+                    <div className="p-story-detail p-story-trail" data-p-story-frame>
+                      <img src={p.src} alt="תקריב מתוך אותו צילום: מטיילים בשביל שבין הטרסות" loading="lazy" decoding="async" width={960} height={640} />
+                    </div>
+                    <div className="p-story-detail p-story-bridge" data-p-story-frame>
+                      <img src={p.src} alt="תקריב מתוך אותו צילום: גשר מעל הנחל ובתי הכפר על המדרון" loading="lazy" decoding="async" width={960} height={640} />
+                    </div>
+                  </div>
+                </div>
+              ) : (
               <img
                 src={p.src}
                 srcSet={p.srcSet}
@@ -325,6 +343,7 @@ function PilotHome() {
                 width={1200}
                 height={800}
               />
+              )}
               <figcaption className="p-muted mt-3">{p.caption}</figcaption>
             </figure>
           ))}

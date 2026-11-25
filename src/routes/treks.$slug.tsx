@@ -189,43 +189,25 @@ function TrekPage() {
             משוערים ואינם כוללים את כל העצירות או ימי השהייה בנפאל.
           </p>
           <Itinerary stages={example.stages} />
-          <details className="p-rule mt-8">
-            <summary>מקור נוסף על המסלול</summary>
-            <p>{example.version}</p>
-            <a href={example.source} target="_blank" rel="noopener noreferrer" className="p-link">
-              לפירוט המסלול והזמנים
-            </a>
-            {example.backgroundSource && (
-              <p>
-                <a
-                  href={example.backgroundSource}
-                  className="p-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  רקע נוסף בעברית
-                </a>
-              </p>
-            )}
-            <p className="p-muted mt-3">
-              ההפניה היא למידע על הדרך. את השירותים, ההיתרים וההיערכות לנסיעה נברר בנפרד כחלק
-              מהתכנון שלכם.
-            </p>
-          </details>
-          {example.extensions.map((extension) => (
-            <article className="p-card mt-6 p-6" key={extension.title}>
-              <h3 className="p-h3">{extension.title}</h3>
-              <p className="p-read mt-3">{extension.description}</p>
-              <a
-                href={extension.source}
-                className="p-link mt-3 inline-block"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                לקריאה נוספת על האפשרות הזאת
-              </a>
-            </article>
-          ))}
+          {example.extensions.length > 0 && (
+            <section id="route-options" aria-labelledby="route-options-title" className="mt-10 scroll-mt-24">
+              <h2 id="route-options-title" className="p-h2">עוד אפשרות לאורך הדרך</h2>
+              {example.extensions.map((extension) => (
+                <article className="p-card mt-5 p-6" key={extension.title}>
+                  <h3 className="p-h3">{extension.title}</h3>
+                  <div className="p-read mt-3 space-y-3">
+                    <p>{extension.description}</p>
+                    <p>{extension.timing}</p>
+                    {extension.stages && (
+                      <ol className="list-decimal space-y-2 ps-6">
+                        {extension.stages.map((stage) => <li key={stage}>{stage}</li>)}
+                      </ol>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </section>
+          )}
         </div>
       </section>
       <section className="p-section">

@@ -11,8 +11,6 @@ export type Stage = {
 export type Faq = { question: string; answer: string };
 export type Example = {
   description: string;
-  source: string;
-  version: string;
   altitude: string;
   difference: string;
   stages: Stage[];
@@ -36,8 +34,7 @@ export const examples: Record<string, Example> = {
   "pokhara-hills": {
     description:
       "יוצאים מפוקרה אל הגבעות, עוברים בכפר דמפוס וחוזרים דרך מדרגות האבן והטרסות. אפשר להתחיל ביומיים האלה ולהוסיף הליכות באזור.",
-    source: "https://trekheaven.com/treks/dhampus-australian-camp",
-    version: "דמפוס ואוסטרליאן קמפ, גרסת שני ימים",
+    // https://trekheaven.com/treks/dhampus-australian-camp
     altitude: "כ־2,100 מ׳ באוסטרליאן קמפ",
     difference:
       "אפשר להקדיש לגבעות 3–5 ימי הליכה. החלוקה כאן כוללת שני ימי הליכה דרך דמפוס ואוסטרליאן קמפ, ואפשר להוסיף לה הליכות באזור. הימים הנוספים בנפאל מתוכננים בנפרד.",
@@ -61,8 +58,7 @@ export const examples: Record<string, Example> = {
   "poon-hill": {
     description:
       "ארבעה ימי הליכה בין מדרגות אבן, יער וכפרים. התצפית בפון היל היא עצירה בבוקר, ולא מקום הלינה.",
-    source: "https://theeverestholiday.com/blog/poon-hill-trek-itinerary-4-and-5-day-options",
-    version: "גרסת ארבעה ימים מפוקרה, דרך אולרי וטדאפאני",
+    // https://theeverestholiday.com/blog/poon-hill-trek-itinerary-4-and-5-day-options
     altitude: "3,210 מ׳ בתצפית פון היל",
     difference:
       "למסלול אפשר להקדיש 4–5 ימי הליכה. כאן הדרך מחולקת לארבעה, בלי ימי ההגעה לנפאל והשהייה בעיר.",
@@ -100,8 +96,7 @@ export const examples: Record<string, Example> = {
   "mardi-himal": {
     description:
       "חמישה ימים שעולים מתוך היער אל רכס פתוח מול מאצ׳אפוצ׳רה. יום העלייה לתצפית והירידה ממנה הוא הארוך במסלול המוצע.",
-    source: "https://mantramountain.com/guides/mardi-himal",
-    version: "גרסת חמישה ימים, קאנדה עד סידינג",
+    // https://mantramountain.com/guides/mardi-himal
     altitude: "כ־4,200 מ׳ בתצפית העליונה; המשך אופציונלי לבסיס מרדי כ־4,500 מ׳",
     difference:
       "למסלול אפשר להקדיש 5–7 ימי הליכה. כאן הדרך מחולקת לחמישה ימים. ההמשך לבסיס מרדי אינו חובה, והבסיס אינו פסגת מרדי.",
@@ -146,8 +141,7 @@ export const examples: Record<string, Example> = {
   "langtang-valley": {
     description:
       "נכנסים לעמק ברגל מסיאברובסי ומתקדמים עד קיאנג׳ין גומפה. אפשר להוסיף יום הליכה לתצפית גבוהה מעל הכפר.",
-    source: "https://www.nepalhimalayanhiker.com/treks/langtang-valley-trek",
-    version: "קטע העמק מתוך גרסת עשרה ימים במקור",
+    // https://www.nepalhimalayanhiker.com/treks/langtang-valley-trek
     altitude: "3,870 מ׳ בקיאנג׳ין גומפה; צ׳רקו רי אופציונלי 4,984 מ׳",
     difference:
       "למסלול אפשר להקדיש 7–9 ימי הליכה. החלוקה הקצרה כאן כוללת שש הליכות, ובהן יום תצפית לבחירתכם, ושתי נסיעות. אפשר להוסיף זמן בכפרים ובקיאנג׳ין גומפה.",
@@ -213,9 +207,7 @@ export const examples: Record<string, Example> = {
   "annapurna-base-camp": {
     description:
       "שבעה ימי הליכה אל אגן אנאפורנה ובחזרה, עם לינות שעולות בהדרגה לאורך העמק. מדרגות האבן הן חלק משמעותי מהדרך.",
-    source:
-      "https://www.magicalnepal.com/travel-guide/annapurna/annapurna-base-camp-trek-distance/",
-    version: "גרסת שבעה ימי הליכה, גאנדרוק עד אזור ג׳ינו",
+    // https://www.magicalnepal.com/travel-guide/annapurna/annapurna-base-camp-trek-distance/
     altitude: "4,130 מ׳ בבסיס אנאפורנה",
     difference:
       "למסלול אפשר להקדיש 7–10 ימי הליכה. כאן הדרך מחולקת לשבעה. את שעות ההליכה לכל יום נברר לפי נקודות היציאה והלינה והקצב שלכם.",
@@ -268,9 +260,7 @@ export const examples: Record<string, Example> = {
   "annapurna-circuit": {
     description:
       "הדרך משלבת נסיעות בעמק, הליכה בין מטעים וכפרים סביב מאנאנג וחצייה של תורונג לה אל מוקטינאת. אפשר להאריך את ההליכה בחלק התחתון של העמק או להוסיף זמן באזור מאנאנג.",
-    source:
-      "https://www.magicalnepal.com/travel-guide/annapurna/annapurna-circuit-10-days-itinerary/",
-    version: "גרסת עשרה ימים במקור, עם נסיעות וטיסת סיום",
+    // https://www.magicalnepal.com/travel-guide/annapurna/annapurna-circuit-10-days-itinerary/
     altitude: "5,416 מ׳ במעבר תורונג לה",
     difference:
       "להקפה אפשר להקדיש 12–18 ימי הליכה. החלוקה הקצרה כאן כוללת שש הליכות, יום התאקלמות ושלושה ימי מעבר. 10 הימים כוללים גם נסיעות והתאקלמות, ולא רק הליכה.",
@@ -350,8 +340,7 @@ export const examples: Record<string, Example> = {
   "everest-base-camp": {
     description:
       "עולים מלוקלה דרך נאמצ׳ה וטנגבוצ׳ה אל בסיס האוורסט. שני ימים נשארים באותו מקום לינה, ויש אפשרות לתצפית בקלה פאטאר.",
-    source: "https://nepal-treks-il.com/everest-base-camp-12-days-with-lukla-flights-2-3/",
-    version: "גרסת 12 ימים הכוללת טיסות לוקלה, 2025/2026",
+    // https://nepal-treks-il.com/everest-base-camp-12-days-with-lukla-flights-2-3/
     altitude: "5,364 מ׳ בבסיס; קלה פאטאר אופציונלי כ־5,545 מ׳",
     difference:
       "למסלול אפשר להקדיש 12–14 ימי הליכה. החלוקה כאן כוללת תשע הליכות, שני ימי התאקלמות ויום טיסה. גובה קלה פאטאר מופיע בהפניה כ־5,555 מ׳, לעומת 5,545 מ׳ המוצגים כאן. את הגובה נוודא לפני סגירת התוכנית.",
@@ -445,8 +434,7 @@ export const examples: Record<string, Example> = {
   "manaslu-circuit": {
     description:
       "עולים בעמק בודי גנדקי דרך כפרי האבן, ממשיכים לסאמה גאון וחוצים את לארקיה לה. את מספר הלינות והנסיעות מתאימים לפני היציאה.",
-    source: "https://manaslutreks.com/manaslu-circuit-trek-route/",
-    version: "טבלת 12 שלבים, עדכון המקור מנובמבר 2026",
+    // https://manaslutreks.com/manaslu-circuit-trek-route/
     altitude: "5,106 מ׳ במעבר לארקיה לה",
     difference:
       "למסלול אפשר להקדיש 12–16 ימי הליכה. החלוקה הקצרה כאן כוללת תשע הליכות, יום התאקלמות בסאמה גאון ושתי נסיעות אל המסלול ובחזרה. ימי ההגעה, ההכנות והביטחון בנפאל מתוכננים בנפרד.",

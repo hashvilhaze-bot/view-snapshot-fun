@@ -3,6 +3,7 @@ import logo from "@/assets/hashvil-haze-logo.png.asset.json";
 import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/leads";
 import { treks } from "@/lib/pilot/legacy-treks";
 import { PilotCtas } from "./pilot-ctas";
+import { PhotoCredits } from "../renewed/photo-credits";
 const HOME_LINKS: [string, string][] = [
   ["nepal", "לגלות את נפאל"],
   ["about", "מי אנחנו"],
@@ -66,6 +67,7 @@ export function PilotFooter({ trek }: { trek?: string }) {
             </ul>
           </nav>
         </div>
+        <PhotoCredits />
         <p className="p-footer-note mt-10 pt-5">פיילוט לבדיקה בלבד. הטופס אינו שולח פרטים.</p>
       </div>
     </footer>

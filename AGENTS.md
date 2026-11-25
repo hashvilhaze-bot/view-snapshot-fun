@@ -15,3 +15,5 @@
 - Load GSAP and ScrollTrigger inside the pilot layout effect and clean its context on route changes; default content must remain visible without JavaScript.
 - Keep home photo depth and wide/detail motion in a desktop media context with clipped images; resizing, reduced motion and route cleanup must restore the static composition without moving adjacent text.
 - Keep the pilot hero slideshow isolated from shared galleries with licensed attribution, a visible first SSR frame, decoded replacements and automatic playback suspended for reduced motion or hidden tabs.
+- Use viewport-relative sizing for shared headings, page gutters and section spacing. Bound fluid values with `clamp()` to preserve readability, and check the layout on a phone, a tablet and a wide desktop. Keep the hero selectors visually slim with a 44px minimum touch target.
+- Keep travel references in editorial notes. Write the route, timing and extension details directly on each trek page. Place image license links in photo credits.

@@ -171,17 +171,6 @@ function PilotTrek() {
             הזמנים משוערים ואינם כוללים את כל העצירות או ימי השהייה בנפאל.
           </p>
           <TrekItinerary key={trek.slug} slug={trek.slug} />
-          <details className="p-rule mt-8">
-            <summary>מקור נוסף על המסלול</summary>
-            <p>{example.version} · נבדק ב־25.11.2026.</p>
-            <a href={example.source} target="_blank" rel="noopener noreferrer" className="p-link">
-              לפירוט המסלול והזמנים במקור
-            </a>
-            <p className="p-muted mt-3">
-              ההפניה היא למידע על הדרך. את השירותים, ההיתרים וההיערכות לנסיעה נברר בנפרד כחלק
-              מהתכנון שלכם.
-            </p>
-          </details>
           <Link
             to="/pilot/editor/$slug"
             params={{ slug: trek.slug }}

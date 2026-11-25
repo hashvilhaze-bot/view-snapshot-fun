@@ -3,6 +3,7 @@ import logo from "@/assets/hashvil-haze-logo.png.asset.json";
 import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/leads";
 import { treks } from "@/lib/content";
 import { ContactCtas } from "./renewed/contact-ctas";
+import { PhotoCredits } from "./renewed/photo-credits";
 const HOME_LINKS: [string, string][] = [
   ["nepal", "לגלות את נפאל"],
   ["about", "מי אנחנו"],
@@ -75,6 +76,7 @@ export function SiteFooter({ trek }: { trek?: string }) {
             </ul>
           </nav>
         </div>
+        <PhotoCredits />
       </div>
     </footer>
   );

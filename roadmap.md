@@ -86,3 +86,6 @@
 
 ## Pilot (stage 2)
 - [x] Design pilot under /pilot, /pilot/treks/manaslu-circuit, /pilot/quote (noindex, simulated form, Pompei fonts)
+- [x] Pilot only: shared footer, four extra photos, replaying GSAP, RTL text alignment.
+- [x] Eight trek examples with sourced daily stages, local editor and single-source FAQ schema.
+- [x] Verify desktop/mobile, all selections, local submission/editor, SSR and reduced motion.

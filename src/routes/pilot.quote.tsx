@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { treks } from "@/lib/content";
+import { validPilotSlug } from "@/lib/pilot/itineraries";
+import { Button } from "@/components/ui/button";
 
 type Search = { trek?: string | undefined };
 
 export const Route = createFileRoute("/pilot/quote")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    trek: typeof s["trek"] === "string" && s["trek"] ? s["trek"] : undefined,
+    trek: validPilotSlug(s["trek"]),
   }),
   head: () => ({
     meta: [
@@ -22,7 +24,14 @@ export const Route = createFileRoute("/pilot/quote")({
   component: PilotQuote,
 });
 
-type Form = { name: string; phone: string; email: string; when: string; group: string; note: string };
+type Form = {
+  name: string;
+  phone: string;
+  email: string;
+  when: string;
+  group: string;
+  note: string;
+};
 const EMPTY: Form = { name: "", phone: "", email: "", when: "", group: "", note: "" };
 
 export function validatePilotForm(f: Form): Partial<Record<keyof Form, string>> {
@@ -30,7 +39,8 @@ export function validatePilotForm(f: Form): Partial<Record<keyof Form, string>> 
   if (f.name.trim().length < 2) e.name = "נא לכתוב שם.";
   if (!/^0\d{1,2}-?\d{7}$|^\+?972-?\d{8,9}$/.test(f.phone.replace(/\s/g, "")))
     e.phone = "נא לכתוב מספר טלפון תקין, למשל 050-1234567.";
-  if (f.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = "כתובת האימייל לא נראית תקינה.";
+  if (f.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email))
+    e.email = "כתובת האימייל לא נראית תקינה.";
   return e;
 }
 
@@ -45,15 +55,23 @@ const LABELS: Record<keyof Form, string> = {
 
 function PilotQuote() {
   const search = Route.useSearch();
-  const preset = treks.find((t) => t.slug === search.trek);
+  return (
+    <PilotQuoteForm key={search.trek ?? "direct"} {...(search.trek ? { slug: search.trek } : {})} />
+  );
+}
+
+function PilotQuoteForm({ slug }: { slug?: string }) {
+  const preset = treks.find((t) => t.slug === slug);
   const [keepTrek, setKeepTrek] = useState(true);
   const selected = preset && keepTrek ? preset : undefined;
   const [form, setForm] = useState<Form>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof Form, string>>>({});
   const [done, setDone] = useState(false);
 
-  const set = (k: keyof Form) => (ev: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [k]: ev.target.value }));
+  const set =
+    (k: keyof Form) =>
+    (ev: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+      setForm((f) => ({ ...f, [k]: ev.target.value }));
 
   function onSubmit(ev: React.FormEvent) {
     ev.preventDefault();
@@ -77,22 +95,37 @@ function PilotQuote() {
       <section className="p-section">
         <div className="p-wrap p-read">
           {notice}
-          <h1 className="p-h2 mt-6" tabIndex={-1}>כך הייתה נראית הפנייה שלכם</h1>
+          <h1 className="p-h2 mt-6" tabIndex={-1}>
+            כך הייתה נראית הפנייה שלכם
+          </h1>
           <dl className="p-card m-0 mt-6 divide-y p-0" style={{ borderColor: "var(--p-line)" }}>
             <div className="px-5 py-3">
               <dt className="p-muted text-[14px]">מה בחרתם</dt>
-              <dd className="m-0 font-semibold">{selected ? `טרק: ${selected.name}` : "עוד לא נבחר מסלול"}</dd>
+              <dd className="m-0 font-semibold">
+                {selected ? `טרק: ${selected.name}` : "עוד לא נבחר מסלול"}
+              </dd>
             </div>
-            {(Object.keys(LABELS) as (keyof Form)[]).filter((k) => form[k]).map((k) => (
-              <div key={k} className="px-5 py-3">
-                <dt className="p-muted text-[14px]">{LABELS[k]}</dt>
-                <dd className="m-0 font-semibold">{form[k]}</dd>
-              </div>
-            ))}
+            {(Object.keys(LABELS) as (keyof Form)[])
+              .filter((k) => form[k])
+              .map((k) => (
+                <div key={k} className="px-5 py-3">
+                  <dt className="p-muted text-[14px]">{LABELS[k]}</dt>
+                  <dd className="m-0 font-semibold">{form[k]}</dd>
+                </div>
+              ))}
           </dl>
           <div className="mt-6 flex flex-wrap gap-4">
-            <button type="button" className="p-btn p-btn-ghost" onClick={() => setDone(false)}>חזרה לעריכה</button>
-            <Link to="/pilot" className="p-btn p-btn-ghost">לדף הבית</Link>
+            <Button
+              variant="ghost"
+              type="button"
+              className="p-btn p-btn-ghost"
+              onClick={() => setDone(false)}
+            >
+              חזרה לעריכה
+            </Button>
+            <Link to="/pilot" className="p-btn p-btn-ghost">
+              לדף הבית
+            </Link>
           </div>
         </div>
       </section>
@@ -103,7 +136,9 @@ function PilotQuote() {
     <section className="p-section">
       <div className="p-wrap p-read">
         <p className="p-kicker">בקשת הצעה</p>
-        <h1 className="p-h2 mt-2">{selected ? "המסלול שבחרתם כבר איתנו" : "ספרו לנו בקצרה על הטיול"}</h1>
+        <h1 className="p-h2 mt-2">
+          {selected ? "המסלול שבחרתם כבר איתנו" : "ספרו לנו בקצרה על הטיול"}
+        </h1>
         <p className="p-muted mt-3">נשאר רק לספר לנו מתי ומי נוסע.</p>
         <div className="mt-5">{notice}</div>
 
@@ -111,33 +146,55 @@ function PilotQuote() {
           <div className="mt-6 flex flex-wrap items-center gap-3" aria-live="polite">
             <span className="p-chip">
               טרק: {selected.name}
-              <button type="button" onClick={() => setKeepTrek(false)} aria-label={`הסרת ${selected.name}`} className="p-link text-[14px]" style={{ background: "none", border: 0, cursor: "pointer" }}>
+              <Button
+                variant="link"
+                type="button"
+                onClick={() => setKeepTrek(false)}
+                aria-label={`הסרת ${selected.name}`}
+                className="p-link text-[14px]"
+              >
                 הסרה
-              </button>
+              </Button>
             </span>
           </div>
         )}
 
         <form onSubmit={onSubmit} noValidate className="mt-8 space-y-5">
-          {([
-            ["name", "text", "name", true],
-            ["phone", "tel", "tel", true],
-            ["email", "email", "email", false],
-            ["when", "text", "off", false],
-          ] as const).map(([k, type, ac, req]) => (
+          {(
+            [
+              ["name", "text", "name", true],
+              ["phone", "tel", "tel", true],
+              ["email", "email", "email", false],
+              ["when", "text", "off", false],
+            ] as const
+          ).map(([k, type, ac, req]) => (
             <div key={k}>
-              <label htmlFor={`f-${k}`} className="p-label">{LABELS[k]}{req ? " *" : " (לא חובה)"}</label>
+              <label htmlFor={`f-${k}`} className="p-label">
+                {LABELS[k]}
+                {req ? " *" : " (לא חובה)"}
+              </label>
               <input
-                id={`f-${k}`} type={type} autoComplete={ac} value={form[k]} onChange={set(k)}
-                className="p-field" aria-invalid={errors[k] ? true : undefined}
+                id={`f-${k}`}
+                type={type}
+                autoComplete={ac}
+                value={form[k]}
+                onChange={set(k)}
+                className="p-field"
+                aria-invalid={errors[k] ? true : undefined}
                 aria-describedby={errors[k] ? `e-${k}` : undefined}
                 placeholder={k === "when" ? "למשל: פסח, או אוקטובר" : undefined}
               />
-              {errors[k] && <p id={`e-${k}`} className="p-error">{errors[k]}</p>}
+              {errors[k] && (
+                <p id={`e-${k}`} className="p-error">
+                  {errors[k]}
+                </p>
+              )}
             </div>
           ))}
           <div>
-            <label htmlFor="f-group" className="p-label">{LABELS.group} (לא חובה)</label>
+            <label htmlFor="f-group" className="p-label">
+              {LABELS.group} (לא חובה)
+            </label>
             <select id="f-group" value={form.group} onChange={set("group")} className="p-field">
               <option value="">בחרו</option>
               <option>זוג</option>
@@ -147,10 +204,20 @@ function PilotQuote() {
             </select>
           </div>
           <div>
-            <label htmlFor="f-note" className="p-label">{LABELS.note} (לא חובה)</label>
-            <textarea id="f-note" rows={4} value={form.note} onChange={set("note")} className="p-field" />
+            <label htmlFor="f-note" className="p-label">
+              {LABELS.note} (לא חובה)
+            </label>
+            <textarea
+              id="f-note"
+              rows={4}
+              value={form.note}
+              onChange={set("note")}
+              className="p-field"
+            />
           </div>
-          <button type="submit" className="p-btn p-btn-primary w-full sm:w-auto">הצגת סיכום (הדמיה)</button>
+          <Button type="submit" className="p-btn p-btn-primary w-full sm:w-auto">
+            הצגת סיכום (הדמיה)
+          </Button>
         </form>
       </div>
     </section>

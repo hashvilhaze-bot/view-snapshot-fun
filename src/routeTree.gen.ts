@@ -31,6 +31,7 @@ import { Route as PilotQuoteRouteImport } from './routes/pilot.quote'
 import { Route as TreksIndexRouteImport } from './routes/treks.index'
 import { Route as TreksSlugRouteImport } from './routes/treks.$slug'
 import { Route as TreksCompareRouteImport } from './routes/treks.compare'
+import { Route as PilotEditorSlugRouteImport } from './routes/pilot.editor.$slug'
 import { Route as PilotTreksSlugRouteImport } from './routes/pilot.treks.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -143,6 +144,11 @@ const TreksCompareRoute = TreksCompareRouteImport.update({
   path: '/compare',
   getParentRoute: () => TreksRoute,
 } as any)
+const PilotEditorSlugRoute = PilotEditorSlugRouteImport.update({
+  id: '/editor/$slug',
+  path: '/editor/$slug',
+  getParentRoute: () => PilotRoute,
+} as any)
 const PilotTreksSlugRoute = PilotTreksSlugRouteImport.update({
   id: '/treks/$slug',
   path: '/treks/$slug',
@@ -172,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/knowledge/': typeof KnowledgeIndexRoute
   '/pilot/': typeof PilotIndexRoute
   '/treks/': typeof TreksIndexRoute
+  '/pilot/editor/$slug': typeof PilotEditorSlugRoute
   '/pilot/treks/$slug': typeof PilotTreksSlugRoute
 }
 export interface FileRoutesByTo {
@@ -194,6 +201,7 @@ export interface FileRoutesByTo {
   '/knowledge': typeof KnowledgeIndexRoute
   '/pilot': typeof PilotIndexRoute
   '/treks': typeof TreksIndexRoute
+  '/pilot/editor/$slug': typeof PilotEditorSlugRoute
   '/pilot/treks/$slug': typeof PilotTreksSlugRoute
 }
 export interface FileRoutesById {
@@ -220,6 +228,7 @@ export interface FileRoutesById {
   '/knowledge/': typeof KnowledgeIndexRoute
   '/pilot/': typeof PilotIndexRoute
   '/treks/': typeof TreksIndexRoute
+  '/pilot/editor/$slug': typeof PilotEditorSlugRoute
   '/pilot/treks/$slug': typeof PilotTreksSlugRoute
 }
 export interface FileRouteTypes {
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/knowledge/'
     | '/pilot/'
     | '/treks/'
+    | '/pilot/editor/$slug'
     | '/pilot/treks/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -269,6 +279,7 @@ export interface FileRouteTypes {
     | '/knowledge'
     | '/pilot'
     | '/treks'
+    | '/pilot/editor/$slug'
     | '/pilot/treks/$slug'
   id:
     | '__root__'
@@ -294,6 +305,7 @@ export interface FileRouteTypes {
     | '/knowledge/'
     | '/pilot/'
     | '/treks/'
+    | '/pilot/editor/$slug'
     | '/pilot/treks/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -471,6 +483,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TreksCompareRouteImport
       parentRoute: typeof TreksRoute
     }
+    '/pilot/editor/$slug': {
+      id: '/pilot/editor/$slug'
+      path: '/editor/$slug'
+      fullPath: '/pilot/editor/$slug'
+      preLoaderRoute: typeof PilotEditorSlugRouteImport
+      parentRoute: typeof PilotRoute
+    }
     '/pilot/treks/$slug': {
       id: '/pilot/treks/$slug'
       path: '/treks/$slug'
@@ -498,12 +517,14 @@ const KnowledgeRouteWithChildren = KnowledgeRoute._addFileChildren(
 interface PilotRouteChildren {
   PilotQuoteRoute: typeof PilotQuoteRoute
   PilotIndexRoute: typeof PilotIndexRoute
+  PilotEditorSlugRoute: typeof PilotEditorSlugRoute
   PilotTreksSlugRoute: typeof PilotTreksSlugRoute
 }
 
 const PilotRouteChildren: PilotRouteChildren = {
   PilotQuoteRoute: PilotQuoteRoute,
   PilotIndexRoute: PilotIndexRoute,
+  PilotEditorSlugRoute: PilotEditorSlugRoute,
   PilotTreksSlugRoute: PilotTreksSlugRoute,
 }
 

@@ -158,7 +158,14 @@ function Contact() {
           )}
         </section>
         <aside className="contact-direct">
-          <img src={portrait.url} alt="אוהד הרץ בהפסקת קפה בנפאל" width={480} height={360} />
+          <img
+            src={portrait.url}
+            alt="אוהד הרץ בהפסקת קפה בנפאל"
+            width={480}
+            height={360}
+            loading="lazy"
+            decoding="async"
+          />
           <h2 className="p-h3">פנייה ישירה לאוהד</h2>
           {wa && (
             <a className="p-link" href={wa} target="_blank" rel="noopener noreferrer">

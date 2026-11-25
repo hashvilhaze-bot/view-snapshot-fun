@@ -8,6 +8,7 @@ import { treks } from "@/lib/content";
 import { HOME_FAQ, faqSchema } from "@/lib/pilot/itineraries";
 import { PilotFaq } from "@/components/pilot/pilot-faq";
 import { homePhotos } from "@/lib/pilot/home-photos";
+import { PilotHero } from "@/components/pilot/pilot-hero";
 
 export const Route = createFileRoute("/pilot/")({
   head: () => ({
@@ -51,37 +52,7 @@ function PilotHome() {
   return (
     <>
       {/* HERO */}
-      <section className="p-on-photo relative overflow-hidden" style={{ color: "#fff" }}>
-        <img
-          src={heroHimalaya}
-          alt="רכס מושלג בהימלאיה בנפאל באור ראשון, עם ערפל שממלא את העמקים"
-          className="absolute inset-0 h-full w-full object-cover object-[30%_center]"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to left, rgba(23,46,70,.92) 0%, rgba(23,46,70,.7) 45%, rgba(23,46,70,.25) 100%)",
-          }}
-        />
-        <div className="p-wrap relative py-16 md:py-28">
-          <div className="max-w-[620px]">
-            <p className="p-kicker" style={{ color: "#F1B98E" }}>
-              השביל הזה · טיולים בהתאמה אישית בנפאל
-            </p>
-            <h1 className="p-h1 mt-4">
-              הטיול שלכם לנפאל <span className="p-accent">מתחיל בהיכרות</span> איתכם.
-            </h1>
-            <p className="mt-6 max-w-[54ch] text-[18px] font-light leading-[1.7] md:text-[19px]">
-              אני אוהד. יחד נתכנן טיול שמתאים לאנשים שנוסעים, לזמן ולתקציב שלכם. אלווה אתכם מההכנות
-              בארץ ועד החזרה, ואסייע בתיאום מול החברה המקומית בנפאל לאורך הדרך.
-            </p>
-            <div className="mt-8">
-              <PilotCtas />
-            </div>
-          </div>
-        </div>
-      </section>
+      <PilotHero />
 
       {/* INTRO */}
       <section className="p-section">

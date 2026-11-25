@@ -90,3 +90,4 @@
 - [x] Eight trek examples with sourced daily stages, local editor and single-source FAQ schema.
 - [x] Verify desktop/mobile, all selections, local submission/editor, SSR and reduced motion.
 - [x] Home photo refinement: 16px scroll depth and replaying wide-to-detail sequence; desktop/mobile and reduced-motion verified, existing pilot flows retained.
+- [x] Pilot hero: three licensed daylight Nepal photos with attribution; automatic 6s switching, 0.8s fade, manual controls, pause/resume, reduced motion and visibility-change tested at 1280/390; copy/CTAs remain stable.

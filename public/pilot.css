@@ -51,3 +51,17 @@
 .pilot .p-notice{border:1px dashed var(--p-cta);background:#FBF1EA;border-radius:8px;padding:12px 16px;font-size:16px}
 .pilot .p-chip{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:var(--p-mist);border:1px solid var(--p-line);font-weight:600}
 .pilot .p-hero-shade{background:linear-gradient(to top,rgba(23,46,70,.92),rgba(23,46,70,.45) 55%,rgba(23,46,70,.1))}
+.pilot .p-nav a{color:var(--p-ink);text-decoration:none;font-weight:600;font-size:16px}
+.pilot .p-nav a:hover{color:var(--p-cta)}
+.pilot .p-accent{color:#E9A877}
+.pilot .p-cat{position:relative;display:block;overflow:hidden;border-radius:10px;color:#fff;text-decoration:none;min-height:380px}
+.pilot .p-cat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.pilot .p-cat:hover img{transform:scale(1.04)}
+.pilot .p-cat-shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(23,46,70,.92) 0%,rgba(23,46,70,.35) 45%,transparent 70%)}
+.pilot .p-cat-body{position:absolute;inset-inline:0;bottom:0;padding:22px}
+.pilot .p-rule{border-top:1px solid var(--p-line)}
+.pilot details summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:18px 0;font-weight:600}
+.pilot details summary::-webkit-details-marker{display:none}
+.pilot details summary::after{content:"+";color:var(--p-cta);font-weight:900}
+.pilot details[open] summary::after{content:"−"}
+.pilot .p-tag{position:absolute;bottom:14px;inset-inline-end:14px;background:var(--p-paper);color:var(--p-ink);font-size:13px;padding:4px 10px;border-radius:4px}

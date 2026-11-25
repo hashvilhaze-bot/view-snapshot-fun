@@ -1,11 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroHimalaya from "@/assets/hero-himalaya.jpg";
-import ohadPhotoAsset from "@/assets/ohad-coffee-home-tight.jpg.asset.json";
-import shalomTeam from "@/assets/shalom-team.jpg";
+import ohadPhotoAsset from "@/assets/ohad-coffee-portrait.jpg.asset.json";
 import { PilotCtas } from "@/components/pilot/pilot-ctas";
 import { galleries } from "@/lib/galleries";
-import { treks } from "@/lib/content";
-import { NEPAL_PARTNER_NAME, NEPAL_PARTNER_ROLE } from "@/lib/leads";
+import { whatsappHref } from "@/lib/leads";
 
 export const Route = createFileRoute("/pilot/")({
   head: () => ({
@@ -22,124 +20,225 @@ export const Route = createFileRoute("/pilot/")({
   component: PilotHome,
 });
 
-const CATEGORIES = [
-  { label: "הרים ושבילים", photo: galleries["manaslu-circuit"]?.[0], to: true },
-  { label: "תרבות ואנשים", photo: galleries["kathmandu"]?.[0], to: false },
-  { label: "טבע ומנוחה", photo: galleries["chitwan"]?.[0], to: false },
+const STEPS: [string, string][] = [
+  ["שיחה שמתחילה בכם", "מי נוסע, איך הקבוצה מורכבת, מה תרצו לראות, מה התקציב ואיזו רמת קושי מתאימה למשתתפים."],
+  ["תוכנית מסודרת בעברית", "בונים לוח זמנים לטיול, עם זמן להליכות, לביקורים, למעברים ולמנוחה."],
+  ["הכנה לקראת הנסיעה", "המלצות ציוד, טיפים מניסיון אישי והכוונה לגבי מה להביא מהארץ ומה אפשר לקנות בנפאל."],
+  ["קשר עד החזרה", "החברה המקומית מארגנת ומבצעת בשטח. אני מלווה אתכם ומסייע בתיאום מולה לפי הצורך לאורך הטיול."],
 ];
 
-// Same steps as the existing About page.
-const STEPS: [string, string][] = [
-  ["מכירים ומקשיבים", "שיחה שבה מבינים מה אתם מחפשים, כמה זמן יש, מי נוסע, מה מעניין אתכם ומה הניסיון שלכם."],
-  ["בוחנים את האפשרויות", "מציגים כמה כיוונים שיכולים באמת להתאים ומסבירים את ההבדלים, בלי להציף בעשרות מסלולים."],
-  ["בונים את הטיול", "מתאימים את המסלול, הקצב, מספר הימים, הלינה, ההתאקלמות, התחבורה והחוויות סביב הדרך."],
-  ["סוגרים את הפרטים", "אחרי אישור המסלול מטפלים בתיאומים ובהזמנות הרלוונטיים, ומכינים אתכם ליציאה בצורה מסודרת."],
-  ["מלווים גם בנפאל", "בזמן הטיול יש לכם כתובת לשאלות ולשינויים, וצוות מקומי מנוסה שיכול לפעול בשטח."],
+const FAQ: [string, string][] = [
+  ["למה להיעזר באוהד בתכנון הטיול?", "אני מקשיב, מתכנן איתכם בעברית ומסייע בתיאום עד החזרה. התוכנית נבנית סביב האנשים שנוסעים, הזמן והתקציב שלכם — לא סביב מסלול מהמדף."],
+  ["מה יש לעשות בנפאל מעבר לטרקים?", "תרבות, כפרים וימים רגועים לצד טרקים: סמטאות ומקדשים בקטמנדו, הליכה בין כפרים וזמן מול האגם בפוקרה."],
+  ["מה אוהד עושה ומה החברה המקומית עושה?", "אני מרכז את ההיכרות, בניית התוכנית וההכנה לנסיעה. החברה המקומית בנפאל מארגנת ומבצעת בשטח את השירותים שסוכמו, ואני מסייע בתיאום מולה לפי הצורך."],
+  ["מה מקבלים לקראת הנסיעה?", "המלצות ציוד, טיפים מניסיון אישי והכוונה לגבי מה להביא מהארץ ומה אפשר לקנות בנפאל."],
+  ["צריך להגיע עם מסלול או קבוצה סגורים?", "לא. אפשר להתחיל מהזמן שעומד לרשותכם ומהתקציב, ולבנות את הכיוון יחד. מי שעוד לא בטוח יכול להתחיל מכמה שאלות פשוטות."],
 ];
 
 function PilotHome() {
-  const manaslu = treks.find((t) => t.slug === "manaslu-circuit")!;
-  const manasluPhoto = galleries["manaslu-circuit"]?.[3];
+  const mountains = galleries["manaslu-circuit"]?.[0];
+  const alley = galleries["kathmandu"]?.[0];
+  const lake = galleries["pokhara"]?.[0];
+  const village = galleries["villages"]?.[0];
+  const wa = whatsappHref();
+
   return (
     <>
-      <section className="p-on-photo relative flex min-h-[78svh] items-end overflow-hidden">
-        <img
-          src={heroHimalaya}
-          alt="רכס מושלג בהימלאיה בנפאל באור ראשון, עם ערפל שממלא את העמקים"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="p-hero-shade absolute inset-0" />
-        <div className="p-wrap relative w-full pb-12 pt-32 md:pb-20" style={{ color: "#fff" }}>
-          <p className="p-kicker" style={{ color: "#F1B98E" }}>השביל הזה · נפאל</p>
-          <h1 className="p-h1 mt-3 max-w-[14ch]">הטיול שלכם לנפאל מתחיל בהיכרות איתכם</h1>
-          <p className="p-lead mt-5 max-w-[46ch]">
-            הטיול נבנה סביב מי שנוסע: הזמן שיש לכם, הקצב שנוח לכם והדברים שמעניינים אתכם. לא בוחרים
-            מסלול מהמדף ומתאימים אליו את עצמכם.
-          </p>
-          <div className="mt-8">
-            <PilotCtas />
+      {/* HERO */}
+      <section className="p-on-photo relative overflow-hidden" style={{ color: "#fff" }}>
+        <img src={heroHimalaya} alt="רכס מושלג בהימלאיה בנפאל באור ראשון, עם ערפל שממלא את העמקים" className="absolute inset-0 h-full w-full object-cover object-[30%_center]" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to left, rgba(23,46,70,.92) 0%, rgba(23,46,70,.7) 45%, rgba(23,46,70,.25) 100%)" }} />
+        <div className="p-wrap relative py-16 md:py-28">
+          <div className="max-w-[620px]">
+            <p className="p-kicker" style={{ color: "#F1B98E" }}>השביל הזה · טיולים בהתאמה אישית בנפאל</p>
+            <h1 className="p-h1 mt-4">
+              הטיול שלכם לנפאל <span className="p-accent">מתחיל בהיכרות</span> איתכם.
+            </h1>
+            <p className="mt-6 max-w-[54ch] text-[18px] font-light leading-[1.7] md:text-[19px]">
+              אני אוהד. יחד נתכנן טיול שמתאים לאנשים שנוסעים, לזמן ולתקציב שלכם. אלווה אתכם מההכנות
+              בארץ ועד החזרה, ואסייע בתיאום מול החברה המקומית בנפאל לאורך הדרך.
+            </p>
+            <div className="mt-8"><PilotCtas /></div>
           </div>
         </div>
       </section>
 
+      {/* INTRO */}
       <section className="p-section">
+        <div className="p-wrap grid gap-8 md:grid-cols-[1fr_1.4fr] md:gap-16">
+          <div>
+            <p className="p-kicker">קודם מכירים. אחר כך מתכננים.</p>
+            <h2 className="p-h2 mt-3">מי נוסע איתכם, ומה חשוב לכם?</h2>
+          </div>
+          <div className="p-read space-y-4 p-muted">
+            <p>בטיול קבוצתי יש כמה אנשים, ולכל אחד דברים אחרים שחשובים לו. אני מקשיב למה שתרצו לראות ולעשות, בודק איתכם את רמת הקושי והקצב, ומגבש תוכנית שמתאימה להרכב הקבוצה.</p>
+            <p>יש לכם חופשה ארוכה בפסח, בראש השנה או במועד אחר? נתחיל מהזמן שעומד לרשותכם ומהתקציב, ונחשוב איך לשלב בו את המקומות והחוויות שמעניינים אתכם.</p>
+            <a href="#process" className="p-link inline-block" style={{ color: "var(--p-ink)" }}>מה כולל התכנון והליווי ←</a>
+          </div>
+        </div>
+      </section>
+
+      {/* CATEGORIES */}
+      <section id="nepal" className="pb-12 md:pb-20" style={{ scrollMarginTop: 16 }}>
         <div className="p-wrap">
-          <p className="p-kicker">נפאל</p>
-          <h2 className="p-h2 mt-2">נפאל היא לא טרק אחד ולא סוג טיול אחד</h2>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {CATEGORIES.map((c) =>
-              c.photo ? (
-                <figure key={c.label} className="p-card m-0">
-                  <img src={c.photo.src} alt={c.photo.alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
-                  <figcaption className="p-h3 px-5 py-4">{c.label}</figcaption>
-                </figure>
-              ) : null,
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="p-kicker">טרקים, תרבות, כפרים וזמן מול האגם</p>
+              <h2 className="p-h2 mt-2">יש הרבה דרכים לחוות את נפאל</h2>
+            </div>
+            <p className="p-muted max-w-[36ch] text-[16px]">נכיר את האפשרויות ונבחר מה מתאים. אפשר גם לשלב כמה כיוונים בטיול אחד.</p>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-[1.3fr_1fr_1fr]">
+            {mountains && (
+              <Link to="/pilot/treks/$slug" params={{ slug: "manaslu-circuit" }} className="p-cat">
+                <img src={mountains.src} alt={mountains.alt} loading="lazy" />
+                <span className="p-cat-shade" />
+                <span className="p-cat-body">
+                  <span className="p-h3 block text-[26px]">ללכת אל ההרים</span>
+                  <span className="mt-1 block text-[15px]">הליכות קצרות וטרקים בהימלאיה · לדוגמה: סובב מנאסלו</span>
+                </span>
+              </Link>
+            )}
+            {alley && (
+              <Link to="/experiences/$slug" params={{ slug: "kathmandu" }} className="p-cat">
+                <img src={alley.src} alt={alley.alt} loading="lazy" />
+                <span className="p-cat-shade" />
+                <span className="p-cat-body">
+                  <span className="p-h3 block text-[26px]">להכיר מקרוב</span>
+                  <span className="mt-1 block text-[15px]">סמטאות, מקדשים וכפרים</span>
+                </span>
+              </Link>
+            )}
+            {lake && (
+              <Link to="/experiences/$slug" params={{ slug: "pokhara" }} className="p-cat">
+                <img src={lake.src} alt={lake.alt} loading="lazy" />
+                <span className="p-cat-shade" />
+                <span className="p-cat-body">
+                  <span className="p-h3 block text-[26px]">לקחת את הזמן</span>
+                  <span className="mt-1 block text-[15px]">אגם, נוף הרים וקצב רגוע</span>
+                </span>
+              </Link>
             )}
           </div>
-          <div className="p-mist mt-8 flex flex-col gap-3 rounded-[10px] p-6 md:flex-row md:items-center md:justify-between">
-            <p className="m-0 font-semibold">עוד לא בטוחים מה מתאים לכם?</p>
-            <Link to="/match" className="p-link">עזרו לי למצוא כיוון</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="p-section p-mist">
-        <div className="p-wrap grid items-center gap-8 md:grid-cols-2">
-          {manasluPhoto && (
-            <img src={manasluPhoto.src} alt={manasluPhoto.alt} loading="lazy" className="aspect-[4/3] w-full rounded-[10px] object-cover" />
-          )}
-          <div>
-            <p className="p-kicker">מסלול לדוגמה</p>
-            <h2 className="p-h2 mt-2">{manaslu.name}</h2>
-            <p className="p-lead mt-4">{manaslu.teaser}</p>
-            <p className="p-muted mt-3">{manaslu.days} · {manaslu.effortLabel} · {manaslu.altitude}</p>
-            <Link to="/pilot/treks/$slug" params={{ slug: manaslu.slug }} className="p-btn p-btn-ghost mt-6">
-              לעמוד המסלול
+          <p className="mt-6 text-center">
+            <Link to="/match" className="p-link" style={{ color: "var(--p-ink)" }}>
+              עוד לא יודעים מה מתאים? עזרו לי למצוא כיוון ←
             </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* OHAD */}
+      <section id="about" className="p-mist" style={{ scrollMarginTop: 16 }}>
+        <div className="grid md:grid-cols-[1.1fr_1fr]">
+          <div className="px-5 py-12 md:px-16 md:py-20">
+            <div className="max-w-[560px]">
+              <p className="p-kicker">נעים להכיר, אני אוהד</p>
+              <h2 className="p-h2 mt-3">איתי מתכננים.<br />בנפאל יוצאים לדרך.</h2>
+              <div className="mt-6 space-y-4 p-muted">
+                <p>הגעתי לנפאל אחרי הצבא, ונשארתי בה הרבה יותר ממה שתכננתי. היום אני מביא לתכנון הטיול שלכם גם את ההיכרות שלי עם המקום וגם את תשומת הלב לאנשים שנוסעים.</p>
+                <p>כסוכן ומתכנן הטיול, אני מרכז את ההיכרות, בניית התוכנית וההכנה לנסיעה. במהלך הטיול אני נשאר בקשר ומסייע בתיאום בין הקבוצה לחברה המקומית לפי הצורך, עד החזרה הביתה.</p>
+              </div>
+              <dl className="p-rule m-0 mt-8 grid gap-6 pt-6 sm:grid-cols-2">
+                <div>
+                  <dt className="p-kicker text-[13px]">אוהד הרץ</dt>
+                  <dd className="m-0 mt-1 font-semibold">תכנון וקשר אישי</dd>
+                  <dd className="m-0 p-muted text-[15px]">היכרות, הכנה ותיאום מול החברה המקומית</dd>
+                </div>
+                <div>
+                  <dt className="p-kicker text-[13px]">סוכנות שלום בנפאל</dt>
+                  <dd className="m-0 mt-1 font-semibold">ארגון וביצוע בשטח</dd>
+                  <dd className="m-0 p-muted text-[15px]">הלינות, הנסיעות והשירותים שסוכמו</dd>
+                </div>
+              </dl>
+              <Link to="/about" className="p-link mt-8 inline-block" style={{ color: "var(--p-ink)" }}>להכיר את האנשים שמאחורי השביל ←</Link>
+            </div>
+          </div>
+          <div className="relative min-h-[420px]">
+            <img src={ohadPhotoAsset.url} alt="אוהד בהפסקת קפה בשביל בנפאל, מחזיק שקית קפה" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+            <span className="p-tag">אוהד הרץ · השביל הזה</span>
           </div>
         </div>
       </section>
 
-      <section className="p-section p-band">
+      {/* PROCESS */}
+      <section id="process" className="p-section" style={{ scrollMarginTop: 16 }}>
         <div className="p-wrap">
-          <p className="p-kicker">מי אנחנו</p>
-          <h2 className="p-h2 mt-2">מכירים אתכם כאן. מכירים את נפאל שם.</h2>
-          <div className="mt-10 grid gap-10 md:grid-cols-2">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <img src={ohadPhotoAsset.url} alt="אוהד בהפסקת קפה בשביל בנפאל" loading="lazy" className="aspect-[4/3] w-full rounded-[10px] object-cover" />
-              <div className="mt-5 space-y-3">
-                <p>אני אוהד, מרמות מנשה. בנפאל התאהבתי — בנופים, בתרבות ובאנשים. מאז נפאל בליבי.</p>
-                <p className="p-muted">
-                  אני לא מוכר מסלולים מהמדף. כל טיול נבנה בשיחה, כי מה שמתאים לאחד לא מתאים לאחר — ולכן
-                  חשוב שיהיה לכם עם מי לדבר גם לפני, וגם כשאתם שם.
-                </p>
-              </div>
+              <p className="p-kicker">מהשיחה הראשונה ועד החזרה</p>
+              <h2 className="p-h2 mt-2">מה מקבלים לאורך הדרך?</h2>
             </div>
-            <div>
-              <img src={shalomTeam} alt="צוות סוכנות שלום במשרד בתאמל, קטמנדו" loading="lazy" className="aspect-[4/3] w-full rounded-[10px] object-cover" />
-              <div className="mt-5 space-y-3">
-                <p className="font-semibold">הצוות המקומי בנפאל</p>
-                <p className="p-muted">{NEPAL_PARTNER_NAME} — {NEPAL_PARTNER_ROLE}. ההפעלה בשטח נעשית עם הצוות המקומי.</p>
-                <Link to="/about" className="p-link">להכיר את האנשים שמאחורי השביל</Link>
-              </div>
-            </div>
+            <p className="p-muted max-w-[34ch] text-[16px]">תכנון אישי, הכנה לנסיעה וקשר שממשיך גם במהלך הטיול.</p>
           </div>
-        </div>
-      </section>
-
-      <section className="p-section">
-        <div className="p-wrap">
-          <p className="p-kicker">איך זה עובד</p>
-          <h2 className="p-h2 mt-2">מהשיחה הראשונה ועד החזרה</h2>
-          <ol className="mt-8 grid list-none gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
+          <ol className="mt-10 grid list-none gap-8 p-0 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map(([t, d], i) => (
-              <li key={t} className="p-card p-6">
-                <span className="text-[15px] font-black" style={{ color: "var(--p-cta)" }}>0{i + 1}</span>
+              <li key={t} className="p-rule pt-5">
+                <span className="text-[14px] font-semibold" style={{ color: "var(--p-cta)" }}>0{i + 1}</span>
                 <h3 className="p-h3 mt-2">{t}</h3>
                 <p className="p-muted mt-2 text-[16px]">{d}</p>
               </li>
             ))}
           </ol>
+          <div className="p-mist mt-10 grid gap-3 rounded-[6px] p-6 md:grid-cols-[auto_1fr] md:gap-10" style={{ borderInlineStart: "3px solid var(--p-accent)" }}>
+            <p className="m-0 font-semibold">איך זה נראה בתכנון עצמו?</p>
+            <p className="m-0 p-muted text-[16px]">אם בקבוצה יש העדפות שונות, נברר מי רוצה ללכת יותר ומי מעדיף זמן רגוע, כמה זמן להקדיש לכל מקום ואיך להכין את המעברים. את הבחירות האלה נתרגם לתוכנית ונתאם מול החברה המקומית.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* EXAMPLE */}
+      {village && (
+        <section className="pb-12 md:pb-20">
+          <div className="p-wrap grid items-center gap-8 md:grid-cols-2 md:gap-16">
+            <div>
+              <p className="p-kicker">רעיון לטיול, כנקודת התחלה</p>
+              <h2 className="p-h2 mt-3">קצת עיר.<br />קצת שבילים.<br />זמן פשוט להיות.</h2>
+              <div className="mt-5 space-y-3 p-muted">
+                <p>להתחיל בסמטאות של קטמנדו, להמשיך להליכה בין כפרים ולסיים בכמה ימים מול האגם בפוקרה.</p>
+                <p>זה כיוון שאפשר לפתח יחד. את משך הטיול, ההליכות והסדר נתאים לעונה, לזמן ולכם.</p>
+              </div>
+              <p className="p-rule mt-6 pt-4 text-[15px]">קטמנדו ← כפרים ושבילים ← פוקרה</p>
+            </div>
+            <div className="relative">
+              <img src={village.src} alt={village.alt} loading="lazy" className="aspect-[4/3] w-full rounded-[6px] object-cover" />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* FAQ */}
+      <section id="faq" className="p-section p-rule" style={{ scrollMarginTop: 16 }}>
+        <div className="p-wrap grid gap-8 md:grid-cols-[1fr_1.6fr] md:gap-16">
+          <div>
+            <p className="p-kicker">לפני שמתחילים</p>
+            <h2 className="p-h2 mt-3">מה חשוב לכם לדעת על הטיול?</h2>
+            {wa && (
+              <p className="p-muted mt-4 text-[16px]">
+                יש שאלה נוספת?{" "}
+                <a href={wa} target="_blank" rel="noopener noreferrer" className="p-link" style={{ color: "var(--p-ink)" }}>אפשר לשאול אותי</a>
+              </p>
+            )}
+          </div>
+          <div>
+            {FAQ.map(([q, a]) => (
+              <details key={q} className="p-rule last:border-b" style={{ borderColor: "var(--p-line)" }}>
+                <summary>{q}</summary>
+                <p className="p-muted m-0 pb-5 text-[16px]">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CLOSING */}
+      <section className="p-band p-on-photo relative overflow-hidden">
+        <img src={heroHimalaya} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-20" />
+        <div className="p-wrap relative py-16 text-center md:py-24">
+          <p className="p-kicker">הצעד הראשון בתכנון</p>
+          <h2 className="p-h2 mt-3">מה הייתם רוצים<br />לפגוש בנפאל?</h2>
+          <p className="p-muted mx-auto mt-4 max-w-[44ch]">ספרו לי מי נוסע, מתי ומה חשוב לכם. משם נתחיל לבנות את הטיול שלכם.</p>
+          <div className="mt-8 flex justify-center"><PilotCtas /></div>
         </div>
       </section>
     </>

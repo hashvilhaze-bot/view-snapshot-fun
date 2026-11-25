@@ -132,10 +132,15 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col bg-background text-foreground antialiased">
         {!isPilot && <SiteHeader />}
-        <main className="flex-1">
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        {isPilot ? (
+          // The pilot layout renders its own single <main>.
           <Outlet />
-        </main>
+        ) : (
+          <main className="flex-1">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+        )}
         {!isPilot && <SiteFooter />}
       </div>
     </QueryClientProvider>
